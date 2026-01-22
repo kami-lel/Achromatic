@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour
     {
         // TODO
         Vector2 velocity = rb.linearVelocity;
-        velocity.x = 1.0f;
+        velocity.x = 5.0f;
         rb.linearVelocity = velocity;
     }
 }
