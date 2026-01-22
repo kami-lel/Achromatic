@@ -1,13 +1,13 @@
-using System;
-using UnityEditor.Analytics;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.VFX;
+using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float WalkingSpeed = 5.0f;
+    public float WalkingSpeed = 0.1f;
+    public GameObject circle;
 
     void Start()
     {
@@ -22,6 +22,11 @@ public class PlayerScript : MonoBehaviour
         float velocityX = rb.linearVelocityX;
         velocityX = Mathf.MoveTowards(velocityX, WalkingSpeed, 50.0f * Time.fixedDeltaTime);
         rb.linearVelocityX = velocityX;
+
+        Vector3 pos = circle.transform.localPosition;
+        float newPosX = Mathf.MoveTowards(pos.x, 0.0f, 5.0f * Time.fixedDeltaTime);
+        pos.x = newPosX;
+        circle.transform.localPosition = pos;
     }
 
     public void OnJump()
@@ -37,10 +42,11 @@ public class PlayerScript : MonoBehaviour
     {
         if (IsOnFloor())
         {
-            // TODO power dash
-            rb.linearVelocityX += 10.0f;
-            rb.linearVelocityY += 0.5f;
-            Debug.Log("Player\tDash");
+            Vector3 pos = circle.transform.localPosition;
+            pos.x = 2.0f;
+            circle.transform.localPosition = pos;
+
+            rb.linearVelocityY += 2.0f;
         }
     }
 
@@ -48,7 +54,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (IsOnFloor())
         {
-            rb.linearVelocityY += 8.0f; // jump height
+            rb.linearVelocityY += 2.0f; // jump height
             Debug.Log("Player\tPower Jump");
         }
     }
