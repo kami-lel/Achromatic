@@ -1,9 +1,13 @@
+using System;
+using UnityEditor.Analytics;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rb;
+
+    public float WalkingSpeed = 5.0f;
 
     void Start()
     {
@@ -15,31 +19,44 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // TODO
-        Vector2 velocity = rb.linearVelocity;
-        velocity.x = 5.0f;
-        rb.linearVelocity = velocity;
+        float velocityX = rb.linearVelocityX;
+        velocityX = Mathf.MoveTowards(velocityX, WalkingSpeed, 50.0f * Time.fixedDeltaTime);
+        rb.linearVelocityX = velocityX;
     }
 
     public void OnJump()
     {
-        Debug.Log("Try to Jump!");
-
-        if (rb.IsTouchingLayers(Physics2D.AllLayers))
+        if (IsOnFloor())
         {
-            Vector2 velocity = rb.linearVelocity;
-            velocity.y += 5;
-            rb.linearVelocity = velocity;
+            rb.linearVelocityY += 5.0f; // jump height
+            Debug.Log("Player\tJump");
+        }
+    }
+
+    public void OnDash()
+    {
+        if (IsOnFloor())
+        {
+            // TODO power dash
+            rb.linearVelocityX += 10.0f;
+            rb.linearVelocityY += 0.5f;
+            Debug.Log("Player\tDash");
         }
     }
 
     public void OnPowerJump()
     {
-        Debug.Log("Power Jump!");
+        if (IsOnFloor())
+        {
+            rb.linearVelocityY += 8.0f; // jump height
+            Debug.Log("Player\tPower Jump");
+        }
     }
 
-    public void OnDash()
+    private bool IsOnFloor()
     {
-        Debug.Log("Dash!");
+        return rb.IsTouchingLayers(Physics2D.AllLayers);
     }
+
+    // todo manually handle input timing
 }
