@@ -7,9 +7,27 @@
             "id": "e1082954-5930-4dc6-b6b3-de376cf25a6c",
             "actions": [
                 {
-                    "name": "Space",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "d720976c-c3ca-4b86-a8d0-50858662f862",
+                    "id": "a4a80762-7363-4358-a610-1685225ff76c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "c3cb2f7d-7234-44fc-9093-e5b5aa31d623",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PowerJump",
+                    "type": "Button",
+                    "id": "be1f8f74-9bc0-412a-bf69-1a2457355f65",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -19,12 +37,34 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "129fa537-61a7-4f4e-975f-537420b78628",
+                    "id": "dd2e39cb-e0fc-4e37-8497-0616b1f23758",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Hold(duration=0.5)",
                     "processors": "",
                     "groups": "",
-                    "action": "Space",
+                    "action": "PowerJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6dd3d966-0f75-4c3c-a24a-00ce84678a6b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "MultiTap(tapDelay=0.3)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "172e9035-6086-4490-ad66-b090a65543e9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "MultiTap(tapCount=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

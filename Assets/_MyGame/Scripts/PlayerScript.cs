@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -18,5 +19,27 @@ public class PlayerScript : MonoBehaviour
         Vector2 velocity = rb.linearVelocity;
         velocity.x = 5.0f;
         rb.linearVelocity = velocity;
+    }
+
+    public void OnJump()
+    {
+        Debug.Log("Try to Jump!");
+
+        if (rb.IsTouchingLayers(Physics2D.AllLayers))
+        {
+            Vector2 velocity = rb.linearVelocity;
+            velocity.y += 5;
+            rb.linearVelocity = velocity;
+        }
+    }
+
+    public void OnPowerJump()
+    {
+        Debug.Log("Power Jump!");
+    }
+
+    public void OnDash()
+    {
+        Debug.Log("Dash!");
     }
 }
