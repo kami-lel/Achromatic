@@ -7,12 +7,16 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 1.0f;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void FixedUpdate()
     {
         // TODO
-        Vector2 movement = new Vector2(1.0f, 1.0f);
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x = 1.0f;
+        rb.linearVelocity = velocity;
     }
 }
