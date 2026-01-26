@@ -21,6 +21,10 @@ public class PlayerScript: MonoBehaviour {
     // properties  -------------------------------------------------------------
     [NonSerialized]
     public PlayerInputManager inputManager;
+
+    // whether controlled by PieceScript
+    public bool controlledByPiece = false;
+
     private Rigidbody2D playerRB;
 
     public void Start() {
