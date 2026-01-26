@@ -9,6 +9,7 @@ public class PieceScript : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    // todo move some data to beatmap file
     // factor for player horizontal speed
     [SerializeField]
     private float beatSpeed = 1.0f;
