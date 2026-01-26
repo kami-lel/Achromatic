@@ -1,7 +1,11 @@
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor.Toolbars;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -9,12 +13,49 @@ public class PlayerScript : MonoBehaviour
     public float WalkingSpeed = 0.1f;
     public GameObject circle;
 
-    void Start()
+    private PlayerInputManager inputManager;
+
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1.0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void OnEnable()
+    {
+        inputManager = new(GetComponent<PlayerInput>());
+
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnActionTriggered;
+    }
+
+    public void OnDisable()
+    {
+        inputManager.Unsubscribe();
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered -= OnActionTriggered;
+    }
+
+    private void OnActionTriggered(InputAction.CallbackContext ctxt)
+    {
+        // HACK rm this function
+        if (ctxt.action.phase == InputActionPhase.Started)
+        {
+            switch (ctxt.action.name)
+            {
+                case "Jump":
+                    OnJump();
+                    break;
+                case "Dash":
+                    OnDash();
+                    break;
+                case "PowerJump":
+                    OnPowerJump();
+                    break;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -63,6 +104,4 @@ public class PlayerScript : MonoBehaviour
     {
         return rb.IsTouchingLayers(Physics2D.AllLayers);
     }
-
-    // todo manually handle input timing
 }

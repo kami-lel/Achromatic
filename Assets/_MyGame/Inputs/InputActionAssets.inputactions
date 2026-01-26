@@ -1,15 +1,15 @@
 {
     "version": 1,
-    "name": "PlayerInput",
+    "name": "InputActionAssets",
     "maps": [
         {
             "name": "Player",
-            "id": "e1082954-5930-4dc6-b6b3-de376cf25a6c",
+            "id": "609d541f-7bad-4276-9228-ae4a211f40b3",
             "actions": [
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "a4a80762-7363-4358-a610-1685225ff76c",
+                    "id": "217e5813-980a-4013-a0c7-8df86ba02a56",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -18,7 +18,7 @@
                 {
                     "name": "Dash",
                     "type": "Button",
-                    "id": "c3cb2f7d-7234-44fc-9093-e5b5aa31d623",
+                    "id": "10c958e7-2358-45df-b93c-c32085d289e4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -27,7 +27,16 @@
                 {
                     "name": "PowerJump",
                     "type": "Button",
-                    "id": "be1f8f74-9bc0-412a-bf69-1a2457355f65",
+                    "id": "0d660870-e0a5-4893-a6b4-9a3f65696e53",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Trigger",
+                    "type": "Button",
+                    "id": "6b4d830e-5bb9-4f6e-9e7d-5911571e8ff8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -37,20 +46,9 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "dd2e39cb-e0fc-4e37-8497-0616b1f23758",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PowerJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "af66da6b-c4a0-492b-b96f-74b2e1df9321",
+                    "id": "7bcc1170-2d22-4677-b55c-c467014d0952",
                     "path": "<Keyboard>/d",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
@@ -59,9 +57,31 @@
                 },
                 {
                     "name": "",
-                    "id": "172e9035-6086-4490-ad66-b090a65543e9",
+                    "id": "424f7ec1-e2e1-44c5-8f63-8d88305bdd32",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PowerJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad3e43b8-078e-4730-8e43-ee3b69b5945e",
                     "path": "<Keyboard>/space",
-                    "interactions": "MultiTap(tapCount=1)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71c58f14-d37f-4164-9de9-be98e7d195c5",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
