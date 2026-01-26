@@ -16,7 +16,7 @@ public class PieceScript : MonoBehaviour
     [Header("Music Settings")]
     // piece chart file
     [SerializeField]
-    private TextAsset pieceChartFile;
+    private TextAsset beatmapFile;
 
     // time signature of the music pice
     [SerializeField]
@@ -33,7 +33,7 @@ public class PieceScript : MonoBehaviour
     private AudioSource audioSource;
     private Rigidbody2D playerRB;
     private Vector2 origin;
-    private PieceChart pieceChart;
+    private PieceBeatmap beatmap;
 
     private float _tempoDiv60;
     private float _preludeOffset;
@@ -46,7 +46,7 @@ public class PieceScript : MonoBehaviour
         playerRB = player.GetComponent<Rigidbody2D>();
         origin = (Vector2)transform.position;
 
-        pieceChart = new PieceChart(pieceChartFile);
+        beatmap = new PieceBeatmap(beatmapFile);
 
         _tempoDiv60 = tempo / 60.0f;
         _preludeOffset = preludeLength * _tempoDiv60;

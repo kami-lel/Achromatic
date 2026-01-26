@@ -67,5 +67,8 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "usc-ctin532-game-project.slnx"
+    "dotnet.defaultSolution": "usc-ctin532-game-project.slnx",
+    "cSpell.words": [
+        "Beatmap"
+    ]
 }
