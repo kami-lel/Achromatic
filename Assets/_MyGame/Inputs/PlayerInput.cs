@@ -155,6 +155,94 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ConfirmActions"",
+            ""id"": ""22d8a322-418d-4f2c-be9b-2348a5151e32"",
+            ""actions"": [
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ec1e06a-e94b-4f0e-85cf-947bf690a32f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""3009a94e-eddd-47ee-b3ad-f5ac15887f8f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PowerJump"",
+                    ""type"": ""Button"",
+                    ""id"": ""a95926b7-f05a-4b68-9388-4e77ad3e86b9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Trigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccd749b3-33d2-4d6f-bd74-d1b47a106d10"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4d7df138-ab10-4d03-a2d3-ff250ebb50e3"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bcc1b2d-179a-41dc-acdf-3f4b3560b5b2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39ae10ed-e6d5-4073-86bb-4f66becfa54c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8a2a05e-cbc5-4bee-899d-474f6e3d1c84"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -164,11 +252,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_PowerJump = m_Player.FindAction("PowerJump", throwIfNotFound: true);
+        // ConfirmActions
+        m_ConfirmActions = asset.FindActionMap("ConfirmActions", throwIfNotFound: true);
+        m_ConfirmActions_Jump = m_ConfirmActions.FindAction("Jump", throwIfNotFound: true);
+        m_ConfirmActions_Dash = m_ConfirmActions.FindAction("Dash", throwIfNotFound: true);
+        m_ConfirmActions_PowerJump = m_ConfirmActions.FindAction("PowerJump", throwIfNotFound: true);
+        m_ConfirmActions_Trigger = m_ConfirmActions.FindAction("Trigger", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_ConfirmActions.enabled, "This will cause a leak and performance issues, PlayerInput.ConfirmActions.Disable() has not been called.");
     }
 
     /// <summary>
@@ -358,6 +453,135 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // ConfirmActions
+    private readonly InputActionMap m_ConfirmActions;
+    private List<IConfirmActionsActions> m_ConfirmActionsActionsCallbackInterfaces = new List<IConfirmActionsActions>();
+    private readonly InputAction m_ConfirmActions_Jump;
+    private readonly InputAction m_ConfirmActions_Dash;
+    private readonly InputAction m_ConfirmActions_PowerJump;
+    private readonly InputAction m_ConfirmActions_Trigger;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "ConfirmActions".
+    /// </summary>
+    public struct ConfirmActionsActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public ConfirmActionsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "ConfirmActions/Jump".
+        /// </summary>
+        public InputAction @Jump => m_Wrapper.m_ConfirmActions_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "ConfirmActions/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_ConfirmActions_Dash;
+        /// <summary>
+        /// Provides access to the underlying input action "ConfirmActions/PowerJump".
+        /// </summary>
+        public InputAction @PowerJump => m_Wrapper.m_ConfirmActions_PowerJump;
+        /// <summary>
+        /// Provides access to the underlying input action "ConfirmActions/Trigger".
+        /// </summary>
+        public InputAction @Trigger => m_Wrapper.m_ConfirmActions_Trigger;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_ConfirmActions; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="ConfirmActionsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(ConfirmActionsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="ConfirmActionsActions" />
+        public void AddCallbacks(IConfirmActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ConfirmActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ConfirmActionsActionsCallbackInterfaces.Add(instance);
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
+            @PowerJump.started += instance.OnPowerJump;
+            @PowerJump.performed += instance.OnPowerJump;
+            @PowerJump.canceled += instance.OnPowerJump;
+            @Trigger.started += instance.OnTrigger;
+            @Trigger.performed += instance.OnTrigger;
+            @Trigger.canceled += instance.OnTrigger;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="ConfirmActionsActions" />
+        private void UnregisterCallbacks(IConfirmActionsActions instance)
+        {
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
+            @PowerJump.started -= instance.OnPowerJump;
+            @PowerJump.performed -= instance.OnPowerJump;
+            @PowerJump.canceled -= instance.OnPowerJump;
+            @Trigger.started -= instance.OnTrigger;
+            @Trigger.performed -= instance.OnTrigger;
+            @Trigger.canceled -= instance.OnTrigger;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ConfirmActionsActions.UnregisterCallbacks(IConfirmActionsActions)" />.
+        /// </summary>
+        /// <seealso cref="ConfirmActionsActions.UnregisterCallbacks(IConfirmActionsActions)" />
+        public void RemoveCallbacks(IConfirmActionsActions instance)
+        {
+            if (m_Wrapper.m_ConfirmActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="ConfirmActionsActions.AddCallbacks(IConfirmActionsActions)" />
+        /// <seealso cref="ConfirmActionsActions.RemoveCallbacks(IConfirmActionsActions)" />
+        /// <seealso cref="ConfirmActionsActions.UnregisterCallbacks(IConfirmActionsActions)" />
+        public void SetCallbacks(IConfirmActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ConfirmActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ConfirmActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="ConfirmActionsActions" /> instance referencing this action map.
+    /// </summary>
+    public ConfirmActionsActions @ConfirmActions => new ConfirmActionsActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -386,5 +610,41 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPowerJump(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "ConfirmActions" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="ConfirmActionsActions.AddCallbacks(IConfirmActionsActions)" />
+    /// <seealso cref="ConfirmActionsActions.RemoveCallbacks(IConfirmActionsActions)" />
+    public interface IConfirmActionsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PowerJump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPowerJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Trigger" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTrigger(InputAction.CallbackContext context);
     }
 }

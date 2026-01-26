@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
@@ -20,19 +21,11 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         float velocityX = rb.linearVelocityX;
-        velocityX = Mathf.MoveTowards(
-            velocityX,
-            WalkingSpeed,
-            50.0f * Time.fixedDeltaTime
-        );
+        velocityX = Mathf.MoveTowards(velocityX, WalkingSpeed, 50.0f * Time.fixedDeltaTime);
         rb.linearVelocityX = velocityX;
 
         Vector3 pos = circle.transform.localPosition;
-        float newPosX = Mathf.MoveTowards(
-            pos.x,
-            0.0f,
-            5.0f * Time.fixedDeltaTime
-        );
+        float newPosX = Mathf.MoveTowards(pos.x, 0.0f, 5.0f * Time.fixedDeltaTime);
         pos.x = newPosX;
         circle.transform.localPosition = pos;
     }
@@ -73,4 +66,10 @@ public class PlayerScript : MonoBehaviour
     }
 
     // todo manually handle input timing
+    //
+
+    public void OnAction(InputAction.CallbackContext ctxt)
+    {
+        Debug.Log(ctxt); // HACK
+    }
 }
