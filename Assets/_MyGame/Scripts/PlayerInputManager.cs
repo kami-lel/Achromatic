@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 public class PlayerInputManager {
 
     private readonly PlayerInput playerInput;
-    private PressedActions pressedActions = PressedActions.NONE;
+    private PressedActions pressedActions;
 
     public PlayerInputManager(PlayerInput playerInput) {
         this.playerInput = playerInput;
         playerInput.onActionTriggered += OnActionTriggered;
+
+        pressedActions = PressedActions.NONE;
     }
 
     public void Dispose() {
@@ -20,9 +22,13 @@ public class PlayerInputManager {
         Dispose();
     }
 
-
+    /// <summary>
+    /// called by Input Actions
+    /// </summary>
+    /// <param name="ctxt"></param>
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
+
         switch (a.phase) {
         case InputActionPhase.Started:
             switch (a.name) {
@@ -40,6 +46,7 @@ public class PlayerInputManager {
                 break;
             }
             break;
+
         case InputActionPhase.Canceled:
             switch (a.name) {
             case "Jump":
@@ -58,7 +65,7 @@ public class PlayerInputManager {
 
     private void Trigger() {
         // TODO sent up C# events to be used by player script
-        Debug.Log(pressedActions);  // HACK
+        Debug.Log(pressedActions);
     }
 }
 
