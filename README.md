@@ -11,8 +11,11 @@ use 2 keys to control:
 <!-- Todo visual & audio feedback for good/bad action -->
 <!-- todo allows & give feedback for smashing input during empty sessions  -->
 <!-- todo need to be **fast** for sense of velovity -->
-<!-- todo score system -->
+<!-- Todo score system -->
 <!-- Fixme map need to distinguish b/t purposes of dash vs jump,
 also allow different actions for the same action -->
+<!-- Todo audio feedback for hit -->
+<!-- Todo local leaderboard -->
+<!-- todo allow smash for song climax -->
 
 <!-- Todo set up hooks utility -->
