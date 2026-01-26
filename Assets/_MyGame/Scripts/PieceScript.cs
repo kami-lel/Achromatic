@@ -37,6 +37,8 @@ public class PieceScript: MonoBehaviour {
     private Rigidbody2D playerRB;
     private Vector2 origin;
     private PieceBeatmap beatmap;
+    private PlayerScript playerScript;
+    private PlayerInputManager inputManager;
 
     private float _tempoDiv60;
     private float _preludeOffset;
@@ -63,7 +65,10 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     public void OnEnable() {
         // move player to Piece's Transform's position
-        player.GetComponent<PlayerScript>().controlledByPiece = true;
+        playerScript = player.GetComponent<PlayerScript>();
+        inputManager = playerScript.inputManager;
+
+        playerScript.controlledByPiece = true;
 
         playerRB.MovePosition(origin);
 
@@ -80,7 +85,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        player.GetComponent<PlayerScript>().controlledByPiece = false;
+        playerScript.controlledByPiece = false;
     }
 
     private float CalcCurrentBeatCount() {
