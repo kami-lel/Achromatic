@@ -2,10 +2,9 @@ using NUnit.Framework.Constraints;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
+[DisallowMultipleComponent]
 public class PieceScript : MonoBehaviour
 {
-    // TODO
-
     // PieceScript will take over control of player during this piece
     [SerializeField]
     private GameObject player;
@@ -15,6 +14,10 @@ public class PieceScript : MonoBehaviour
     private float beatSpeed = 1.0f;
 
     [Header("Music Settings")]
+    // piece chart file
+    [SerializeField]
+    private TextAsset pieceChartFile;
+
     // time signature of the music pice
     [SerializeField]
     private int beatPerBar = 4;
@@ -23,16 +26,58 @@ public class PieceScript : MonoBehaviour
     [SerializeField]
     private float tempo = 120.0f;
 
-    private AudioSource audioSource;
+    // length of music before the actual play, in second
+    [SerializeField]
+    private float preludeLength = 0.0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private AudioSource audioSource;
+    private Rigidbody2D playerRB;
+    private Vector2 origin;
+    private PieceChart pieceChart;
+
+    private float _tempoDiv60;
+    private float _preludeOffset;
+
+    /// <summary>
+    /// initialize PieceScript
+    /// </summary>
+    void Awake()
     {
+        playerRB = player.GetComponent<Rigidbody2D>();
+        origin = (Vector2)transform.position;
+
+        pieceChart = new PieceChart(pieceChartFile);
+
+        _tempoDiv60 = tempo / 60.0f;
+        _preludeOffset = preludeLength * _tempoDiv60;
+
         // set up audio source  ------------------------------------------------
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
 
-    // Update is called once per frame
-    void Update() { }
+    /// <summary>
+    /// start this music piece
+    /// </summary>
+    void OnEnable()
+    {
+        // move player to Piece's Transform's position
+        playerRB.MovePosition(origin);
+
+        // start the music
+        audioSource.Play();
+    }
+
+    void Update()
+    {
+        // update user horizontal position
+        float x = transform.position.x + CalcCurrentBeatCount() * beatSpeed;
+        Vector2 newPosition = new(x, playerRB.position.y);
+        playerRB.MovePosition(newPosition);
+    }
+
+    private float CalcCurrentBeatCount()
+    {
+        return audioSource.time * _tempoDiv60 - _preludeOffset;
+    }
 }
