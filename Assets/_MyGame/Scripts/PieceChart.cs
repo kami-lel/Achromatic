@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PieceChart
 {
-    public PieceChart(TextAsset chartFile)
+    public PieceChart(TextAsset pieceChartFile)
     {
         // TODO
     }
