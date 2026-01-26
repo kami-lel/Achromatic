@@ -1,4 +1,6 @@
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor.Toolbars;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -11,9 +13,9 @@ public class PlayerScript : MonoBehaviour
     public float WalkingSpeed = 0.1f;
     public GameObject circle;
 
-    private PlayerInput playerInput;
+    private PlayerInputManager inputManager;
 
-    void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
@@ -21,10 +23,39 @@ public class PlayerScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    void OnEnable()
+    public void OnEnable()
     {
-        playerInput = GetComponent<PlayerInput>();
-        playerInput.onActionTriggered += OnAction;
+        inputManager = new(GetComponent<PlayerInput>());
+
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnActionTriggered;
+    }
+
+    public void OnDisable()
+    {
+        inputManager.Unsubscribe();
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered -= OnActionTriggered;
+    }
+
+    private void OnActionTriggered(InputAction.CallbackContext ctxt)
+    {
+        // HACK rm this function
+        if (ctxt.action.phase == InputActionPhase.Started)
+        {
+            switch (ctxt.action.name)
+            {
+                case "Jump":
+                    OnJump();
+                    break;
+                case "Dash":
+                    OnDash();
+                    break;
+                case "PowerJump":
+                    OnPowerJump();
+                    break;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -72,13 +103,5 @@ public class PlayerScript : MonoBehaviour
     private bool IsOnFloor()
     {
         return rb.IsTouchingLayers(Physics2D.AllLayers);
-    }
-
-    // todo manually handle input timing
-    //
-
-    public void OnAction(InputAction.CallbackContext ctxt)
-    {
-        Debug.Log(ctxt); // HACK
     }
 }

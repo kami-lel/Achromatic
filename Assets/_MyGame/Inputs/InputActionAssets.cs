@@ -93,24 +93,84 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             ""id"": ""609d541f-7bad-4276-9228-ae4a211f40b3"",
             ""actions"": [
                 {
-                    ""name"": ""JumpPress"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""51be3bdb-7572-49be-bc4a-7b128d543058"",
+                    ""id"": ""217e5813-980a-4013-a0c7-8df86ba02a56"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""10c958e7-2358-45df-b93c-c32085d289e4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PowerJump"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d660870-e0a5-4893-a6b4-9a3f65696e53"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Trigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b4d830e-5bb9-4f6e-9e7d-5911571e8ff8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""31a4e325-9f08-47bd-a1be-dec9e3ce4c1f"",
+                    ""id"": ""7bcc1170-2d22-4677-b55c-c467014d0952"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""424f7ec1-e2e1-44c5-8f63-8d88305bdd32"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad3e43b8-078e-4730-8e43-ee3b69b5945e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71c58f14-d37f-4164-9de9-be98e7d195c5"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""JumpPress"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +181,10 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_JumpPress = m_Player.FindAction("JumpPress", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_PowerJump = m_Player.FindAction("PowerJump", throwIfNotFound: true);
+        m_Player_Trigger = m_Player.FindAction("Trigger", throwIfNotFound: true);
     }
 
     ~@InputActionAssets()
@@ -202,7 +265,10 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_JumpPress;
+    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_PowerJump;
+    private readonly InputAction m_Player_Trigger;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -215,9 +281,21 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// </summary>
         public PlayerActions(@InputActionAssets wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Player/JumpPress".
+        /// Provides access to the underlying input action "Player/Jump".
         /// </summary>
-        public InputAction @JumpPress => m_Wrapper.m_Player_JumpPress;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/PowerJump".
+        /// </summary>
+        public InputAction @PowerJump => m_Wrapper.m_Player_PowerJump;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Trigger".
+        /// </summary>
+        public InputAction @Trigger => m_Wrapper.m_Player_Trigger;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -244,9 +322,18 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @JumpPress.started += instance.OnJumpPress;
-            @JumpPress.performed += instance.OnJumpPress;
-            @JumpPress.canceled += instance.OnJumpPress;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
+            @PowerJump.started += instance.OnPowerJump;
+            @PowerJump.performed += instance.OnPowerJump;
+            @PowerJump.canceled += instance.OnPowerJump;
+            @Trigger.started += instance.OnTrigger;
+            @Trigger.performed += instance.OnTrigger;
+            @Trigger.canceled += instance.OnTrigger;
         }
 
         /// <summary>
@@ -258,9 +345,18 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerActions" />
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @JumpPress.started -= instance.OnJumpPress;
-            @JumpPress.performed -= instance.OnJumpPress;
-            @JumpPress.canceled -= instance.OnJumpPress;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
+            @PowerJump.started -= instance.OnPowerJump;
+            @PowerJump.performed -= instance.OnPowerJump;
+            @PowerJump.canceled -= instance.OnPowerJump;
+            @Trigger.started -= instance.OnTrigger;
+            @Trigger.performed -= instance.OnTrigger;
+            @Trigger.canceled -= instance.OnTrigger;
         }
 
         /// <summary>
@@ -302,11 +398,32 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         /// <summary>
-        /// Method invoked when associated input action "JumpPress" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJumpPress(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PowerJump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPowerJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Trigger" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTrigger(InputAction.CallbackContext context);
     }
 }

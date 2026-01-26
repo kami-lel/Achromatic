@@ -7,24 +7,84 @@
             "id": "609d541f-7bad-4276-9228-ae4a211f40b3",
             "actions": [
                 {
-                    "name": "JumpPress",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "51be3bdb-7572-49be-bc4a-7b128d543058",
+                    "id": "217e5813-980a-4013-a0c7-8df86ba02a56",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "10c958e7-2358-45df-b93c-c32085d289e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PowerJump",
+                    "type": "Button",
+                    "id": "0d660870-e0a5-4893-a6b4-9a3f65696e53",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Trigger",
+                    "type": "Button",
+                    "id": "6b4d830e-5bb9-4f6e-9e7d-5911571e8ff8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "31a4e325-9f08-47bd-a1be-dec9e3ce4c1f",
+                    "id": "7bcc1170-2d22-4677-b55c-c467014d0952",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "424f7ec1-e2e1-44c5-8f63-8d88305bdd32",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PowerJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad3e43b8-078e-4730-8e43-ee3b69b5945e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71c58f14-d37f-4164-9de9-be98e7d195c5",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "JumpPress",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
