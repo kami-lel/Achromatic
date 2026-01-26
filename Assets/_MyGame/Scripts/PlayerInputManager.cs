@@ -39,7 +39,7 @@ public class PlayerInputManager
                         pressedActions |= PressedActions.POWER_JUMP;
                         break;
                     case "Trigger":
-                        // TODOk
+                        // TODO
                         break;
                 }
                 break;

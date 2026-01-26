@@ -14,3 +14,5 @@ use 2 keys to control:
 <!-- todo score system -->
 <!-- Fixme map need to distinguish b/t purposes of dash vs jump,
 also allow different actions for the same action -->
+
+<!-- Todo set up hooks utility -->
