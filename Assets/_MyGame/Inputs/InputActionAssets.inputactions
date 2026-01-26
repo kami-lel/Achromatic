@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "InputActionAssets",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "609d541f-7bad-4276-9228-ae4a211f40b3",
+            "actions": [
+                {
+                    "name": "JumpPress",
+                    "type": "Button",
+                    "id": "51be3bdb-7572-49be-bc4a-7b128d543058",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "31a4e325-9f08-47bd-a1be-dec9e3ce4c1f",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

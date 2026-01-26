@@ -11,16 +11,20 @@ public class PlayerScript : MonoBehaviour
     public float WalkingSpeed = 0.1f;
     public GameObject circle;
 
+    private PlayerInput playerInput;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1.0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
 
-        PlayerInput playerInput = GetComponent<PlayerInput>();
+    void OnEnable()
+    {
+        playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnAction;
-        // BUG
     }
 
     private void FixedUpdate()
