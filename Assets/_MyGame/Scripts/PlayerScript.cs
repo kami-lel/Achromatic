@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -16,6 +17,10 @@ public class PlayerScript : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1.0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnAction;
+        // BUG
     }
 
     private void FixedUpdate()
