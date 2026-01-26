@@ -1,11 +1,9 @@
 using System;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class PlayerInputManager {
+
     private readonly PlayerInput playerInput;
     private PressedActions pressedActions = PressedActions.NONE;
 
@@ -14,8 +12,16 @@ public class PlayerInputManager {
         playerInput.onActionTriggered += OnActionTriggered;
     }
 
-    public void Unsubscribe() {
+    public void Dispose() {
         playerInput.onActionTriggered -= OnActionTriggered;
+    }
+
+    ~PlayerInputManager() {
+        Dispose();
+    }
+
+
+    public void Unsubscribe() {
     }
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
@@ -33,7 +39,7 @@ public class PlayerInputManager {
                 pressedActions |= PressedActions.POWER_JUMP;
                 break;
             case "Trigger":
-                // TODO
+                Trigger();
                 break;
             }
             break;
@@ -51,13 +57,16 @@ public class PlayerInputManager {
             }
             break;
         }
+    }
 
-        Debug.Log(pressedActions); // HACK
+    private void Trigger() {
+        // TODO sent up C# events to be used by player script
+        Debug.Log(pressedActions);  // HACK
     }
 }
 
 [Flags]
-public enum PressedActions {
+internal enum PressedActions {
     NONE = 0,
     JUMP = 1 << 0,
     DASH = 1 << 1,

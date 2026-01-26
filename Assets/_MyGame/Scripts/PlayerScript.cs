@@ -23,32 +23,11 @@ public class PlayerScript: MonoBehaviour {
 
     public void OnEnable() {
         inputManager = new(GetComponent<PlayerInput>());
-
-        PlayerInput playerInput = GetComponent<PlayerInput>();
-        playerInput.onActionTriggered += OnActionTriggered;
     }
 
     public void OnDisable() {
-        inputManager.Unsubscribe();
-        PlayerInput playerInput = GetComponent<PlayerInput>();
-        playerInput.onActionTriggered -= OnActionTriggered;
-    }
-
-    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        // HACK rm this function
-        if (ctxt.action.phase == InputActionPhase.Started) {
-            switch (ctxt.action.name) {
-            case "Jump":
-                OnJump();
-                break;
-            case "Dash":
-                OnDash();
-                break;
-            case "PowerJump":
-                OnPowerJump();
-                break;
-            }
-        }
+        inputManager?.Dispose();
+        inputManager = null;
     }
 
     private void FixedUpdate() {
