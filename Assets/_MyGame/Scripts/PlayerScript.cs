@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerScript : MonoBehaviour
-{
+public class PlayerScript: MonoBehaviour {
     private Rigidbody2D rb;
 
     public float WalkingSpeed = 0.1f;
@@ -15,51 +14,44 @@ public class PlayerScript : MonoBehaviour
 
     private PlayerInputManager inputManager;
 
-    public void Start()
-    {
+    public void Start() {
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1.0f;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    public void OnEnable()
-    {
+    public void OnEnable() {
         inputManager = new(GetComponent<PlayerInput>());
 
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
     }
 
-    public void OnDisable()
-    {
+    public void OnDisable() {
         inputManager.Unsubscribe();
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
-    private void OnActionTriggered(InputAction.CallbackContext ctxt)
-    {
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         // HACK rm this function
-        if (ctxt.action.phase == InputActionPhase.Started)
-        {
-            switch (ctxt.action.name)
-            {
-                case "Jump":
-                    OnJump();
-                    break;
-                case "Dash":
-                    OnDash();
-                    break;
-                case "PowerJump":
-                    OnPowerJump();
-                    break;
+        if (ctxt.action.phase == InputActionPhase.Started) {
+            switch (ctxt.action.name) {
+            case "Jump":
+                OnJump();
+                break;
+            case "Dash":
+                OnDash();
+                break;
+            case "PowerJump":
+                OnPowerJump();
+                break;
             }
         }
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         float velocityX = rb.linearVelocityX;
         velocityX = Mathf.MoveTowards(velocityX, WalkingSpeed, 50.0f * Time.fixedDeltaTime);
         rb.linearVelocityX = velocityX;
@@ -70,19 +62,15 @@ public class PlayerScript : MonoBehaviour
         circle.transform.localPosition = pos;
     }
 
-    public void OnJump()
-    {
-        if (IsOnFloor())
-        {
+    public void OnJump() {
+        if (IsOnFloor()) {
             rb.linearVelocityY += 5.0f; // jump height
             Debug.Log("Player\tJump");
         }
     }
 
-    public void OnDash()
-    {
-        if (IsOnFloor())
-        {
+    public void OnDash() {
+        if (IsOnFloor()) {
             Vector3 pos = circle.transform.localPosition;
             pos.x = 2.0f;
             circle.transform.localPosition = pos;
@@ -91,17 +79,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void OnPowerJump()
-    {
-        if (IsOnFloor())
-        {
+    public void OnPowerJump() {
+        if (IsOnFloor()) {
             rb.linearVelocityY += 2.0f; // jump height
             Debug.Log("Player\tPower Jump");
         }
     }
 
-    private bool IsOnFloor()
-    {
+    private bool IsOnFloor() {
         return rb.IsTouchingLayers(Physics2D.AllLayers);
     }
 }

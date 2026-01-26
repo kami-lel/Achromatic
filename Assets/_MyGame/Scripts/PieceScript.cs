@@ -3,8 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
-public class PieceScript : MonoBehaviour
-{
+public class PieceScript: MonoBehaviour {
     // PieceScript will take over control of player during this piece
     [SerializeField]
     private GameObject player;
@@ -42,10 +41,9 @@ public class PieceScript : MonoBehaviour
     /// <summary>
     /// initialize PieceScript
     /// </summary>
-    void Awake()
-    {
+    void Awake() {
         playerRB = player.GetComponent<Rigidbody2D>();
-        origin = (Vector2)transform.position;
+        origin = (Vector2) transform.position;
 
         beatmap = new PieceBeatmap(beatmapFile);
 
@@ -60,8 +58,7 @@ public class PieceScript : MonoBehaviour
     /// <summary>
     /// start this music piece
     /// </summary>
-    void OnEnable()
-    {
+    void OnEnable() {
         // move player to Piece's Transform's position
         playerRB.MovePosition(origin);
 
@@ -69,16 +66,14 @@ public class PieceScript : MonoBehaviour
         audioSource.Play();
     }
 
-    void Update()
-    {
+    void Update() {
         // update user horizontal position
         float x = transform.position.x + CalcCurrentBeatCount() * beatSpeed;
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
 
-    private float CalcCurrentBeatCount()
-    {
+    private float CalcCurrentBeatCount() {
         return audioSource.time * _tempoDiv60 - _preludeOffset;
     }
 }

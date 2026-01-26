@@ -5,58 +5,51 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerInputManager
-{
+public class PlayerInputManager {
     private readonly PlayerInput playerInput;
     private PressedActions pressedActions = PressedActions.NONE;
 
-    public PlayerInputManager(PlayerInput playerInput)
-    {
+    public PlayerInputManager(PlayerInput playerInput) {
         this.playerInput = playerInput;
         playerInput.onActionTriggered += OnActionTriggered;
     }
 
-    public void Unsubscribe()
-    {
+    public void Unsubscribe() {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
-    private void OnActionTriggered(InputAction.CallbackContext ctxt)
-    {
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
-        switch (a.phase)
-        {
-            case InputActionPhase.Started:
-                switch (a.name)
-                {
-                    case "Jump":
-                        pressedActions |= PressedActions.JUMP;
-                        break;
-                    case "Dash":
-                        pressedActions |= PressedActions.DASH;
-                        break;
-                    case "PowerJump":
-                        pressedActions |= PressedActions.POWER_JUMP;
-                        break;
-                    case "Trigger":
-                        // TODO
-                        break;
-                }
+        switch (a.phase) {
+        case InputActionPhase.Started:
+            switch (a.name) {
+            case "Jump":
+                pressedActions |= PressedActions.JUMP;
                 break;
-            case InputActionPhase.Canceled:
-                switch (a.name)
-                {
-                    case "Jump":
-                        pressedActions &= ~PressedActions.JUMP;
-                        break;
-                    case "Dash":
-                        pressedActions &= ~PressedActions.DASH;
-                        break;
-                    case "PowerJump":
-                        pressedActions &= ~PressedActions.POWER_JUMP;
-                        break;
-                }
+            case "Dash":
+                pressedActions |= PressedActions.DASH;
                 break;
+            case "PowerJump":
+                pressedActions |= PressedActions.POWER_JUMP;
+                break;
+            case "Trigger":
+                // TODO
+                break;
+            }
+            break;
+        case InputActionPhase.Canceled:
+            switch (a.name) {
+            case "Jump":
+                pressedActions &= ~PressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions &= ~PressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions &= ~PressedActions.POWER_JUMP;
+                break;
+            }
+            break;
         }
 
         Debug.Log(pressedActions); // HACK
@@ -64,8 +57,7 @@ public class PlayerInputManager
 }
 
 [Flags]
-public enum PressedActions
-{
+public enum PressedActions {
     NONE = 0,
     JUMP = 1 << 0,
     DASH = 1 << 1,
