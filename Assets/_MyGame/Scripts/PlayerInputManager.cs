@@ -21,9 +21,6 @@ public class PlayerInputManager {
     }
 
 
-    public void Unsubscribe() {
-    }
-
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
         switch (a.phase) {

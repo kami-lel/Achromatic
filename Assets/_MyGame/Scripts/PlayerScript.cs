@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEditor.Toolbars;
@@ -7,18 +8,23 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerScript: MonoBehaviour {
-    private Rigidbody2D rb;
 
-    public float WalkingSpeed = 0.1f;
-    public GameObject circle;
+    [SerializeField]
+    private float WalkingSpeed = 0.1f;
 
-    private PlayerInputManager inputManager;
+    [SerializeField]
+    private GameObject circle;
+
+    [NonSerialized]
+    public PlayerInputManager inputManager;
+
+    private Rigidbody2D playerRB;
 
     public void Start() {
-        rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 1.0f;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerRB = GetComponent<Rigidbody2D>();
+        playerRB.bodyType = RigidbodyType2D.Dynamic;
+        playerRB.gravityScale = 1.0f;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void OnEnable() {
@@ -31,9 +37,9 @@ public class PlayerScript: MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        float velocityX = rb.linearVelocityX;
+        float velocityX = playerRB.linearVelocityX;
         velocityX = Mathf.MoveTowards(velocityX, WalkingSpeed, 50.0f * Time.fixedDeltaTime);
-        rb.linearVelocityX = velocityX;
+        playerRB.linearVelocityX = velocityX;
 
         Vector3 pos = circle.transform.localPosition;
         float newPosX = Mathf.MoveTowards(pos.x, 0.0f, 5.0f * Time.fixedDeltaTime);
@@ -43,7 +49,7 @@ public class PlayerScript: MonoBehaviour {
 
     public void OnJump() {
         if (IsOnFloor()) {
-            rb.linearVelocityY += 5.0f; // jump height
+            playerRB.linearVelocityY += 5.0f; // jump height
             Debug.Log("Player\tJump");
         }
     }
@@ -54,18 +60,18 @@ public class PlayerScript: MonoBehaviour {
             pos.x = 2.0f;
             circle.transform.localPosition = pos;
 
-            rb.linearVelocityY += 2.0f;
+            playerRB.linearVelocityY += 2.0f;
         }
     }
 
     public void OnPowerJump() {
         if (IsOnFloor()) {
-            rb.linearVelocityY += 2.0f; // jump height
+            playerRB.linearVelocityY += 2.0f; // jump height
             Debug.Log("Player\tPower Jump");
         }
     }
 
     private bool IsOnFloor() {
-        return rb.IsTouchingLayers(Physics2D.AllLayers);
+        return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
 }
