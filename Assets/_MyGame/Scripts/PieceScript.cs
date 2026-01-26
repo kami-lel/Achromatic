@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class PieceScript : MonoBehaviour
 {
+    // TODO
+
     // PieceScript will take over control of player during this piece
     [SerializeField]
     private GameObject player;
@@ -34,7 +36,3 @@ public class PieceScript : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 }
-
-
-// Fixme map need to distinguish b/t purposes of dash vs jump,
-// also allow different actions for the same action

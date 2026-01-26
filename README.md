@@ -8,8 +8,9 @@ use 2 keys to control:
 <!-- Bug fix jump system, consider the OSU like control scheme  -->
 <!-- todo background music -->
 <!-- todo use controller -->
-<!-- Todo music sync by script -->
 <!-- Todo visual & audio feedback for good/bad action -->
 <!-- todo allows & give feedback for smashing input during empty sessions  -->
 <!-- todo need to be **fast** for sense of velovity -->
 <!-- todo score system -->
+<!-- Fixme map need to distinguish b/t purposes of dash vs jump,
+also allow different actions for the same action -->
