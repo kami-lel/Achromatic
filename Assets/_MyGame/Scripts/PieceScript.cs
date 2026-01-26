@@ -48,6 +48,9 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     public void Awake() {
         playerRB = player.GetComponent<Rigidbody2D>();
+        playerScript = player.GetComponent<PlayerScript>();
+        inputManager = playerScript.inputManager;
+
         origin = (Vector2) transform.position;
 
         beatmap = new PieceBeatmap(beatmapFile);
@@ -64,12 +67,9 @@ public class PieceScript: MonoBehaviour {
     /// start this music piece
     /// </summary>
     public void OnEnable() {
-        // move player to Piece's Transform's position
-        playerScript = player.GetComponent<PlayerScript>();
-        inputManager = playerScript.inputManager;
-
         playerScript.controlledByPiece = true;
 
+        // move player to Piece's Transform's position
         playerRB.MovePosition(origin);
 
         // start the music
