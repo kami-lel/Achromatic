@@ -46,4 +46,6 @@ public class PlayerScript: MonoBehaviour {
     private bool IsOnFloor() {
         return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
+
+    // Todo normal player exploration movement
 }

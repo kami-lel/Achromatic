@@ -64,7 +64,7 @@ public class PlayerInputManager {
     }
 
     private void Trigger() {
-        // TODO sent up C# events to be used by player script
+        // Todo control user when appropriate
         Debug.Log(pressedActions);
     }
 }
