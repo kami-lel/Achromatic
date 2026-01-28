@@ -1,0 +1,21 @@
+{
+  "beatPerBar": 4,
+  "beatSpeed": 1.0,
+  "preludeLength": 0.0,
+  "tempo": 120.0,
+  "beatSubdivision": 4,
+  "notes": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "subbeat": 1,
+      "noteType": "jump"
+    },
+    {
+      "bar": 1,
+      "beat": 2,
+      "subbeat": 1,
+      "noteType": "jump"
+    }
+  ]
+}

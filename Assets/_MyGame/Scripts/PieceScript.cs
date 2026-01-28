@@ -5,43 +5,27 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
 
-    // Inspector Fields  -------------------------------------------------------
+    // Inspector Fields  #######################################################
     // PieceScript will take over control of player during this piece
     [SerializeField]
     private GameObject player;
 
-    // todo move some data to beatmap file
-    // factor for player horizontal speed
-    [SerializeField]
-    private float beatSpeed = 1.0f;
-
-    [Header("Music Settings")]
-    // piece chart file
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // time signature of the music pice
-    [SerializeField]
-    private int beatPerBar = 4;
 
-    // tempo i.e. bpm of the music
-    [SerializeField]
-    private float tempo = 120.0f;
-
-    // length of music before the actual play, in second
-    [SerializeField]
-    private float preludeLength = 0.0f;
-
-    // cls properties  ---------------------------------------------------------
+    // private members  ########################################################
     private AudioSource audioSource;
     private Rigidbody2D playerRB;
     private Vector2 origin;
     private PieceBeatmap beatmap;
     private PlayerScript playerScript;
-    private PlayerInputManager inputManager;
 
-    private float _tempoDiv60;
-    private float _preludeOffset;
+    private float tempoDiv60;
+    private float preludeOffsetAsBeat;
+
+
+    // MonoBehavior Lifecycle  #############################################
 
     /// <summary>
     /// initialize PieceScript
@@ -49,19 +33,20 @@ public class PieceScript: MonoBehaviour {
     public void Awake() {
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
-        // HACK
-        // inputManager = playerScript.inputManager;
-
         origin = (Vector2) transform.position;
-
-        beatmap = new PieceBeatmap(beatmapFile);
-
-        _tempoDiv60 = tempo / 60.0f;
-        _preludeOffset = preludeLength * _tempoDiv60;
 
         // set up audio source  ------------------------------------------------
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+
+        // set up beatmap  -----------------------------------------------------
+        if (beatmapFile == null) {
+            Debug.LogWarning("PieceScript: must provide beatmapFile");
+        }
+        beatmap = JsonUtility.FromJson<PieceBeatmap>(beatmapFile.text);
+
+        tempoDiv60 = beatmap.tempo / 60.0f;
+        preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
     }
 
     /// <summary>
@@ -77,10 +62,10 @@ public class PieceScript: MonoBehaviour {
         audioSource.Play();
     }
 
-
     public void Update() {
         // update user horizontal position
-        float x = transform.position.x + CalcCurrentBeatCount() * beatSpeed;
+        float x = transform.position.x
+                + CalcCurrentBeatCount() * beatmap.beatSpeed;
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
@@ -89,7 +74,9 @@ public class PieceScript: MonoBehaviour {
         playerScript.SetPlayTypeAsExplore(true);
     }
 
+    // helper methods  #########################################################
+
     private float CalcCurrentBeatCount() {
-        return audioSource.time * _tempoDiv60 - _preludeOffset;
+        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
 }
