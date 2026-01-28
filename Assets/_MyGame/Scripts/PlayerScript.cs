@@ -6,6 +6,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript: MonoBehaviour {
 
+    // constants  ##############################################################
+
+    private readonly float GRAVITY_SCALE = 5.0f;
+
+
     // Inspector Fields  #######################################################
     [SerializeField]
     private float WalkingSpeed = 0.1f;
@@ -26,8 +31,8 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
-        playerRB.bodyType = RigidbodyType2D.Dynamic;
-        playerRB.gravityScale = 1.0f;
+        playerRB.bodyType = RigidbodyType2D.Kinematic;
+        playerRB.gravityScale = GRAVITY_SCALE;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -91,6 +96,10 @@ public class PlayerScript: MonoBehaviour {
     /// player jump (during <i>explore play</i>)
     /// </summary>
     private void Jump() {
+        if (!IsOnFloor())
+            return;  // BUG
+
+        playerRB.AddForce(new Vector2(0.0f, 10.0f), ForceMode2D.Impulse);
         Debug.Log("JUMP");  // TODO
     }
 
