@@ -13,25 +13,26 @@ public class PlayerScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
     [SerializeField]
-    private float WalkingSpeed = 0.1f;
+    private float jumpForce = 5.0f;
 
     [SerializeField]
-    private GameObject circle;
+    private float walkingSpeed = 0.1f;
 
     // properties  #############################################################
     [NonSerialized]
     public PlayerInputManager inputManager;
 
     // whether controlled by PieceScript
+    [NonSerialized]
     public bool controlledByPiece = false;
 
-    private Rigidbody2D playerRB;  // set as kinematic
+    private Rigidbody2D playerRB;
     private PlayerInput playerInput;
 
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
-        playerRB.bodyType = RigidbodyType2D.Kinematic;
+        playerRB.bodyType = RigidbodyType2D.Dynamic;
         playerRB.gravityScale = GRAVITY_SCALE;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -79,11 +80,10 @@ public class PlayerScript: MonoBehaviour {
     /// player jump (during <i>explore play</i>)
     /// </summary>
     private void Jump() {
-        Debug.Log("JUMP");  // TODO
         if (!IsOnFloor())
-            return;  // BUG
+            return;
 
-        playerRB.AddForce(new Vector2(0.0f, 10.0f), ForceMode2D.Impulse);
+        playerRB.AddForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
     }
 
     /// <summary>
@@ -118,9 +118,4 @@ public class PlayerScript: MonoBehaviour {
     private bool IsOnFloor() {
         return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
-
-
-
-
-    // TODO normal player exploration movement
 }
