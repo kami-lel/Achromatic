@@ -65,26 +65,25 @@ public class PlayerScript: MonoBehaviour {
         if (ctxt.action.phase != InputActionPhase.Started)
             return;
 
-        var a = ctxt.action.name switch {
+        (ctxt.action.name switch {
             "Jump" => (Action) Jump,
             "Left" => Left,
             "Right" => Right,
             "Dash" => Dash,
             "Interact" => Interact,
             _ => null
-        };
-        a?.Invoke();
+        })?.Invoke();
     }
 
     /// <summary>
     /// player jump (during <i>explore play</i>)
     /// </summary>
     private void Jump() {
+        Debug.Log("JUMP");  // TODO
         if (!IsOnFloor())
             return;  // BUG
 
         playerRB.AddForce(new Vector2(0.0f, 10.0f), ForceMode2D.Impulse);
-        Debug.Log("JUMP");  // TODO
     }
 
     /// <summary>
