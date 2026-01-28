@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputManager {
+    // TODO rename
 
     private readonly PlayerInput playerInput;
     private PressedActions pressedActions;

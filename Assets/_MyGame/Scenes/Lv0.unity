@@ -4415,7 +4415,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 963b207c-3929-4881-9c90-a26962d47d8f
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1092030816
@@ -4432,6 +4432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   WalkingSpeed: 3.57
   circle: {fileID: 242229177}
+  controlledByPiece: 0
 --- !u!1 &1139972886
 GameObject:
   m_ObjectHideFlags: 0

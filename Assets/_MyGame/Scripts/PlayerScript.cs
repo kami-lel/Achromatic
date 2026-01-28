@@ -1,30 +1,29 @@
 using System;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
-using UnityEditor.Toolbars;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript: MonoBehaviour {
 
-    // Inspector Fields  -------------------------------------------------------
+    // Inspector Fields  #######################################################
     [SerializeField]
     private float WalkingSpeed = 0.1f;
 
     [SerializeField]
     private GameObject circle;
 
-    // properties  -------------------------------------------------------------
+    // properties  #############################################################
     [NonSerialized]
     public PlayerInputManager inputManager;
 
     // whether controlled by PieceScript
     public bool controlledByPiece = false;
 
-    private Rigidbody2D playerRB;
+    private Rigidbody2D playerRB;  // set as kinematic
+    private PlayerInput playerInput;
 
+    // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
         playerRB.bodyType = RigidbodyType2D.Dynamic;
@@ -33,17 +32,103 @@ public class PlayerScript: MonoBehaviour {
     }
 
     public void OnEnable() {
-        inputManager = new(GetComponent<PlayerInput>());
+        // subscribe to input system
+        playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnActionTriggered;
+
+        // HACK
+        // inputManager = new(GetComponent<PlayerInput>());
     }
 
     public void OnDisable() {
-        inputManager?.Dispose();
-        inputManager = null;
+        // unsubscribe
+        playerInput.onActionTriggered -= OnActionTriggered;
+
+        // HACK
+        // inputManager?.Dispose();
+        // inputManager = null;
     }
 
+    // player movement  ########################################################
+    // during explore play
+
+    /// <summary>
+    /// event handler for inputs during <b>explore play</b>
+    /// </summary>
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        InputAction act = ctxt.action;
+
+        if (act.phase != InputActionPhase.Started)
+            return;
+
+        switch (act.name) {
+        case "Jump":
+            Jump();
+            break;
+
+        case "Left":
+            Left();
+            break;
+
+        case "Right":
+            Right();
+            break;
+
+        case "Dash":
+            Dash();
+            break;
+
+        case "Interact":
+            Interact();
+            break;
+
+        default:  // no op for other actions
+            break;
+        }
+    }
+
+    /// <summary>
+    /// player jump (during <i>explore play</i>)
+    /// </summary>
+    private void Jump() {
+        Debug.Log("JUMP");  // TODO
+    }
+
+    /// <summary>
+    /// player turn left (during <i>explore play</i>)
+    /// </summary>
+    private void Left() {
+        Debug.Log("LEFT");  // TODO
+    }
+
+    /// <summary>
+    /// player turn right (during <i>explore play</i>)
+    /// </summary>
+    private void Right() {
+        Debug.Log("RIGHT");  // TODO
+    }
+
+    /// <summary>
+    /// player dash (during <i>explore play</i>)
+    /// </summary>
+    private void Dash() {
+        Debug.Log("DASH");  // TODO
+    }
+
+    /// <summary>
+    /// player main interact (during <i>explore play</i>)
+    /// </summary>
+    private void Interact() {
+        Debug.Log("Interact");  // TODO
+    }
+
+    // helper functions  =======================================================
     private bool IsOnFloor() {
         return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
+
+
+
 
     // TODO normal player exploration movement
 }
