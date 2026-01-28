@@ -9,8 +9,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerScript: MonoBehaviour {
 
-    // todo implement RGB controls
-
     // Inspector Fields  -------------------------------------------------------
     [SerializeField]
     private float WalkingSpeed = 0.1f;
@@ -47,5 +45,5 @@ public class PlayerScript: MonoBehaviour {
         return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
 
-    // Todo normal player exploration movement
+    // TODO normal player exploration movement
 }

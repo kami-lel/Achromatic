@@ -64,7 +64,7 @@ public class PlayerInputManager {
     }
 
     private void Trigger() {
-        // Todo control user when appropriate
+        // TODO control user when appropriate
         Debug.Log(pressedActions);
     }
 }
