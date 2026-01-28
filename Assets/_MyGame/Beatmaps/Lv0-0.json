@@ -9,13 +9,13 @@
       "bar": 1,
       "beat": 1,
       "subbeat": 1,
-      "noteType": "jump"
+      "type": "jump"
     },
     {
       "bar": 1,
       "beat": 2,
       "subbeat": 1,
-      "noteType": "jump"
+      "type": "jump"
     }
   ]
 }

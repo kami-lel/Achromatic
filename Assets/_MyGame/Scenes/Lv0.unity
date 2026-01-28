@@ -817,11 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
   player: {fileID: 1092030811}
-  beatSpeed: 1
-  beatmapFile: {fileID: 0}
-  beatPerBar: 4
-  tempo: 120
-  preludeLength: 0
+  beatmapFile: {fileID: 4900000, guid: c6061a00dc70a474b92fad8a3927a486, type: 3}
 --- !u!82 &458545832
 AudioSource:
   m_ObjectHideFlags: 0

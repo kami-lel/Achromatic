@@ -36,12 +36,11 @@ public class PlayerScript: MonoBehaviour {
     public void SetPlayTypeAsExplore(bool isExplorePlay) {
         if (isExplorePlay) {
             playerRB.bodyType = RigidbodyType2D.Dynamic;
-            playerRB.gravityScale = gravityScale;
-            playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
             hasSelfControl = true;
             playerInput.defaultActionMap = "PlayerExplorePlay";
 
         } else {
+            playerRB.bodyType = RigidbodyType2D.Kinematic;
             hasSelfControl = false;
             playerInput.defaultActionMap = "PlayerMusicPlay";
         }
@@ -57,6 +56,8 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
+        playerRB.gravityScale = gravityScale;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         SetPlayTypeAsExplore(true);
     }
