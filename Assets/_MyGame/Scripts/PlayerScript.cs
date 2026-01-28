@@ -176,14 +176,14 @@ public class PlayerScript: MonoBehaviour {
     /// player dash (during <i>explore play</i>)
     /// </summary>
     private void Dash() {
-        Debug.Log("DASH");  // TODO
+        Debug.Log("DASH");  // todo implement dash in explore play
     }
 
     /// <summary>
     /// player main interact (during <i>explore play</i>)
     /// </summary>
     private void Interact() {
-        Debug.Log("Interact");  // TODO
+        Debug.Log("Interact");  // todo implement interact in explore play
     }
 }
 
