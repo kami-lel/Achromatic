@@ -31,12 +31,24 @@ public class PlayerScript: MonoBehaviour {
     private AnimationCurve walkingSlowDownCurve =
             AnimationCurve.EaseInOut(0.0f, 1.0f, 0.75f, 0.0f);
 
-    // properties  #############################################################
+    // public members  #########################################################
 
-    // whether controlled by PieceScript
-    [NonSerialized]
-    public bool hasSelfControl = true;
+    public void SetPlayTypeAsExplore(bool isExplorePlay) {
+        if (isExplorePlay) {
+            playerRB.bodyType = RigidbodyType2D.Dynamic;
+            playerRB.gravityScale = gravityScale;
+            playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            hasSelfControl = true;
+            playerInput.defaultActionMap = "PlayerExplorePlay";
 
+        } else {
+            hasSelfControl = false;
+            playerInput.defaultActionMap = "PlayerMusicPlay";
+        }
+    }
+
+    // private members  ########################################################
+    private bool hasSelfControl;
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
     private WalkingState walkingState = WalkingState.STOP;
@@ -45,9 +57,8 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
-        playerRB.bodyType = RigidbodyType2D.Dynamic;
-        playerRB.gravityScale = gravityScale;
-        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        SetPlayTypeAsExplore(true);
     }
 
     public void OnEnable() {

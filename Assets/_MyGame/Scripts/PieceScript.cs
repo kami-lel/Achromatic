@@ -68,7 +68,7 @@ public class PieceScript: MonoBehaviour {
     /// start this music piece
     /// </summary>
     public void OnEnable() {
-        playerScript.hasSelfControl = true;
+        playerScript.SetPlayTypeAsExplore(false);
 
         // move player to Piece's Transform's position
         playerRB.MovePosition(origin);
@@ -86,7 +86,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        playerScript.hasSelfControl = false;
+        playerScript.SetPlayTypeAsExplore(true);
     }
 
     private float CalcCurrentBeatCount() {
