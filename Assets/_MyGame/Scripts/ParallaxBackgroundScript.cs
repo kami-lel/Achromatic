@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public class ParallaxBackgroundScript: MonoBehaviour {
+
+    // todo implement parallax bg
+
     private float length,
         startpos;
     public GameObject cam;
