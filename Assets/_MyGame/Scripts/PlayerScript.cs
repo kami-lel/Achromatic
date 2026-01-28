@@ -16,7 +16,7 @@ public class PlayerScript: MonoBehaviour {
     private float jumpForce = 5.0f;
 
     [SerializeField]
-    private LayerMask groundLayerMask;
+    private LayerMask groundLayerMask = Physics2D.AllLayers;
 
     [Header("Horizontal Movement")]  // ----------------------------------------
 
@@ -32,8 +32,6 @@ public class PlayerScript: MonoBehaviour {
             AnimationCurve.EaseInOut(0.0f, 1.0f, 0.75f, 0.0f);
 
     // properties  #############################################################
-    [NonSerialized]
-    public PlayerInputManager inputManager;
 
     // whether controlled by PieceScript
     [NonSerialized]
@@ -42,7 +40,7 @@ public class PlayerScript: MonoBehaviour {
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
     private WalkingState walkingState = WalkingState.STOP;
-    private float walkingElapseTime = 0.0f;
+    private float walkingMovementElapsedTime = 0.0f;
 
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
@@ -56,26 +54,46 @@ public class PlayerScript: MonoBehaviour {
         // subscribe to input system
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
-
-        // HACK
-        // inputManager = new(GetComponent<PlayerInput>());
     }
 
     public void OnDisable() {
         // unsubscribe
         playerInput.onActionTriggered -= OnActionTriggered;
-
-        // HACK
-        // inputManager?.Dispose();
-        // inputManager = null;
     }
 
     private void Update() {
-        // walking  ============================================================
-        if (walkingState != WalkingState.STOP) {
-            // TODO
-        }
 
+        // walking  ============================================================
+        if ((walkingState & WalkingState.SPEED_UP) != 0) {
+            // speed up & sustaining walking
+            playerRB.linearVelocityX =
+                    walkingSpeedUpCurve.Evaluate(walkingMovementElapsedTime)
+                    * maxWalkingSpped
+                    * (walkingState == WalkingState.SPEED_UP_RIGHT ?
+                            1.0f : -1.0f);
+
+            walkingMovementElapsedTime += Time.deltaTime;
+
+        } else if ((walkingState & WalkingState.SLOW_DOWN) != 0) {
+            // slow down
+            float curveValue = walkingSlowDownCurve.Evaluate(
+                    walkingMovementElapsedTime);
+
+            if (curveValue <= 0.0f) {
+                // reach end of slowing down curve
+                walkingState = WalkingState.STOP;
+                playerRB.linearVelocityX = 0.0f;
+
+            } else {
+                playerRB.linearVelocityX =
+                        curveValue
+                        * maxWalkingSpped
+                        * (walkingState == WalkingState.SLOW_DOWN_RIGHT ?
+                                1.0f : -1.0f);
+
+                walkingMovementElapsedTime += Time.deltaTime;
+            }
+        }
     }
 
     // player movement  ########################################################
@@ -106,12 +124,12 @@ public class PlayerScript: MonoBehaviour {
 
             case "Left":
                 walkingState = WalkingState.SPEED_UP_LEFT;
-                walkingElapseTime = 0.0f;
+                walkingMovementElapsedTime = 0.0f;
                 break;
 
             case "Right":
                 walkingState = WalkingState.SPEED_UP_RIGHT;
-                walkingElapseTime = 0.0f;
+                walkingMovementElapsedTime = 0.0f;
                 break;
 
             case "Dash":
@@ -130,10 +148,12 @@ public class PlayerScript: MonoBehaviour {
             switch (ctxt.action.name) {
             case "Left":
                 walkingState = WalkingState.SLOW_DOWN_LEFT;
+                walkingMovementElapsedTime = 0.0f;
                 break;
 
             case "Right":
                 walkingState = WalkingState.SLOW_DOWN_RIGHT;
+                walkingMovementElapsedTime = 0.0f;
 
                 break;
             }
