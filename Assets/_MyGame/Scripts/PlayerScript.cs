@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,9 +16,18 @@ public class PlayerScript: MonoBehaviour {
     private float jumpForce = 5.0f;
 
     [SerializeField]
-    private float walkingSpeed = 0.1f;
+    private LayerMask groundLayerMask;
 
-    [SerializeField] private LayerMask groundLayerMask;
+    [Header("Horizontal Movement")]
+
+    [SerializeField]
+    private float maxWalkingSpped;
+
+    [SerializeField]
+    private AnimationCurve walkingSpeedUpCurve;
+
+    [SerializeField]
+    private AnimationCurve walkingSlowDownCurve;
 
     // properties  #############################################################
     [NonSerialized]
@@ -29,7 +39,8 @@ public class PlayerScript: MonoBehaviour {
 
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
-    private float desiredDirectionX = 0.0f;
+    private WalkingState walkingState = WalkingState.STOP;
+    private float walkingElapseTime = 0.0f;
 
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
@@ -57,14 +68,28 @@ public class PlayerScript: MonoBehaviour {
         // inputManager = null;
     }
 
-    private void FixedUpdate() {
-        float desiredVelocityX = desiredDirectionX * walkingSpeed;
+    private void Update() {
+        // walking  ============================================================
+        if (walkingState != WalkingState.STOP) {
+            // TODO
+        }
 
-        // TODO
     }
 
     // player movement  ########################################################
     // during explore play
+
+    [Flags]
+    private enum WalkingState {
+        STOP = 0,
+        SPEED_UP_LEFT = 1 << 0,
+        SLOW_DOWN_LEFT = 1 << 2,
+        SPEED_UP_RIGHT = 1 << 3,
+        SLOW_DOWN_RIGHT = 1 << 4,
+        SPEED_UP = SPEED_UP_LEFT | SPEED_UP_RIGHT,
+        SLOW_DOWN = SLOW_DOWN_LEFT | SLOW_DOWN_RIGHT,
+    }
+
 
     /// <summary>
     /// event handler for inputs during <b>explore play</b>
@@ -78,11 +103,13 @@ public class PlayerScript: MonoBehaviour {
                 break;
 
             case "Left":
-                // TODO
+                walkingState = WalkingState.SPEED_UP_LEFT;
+                walkingElapseTime = 0.0f;
                 break;
 
             case "Right":
-                // TODO
+                walkingState = WalkingState.SPEED_UP_RIGHT;
+                walkingElapseTime = 0.0f;
                 break;
 
             case "Dash":
@@ -100,11 +127,12 @@ public class PlayerScript: MonoBehaviour {
 
             switch (ctxt.action.name) {
             case "Left":
-                // TODO
+                walkingState = WalkingState.SLOW_DOWN_LEFT;
                 break;
 
             case "Right":
-                // TODO
+                walkingState = WalkingState.SLOW_DOWN_RIGHT;
+
                 break;
             }
             break;
@@ -136,3 +164,5 @@ public class PlayerScript: MonoBehaviour {
         Debug.Log("Interact");  // TODO
     }
 }
+
+
