@@ -25,7 +25,7 @@ public class PieceScript: MonoBehaviour {
     private float preludeOffsetAsBeat;
 
 
-    // MonoBehavior Lifecycle  #############################################
+    // MonoBehavior Lifecycle  #################################################
 
     /// <summary>
     /// initialize PieceScript
