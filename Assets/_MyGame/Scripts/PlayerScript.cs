@@ -18,16 +18,18 @@ public class PlayerScript: MonoBehaviour {
     [SerializeField]
     private LayerMask groundLayerMask;
 
-    [Header("Horizontal Movement")]
+    [Header("Horizontal Movement")]  // ----------------------------------------
 
     [SerializeField]
-    private float maxWalkingSpped;
+    private float maxWalkingSpped = 5.0f;
 
     [SerializeField]
-    private AnimationCurve walkingSpeedUpCurve;
+    private AnimationCurve walkingSpeedUpCurve =
+            AnimationCurve.EaseInOut(0.0f, 0.0f, 0.75f, 1.0f);
 
     [SerializeField]
-    private AnimationCurve walkingSlowDownCurve;
+    private AnimationCurve walkingSlowDownCurve =
+            AnimationCurve.EaseInOut(0.0f, 1.0f, 0.75f, 0.0f);
 
     // properties  #############################################################
     [NonSerialized]
