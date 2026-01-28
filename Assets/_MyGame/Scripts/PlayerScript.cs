@@ -6,17 +6,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript: MonoBehaviour {
 
-    // constants  ##############################################################
-
-    private readonly float GRAVITY_SCALE = 5.0f;
-
-
     // Inspector Fields  #######################################################
+
+    [SerializeField]
+    private float gravityScale = 1.0f;
+
     [SerializeField]
     private float jumpForce = 5.0f;
 
     [SerializeField]
     private float walkingSpeed = 0.1f;
+
+    [SerializeField] private LayerMask groundLayerMask;
 
     // properties  #############################################################
     [NonSerialized]
@@ -28,12 +29,13 @@ public class PlayerScript: MonoBehaviour {
 
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
+    private float desiredDirectionX = 0.0f;
 
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
         playerRB = GetComponent<Rigidbody2D>();
         playerRB.bodyType = RigidbodyType2D.Dynamic;
-        playerRB.gravityScale = GRAVITY_SCALE;
+        playerRB.gravityScale = gravityScale;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -55,6 +57,12 @@ public class PlayerScript: MonoBehaviour {
         // inputManager = null;
     }
 
+    private void FixedUpdate() {
+        float desiredVelocityX = desiredDirectionX * walkingSpeed;
+
+        // TODO
+    }
+
     // player movement  ########################################################
     // during explore play
 
@@ -62,42 +70,56 @@ public class PlayerScript: MonoBehaviour {
     /// event handler for inputs during <b>explore play</b>
     /// </summary>
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        switch (ctxt.action.phase) {
+        case InputActionPhase.Started:  // -------------------------------------
+            switch (ctxt.action.name) {
+            case "Jump":
+                Jump();
+                break;
 
-        if (ctxt.action.phase != InputActionPhase.Started)
-            return;
+            case "Left":
+                // TODO
+                break;
 
-        (ctxt.action.name switch {
-            "Jump" => (Action) Jump,
-            "Left" => Left,
-            "Right" => Right,
-            "Dash" => Dash,
-            "Interact" => Interact,
-            _ => null
-        })?.Invoke();
+            case "Right":
+                // TODO
+                break;
+
+            case "Dash":
+                Dash();
+                break;
+
+            case "Interact":
+                Interact();
+                break;
+
+            }
+            break;
+
+        case InputActionPhase.Canceled:  // ------------------------------------
+
+            switch (ctxt.action.name) {
+            case "Left":
+                // TODO
+                break;
+
+            case "Right":
+                // TODO
+                break;
+            }
+            break;
+
+        }
     }
 
     /// <summary>
     /// player jump (during <i>explore play</i>)
     /// </summary>
     private void Jump() {
-        if (!IsOnFloor())
+        if (!playerRB.IsTouchingLayers(groundLayerMask))
             return;
 
-        playerRB.AddForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
-    }
-
-    /// <summary>
-    /// player turn left (during <i>explore play</i>)
-    /// </summary>
-    private void Left() {
-        Debug.Log("LEFT");  // TODO
-    }
-
-    /// <summary>
-    /// player turn right (during <i>explore play</i>)
-    /// </summary>
-    private void Right() {
-        Debug.Log("RIGHT");  // TODO
+        playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
     /// <summary>
@@ -112,10 +134,5 @@ public class PlayerScript: MonoBehaviour {
     /// </summary>
     private void Interact() {
         Debug.Log("Interact");  // TODO
-    }
-
-    // helper functions  =======================================================
-    private bool IsOnFloor() {
-        return playerRB.IsTouchingLayers(Physics2D.AllLayers);
     }
 }
