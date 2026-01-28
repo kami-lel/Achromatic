@@ -14,8 +14,7 @@ use 2 keys to control:
 <!-- Todo score system -->
 <!-- Fixme map need to distinguish b/t purposes of dash vs jump,
 also allow different actions for the same action -->
-<!-- Todo audio feedback for hit -->
-<!-- Todo local leaderboard -->
+<!-- todo local leaderboard -->
 <!-- todo allow smash for song climax -->
 
-<!-- Todo set up hooks utility -->
+<!-- todo set up hooks utility -->
