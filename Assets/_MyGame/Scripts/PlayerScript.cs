@@ -61,35 +61,19 @@ public class PlayerScript: MonoBehaviour {
     /// event handler for inputs during <b>explore play</b>
     /// </summary>
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        InputAction act = ctxt.action;
 
-        if (act.phase != InputActionPhase.Started)
+        if (ctxt.action.phase != InputActionPhase.Started)
             return;
 
-        switch (act.name) {
-        case "Jump":
-            Jump();
-            break;
-
-        case "Left":
-            Left();
-            break;
-
-        case "Right":
-            Right();
-            break;
-
-        case "Dash":
-            Dash();
-            break;
-
-        case "Interact":
-            Interact();
-            break;
-
-        default:  // no op for other actions
-            break;
-        }
+        var a = ctxt.action.name switch {
+            "Jump" => (Action) Jump,
+            "Left" => Left,
+            "Right" => Right,
+            "Dash" => Dash,
+            "Interact" => Interact,
+            _ => null
+        };
+        a?.Invoke();
     }
 
     /// <summary>
