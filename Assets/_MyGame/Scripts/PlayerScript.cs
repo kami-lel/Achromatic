@@ -35,7 +35,7 @@ public class PlayerScript: MonoBehaviour {
 
     // whether controlled by PieceScript
     [NonSerialized]
-    public bool controlledByPiece = false;
+    public bool hasSelfControl = true;
 
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
@@ -54,6 +54,7 @@ public class PlayerScript: MonoBehaviour {
         // subscribe to input system
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
+        hasSelfControl = true;
     }
 
     public void OnDisable() {
@@ -62,8 +63,11 @@ public class PlayerScript: MonoBehaviour {
     }
 
     private void Update() {
+        if (!hasSelfControl)
+            return;
 
         // walking  ============================================================
+        // todo change to force-based
         if ((walkingState & WalkingState.SPEED_UP) != 0) {
             // speed up & sustaining walking
             playerRB.linearVelocityX =
