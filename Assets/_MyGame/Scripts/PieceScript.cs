@@ -49,7 +49,8 @@ public class PieceScript: MonoBehaviour {
     public void Awake() {
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
-        inputManager = playerScript.inputManager;
+        // HACK
+        // inputManager = playerScript.inputManager;
 
         origin = (Vector2) transform.position;
 
