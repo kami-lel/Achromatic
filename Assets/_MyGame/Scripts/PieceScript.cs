@@ -1,94 +1,144 @@
-using NUnit.Framework.Constraints;
+using System;
 using UnityEngine;
+
+using UnityEngine.InputSystem;
+
+// bug prelude not functioning, currently only working w/ prelude = 0
 
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
 
-    // Inspector Fields  -------------------------------------------------------
-    // PieceScript will take over control of player during this piece
+    // Inspector Fields  #######################################################
     [SerializeField]
     private GameObject player;
 
-    // todo move some data to beatmap file
-    // factor for player horizontal speed
-    [SerializeField]
-    private float beatSpeed = 1.0f;
-
-    [Header("Music Settings")]
-    // piece chart file
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // time signature of the music pice
-    [SerializeField]
-    private int beatPerBar = 4;
-
-    // tempo i.e. bpm of the music
-    [SerializeField]
-    private float tempo = 120.0f;
-
-    // length of music before the actual play, in second
-    [SerializeField]
-    private float preludeLength = 0.0f;
-
-    // cls properties  ---------------------------------------------------------
+    // private members  ########################################################
+    // references
     private AudioSource audioSource;
-    private Rigidbody2D playerRB;
-    private Vector2 origin;
-    private PieceBeatmap beatmap;
     private PlayerScript playerScript;
-    private PlayerInputManager inputManager;
+    private Rigidbody2D playerRB;
+    private PlayerInput playerInput;
+    private Vector2 origin;
 
-    private float _tempoDiv60;
-    private float _preludeOffset;
+    // beatmap related
+    private PieceBeatmap beatmap;
+    private float tempoDiv60;
+    private float preludeOffsetAsBeat;
+
+    // input related
+    private PressedActions pressedActions;
+
+    // MonoBehavior Lifecycle  #################################################
 
     /// <summary>
     /// initialize PieceScript
     /// </summary>
     public void Awake() {
+        // link references
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
-        inputManager = playerScript.inputManager;
-
         origin = (Vector2) transform.position;
+        playerInput = player.GetComponent<PlayerInput>();
 
-        beatmap = new PieceBeatmap(beatmapFile);
-
-        _tempoDiv60 = tempo / 60.0f;
-        _preludeOffset = preludeLength * _tempoDiv60;
-
-        // set up audio source  ------------------------------------------------
+        // set up audio
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+
+        // load & set up beatmap
+        if (beatmapFile == null) {
+            Debug.LogWarning("PieceScript: must provide beatmapFile");
+        }
+        beatmap = JsonUtility.FromJson<PieceBeatmap>(beatmapFile.text);
+
+        tempoDiv60 = beatmap.tempo / 60.0f;
+        preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
     }
 
-    /// <summary>
-    /// start this music piece
-    /// </summary>
     public void OnEnable() {
-        playerScript.controlledByPiece = true;
-
-        // move player to Piece's Transform's position
+        // take over control of player
+        playerScript.SetPlayTypeAsExplore(false);
         playerRB.MovePosition(origin);
+
+        // start input management
+        playerInput.onActionTriggered += OnActionTriggered;
+        pressedActions = PressedActions.NONE;
 
         // start the music
         audioSource.Play();
     }
 
-
     public void Update() {
         // update user horizontal position
-        float x = transform.position.x + CalcCurrentBeatCount() * beatSpeed;
+        float x = transform.position.x
+                + CalcCurrentBeatCount() * beatmap.beatSpeed;
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
 
     private void OnDisable() {
-        playerScript.controlledByPiece = false;
+        // return control back to user
+        playerScript.SetPlayTypeAsExplore(true);
+        playerInput.onActionTriggered -= OnActionTriggered;
     }
 
+    // input manage  ###########################################################
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        InputAction a = ctxt.action;
+
+        switch (a.phase) {
+        case InputActionPhase.Started:
+            switch (a.name) {
+            case "Jump":
+                pressedActions |= PressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions |= PressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions |= PressedActions.POWER_JUMP;
+                break;
+            case "Trigger":
+                Trigger();
+                break;
+            }
+            break;
+
+        case InputActionPhase.Canceled:
+            switch (a.name) {
+            case "Jump":
+                pressedActions &= ~PressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions &= ~PressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions &= ~PressedActions.POWER_JUMP;
+                break;
+            }
+            break;
+        }
+    }
+
+    private void Trigger() {
+        // Todo control user
+        Debug.Log(pressedActions);
+    }
+
+    // helper methods  #########################################################
     private float CalcCurrentBeatCount() {
-        return audioSource.time * _tempoDiv60 - _preludeOffset;
+        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+    }
+
+    // helper enum  ############################################################
+    [Flags]
+    private enum PressedActions {
+        NONE = 0,
+        JUMP = 1 << 0,
+        DASH = 1 << 1,
+        POWER_JUMP = 1 << 2,
     }
 }
