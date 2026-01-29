@@ -1,6 +1,10 @@
+using System;
 using UnityEngine;
 
+using UnityEngine.InputSystem;
+
 // bug prelude not functioning, currently only working w/ prelude = 0
+// FIXME need refactor
 
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
@@ -14,17 +18,21 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-
     // private members  ########################################################
+    // references
     private AudioSource audioSource;
     private Rigidbody2D playerRB;
     private Vector2 origin;
-    private PieceBeatmap beatmap;
     private PlayerScript playerScript;
+    private PlayerInput playerInput;
 
+    // beatmap related
+    private PieceBeatmap beatmap;
     private float tempoDiv60;
     private float preludeOffsetAsBeat;
 
+    // input related
+    private PressedActions pressedActions;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -35,6 +43,7 @@ public class PieceScript: MonoBehaviour {
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
         origin = (Vector2) transform.position;
+        playerInput = player.GetComponent<PlayerInput>();
 
         // set up audio source  ------------------------------------------------
         audioSource = GetComponent<AudioSource>();
@@ -59,8 +68,14 @@ public class PieceScript: MonoBehaviour {
         // move player to Piece's Transform's position
         playerRB.MovePosition(origin);
 
+        playerInput.onActionTriggered += OnActionTriggered;
+
+        pressedActions = PressedActions.NONE;
+
+
         // start the music
         audioSource.Play();
+
     }
 
     public void Update() {
@@ -73,11 +88,69 @@ public class PieceScript: MonoBehaviour {
 
     private void OnDisable() {
         playerScript.SetPlayTypeAsExplore(true);
+        playerInput.onActionTriggered -= OnActionTriggered;
+
     }
+
+
+    // input manage  ###########################################################
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        InputAction a = ctxt.action;
+
+        switch (a.phase) {
+        case InputActionPhase.Started:
+            switch (a.name) {
+            case "Jump":
+                pressedActions |= PressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions |= PressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions |= PressedActions.POWER_JUMP;
+                break;
+            case "Trigger":
+                Trigger();
+                break;
+            }
+            break;
+
+        case InputActionPhase.Canceled:
+            switch (a.name) {
+            case "Jump":
+                pressedActions &= ~PressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions &= ~PressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions &= ~PressedActions.POWER_JUMP;
+                break;
+            }
+            break;
+        }
+    }
+
+    private void Trigger() {
+        // TODO control user when appropriate
+        Debug.Log(pressedActions);
+    }
+
+
+
 
     // helper methods  #########################################################
 
     private float CalcCurrentBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+    }
+
+    // helper enum  ############################################################
+    [Flags]
+    private enum PressedActions {
+        NONE = 0,
+        JUMP = 1 << 0,
+        DASH = 1 << 1,
+        POWER_JUMP = 1 << 2,
     }
 }
