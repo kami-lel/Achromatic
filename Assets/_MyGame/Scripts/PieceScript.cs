@@ -143,4 +143,6 @@ public class PieceScript: MonoBehaviour {
         DASH = 1 << 1,
         POWER_JUMP = 1 << 2,
     }
+
+    // todo add barline
 }
