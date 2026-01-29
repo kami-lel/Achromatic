@@ -77,6 +77,8 @@ public class PieceScript: MonoBehaviour {
                 + CalcCurrentBeatCount() * beatmap.beatSpeed;
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
+
+        // Todo dynamically place tiles
     }
 
     private void OnDisable() {
