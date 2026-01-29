@@ -1,5 +1,6 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
+
+// bug prelude not functioning, currently only working w/ prelude = 0
 
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
