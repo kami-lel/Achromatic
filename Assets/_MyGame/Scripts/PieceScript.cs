@@ -11,7 +11,6 @@ using UnityEngine.InputSystem;
 public class PieceScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
-    // PieceScript will take over control of player during this piece
     [SerializeField]
     private GameObject player;
 
@@ -21,10 +20,10 @@ public class PieceScript: MonoBehaviour {
     // private members  ########################################################
     // references
     private AudioSource audioSource;
-    private Rigidbody2D playerRB;
-    private Vector2 origin;
     private PlayerScript playerScript;
+    private Rigidbody2D playerRB;
     private PlayerInput playerInput;
+    private Vector2 origin;
 
     // beatmap related
     private PieceBeatmap beatmap;
@@ -40,16 +39,17 @@ public class PieceScript: MonoBehaviour {
     /// initialize PieceScript
     /// </summary>
     public void Awake() {
+        // link references
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
         origin = (Vector2) transform.position;
         playerInput = player.GetComponent<PlayerInput>();
 
-        // set up audio source  ------------------------------------------------
+        // set up audio
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
-        // set up beatmap  -----------------------------------------------------
+        // load & set up beatmap
         if (beatmapFile == null) {
             Debug.LogWarning("PieceScript: must provide beatmapFile");
         }
@@ -63,19 +63,16 @@ public class PieceScript: MonoBehaviour {
     /// start this music piece
     /// </summary>
     public void OnEnable() {
+        // take over control of player
         playerScript.SetPlayTypeAsExplore(false);
-
-        // move player to Piece's Transform's position
         playerRB.MovePosition(origin);
 
+        // start input management
         playerInput.onActionTriggered += OnActionTriggered;
-
         pressedActions = PressedActions.NONE;
-
 
         // start the music
         audioSource.Play();
-
     }
 
     public void Update() {
@@ -87,13 +84,13 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
+        // return control back to user
         playerScript.SetPlayTypeAsExplore(true);
         playerInput.onActionTriggered -= OnActionTriggered;
-
     }
 
-
     // input manage  ###########################################################
+
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
 

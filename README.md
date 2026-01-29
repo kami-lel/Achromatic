@@ -5,8 +5,7 @@ use 2 keys to control:
 - Space Key to Jump
 - D key to dash
 
-<!-- BUG fix jump system, consider the OSU like control scheme  -->
-<!-- todo background music -->
+<!-- todo background music during explore play -->
 <!-- todo use controller -->
 <!-- Todo visual & audio feedback for good/bad action -->
 <!-- todo allows & give feedback for smashing input during empty sessions  -->
