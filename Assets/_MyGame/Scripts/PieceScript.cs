@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // bug prelude not functioning, currently only working w/ prelude = 0
-// FIXME need refactor
 
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
@@ -59,9 +58,6 @@ public class PieceScript: MonoBehaviour {
         preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
     }
 
-    /// <summary>
-    /// start this music piece
-    /// </summary>
     public void OnEnable() {
         // take over control of player
         playerScript.SetPlayTypeAsExplore(false);
@@ -90,7 +86,6 @@ public class PieceScript: MonoBehaviour {
     }
 
     // input manage  ###########################################################
-
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
 
@@ -129,15 +124,11 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
-        // TODO control user when appropriate
+        // Todo control user
         Debug.Log(pressedActions);
     }
 
-
-
-
     // helper methods  #########################################################
-
     private float CalcCurrentBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
