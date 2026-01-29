@@ -2,13 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputManager {
-    // TODO rename
+public class MusicPlayInputManager {
 
     private readonly PlayerInput playerInput;
     private PressedActions pressedActions;
 
-    public PlayerInputManager(PlayerInput playerInput) {
+    public MusicPlayInputManager(PlayerInput playerInput) {
         this.playerInput = playerInput;
         playerInput.onActionTriggered += OnActionTriggered;
 
@@ -19,7 +18,7 @@ public class PlayerInputManager {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
-    ~PlayerInputManager() {
+    ~MusicPlayInputManager() {
         Dispose();
     }
 
