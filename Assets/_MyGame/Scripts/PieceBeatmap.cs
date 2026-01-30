@@ -23,7 +23,7 @@ public class PieceBeatmap {
         /// <returns>type of note, but instead of <c>string</c>,
         /// convert it as <c>enum NoteType</c></returns>
         /// <exception cref="System.IO.InvalidDataException"></exception>
-        public NoteType AsType() {
+        public NoteType AsEnum() {
             return type switch {
                 "jump" => NoteType.DASH,
                 _ => throw new System.IO.InvalidDataException(
@@ -32,14 +32,9 @@ public class PieceBeatmap {
         }
     }
 
-
     [Flags]
     public enum NoteType {
         JUMP,
         DASH
     }
 }
-
-
-
-
