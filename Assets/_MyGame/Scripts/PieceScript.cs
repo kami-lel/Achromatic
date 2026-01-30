@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-
 using UnityEngine.InputSystem;
 
 // bug prelude not functioning, currently only working w/ prelude = 0
@@ -14,9 +13,6 @@ using UnityEngine.InputSystem;
 public class PieceScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
-    [SerializeField]
-    private GameObject player;
-
     [SerializeField]
     private TextAsset beatmapFile;
 
@@ -42,6 +38,8 @@ public class PieceScript: MonoBehaviour {
     /// initialize PieceScript
     /// </summary>
     public void Awake() {
+        GameObject player = GameControllerScript.GetPlayer();
+
         // link references
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
