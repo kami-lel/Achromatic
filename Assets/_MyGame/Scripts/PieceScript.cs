@@ -82,7 +82,7 @@ public class PieceScript: MonoBehaviour {
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
 
-        // Todo dynamically place tiles
+        // TODO dynamically place tiles
     }
 
     private void OnDisable() {

@@ -8,7 +8,7 @@ use 2 keys to control:
 <!-- todo background music during explore play -->
 <!-- todo use controller -->
 <!-- Todo visual & audio feedback for good/bad action -->
-<!-- Fixme map need to distinguish b/t purposes of dash vs jump,
+<!-- FIXME map need to distinguish b/t purposes of dash vs jump,
 also allow different actions for the same action -->
 <!-- todo local leaderboard -->
 
