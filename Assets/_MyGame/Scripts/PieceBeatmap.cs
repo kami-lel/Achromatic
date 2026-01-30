@@ -1,22 +1,61 @@
 using System;
 
 
+/// <summary>
+/// represent a single piece of music's beatmap
+/// </summary>
 [Serializable]
 public class PieceBeatmap {
     // data fields  ------------------------------------------------------------
-    public int beatPerBar;          // beats per bar
-    public int beatSubdivision;     // No count of sub-beats per beat
-    public float beatSpeed;         // x-axis movement per beat
-    public float preludeLength;     // seconds before piece starts
-    public float tempo;             // ie BPM
+    /// <summary>
+    /// beats per bar
+    /// </summary>
+    public int beatPerBar;
+
+    /// <summary>
+    /// number count of sub-beats per beat
+    /// </summary>
+    public int beatSubdivision;
+
+    /// <summary>
+    /// x-axis movement per beat
+    /// </summary>
+    public float beatSpeed;
+
+    /// <summary>
+    /// seconds before piece starts
+    /// </summary>
+    public float preludeLength;
+
+    /// <summary>
+    /// i.e. BPM
+    /// </summary>
+    public float tempo;
+
     public Note[] notes;
 
     // supporting structures  --------------------------------------------------
+    /// <summary>
+    /// represent a single note in beatmap
+    /// </summary>
     [Serializable]
     public class Note {
-        public int bar;         // bar count, starting at 1
-        public int beat;        // beat count w/i bar, start at 1
-        public int subbeat;     // beat division count, start at 1
+
+        /// <summary>
+        /// bar count, starting at 1
+        /// </summary>
+        public int bar;         //
+
+        /// <summary>
+        /// beat count w/i bar, start at 1
+        /// </summary>
+        public int beat;
+
+        /// <summary>
+        /// beat division count, start at 1
+        /// </summary>
+        public int subbeat;
+
         public string type;
 
         /// <summary></summary>
