@@ -8,6 +8,20 @@ using UnityEngine.InputSystem;
 // Todo score system
 // todo allow smash for song climax
 
+/// <summary>
+/// controller during <c>Music Play</c>, enables:
+/// <list type="bullet">
+///   <item><description>
+///     load and parse beatmap <c>.json</c> file
+///   </description></item>
+///   <item><description>
+///     dynamically create and place <c>BeatmapElements</c> prefabs in scene
+///   </description></item>
+///   <item><description>
+///   control player movement during play
+///   </description></item>
+/// </list>
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
@@ -148,3 +162,6 @@ public class PieceScript: MonoBehaviour {
 
     // todo add barline
 }
+
+
+// FIXME map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

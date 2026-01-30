@@ -2,7 +2,7 @@ using System;
 
 
 /// <summary>
-/// represent a single piece of music's beatmap
+/// <b>data structure</b> represent a single piece of music's beatmap
 /// </summary>
 [Serializable]
 public class PieceBeatmap {
