@@ -44,7 +44,7 @@ public class PieceBeatmap {
         /// <summary>
         /// bar count, starting at 1
         /// </summary>
-        public int bar;         //
+        public int bar;
 
         /// <summary>
         /// beat count w/i bar, start at 1
@@ -66,7 +66,7 @@ public class PieceBeatmap {
             return type switch {
                 "jump" => NoteType.DASH,
                 _ => throw new System.IO.InvalidDataException(
-                        $"PieceBeatMap: unknown note type string: {type}")
+                        "PieceBeatMap: unknown note type string: " + type)
             };
         }
     }

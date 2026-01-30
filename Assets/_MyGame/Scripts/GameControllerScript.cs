@@ -5,7 +5,7 @@ public class GameControllerScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
     [SerializeField]
-    public GameObject player;
+    private GameObject player;
 
     // public members  #########################################################
 
@@ -18,6 +18,7 @@ public class GameControllerScript: MonoBehaviour {
     public PlayerScript playerScript;
 
     // class method  ###########################################################
+    /// <returns>singleton player</returns>
     public static GameObject GetPlayer() {
         if (Instance == null) {
             Debug.LogError("GameControllerScript: Instance is null");
@@ -25,6 +26,7 @@ public class GameControllerScript: MonoBehaviour {
 
         return Instance.player;
     }
+
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {

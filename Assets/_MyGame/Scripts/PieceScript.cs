@@ -38,12 +38,12 @@ public class PieceScript: MonoBehaviour {
     /// initialize PieceScript
     /// </summary>
     public void Awake() {
-        GameObject player = GameControllerScript.GetPlayer();
-
         // link references
+        origin = (Vector2) transform.position;
+        // link player references
+        GameObject player = GameControllerScript.GetPlayer();
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
-        origin = (Vector2) transform.position;
         playerInput = player.GetComponent<PlayerInput>();
 
         // set up audio
