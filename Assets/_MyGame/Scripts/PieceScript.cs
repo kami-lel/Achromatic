@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -169,12 +170,27 @@ public class PieceScript: MonoBehaviour {
 
     private class BeatmapElementsPool: IDisposable {  // =======================
 
+        // constants  **********************************************************
+        /// <summary>
+        /// name of <c>GameObject</c> shown in Hierarchy
+        /// </summary>
+        private const string GAME_OBJECT_NAME = "BeatmapElementsPoolRoot";
+
+        /// <summary>
+        /// folder which contains all elements Prefabs in Resources
+        /// </summary>
+        private const string ELEMENTS_PREFAB_FOLDER_PATH =
+                "Prefabs/BeatmapElements/";
+
+        private static readonly string[] ELEMENTS_PREFABS_NAMES =
+                { "Barline", "BeatLine" };
+
+
         /// <summary>
         /// singleton collection of prefabs
         /// </summary>
         private static Dictionary<string, GameObject> prefabs;
 
-        public const string GAME_OBJECT_NAME = "BeatmapElementsPoolRoot";
 
         // private members  ****************************************************
         private readonly GameObject root;
@@ -185,19 +201,36 @@ public class PieceScript: MonoBehaviour {
             pools = new Dictionary<GameObject, Queue<GameObject>>();
             activeInstances = new HashSet<GameObject>();
 
-            // create pool root
+            // create pool root  -----------------------------------------------
             root = new GameObject(GAME_OBJECT_NAME);
             root.transform.SetParent(parentTransform, false);
 
+
             // load prefabs from Resources if non existent
             if (prefabs == null) {
-                // TODO TODO
+                prefabs = new Dictionary<string, GameObject>();
 
+                // load Prefabs by types
+                for (int i = 0; i < ELEMENTS_PREFABS_NAMES.Length; i++) {
+                    string key = ELEMENTS_PREFABS_NAMES[i];
+                    string path = ELEMENTS_PREFAB_FOLDER_PATH + key;
+                    GameObject prefab = Resources.Load<GameObject>(path);
+
+                    if (prefab == null) {
+                        Debug.LogError(
+                "PieceScript: missing Prefab: Resources/" + path);
+                        continue;
+                    }
+
+                    prefabs[key] = prefab;
+                }
             }
 
+            // prewarm  --------------------------------------------------------
             // TODO prewarm
         }
 
+        /* HACK
         // Prewarm Prefab Instances  ========================================
         public void Prewarm(GameObject prefab, int count) {
             if (prefab == null || count <= 0)
@@ -307,6 +340,8 @@ public class PieceScript: MonoBehaviour {
             // finalizer fallback  --------------------------------------------
             Clear();
         }
+
+    */
     }
 
 
