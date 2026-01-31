@@ -88,7 +88,8 @@ public class PieceScript: MonoBehaviour {
         preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
 
         // load element prefabs
-        elementsPool = new BeatmapElementsPool();
+        elementsPool = new BeatmapElementsPool(
+                GameControllerScript.Instance.transform);
     }
 
     public void OnEnable() {
