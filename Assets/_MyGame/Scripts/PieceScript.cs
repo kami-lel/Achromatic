@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -165,17 +166,148 @@ public class PieceScript: MonoBehaviour {
 
     // Beatmap Elements  #######################################################
 
-    private class BeatmapElementsPool {
 
-        public const string GAME_OBJECT_NAME = "BeatmapElementsPool";
+    private class BeatmapElementsPool: IDisposable {  // =======================
 
-        // TODO TODO
-        private GameObject gameObject;
+        public const string GAME_OBJECT_NAME = "BeatmapElementsPoolRoot";
 
-        public BeatmapElementsPool() {
-            gameObject = new GameObject(GAME_OBJECT_NAME);
+        private readonly GameObject gameObjectRoot;
+        private readonly Dictionary<GameObject, Queue<GameObject>> pools;
+        private readonly HashSet<GameObject> activeInstances;
+
+        // TODO TODO working on this
+
+        public BeatmapElementsPool(Transform parent = null,
+                IEnumerable<GameObject> prefabs = null,
+                int prewarmPerPrefab = 0) {
+            pools = new Dictionary<GameObject, Queue<GameObject>>();
+            activeInstances = new HashSet<GameObject>();
+
+            // create pool root  ------------------------------------------------
+            gameObjectRoot = new GameObject(GAME_OBJECT_NAME);
+            if (parent != null)
+                gameObjectRoot.transform.SetParent(parent, false);
+
+            // initialize pools for provided prefabs  ---------------------------
+            if (prefabs == null)
+                return;
+            foreach (var pf in prefabs) {
+                if (pf == null)
+                    continue;
+                pools[pf] = new Queue<GameObject>();
+                Prewarm(pf, prewarmPerPrefab);
+            }
         }
 
+        // Prewarm Prefab Instances  ========================================
+        public void Prewarm(GameObject prefab, int count) {
+            if (prefab == null || count <= 0)
+                return;
+            if (!pools.TryGetValue(prefab, out var q)) {
+                q = new Queue<GameObject>();
+                pools[prefab] = q;
+            }
+            for (int i = 0; i < count; ++i) {
+                var go = GameObject.Instantiate(prefab);
+                go.SetActive(false);
+                go.transform.SetParent(gameObjectRoot.transform, false);
+                q.Enqueue(go);
+            }
+        }
+
+        // Spawn Instance  ==================================================
+        // spawn from pool or instantiate new if pool empty
+        public GameObject Spawn(GameObject prefab, Vector3 pos,
+                                Quaternion rot, Transform parent = null) {
+            if (prefab == null)
+                return null;
+
+            if (!pools.TryGetValue(prefab, out var q)) {
+                q = new Queue<GameObject>();
+                pools[prefab] = q;
+            }
+
+            GameObject instance;
+            if (q.Count > 0) {
+                instance = q.Dequeue();
+                instance.transform.SetParent(parent, false);
+                instance.transform.position = pos;
+                instance.transform.rotation = rot;
+                instance.SetActive(true);
+            } else {
+                instance = GameObject.Instantiate(prefab, pos, rot, parent);
+            }
+
+            activeInstances.Add(instance);
+            return instance;
+        }
+
+        // Recycle Instance  =================================================
+        // deactivate and return to its prefab queue, parent to pool root
+        public void Recycle(GameObject instance) {
+            if (instance == null)
+                return;
+            if (!activeInstances.Remove(instance)) {
+                // Not tracked as active, still safe to recycle
+            }
+
+            // try find matching prefab key by comparing prefab name prefix
+            // NOTE: store a mapping if prefab->instance link required
+            instance.SetActive(false);
+            instance.transform.SetParent(gameObjectRoot.transform, false);
+
+            // fallback: place into any queue for same prefab reference
+            // attempt to find the queue whose prefab name matches
+            foreach (var kv in pools) {
+                if (kv.Key.name == instance.name.Replace("(Clone)", "").Trim()) {
+                    kv.Value.Enqueue(instance);
+                    return;
+                }
+            }
+
+            // if no matching pool, create a general bucket for this instance
+            if (!pools.TryGetValue(instance, out var newQ)) {
+                newQ = new Queue<GameObject>();
+                pools[instance] = newQ;
+            }
+            newQ.Enqueue(instance);
+        }
+
+        // Clear and Destroy All  ============================================
+        public void Clear() {
+            // destroy active instances first  --------------------------------
+            foreach (var inst in activeInstances) {
+                if (inst != null)
+                    GameObject.Destroy(inst);
+            }
+            activeInstances.Clear();
+
+            // destroy pooled objects and clear queues  -----------------------
+            foreach (var kv in pools) {
+                var q = kv.Value;
+                while (q.Count > 0) {
+                    var go = q.Dequeue();
+                    if (go != null)
+                        GameObject.Destroy(go);
+                }
+            }
+            pools.Clear();
+
+            // destroy root GameObject  -------------------------------------
+            if (gameObjectRoot != null)
+                GameObject.Destroy(gameObjectRoot);
+        }
+
+        // IDisposable Implementation  =====================================
+        public void Dispose() {
+            Clear();
+            GC.SuppressFinalize(this);
+        }
+
+        ~BeatmapElementsPool() {
+            // finalizer fallback  --------------------------------------------
+            Clear();
+        }
     }
 
 
