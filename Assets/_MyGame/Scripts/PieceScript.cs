@@ -30,6 +30,11 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
+    // constants  ##############################################################
+    // elements Prefab in Resources --------------------------------------------
+    private const string BARLINE_PATH = "Prefabs/BeatmapElements/Barline";
+    private const string BEAT_LINE_PATH = "Prefabs/BeatmapElements/BeatLine";
+
     // private members  ########################################################
     // references
     private AudioSource audioSource;
@@ -42,9 +47,14 @@ public class PieceScript: MonoBehaviour {
     private PieceBeatmap beatmap;
     private float tempoDiv60;
     private float preludeOffsetAsBeat;
+    private BeatmapElementsPool elementsPool;
+
 
     // input related
     private PressedActions pressedActions;
+
+
+
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -72,6 +82,9 @@ public class PieceScript: MonoBehaviour {
 
         tempoDiv60 = beatmap.tempo / 60.0f;
         preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
+
+        // load element prefabs
+        elementsPool = new BeatmapElementsPool();
     }
 
     public void OnEnable() {
@@ -88,13 +101,8 @@ public class PieceScript: MonoBehaviour {
     }
 
     public void Update() {
-        // update user horizontal position
-        float x = transform.position.x
-                + CalcCurrentBeatCount() * beatmap.beatSpeed;
-        Vector2 newPosition = new(x, playerRB.position.y);
-        playerRB.MovePosition(newPosition);
-
-        // TODO dynamically place tiles
+        UpdateBeatmap();
+        UpdatePlayer();
     }
 
     private void OnDisable() {
@@ -146,12 +154,7 @@ public class PieceScript: MonoBehaviour {
         Debug.Log(pressedActions);
     }
 
-    // helper methods  #########################################################
-    private float CalcCurrentBeatCount() {
-        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
-    }
-
-    // helper enum  ############################################################
+    // helper enum  ============================================================
     [Flags]
     private enum PressedActions {
         NONE = 0,
@@ -160,7 +163,48 @@ public class PieceScript: MonoBehaviour {
         POWER_JUMP = 1 << 2,
     }
 
-    // todo add barline
+    // Beatmap Elements  #######################################################
+
+    private class BeatmapElementsPool {
+
+        public const string GAME_OBJECT_NAME = "BeatmapElementsPool";
+
+        // TODO TODO
+        private GameObject gameObject;
+
+        public BeatmapElementsPool() {
+            gameObject = new GameObject(GAME_OBJECT_NAME);
+        }
+
+    }
+
+
+    /// <summary>
+    /// handle update of beatmap element prefabs
+    /// </summary>
+    private void UpdateBeatmap() {
+        // TODO
+    }
+
+
+    // Control Player  #########################################################
+
+    /// <summary>
+    /// handle update of player's control
+    /// </summary>
+    private void UpdatePlayer() {
+        // update user horizontal position
+        float x = transform.position.x
+                + CalcCurrentBeatCount() * beatmap.beatSpeed;
+        Vector2 newPosition = new(x, playerRB.position.y);
+        playerRB.MovePosition(newPosition);
+    }
+
+
+    private float CalcCurrentBeatCount() {
+        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+    }
+
 }
 
 
