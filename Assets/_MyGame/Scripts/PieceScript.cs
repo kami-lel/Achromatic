@@ -169,34 +169,33 @@ public class PieceScript: MonoBehaviour {
 
     private class BeatmapElementsPool: IDisposable {  // =======================
 
+        /// <summary>
+        /// singleton collection of prefabs
+        /// </summary>
+        private static Dictionary<string, GameObject> prefabs;
+
         public const string GAME_OBJECT_NAME = "BeatmapElementsPoolRoot";
 
-        private readonly GameObject gameObjectRoot;
+        // private members  ****************************************************
+        private readonly GameObject root;
         private readonly Dictionary<GameObject, Queue<GameObject>> pools;
         private readonly HashSet<GameObject> activeInstances;
 
-        // TODO TODO working on this
-
-        public BeatmapElementsPool(Transform parent = null,
-                IEnumerable<GameObject> prefabs = null,
-                int prewarmPerPrefab = 0) {
+        public BeatmapElementsPool(Transform parentTransform) {
             pools = new Dictionary<GameObject, Queue<GameObject>>();
             activeInstances = new HashSet<GameObject>();
 
-            // create pool root  ------------------------------------------------
-            gameObjectRoot = new GameObject(GAME_OBJECT_NAME);
-            if (parent != null)
-                gameObjectRoot.transform.SetParent(parent, false);
+            // create pool root
+            root = new GameObject(GAME_OBJECT_NAME);
+            root.transform.SetParent(parentTransform, false);
 
-            // initialize pools for provided prefabs  ---------------------------
-            if (prefabs == null)
-                return;
-            foreach (var pf in prefabs) {
-                if (pf == null)
-                    continue;
-                pools[pf] = new Queue<GameObject>();
-                Prewarm(pf, prewarmPerPrefab);
+            // load prefabs from Resources if non existent
+            if (prefabs == null) {
+                // TODO TODO
+
             }
+
+            // TODO prewarm
         }
 
         // Prewarm Prefab Instances  ========================================
@@ -210,7 +209,7 @@ public class PieceScript: MonoBehaviour {
             for (int i = 0; i < count; ++i) {
                 var go = GameObject.Instantiate(prefab);
                 go.SetActive(false);
-                go.transform.SetParent(gameObjectRoot.transform, false);
+                go.transform.SetParent(root.transform, false);
                 q.Enqueue(go);
             }
         }
@@ -254,7 +253,7 @@ public class PieceScript: MonoBehaviour {
             // try find matching prefab key by comparing prefab name prefix
             // NOTE: store a mapping if prefab->instance link required
             instance.SetActive(false);
-            instance.transform.SetParent(gameObjectRoot.transform, false);
+            instance.transform.SetParent(root.transform, false);
 
             // fallback: place into any queue for same prefab reference
             // attempt to find the queue whose prefab name matches
@@ -294,8 +293,8 @@ public class PieceScript: MonoBehaviour {
             pools.Clear();
 
             // destroy root GameObject  -------------------------------------
-            if (gameObjectRoot != null)
-                GameObject.Destroy(gameObjectRoot);
+            if (root != null)
+                GameObject.Destroy(root);
         }
 
         // IDisposable Implementation  =====================================
