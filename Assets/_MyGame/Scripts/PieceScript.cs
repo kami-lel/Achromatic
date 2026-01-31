@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting.FullSerializer;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -179,10 +181,10 @@ public class PieceScript: MonoBehaviour {
         /// <summary>
         /// folder which contains all elements Prefabs in Resources
         /// </summary>
-        private const string ELEMENTS_PREFAB_FOLDER_PATH =
+        private const string PREFAB_FOLDER_PATH =
                 "Prefabs/BeatmapElements/";
 
-        private static readonly string[] ELEMENTS_PREFABS_NAMES =
+        private static readonly string[] ELEMENTS_NAMES =
                 { "Barline", "BeatLine" };
 
 
@@ -191,29 +193,39 @@ public class PieceScript: MonoBehaviour {
         /// </summary>
         private static Dictionary<string, GameObject> prefabs;
 
+        /// <summary>
+        /// pools of all Prefab objects across pieces
+        /// </summary>
+        private static Dictionary<GameObject, Queue<GameObject>> pools;
+
 
         // private members  ****************************************************
         private readonly GameObject root;
-        private readonly Dictionary<GameObject, Queue<GameObject>> pools;
         private readonly HashSet<GameObject> activeInstances;
 
+        // constructor & destructor  *******************************************
+
+        /// <summary>
+        /// instantiate during <c>Awake()</c>
+        /// </summary>
+        /// <param name="parentTransform">
+        /// transform which the BeatmapElementsPool will be placed under
+        /// </param>
         public BeatmapElementsPool(Transform parentTransform) {
-            pools = new Dictionary<GameObject, Queue<GameObject>>();
             activeInstances = new HashSet<GameObject>();
 
             // create pool root  -----------------------------------------------
             root = new GameObject(GAME_OBJECT_NAME);
             root.transform.SetParent(parentTransform, false);
 
-
             // load prefabs from Resources if non existent
             if (prefabs == null) {
                 prefabs = new Dictionary<string, GameObject>();
 
                 // load Prefabs by types
-                for (int i = 0; i < ELEMENTS_PREFABS_NAMES.Length; i++) {
-                    string key = ELEMENTS_PREFABS_NAMES[i];
-                    string path = ELEMENTS_PREFAB_FOLDER_PATH + key;
+                for (int i = 0; i < ELEMENTS_NAMES.Length; i++) {
+                    string key = ELEMENTS_NAMES[i];
+                    string path = PREFAB_FOLDER_PATH + key;
                     GameObject prefab = Resources.Load<GameObject>(path);
 
                     if (prefab == null) {
@@ -227,26 +239,46 @@ public class PieceScript: MonoBehaviour {
             }
 
             // prewarm  --------------------------------------------------------
-            // TODO prewarm
+            if (pools == null) {
+                pools = new Dictionary<GameObject, Queue<GameObject>>();
+
+                // per element type
+                foreach (GameObject prefab in prefabs.Values) {
+                    Queue<GameObject> q = new Queue<GameObject>();
+
+                    for (int i = 0; i < 15; i++) {
+                        // todo instead of set amount of 15 instances
+                        GameObject go = GameObject.Instantiate(prefab);
+                        go.SetActive(false);
+                        go.transform.SetParent(root.transform, false);
+                        q.Enqueue(go);
+                    }
+
+                    // add to pools
+                    pools[prefab] = q;
+                }
+            }
         }
+
+        ~BeatmapElementsPool() {
+            Clear();
+        }
+
+        // public methods  *****************************************************
+
+        public void Clear() {
+            // TODO
+        }
+
+        // IDisposable Implementation  *****************************************
+        public void Dispose() {
+            Clear();
+            GC.SuppressFinalize(this);
+        }
+
 
         /* HACK
         // Prewarm Prefab Instances  ========================================
-        public void Prewarm(GameObject prefab, int count) {
-            if (prefab == null || count <= 0)
-                return;
-            if (!pools.TryGetValue(prefab, out var q)) {
-                q = new Queue<GameObject>();
-                pools[prefab] = q;
-            }
-            for (int i = 0; i < count; ++i) {
-                var go = GameObject.Instantiate(prefab);
-                go.SetActive(false);
-                go.transform.SetParent(root.transform, false);
-                q.Enqueue(go);
-            }
-        }
-
         // Spawn Instance  ==================================================
         // spawn from pool or instantiate new if pool empty
         public GameObject Spawn(GameObject prefab, Vector3 pos,
@@ -330,18 +362,9 @@ public class PieceScript: MonoBehaviour {
                 GameObject.Destroy(root);
         }
 
-        // IDisposable Implementation  =====================================
-        public void Dispose() {
-            Clear();
-            GC.SuppressFinalize(this);
-        }
-
-        ~BeatmapElementsPool() {
-            // finalizer fallback  --------------------------------------------
-            Clear();
-        }
 
     */
+
     }
 
 
