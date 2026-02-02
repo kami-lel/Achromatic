@@ -184,7 +184,24 @@ public class PieceScript: MonoBehaviour {
                 audioSource.time, pressedActions);
         scoreTracker.Record(judgeResult);
 
-        // Todo visual & audio feedback for good/bad action
+        // control audio  ------------------------------------------------------
+        if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            // TODO player jump movement
+            SFXMangerScript.Instance.PlayJump();
+        } else if ((pressedActions & InputPressedActions.DASH) != 0) {
+            // TODO player dash movement
+            SFXMangerScript.Instance.PlayDash();
+        }
+
+
+
+
+        SFXMangerScript.Instance.PlayJump();
+
+        // TODO show combo count
+        // TODO show early/late
+        // TODO show perfect/great/good
+        // todo add audio for feedback
     }
 
 
