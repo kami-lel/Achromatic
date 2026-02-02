@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public class ParallaxBackgroundScript : MonoBehaviour
-{
+public class ParallaxBackgroundScript: MonoBehaviour {
+
+    // Todo implement parallax bg
+
     private float length,
         startpos;
-    public GameObject cam;
+    public UnityEngine.GameObject cam;
     public float parallaxEffect;
 
-    void Start()
-    {
+    void Start() {
         startpos = transform.position.x;
         length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    void Update()
-    {
+    void Update() {
         float temp = (cam.transform.position.x * (1 - parallaxEffect));
         float dist = (cam.transform.position.x * parallaxEffect);
 
