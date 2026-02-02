@@ -165,7 +165,12 @@ public class PieceScript: MonoBehaviour {
                 GameControllerScript.Instance.transform);
 
 
-        // hack
+
+        elementsPool.Spawn();
+
+
+
+        // HACK
     }
 
     /// <summary>

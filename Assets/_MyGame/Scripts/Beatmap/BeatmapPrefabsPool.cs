@@ -33,7 +33,7 @@ public class BeatmapPrefabsPool: IDisposable {
     /// <summary>
     /// pools of all Prefab objects across pieces
     /// </summary>
-    private static Dictionary<GameObject, Queue<GameObject>> pools;
+    private static Dictionary<string, Queue<GameObject>> pools;
 
     // constructor & destructor  ===============================================
 
@@ -70,10 +70,13 @@ public class BeatmapPrefabsPool: IDisposable {
 
         // create all instances  -----------------------------------------------
         if (pools == null) {
-            pools = new Dictionary<GameObject, Queue<GameObject>>();
+            pools = new();
 
             // per element type
-            foreach (GameObject prefab in prefabs.Values) {
+            foreach (var key_value in prefabs) {
+                String prefabName = key_value.Key;
+                GameObject prefab = key_value.Value;
+
                 Queue<GameObject> q = new();
 
                 for (int i = 0; i < 10; i++) {
@@ -85,7 +88,7 @@ public class BeatmapPrefabsPool: IDisposable {
                 }
 
                 // add to pools
-                pools[prefab] = q;
+                pools[prefabName] = q;
             }
         }
 
@@ -102,7 +105,7 @@ public class BeatmapPrefabsPool: IDisposable {
     }
 
     // public methods  =========================================================
-    public GameObject Spawn(GameObject prefab, Vector2 pos) {
+    public GameObject Spawn(string prefab, Vector2 pos) {
         if (!pools.TryGetValue(prefab, out var q)) {
             Debug.LogError("BeatmapPrefabPools: must be Beatmap Prefab, not: "
                     + prefab);
