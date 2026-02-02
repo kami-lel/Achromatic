@@ -309,7 +309,7 @@ public class PieceScript: MonoBehaviour {
 
     void OnDetectPassByMiss(object sender, EventArgs e) {
         scoreTracker.Record(JudgeResult.MISS);
-        Debug.Log("Pass-By Miss");  // HACK
+        // TODO pass by miss
     }
     // helpers  ################################################################
 

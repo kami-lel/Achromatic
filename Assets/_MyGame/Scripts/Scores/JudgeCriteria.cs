@@ -29,9 +29,11 @@ public class JudgeCriteria {
             return JudgeResult.NO_HIT;
         }
 
+
         Timing timing = timings.Peek();
         if (timing.IsInJudgingRange(time)) {
             timing = timings.Dequeue();
+            // TODO judge note type!
             return timing.Judge(time);
 
         } else {
