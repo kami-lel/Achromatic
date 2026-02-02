@@ -40,7 +40,9 @@ public class PlayerScript: MonoBehaviour {
             playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
 
         } else {
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
+            playerRB.bodyType = RigidbodyType2D.Dynamic;
+            // HACK
+            // playerRB.bodyType = RigidbodyType2D.Kinematic;
             hasSelfControl = false;
             playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         }
@@ -183,11 +185,12 @@ public class PlayerScript: MonoBehaviour {
         }
     }
 
+    // HACK currently public
     /// <summary>
     /// player jump (during <i>explore play</i>)
     /// </summary>
-    private void Jump() {
-        if (!playerRB.IsTouchingLayers(groundLayerMask))
+    public void Jump(bool ov = true) {
+        if (ov && !playerRB.IsTouchingLayers(groundLayerMask))
             return;
 
         playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);

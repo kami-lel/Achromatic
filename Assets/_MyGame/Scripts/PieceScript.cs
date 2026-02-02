@@ -178,6 +178,14 @@ public class PieceScript: MonoBehaviour {
         // TODO user movement during music
         JudgeResult judgeResult = PerformJudge();
 
+        Debug.Log(pressedActions);  // HACK
+
+        // HACK
+        if ((pressedActions & PressedActions.JUMP) == PressedActions.JUMP) {
+            Debug.Log("jump!");  // HACK
+            playerScript.Jump(false);
+        }
+
         // Todo visual & audio feedback for good/bad action
     }
 
