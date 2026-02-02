@@ -190,7 +190,8 @@ public class PieceScript: MonoBehaviour {
             PlayerDash();
         }
 
-        GameControllerScript.Instance.tmpUpdateText(judgeResult);
+        GameControllerScript.Instance.tmpUpdateText(judgeResult,
+                scoreTracker.combo);
         // todo add audio for feedback
     }
 

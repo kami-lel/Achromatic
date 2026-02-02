@@ -51,13 +51,41 @@ public class GameControllerScript: MonoBehaviour {
 
         // reference to playerScript
         playerScript = player.GetComponent<PlayerScript>();
+
+        // disable textbox
+        tmpCombo.gameObject.SetActive(false);
+        tmpJudgeResult.gameObject.SetActive(false);
     }
 
     // public methods  =========================================================
     // hack tmp method
-    public void tmpUpdateText(JudgeResult judgeResult) {
-        // TODO show combo count
-        // TODO show early/late
-        // TODO show perfect/great/good
+    public void tmpUpdateText(JudgeResult judgeResult, int combo) {
+        if (!tmpCombo.gameObject.activeSelf) {
+            tmpCombo.gameObject.SetActive(true);
+        }
+        if (!tmpJudgeResult.gameObject.activeSelf) {
+            tmpJudgeResult.gameObject.SetActive(true);
+        }
+
+        // TODO changing text box size
+        tmpCombo.text = combo + "hits";
+
+        string judgeText;
+
+        if ((judgeResult & JudgeResult.PERFECT) != 0) {
+            judgeText = "Perfect!";
+        } else {
+            judgeText = judgeResult switch {
+                JudgeResult.EARLY_MISS => "Miss! Too Early",
+                JudgeResult.EARLY_GREAT => "Great! Too Early",
+                JudgeResult.EARLY_GOOD => "Good! Too Early",
+                JudgeResult.LATE_MISS => "Miss! Too Late",
+                JudgeResult.LATE_GREAT => "Great! Too Late",
+                JudgeResult.LATE_GOOD => "Good! Too Late",
+                _ => null
+            };
+        }
+
+        tmpJudgeResult.text = judgeText;
     }
 }
