@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -244,8 +245,41 @@ public class PieceScript: MonoBehaviour {
 
         // public methods  *****************************************************
 
+        public GameObject Spawn(GameObject prefab, Vector2 pos) {
+            if (!pools.TryGetValue(prefab, out Queue<GameObject> q)) {
+                Debug.LogError("BeatmapElementsPool: prefab not in pool: "
+                        + prefab);
+                return null;
+            }
+
+            GameObject go;
+            go = q.Dequeue();
+            // make active
+            go.transform.position = pos;
+            go.SetActive(true);
+
+            activeInstances.Add(go);
+            return go;
+        }
+
+        private bool DeSpawn(GameObject go) {
+            if (!activeInstances.Remove(go)) {
+                Debug.LogError("BeatmapElementsPool: instance not in pool: "
+                        + go);
+                return false;
+            }
+
+            go.SetActive(false);
+            string prefabName = go.name.Replace("(Clone)", "").Trim();
+
+            GameObject prefab = prefabs[prefabName];
+            pools[prefab].Enqueue(go);
+
+            return true;
+        }
+
         public void Clear() {
-            // TODO
+            // todo
         }
 
         // IDisposable Implementation  *****************************************
@@ -255,34 +289,8 @@ public class PieceScript: MonoBehaviour {
         }
 
 
-        /* HACK
-        // Prewarm Prefab Instances  ========================================
-        // Spawn Instance  ==================================================
-        // spawn from pool or instantiate new if pool empty
-        public GameObject Spawn(GameObject prefab, Vector3 pos,
-                                Quaternion rot, Transform parent = null) {
-            if (prefab == null)
-                return null;
 
-            if (!pools.TryGetValue(prefab, out var q)) {
-                q = new Queue<GameObject>();
-                pools[prefab] = q;
-            }
-
-            GameObject instance;
-            if (q.Count > 0) {
-                instance = q.Dequeue();
-                instance.transform.SetParent(parent, false);
-                instance.transform.position = pos;
-                instance.transform.rotation = rot;
-                instance.SetActive(true);
-            } else {
-                instance = GameObject.Instantiate(prefab, pos, rot, parent);
-            }
-
-            activeInstances.Add(instance);
-            return instance;
-        }
+        /* hack
 
         // Recycle Instance  =================================================
         // deactivate and return to its prefab queue, parent to pool root
@@ -344,7 +352,6 @@ public class PieceScript: MonoBehaviour {
     */
 
     }
-
 
     /// <summary>
     /// handle awake of beatmap element prefabs
