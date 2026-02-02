@@ -59,7 +59,8 @@ public class GameControllerScript: MonoBehaviour {
 
     // public methods  =========================================================
     // hack tmp method
-    public void tmpUpdateText(JudgeResult judgeResult, int combo) {
+    public void tmpUpdateText(
+            JudgeResult judgeResult, int combo, int runningScore) {
         if (!tmpCombo.gameObject.activeSelf) {
             tmpCombo.gameObject.SetActive(true);
         }
@@ -67,11 +68,11 @@ public class GameControllerScript: MonoBehaviour {
             tmpJudgeResult.gameObject.SetActive(true);
         }
 
-        // TODO changing text box size
-        tmpCombo.text = combo + "hits";
+        tmpCombo.text = $"{combo} hits\nscore:{runningScore}";
 
         string judgeText;
 
+        // TODO changing text box size
         if ((judgeResult & JudgeResult.PERFECT) != 0) {
             judgeText = "Perfect!";
         } else {
