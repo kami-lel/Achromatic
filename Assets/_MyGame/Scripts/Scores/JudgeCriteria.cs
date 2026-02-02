@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class JudgeCriteria {
@@ -69,6 +70,9 @@ public class JudgeCriteria {
         private const float greatDelta = 0.10f;
         private const float goodDelta = 0.20f;
 
+        private readonly float startJudgeBound;
+        private readonly float center;
+
         private readonly float leftGoodBound;
         private readonly float leftGreatBound;
         private readonly float leftPerfectBound;
@@ -77,7 +81,10 @@ public class JudgeCriteria {
         private readonly float rightPerfectBound;
 
         public Timing(float centerTiming) {
+            center = centerTiming;
             leftGoodBound = centerTiming - goodDelta;
+            // fixme better generation
+            startJudgeBound = leftGoodBound - goodDelta;
             leftGreatBound = centerTiming - greatDelta;
             leftPerfectBound = centerTiming - perfectDelta;
             rightGoodBound = centerTiming + goodDelta;
@@ -86,15 +93,22 @@ public class JudgeCriteria {
         }
 
         public JudgeResult Judge(float time) {
-            // TODO judge early or late?
-            if (leftPerfectBound < time && time < rightPerfectBound) {
-                return JudgeResult.PERFECT;
-            } else if (leftGreatBound < time && time < rightGreatBound) {
-                return JudgeResult.GREAT;
-            } else if (leftGoodBound < time && time < rightGoodBound) {
-                return JudgeResult.GOOD;
+            if (time < leftGoodBound) {
+                return JudgeResult.EARLY_MISS;
+            } else if (time < leftGreatBound) {
+                return JudgeResult.EARLY_GOOD;
+            } else if (time < leftPerfectBound) {
+                return JudgeResult.EARLY_GREAT;
+            } else if (time < center) {
+                return JudgeResult.EARLY_PERFECT;
+            } else if (time < rightPerfectBound) {
+                return JudgeResult.LATE_PERFECT;
+            } else if (time < rightGreatBound) {
+                return JudgeResult.LATE_GREAT;
+            } else if (time < rightGoodBound) {
+                return JudgeResult.LATE_GOOD;
             } else {
-                return JudgeResult.MISS;
+                return JudgeResult.LATE_MISS;
             }
         }
 
@@ -103,7 +117,7 @@ public class JudgeCriteria {
         }
 
         public bool IsInJudgingRange(float time) {
-            return time > leftGoodBound;
+            return time > startJudgeBound;
         }
     }
 

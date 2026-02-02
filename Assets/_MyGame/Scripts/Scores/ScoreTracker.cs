@@ -74,6 +74,8 @@ public class ScoreTracker {
     }
 
     public void Record(JudgeResult judgeResult) {
+        return;  // TODO upgrade use new enums
+
         // record the result
         resultCnt[judgeResult] += 1;
 
