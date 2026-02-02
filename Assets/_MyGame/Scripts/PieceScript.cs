@@ -75,7 +75,7 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     private Queue<BeatmapNote> notesRenderQ;
 
-    private JudgeController judgeCriteria;
+    private JudgeCriteria judgeCriteria;
 
     // input related
     private PressedActions pressedActions;
@@ -303,30 +303,6 @@ public class PieceScript: MonoBehaviour {
         Vector2 newPosition = new(
                 CalcXFromBeat(currentBeatCount), playerRB.position.y);
         playerRB.MovePosition(newPosition);
-    }
-
-    // Judge System  ###########################################################
-
-    private class JudgeController {
-
-        public JudgeController() {
-            // pre-calculate all judge times
-            // TODO
-        }
-
-        public JudgeResult Judge(float time) {
-            return JudgeResult.MISS;  // TODO
-        }
-
-        /// <summary>
-        /// detect miss then player is too far away
-        ///
-        /// used in <c>Update()</c>
-        /// </summary>
-        public void DetectMiss() {
-            // TODO TODO
-        }
-
     }
 
     // helpers  ################################################################
