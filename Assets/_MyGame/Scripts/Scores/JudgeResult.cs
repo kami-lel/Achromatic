@@ -19,8 +19,12 @@ public enum JudgeResult {
 
     // groups  -----------------------------------------------------------------
     NO_SCORE = NO_HIT | EARLY_MISS | LATE_MISS | INCORRECT,
+    EARLY = EARLY_MISS | EARLY_GOOD | EARLY_GREAT | EARLY_PERFECT,
+    LATE = LATE_MISS | LATE_GOOD | LATE_GREAT | LATE_PERFECT,
+
+    // score types
     MISS = EARLY_MISS | LATE_MISS,
     GOOD = EARLY_GOOD | LATE_GOOD,
     GREAT = EARLY_GREAT | LATE_GREAT,
-    PERFECT = EARLY_PERFECT | LATE_PERFECT
+    PERFECT = EARLY_PERFECT | LATE_PERFECT,
 }

@@ -180,7 +180,8 @@ public class PieceScript: MonoBehaviour {
 
     private void Trigger() {
         // Todo user movement during music
-        JudgeResult judgeResult = judgeCriteria.Judge(audioSource.time);
+        JudgeResult judgeResult = judgeCriteria.Judge(
+                audioSource.time, pressedActions);
         scoreTracker.Record(judgeResult);
 
         // Todo visual & audio feedback for good/bad action
