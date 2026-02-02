@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// BUG prelude not functioning, currently only working w/ prelude = 0
 // todo allows & give feedback for smashing input during empty sessions
 // todo need to be **fast** for sense of velocity
 // Todo score system
@@ -32,17 +31,11 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // TODO organize offset & json prelude
-    [SerializeField]
-    private float audioStartOffset = 0.0f; // in sec
-
     /// <summary>
     /// should be <c>1.0f</c>, unless during debug
     /// </summary>
     [SerializeField]
     private float musicStaringBar = 1.0f;
-
-    // TODO start bar field, for debug, such that it does not play from start
 
     // Todo place some of these constants in json
     // constants  ##############################################################
@@ -127,10 +120,10 @@ public class PieceScript: MonoBehaviour {
         // start the music
         if (musicStaringBar != 1.0f) {
             // start music midpoint, for debug purpose
-            // BUG not consider prelude
             audioSource.time = (musicStaringBar - 1.0f)
                     * beatPerBar
-                    * (60.0f / beatmap.Tempo);
+                    * (60.0f / beatmap.Tempo)
+                    + beatmap.PreludeLength;
         }
         audioSource.Play();
 
@@ -224,8 +217,7 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = (beatmap.PreludeLength + audioStartOffset)
-                * tempoDiv60;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
     }
 
     /// <summary>

@@ -28,7 +28,8 @@ public class BeatmapData {
     public float BeatSpeed => jsonData.beatSpeed;
 
     /// <summary>
-    /// seconds before piece starts
+    /// seconds before piece start,
+    /// i.e. period of time before 1st beat of 1st bar
     /// </summary>
     public float PreludeLength => jsonData.preludeLength;
 
@@ -87,7 +88,7 @@ public class BeatmapNote {
 
     public BeatmapNoteType type;
 
-    private BeatmapData container;
+    private readonly BeatmapData container;
     private readonly BeatmapJsonData.BeatmapJsonDataNote jsonNote;
 
     public BeatmapNote(
