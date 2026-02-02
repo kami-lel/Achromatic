@@ -39,7 +39,7 @@ public class PieceScript: MonoBehaviour {
     private Vector2 origin;
 
     // beatmap related
-    private PieceBeatmap beatmap;
+    private BeatmapData beatmap;
     private float tempoDiv60;
     private float preludeOffsetAsBeat;
     private BeatmapElementsPool elementsPool;
@@ -154,14 +154,18 @@ public class PieceScript: MonoBehaviour {
         if (beatmapFile == null) {
             Debug.LogWarning("PieceScript: must provide beatmapFile");
         }
-        beatmap = JsonUtility.FromJson<PieceBeatmap>(beatmapFile.text);
 
-        tempoDiv60 = beatmap.tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
+        beatmap = new BeatmapData(beatmapFile);
+
+        tempoDiv60 = beatmap.Tempo / 60.0f;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
 
         // load element prefabs
         elementsPool = new BeatmapElementsPool(
                 GameControllerScript.Instance.transform);
+
+
+        // hack
     }
 
     /// <summary>
@@ -180,7 +184,7 @@ public class PieceScript: MonoBehaviour {
     private void UpdatePlayer() {
         // update user horizontal position
         float x = transform.position.x
-                + CalcCurrentBeatCount() * beatmap.beatSpeed;
+                + CalcCurrentBeatCount() * beatmap.BeatSpeed;
         Vector2 newPosition = new(x, playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
