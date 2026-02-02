@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
   beatmapFile: {fileID: 4900000, guid: c6061a00dc70a474b92fad8a3927a486, type: 3}
-  audioStartOffset: 2.43
+  musicStaringBar: 5
 --- !u!82 &458545832
 AudioSource:
   m_ObjectHideFlags: 0
@@ -687,7 +687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   player: {fileID: 1092030811}
-  tmpPiece: {fileID: 458545829}
 --- !u!1 &807194026
 GameObject:
   m_ObjectHideFlags: 0

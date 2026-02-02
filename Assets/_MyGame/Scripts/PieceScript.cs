@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Bug prelude not functioning, currently only working w/ prelude = 0
 // todo allows & give feedback for smashing input during empty sessions
 // todo need to be **fast** for sense of velocity
 // Todo score system
@@ -32,12 +31,14 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // Todo better organization, put offset & render distance in json
+    /// <summary>
+    /// start this piece of music at bar <i>n</i>,
+    /// default to <c>0.0f</c> for normal play
+    /// </summary>
     [SerializeField]
-    private float audioStartOffset = 0.0f; // in sec
+    private float musicStaringBar = 0.0f;
 
-    // Todo start bar field, for debug, such that it does not play from start
-
+    // Todo place some of these constants in json
     // constants  ##############################################################
     /// <summary>
     /// how many bars in advance that barline & beat lines will shown
@@ -118,6 +119,13 @@ public class PieceScript: MonoBehaviour {
         OnEnableBeatmap();
 
         // start the music
+        if (musicStaringBar != 0.0f) {
+            // start music midpoint, for debug purpose
+            audioSource.time = (musicStaringBar - 1.0f)
+                    * beatPerBar
+                    * (60.0f / beatmap.Tempo)
+                    + beatmap.PreludeLength;
+        }
         audioSource.Play();
 
     }
@@ -210,8 +218,7 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = (beatmap.PreludeLength + audioStartOffset)
-                * tempoDiv60;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
     }
 
     /// <summary>
