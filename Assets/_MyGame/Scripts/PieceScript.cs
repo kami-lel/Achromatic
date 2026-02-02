@@ -128,6 +128,8 @@ public class PieceScript: MonoBehaviour {
                     + beatmap.PreludeLength;
         }
         audioSource.Play();
+        // hack
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
     public void Update() {
