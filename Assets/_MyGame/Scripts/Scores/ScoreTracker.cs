@@ -31,19 +31,16 @@ public class ScoreTracker {
     /// </summary>
     private Dictionary<JudgeResult, int> resultCnt;
 
-    /// <summary>
-    /// calculated scores for each JudgeResult
-    /// </summary>
-    private readonly float[] perResultScores;
+    private readonly float perfectScore;
+    private readonly float greatScore;
+    private readonly float goodScore;
+    private readonly int perfectScoreInt;
+    private readonly int greatScoreInt;
+    private readonly int goodScoreInt;
 
-    /// <summary>
-    /// round down of <c>perResultScores</c>,
-    /// enable faster int addition for <c>runningScore</c> calculation
-    /// </summary>
-    private readonly int[] perResultScoresInt;
+
 
     public ScoreTracker(BeatmapData beatmap) {
-        return;  // HACK
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<JudgeResult, int>();
         foreach (JudgeResult result
@@ -51,43 +48,38 @@ public class ScoreTracker {
             resultCnt[result] = 0;  // filled w/ 0
         }
 
+
         // init perResultScores  -----------------------------------------------
-        float perfectScore = TOTAL_SCORES / beatmap.notes.Count;
-        float greatScore = perfectScore * 0.7f;
-        float goodScore = perfectScore * 0.3f;
+        perfectScore = TOTAL_SCORES / beatmap.notes.Count;
+        greatScore = perfectScore * 0.7f;
+        goodScore = perfectScore * 0.3f;
 
-        int enumTypeCount = Enum.GetValues(typeof(JudgeResult)).Length;
-        perResultScores = new float[enumTypeCount];
-        perResultScores[(int)JudgeResult.PERFECT] = perfectScore;
-        perResultScores[(int)JudgeResult.GREAT] = greatScore;
-        perResultScores[(int)JudgeResult.GOOD] = goodScore;
-        perResultScores[(int)JudgeResult.MISS] = 0.0f;
-        perResultScores[(int)JudgeResult.NO_HIT] = 0.0f;
+        perfectScoreInt = (int)perfectScore;
+        greatScoreInt = (int)greatScore;
+        goodScoreInt = (int)goodScore;
 
-        // init perResultScoresInt ---------------------------------------------
-        perResultScoresInt = new int[enumTypeCount];
-        for (int i = 0; i < enumTypeCount; i++) {
-            perResultScoresInt[i] = (int)perResultScores[i];
-        }
 
         // init combo  ---------------------------------------------------------
         combo = 0;
+        maxCombo = 0;
     }
 
     public void Record(JudgeResult judgeResult) {
-
-        Debug.Log("ScoreTracker:Record: "
-                + $"judge:{judgeResult}");
-        return;  // TODO upgrade use new enums
-
-        // record the result
+        // record the result as count
         resultCnt[judgeResult] += 1;
 
         // update running score
-        runningScore += perResultScoresInt[(int)judgeResult];
+        if ((judgeResult & JudgeResult.PERFECT) != 0) {
+            runningScore += perfectScoreInt;
+        } else if ((judgeResult & JudgeResult.GREAT) != 0) {
+            runningScore += greatScoreInt;
+        } else if ((judgeResult & JudgeResult.GOOD) != 0) {
+            runningScore += goodScoreInt;
+        }
+
 
         // record combo
-        if (judgeResult <= JudgeResult.MISS) {
+        if ((judgeResult & JudgeResult.NO_SCORE) != 0) {
             combo = 0;  // miss, reset combo
         } else {
             combo += 1;
@@ -96,8 +88,11 @@ public class ScoreTracker {
             }
         }
 
-        Debug.Log("ScoreTracker:Record:\t"
-                + $"judge: {judgeResult}\tscore:{runningScore}");
+        Debug.Log("ScoreTracker:Record:"
+                + $"\tjudge: {judgeResult}"
+                + $"\tscore: {runningScore}"
+                + $"\tcombo: {combo}"
+                );
     }
 
     /// <returns>final correct/precise score</returns>
@@ -106,8 +101,18 @@ public class ScoreTracker {
 
         foreach (JudgeResult result
                 in Enum.GetValues(typeof(JudgeResult))) {
-            float score = perResultScores[(int)result] * resultCnt[result];
-            finalScore += score;
+
+            if ((result & JudgeResult.NO_SCORE) != 0) {
+                continue;
+            }
+
+            if ((result & JudgeResult.PERFECT) != 0) {
+                finalScore += perfectScore;
+            } else if ((result & JudgeResult.GREAT) != 0) {
+                finalScore += greatScore;
+            } else {
+                finalScore += goodScore;
+            }
         }
 
         return Mathf.RoundToInt(finalScore);
