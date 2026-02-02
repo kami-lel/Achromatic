@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BeatmapElementsPool: IDisposable {
 
-    // constants  **********************************************************
+    // constants  ==============================================================
     /// <summary>
     /// name of <c>GameObject</c> shown in Hierarchy
     /// </summary>
@@ -35,11 +35,11 @@ public class BeatmapElementsPool: IDisposable {
     private static Dictionary<GameObject, Queue<GameObject>> pools;
 
 
-    // private members  ****************************************************
+    // private members  ========================================================
     private readonly GameObject root;
     private readonly HashSet<GameObject> activeInstances;
 
-    // constructor & destructor  *******************************************
+    // constructor & destructor  ===============================================
 
     /// <summary>
     /// instantiate during <c>Awake()</c>
@@ -100,8 +100,7 @@ public class BeatmapElementsPool: IDisposable {
         Clear();
     }
 
-    // public methods  *****************************************************
-
+    // public methods  =========================================================
     public GameObject Spawn(GameObject prefab, Vector2 pos) {
         if (!pools.TryGetValue(prefab, out Queue<GameObject> q)) {
             Debug.LogError("BeatmapElementsPool: prefab not in pool: "
@@ -139,7 +138,7 @@ public class BeatmapElementsPool: IDisposable {
         // todo
     }
 
-    // IDisposable Implementation  *****************************************
+    // IDisposable Implementation  =============================================
     public void Dispose() {
         Clear();
         GC.SuppressFinalize(this);
@@ -149,7 +148,6 @@ public class BeatmapElementsPool: IDisposable {
 
     /* hack
 
-    // Recycle Instance  =================================================
     // deactivate and return to its prefab queue, parent to pool root
     public void Recycle(GameObject instance) {
         if (instance == null)
