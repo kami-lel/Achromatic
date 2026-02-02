@@ -38,7 +38,7 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float musicStaringBar = 0.0f;
 
-    // Todo place some of these constants in json
+    // TODO place some of these constants in json
     // constants  ##############################################################
     /// <summary>
     /// how many bars in advance that barline & beat lines will shown

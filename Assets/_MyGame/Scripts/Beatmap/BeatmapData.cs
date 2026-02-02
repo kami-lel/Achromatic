@@ -39,9 +39,26 @@ public class BeatmapData {
     public float Tempo => jsonData.tempo;
 
     /// <summary>
+    /// control render distance of barline and beat lines<br>
+    ///
+    /// in <b>count of bars</b>,
+    /// how many bars of both barline & beat lines will be rendered
+    /// in advance of the music
+    /// </summary>
+    public float BarlineRenderDistance => jsonData.barlineRenderDistance;
+
+    /// <summary>
+    /// control render distance of beatmap notes<br>
+    /// in <b>count of beats</b>,
+    /// how many notes will be rendered in advanced of the music
+    /// </summary>
+    public float NoteRenderDistance => jsonData.noteRenderDistance;
+
+    /// <summary>
     /// 1 / beatSubdivision, pre-calculated for efficiency
     /// </summary>
     public float beatPerDivision;
+
 
     public Queue<BeatmapNote> notes;
 
@@ -138,6 +155,8 @@ public class BeatmapJsonData {
     public float beatSpeed;
     public float preludeLength;
     public float tempo;
+    public float barlineRenderDistance;
+    public float noteRenderDistance;
 
     /// <remark>
     /// must be in order of appearances
