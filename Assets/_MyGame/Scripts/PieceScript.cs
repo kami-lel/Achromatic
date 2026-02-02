@@ -44,6 +44,9 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
 
+    // public members  #########################################################
+    public ScoreTracker scoreTracker;
+
     // private members  ########################################################
     // references
     private AudioSource audioSource;
@@ -92,6 +95,8 @@ public class PieceScript: MonoBehaviour {
         // set up audio
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+
+        scoreTracker = new(beatmap);
 
         AwakeBeatmap();
     }
@@ -174,6 +179,8 @@ public class PieceScript: MonoBehaviour {
     private void Trigger() {
         // Todo user movement during music
         JudgeResult judgeResult = PerformJudge();
+
+        scoreTracker.Record(judgeResult);
 
         // Todo visual & audio feedback for good/bad action
     }

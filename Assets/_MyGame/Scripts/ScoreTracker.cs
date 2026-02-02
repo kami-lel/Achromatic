@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// TODO combo
 // Todo docs
-public class JudgeScoreTracker {
+public class ScoreTracker {
 
     /// <summary>
     /// total score possible for a piece
@@ -20,11 +19,13 @@ public class JudgeScoreTracker {
     /// </summary>
     public int runningScore;
 
+    public int combo;
+
     private Dictionary<JudgeResult, int> resultCnt;
     private readonly float[] perResultScores;
     private readonly int[] perResultScoresInt;
 
-    public JudgeScoreTracker(BeatmapData beatmap) {
+    public ScoreTracker(BeatmapData beatmap) {
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<JudgeResult, int>();
         foreach (JudgeResult result
@@ -33,7 +34,6 @@ public class JudgeScoreTracker {
         }
 
         // init perResultScores  -----------------------------------------------
-
         float perfectScore = TOTAL_SCORES / beatmap.notes.Count;
         float greatScore = perfectScore * 0.7f;
         float goodScore = perfectScore * 0.3f;
@@ -50,11 +50,24 @@ public class JudgeScoreTracker {
         for (int i = 0; i < enumTypeCount; i++) {
             perResultScoresInt[i] = (int)perResultScores[i];
         }
+
+        // init combo  ---------------------------------------------------------
+        combo = 0;
     }
 
     public void Record(JudgeResult judgeResult) {
+        // record the result
         resultCnt[judgeResult] += 1;
+
+        // update running score
         runningScore += perResultScoresInt[(int)judgeResult];
+
+        // record combo
+        if (judgeResult == JudgeResult.MISS) {
+            combo = 0;
+        } else {
+            combo += 1;
+        }
     }
 
     public int CalcFinalScore() {
