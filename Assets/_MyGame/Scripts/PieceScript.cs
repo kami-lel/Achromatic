@@ -296,7 +296,7 @@ public class PieceScript: MonoBehaviour {
     private void UpdatePlayer() {
         // update user horizontal position
         Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), playerRB.position.y);
+                CalcXFromBeat(currentBeatCount), origin.y);
         playerRB.MovePosition(newPosition);
     }
 
