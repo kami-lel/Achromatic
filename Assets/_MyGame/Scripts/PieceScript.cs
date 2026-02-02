@@ -179,24 +179,16 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
-        // Todo user movement during music
         JudgeResult judgeResult = judgeCriteria.Judge(
                 audioSource.time, pressedActions);
         scoreTracker.Record(judgeResult);
 
-        // control audio  ------------------------------------------------------
+        // control player  -----------------------------------------------------
         if ((pressedActions & InputPressedActions.JUMP) != 0) {
-            // TODO player jump movement
-            SFXMangerScript.Instance.PlayJump();
+            PlayerJump();
         } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-            // TODO player dash movement
-            SFXMangerScript.Instance.PlayDash();
+            PlayerDash();
         }
-
-
-
-
-        SFXMangerScript.Instance.PlayJump();
 
         // TODO show combo count
         // TODO show early/late
@@ -306,6 +298,18 @@ public class PieceScript: MonoBehaviour {
         Vector2 newPosition = new(
                 CalcXFromBeat(currentBeatCount), playerRB.position.y);
         playerRB.MovePosition(newPosition);
+    }
+
+
+    private void PlayerJump() {
+        SFXMangerScript.Instance.PlayJump();
+
+        // TODO
+    }
+
+    private void PlayerDash() {
+        SFXMangerScript.Instance.PlayDash();
+        // TODO
     }
 
 
