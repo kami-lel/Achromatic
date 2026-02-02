@@ -39,6 +39,11 @@ public class BeatmapData {
     /// </summary>
     public float Tempo => jsonData.tempo;
 
+    /// <summary>
+    /// 1 / beatSubdivision, pre-calculated for efficiency
+    /// </summary>
+    public float beatPerDivision;
+
     public Queue<BeatmapNote> notes;
 
     // private properties  =====================================================
@@ -47,12 +52,13 @@ public class BeatmapData {
     // constructor  ============================================================
     public BeatmapData(TextAsset beatmapFile) {
         jsonData = JsonUtility.FromJson<BeatmapJsonData>(beatmapFile.text);
+        beatPerDivision = 1 / jsonData.beatSubdivision;
 
         // fill notes
         notes = new();
         foreach (BeatmapJsonData.BeatmapJsonDataNote jsonNote
                 in jsonData.notes) {
-            notes.Enqueue(new BeatmapNote(jsonNote));
+            notes.Enqueue(new BeatmapNote(this, jsonNote));
         }
     }
 }
@@ -83,10 +89,14 @@ public class BeatmapNote {
 
     public BeatmapNoteType type;
 
+    private BeatmapData container;
     private readonly BeatmapJsonData.BeatmapJsonDataNote jsonNote;
 
     public BeatmapNote(
+            BeatmapData container,
             BeatmapJsonData.BeatmapJsonDataNote jsonNote) {
+
+        this.container = container;
         this.jsonNote = jsonNote;
 
         // convert string to enum type
@@ -98,8 +108,10 @@ public class BeatmapNote {
         };
     }
 
-    public float CalcBeatCount(float beatPerBar) {
-        return (jsonNote.bar - 1) * beatPerBar + (jsonNote.beat - 1);
+    public float CalcBeatCount() {
+        return (jsonNote.bar - 1) * container.BeatPerBar
+                + (jsonNote.beat - 1)
+                + (jsonNote.subbeat - 1) * container.beatPerDivision;
     }
 }
 

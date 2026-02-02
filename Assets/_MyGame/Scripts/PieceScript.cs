@@ -219,8 +219,6 @@ public class PieceScript: MonoBehaviour {
             prefabPool.Spawn("Barline",
                     new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
 
-            Debug.Log(placeOnBeat);
-
             lastBarlineOnBeat = placeOnBeat;
         }
 
@@ -232,7 +230,7 @@ public class PieceScript: MonoBehaviour {
 
         while (beatmap.notes.Count > 0) {
             var next = beatmap.notes.Peek();
-            float noteOnBeat = next.CalcBeatCount(beatPerBar);
+            float noteOnBeat = next.CalcBeatCount();
 
             if (noteOnBeat >= renderBoundaryOnBeat)
                 break;
