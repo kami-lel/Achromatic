@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,50 +41,18 @@ public class BeatmapData {
 
     // private properties  =====================================================
     private readonly BeatmapJsonData jsonData;
-    private readonly BeatmapNote[] notes;
-    private int peekingIdx;
+    private readonly Queue<BeatmapNote> notes;
 
     // constructor  ============================================================
     public BeatmapData(TextAsset beatmapFile) {
         jsonData = JsonUtility.FromJson<BeatmapJsonData>(beatmapFile.text);
 
         // fill notes
-        notes = new BeatmapNote[jsonData.notes.Length];
-        for (int i = 0; i < notes.Length; i++) {
-            notes[i] = new BeatmapNote(jsonData.notes[i]);
+        notes = new();
+        foreach (BeatmapJsonData.BeatmapJsonDataNote jsonNote
+                in jsonData.notes) {
+            notes.Enqueue(new BeatmapNote(jsonNote));
         }
-
-        peekingIdx = 0;
-    }
-
-    // public methods  =========================================================
-
-    /// <summary>
-    /// peek note at cursor, without advance the cursor
-    /// </summary>
-    /// <returns>
-    /// note at the cursor;
-    /// <c>null</c> if exhaust all notes
-    /// </returns>
-    public BeatmapNote PeekNote() {
-        if (peekingIdx >= notes.Length) {
-            return null;  // no more notes
-        }
-
-        return notes[peekingIdx];
-    }
-
-    /// <summary>
-    /// get note at cursor, then advance the cursor
-    /// </summary>
-    /// <returns>
-    /// note at the cursor;
-    /// <c>null</c> if exhaust all notes
-    /// </returns>
-    public BeatmapNote NextNote() {
-        BeatmapNote note = PeekNote();
-        peekingIdx += 1;
-        return note;
     }
 }
 
