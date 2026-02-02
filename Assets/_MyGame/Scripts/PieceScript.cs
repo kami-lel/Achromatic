@@ -33,7 +33,10 @@ public class PieceScript: MonoBehaviour {
 
 
     // constants  ##############################################################
-    private const float BEAT_LINE_RENDER_DISTANCE = 5.0f;
+    /// <summary>
+    /// how many bars in advance that barline & beat lines will shown
+    /// </summary>
+    private const float BARLINE_RENDER_DISTANCE = 2.0f;
 
     // private members  ########################################################
     // references
@@ -45,6 +48,7 @@ public class PieceScript: MonoBehaviour {
 
     // beatmap related
     private BeatmapData beatmap;
+    private float beatPerBar;
     private float tempoDiv60;
     private float preludeOffsetAsBeat;
     private BeatmapPrefabsPool prefabPool;
@@ -171,6 +175,7 @@ public class PieceScript: MonoBehaviour {
 
 
         // set up vars
+        beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60 - 1.0f;
         lastBeatLineOnBeat = 0.0f;
@@ -184,9 +189,8 @@ public class PieceScript: MonoBehaviour {
         float beatCount = CalcCurrentBeatCount();
 
         // place beatLine  -----------------------------------------------------
-        int tmpCnt = 0;  // HACK
-
-        float renderBeatCount = beatCount + BEAT_LINE_RENDER_DISTANCE;
+        float renderBeatCount = beatCount
+                + BARLINE_RENDER_DISTANCE * beatPerBar;
         while (renderBeatCount - lastBeatLineOnBeat > 1.0f) {
             float placeOnBeat = lastBeatLineOnBeat + 1.0f;
 
@@ -196,36 +200,25 @@ public class PieceScript: MonoBehaviour {
             lastBeatLineOnBeat = placeOnBeat;
         }
 
+        // place barline  ------------------------------------------------------
+        renderBeatCount = beatCount + BARLINE_RENDER_DISTANCE;
+        while (renderBeatCount - lastBarlineOnBeat > beatPerBar) {
+            float placeOnBeat = lastBarlineOnBeat + beatPerBar;
+
+            prefabPool.Spawn("Barline",
+                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
+
+            Debug.Log(placeOnBeat);
+
+            lastBarlineOnBeat = placeOnBeat;
+        }
+
+        // fixme beatmap overlaps barline
 
 
         return;
 
-        while (beatCount - lastBeatLineOnBeat > 1.0f) {
-            float placeOnBeat = (float)Math.Ceiling(lastBeatLineOnBeat);
-            float placeOnX = (placeOnBeat - 1.0f) * beatmap.BeatSpeed
-                    - origin.x;
-
-            prefabPool.Spawn("BeatLine", new Vector2(placeOnX, 0.0f));
-
-            lastBeatLineOnBeat = placeOnBeat;
-
-            // BUG BUG BUG
-
-
-            // HACK
-            Debug.Log(beatCount + "\t" + lastBeatLineOnBeat + "\t" + placeOnBeat + "\t" + placeOnX);
-
-
-            // HACK
-            tmpCnt += 1;
-            if (tmpCnt > 5) {
-                return;
-            }
-        }
-
-
-
-        // TODO barline & notes
+        // TODO place notes
     }
 
 
