@@ -46,7 +46,7 @@ public class PieceScript: MonoBehaviour {
     /// <summary>
     /// height of note on board
     /// </summary>
-    private const float NOTES_HEIGHT = 2.0f;
+    private const float NOTES_HEIGHT = 2.5f;
 
     /// <summary>
     /// how many beats before player, notes should render

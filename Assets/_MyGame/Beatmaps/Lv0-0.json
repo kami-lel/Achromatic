@@ -52,6 +52,174 @@
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
+    },
+    {
+      "bar": 13,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 14,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 15,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 16,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 17,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 18,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 19,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 20,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 21,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 22,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 23,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 24,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 25,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 25,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 26,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 26,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 27,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 27,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 28,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 28,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 25,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 25,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 26,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 26,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 27,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 27,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 28,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 28,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
     }
   ]
 }
