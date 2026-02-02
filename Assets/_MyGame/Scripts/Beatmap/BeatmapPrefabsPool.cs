@@ -107,7 +107,8 @@ public class BeatmapPrefabsPool: IDisposable {
     // public methods  =========================================================
     public GameObject Spawn(string prefab, Vector2 pos) {
         if (!pools.TryGetValue(prefab, out var q)) {
-            Debug.LogError("BeatmapPrefabPools: must be Beatmap Prefab, not: "
+            Debug.LogWarning("BeatmapPrefabPools: fail to spawn, "
+                    + "must be Beatmap Prefabs, not: "
                     + prefab);
             return null;
         }

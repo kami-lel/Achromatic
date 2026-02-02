@@ -30,6 +30,10 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
+
+    // constants  ##############################################################
+    private const float RENDER_DIST_X = 10.0f;
+
     // private members  ########################################################
     // references
     private AudioSource audioSource;
@@ -42,7 +46,10 @@ public class PieceScript: MonoBehaviour {
     private BeatmapData beatmap;
     private float tempoDiv60;
     private float preludeOffsetAsBeat;
-    private BeatmapElementsPool elementsPool;
+    private BeatmapPrefabsPool prefabPool;
+    private float lastBeatLineOnBeat;
+    private float lastBarlineOnBeat;
+    private float beatsPerBar;
 
     // input related
     private PressedActions pressedActions;
@@ -157,26 +164,33 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new BeatmapData(beatmapFile);
 
-        tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
 
         // load element prefabs
-        elementsPool = new BeatmapPrefabsPool(
+        prefabPool = new BeatmapPrefabsPool(
                 GameControllerScript.Instance.transform);
 
 
-
-        elementsPool.Spawn();
-
-
-
-        // HACK
+        // set up vars
+        tempoDiv60 = beatmap.Tempo / 60.0f;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60 - 1.0f;
+        lastBeatLineOnBeat = 0.0f;
+        lastBarlineOnBeat = 0.0f;
+        beatsPerBar = (float) beatmap.BeatPerBar;
     }
 
     /// <summary>
     /// handle update of beatmap element prefabs
     /// </summary>
     private void UpdateBeatmap() {
+        float beatCount = CalcCurrentBeatCount();
+
+        // place beatLine  -----------------------------------------------------
+        if (beatCount - lastBeatLineOnBeat >= 1.0f) {
+
+        }
+
+
+
         // TODO
     }
 
@@ -194,7 +208,7 @@ public class PieceScript: MonoBehaviour {
         playerRB.MovePosition(newPosition);
     }
 
-
+    /// <returns>beat count, starting at 1</returns>
     private float CalcCurrentBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
