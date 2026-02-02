@@ -19,10 +19,30 @@ public class ScoreTracker {
     /// </summary>
     public int runningScore;
 
+    /// <summary>
+    /// number of current combos
+    /// </summary>
     public int combo;
 
+    /// <summary>
+    /// number of max combos
+    /// </summary>
+    public int maxCombo;
+
+    /// <summary>
+    /// count each type of result
+    /// </summary>
     private Dictionary<JudgeResult, int> resultCnt;
+
+    /// <summary>
+    /// calculated scores for each JudgeResult
+    /// </summary>
     private readonly float[] perResultScores;
+
+    /// <summary>
+    /// round down of <c>perResultScores</c>,
+    /// enable faster int addition for <c>runningScore</c> calculation
+    /// </summary>
     private readonly int[] perResultScoresInt;
 
     public ScoreTracker(BeatmapData beatmap) {
@@ -64,12 +84,16 @@ public class ScoreTracker {
 
         // record combo
         if (judgeResult == JudgeResult.MISS) {
-            combo = 0;
+            combo = 0;  // miss, reset combo
         } else {
             combo += 1;
+            if (combo > maxCombo) {
+                maxCombo = combo;
+            }
         }
     }
 
+    /// <returns>final correct/precise score</returns>
     public int CalcFinalScore() {
         float finalScore = 0.0f;
 

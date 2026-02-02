@@ -1,8 +1,10 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class JudgeCriteria {
+    // TODO refactor & documentation
 
     private Queue<Timing> timings;
     public EventHandler onDetectPassByMiss;
@@ -36,9 +38,7 @@ public class JudgeCriteria {
             return;
         }
 
-        Timing noteTiming = timings.Peek();
-
-        while (noteTiming.IsPassByMiss(time)) {
+        while (timings.Peek().IsPassByMiss(time)) {
             // detect pass-by miss
             onDetectPassByMiss?.Invoke(this, EventArgs.Empty);
 
@@ -59,7 +59,7 @@ public class JudgeCriteria {
         private float leftGoodBound;
         private float leftGreatBound;
         private float leftPerfectBound;
-        private float rightGoodBound;
+        public float rightGoodBound; // HACK public
         private float rightGreatBound;
         private float rightPerfectBound;
 
@@ -78,6 +78,10 @@ public class JudgeCriteria {
 
         public bool IsPassByMiss(float time) {
             return time > rightGoodBound;
+        }
+
+        private bool IsTooForwad(float time) {
+
         }
 
 
