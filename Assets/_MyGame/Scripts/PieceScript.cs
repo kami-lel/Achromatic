@@ -190,9 +190,7 @@ public class PieceScript: MonoBehaviour {
             PlayerDash();
         }
 
-        // TODO show combo count
-        // TODO show early/late
-        // TODO show perfect/great/good
+        GameControllerScript.Instance.tmpUpdateText(judgeResult);
         // todo add audio for feedback
     }
 

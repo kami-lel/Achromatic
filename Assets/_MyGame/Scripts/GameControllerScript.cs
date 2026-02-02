@@ -8,6 +8,12 @@ public class GameControllerScript: MonoBehaviour {
     [SerializeField]
     private GameObject player;
 
+    [SerializeField]
+    private TMPro.TextMeshProUGUI tmpJudgeResult;
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI tmpCombo;
+
     // public members  #########################################################
 
     /// <summary>
@@ -45,5 +51,13 @@ public class GameControllerScript: MonoBehaviour {
 
         // reference to playerScript
         playerScript = player.GetComponent<PlayerScript>();
+    }
+
+    // public methods  =========================================================
+    // hack tmp method
+    public void tmpUpdateText(JudgeResult judgeResult) {
+        // TODO show combo count
+        // TODO show early/late
+        // TODO show perfect/great/good
     }
 }
