@@ -1,14 +1,16 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+
 
 public class JudgeCriteria {
-    // TODO refactor & documentation
 
-    private Queue<Timing> timings;
     public EventHandler onDetectPassByMiss;
+
+    /// <summary>
+    /// pre-calculated all timings during creation
+    /// </summary>
+    private Queue<Timing> timings;
 
     public JudgeCriteria(BeatmapData beatmap) {
         // pre-calculate all judge timings
