@@ -131,6 +131,8 @@ public class PlayerScript: MonoBehaviour {
     /// event handler for inputs during <b>explore play</b>
     /// </summary>
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        // BUG not give control to otherside
+
         switch (ctxt.action.phase) {
         case InputActionPhase.Started:  // -------------------------------------
             switch (ctxt.action.name) {

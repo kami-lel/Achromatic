@@ -174,49 +174,49 @@
       "type": "dash"
     },
     {
-      "bar": 25,
+      "bar": 29,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
     },
     {
-      "bar": 25,
+      "bar": 29,
       "beat": 3,
       "subbeat": 1,
       "type": "dash"
     },
     {
-      "bar": 26,
+      "bar": 30,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
     },
     {
-      "bar": 26,
+      "bar": 30,
       "beat": 3,
       "subbeat": 1,
       "type": "dash"
     },
     {
-      "bar": 27,
+      "bar": 31,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
     },
     {
-      "bar": 27,
+      "bar": 31,
       "beat": 3,
       "subbeat": 1,
       "type": "dash"
     },
     {
-      "bar": 28,
+      "bar": 32,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
     },
     {
-      "bar": 28,
+      "bar": 32,
       "beat": 3,
       "subbeat": 1,
       "type": "dash"

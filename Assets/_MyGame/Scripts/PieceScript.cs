@@ -174,7 +174,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
-        // Todo control user
+        // TODO control user
         Debug.Log(pressedActions);
     }
 
@@ -248,7 +248,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // fixme barline placement overlaps beat lines
-        // BUG 1st barline missing
+        // Bug 1st barline missing
 
         // render notes  -------------------------------------------------------
         renderBoundaryOnBeat = currentBeatCount + NOTE_RENDER_DISTANCE;
