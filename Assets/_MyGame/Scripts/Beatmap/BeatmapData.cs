@@ -85,7 +85,6 @@ public class BeatmapData {
 
 
 
-
 // BeatmapNote  ################################################################
 /// <summary>
 /// represent a single note w/i beatmap

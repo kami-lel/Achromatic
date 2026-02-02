@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 // todo allows & give feedback for smashing input during empty sessions
 // todo need to be **fast** for sense of velocity
-// TODO score system
 // todo allow smash for song climax
 // bug piece will have error if Active at beginning of scene
 
