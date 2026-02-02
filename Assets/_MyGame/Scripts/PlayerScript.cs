@@ -21,7 +21,7 @@ public class PlayerScript: MonoBehaviour {
     [Header("Horizontal Movement")]  // ----------------------------------------
 
     [SerializeField]
-    private float maxWalkingSpped = 5.0f;
+    private float maxWalkingSpeed = 5.0f;
 
     [SerializeField]
     private AnimationCurve walkingSpeedUpCurve =
@@ -37,12 +37,12 @@ public class PlayerScript: MonoBehaviour {
         if (isExplorePlay) {
             playerRB.bodyType = RigidbodyType2D.Dynamic;
             hasSelfControl = true;
-            playerInput.defaultActionMap = "PlayerExplorePlay";
+            playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
 
         } else {
             playerRB.bodyType = RigidbodyType2D.Kinematic;
             hasSelfControl = false;
-            playerInput.defaultActionMap = "PlayerMusicPlay";
+            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         }
     }
 
@@ -58,6 +58,8 @@ public class PlayerScript: MonoBehaviour {
         playerRB = GetComponent<Rigidbody2D>();
         playerRB.gravityScale = gravityScale;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        playerInput.defaultActionMap = "PlayerExplorePlay";
 
         SetPlayTypeAsExplore(true);
     }
@@ -84,7 +86,7 @@ public class PlayerScript: MonoBehaviour {
             // speed up & sustaining walking
             playerRB.linearVelocityX =
                     walkingSpeedUpCurve.Evaluate(walkingMovementElapsedTime)
-                    * maxWalkingSpped
+                    * maxWalkingSpeed
                     * (walkingState == WalkingState.SPEED_UP_RIGHT ?
                             1.0f : -1.0f);
 
@@ -103,7 +105,7 @@ public class PlayerScript: MonoBehaviour {
             } else {
                 playerRB.linearVelocityX =
                         curveValue
-                        * maxWalkingSpped
+                        * maxWalkingSpeed
                         * (walkingState == WalkingState.SLOW_DOWN_RIGHT ?
                                 1.0f : -1.0f);
 
@@ -131,7 +133,8 @@ public class PlayerScript: MonoBehaviour {
     /// event handler for inputs during <b>explore play</b>
     /// </summary>
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        // BUG not give control to otherside
+        if (!hasSelfControl)
+            return;
 
         switch (ctxt.action.phase) {
         case InputActionPhase.Started:  // -------------------------------------

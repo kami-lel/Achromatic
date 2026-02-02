@@ -7,7 +7,7 @@ use 2 keys to control:
 
 <!-- todo background music during explore play -->
 <!-- todo use controller -->
-<!-- TODO visual & audio feedback for good/bad action -->
+<!-- Todo visual & audio feedback for good/bad action -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 

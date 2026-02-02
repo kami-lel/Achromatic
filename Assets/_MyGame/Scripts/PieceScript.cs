@@ -123,7 +123,7 @@ public class PieceScript: MonoBehaviour {
 
     public void Update() {
         // calculate current beat count
-        currentBeatCount = audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+        currentBeatCount = CalcRealtimeBeatCount();
 
         UpdateBeatmap();
         UpdatePlayer();
@@ -137,6 +137,7 @@ public class PieceScript: MonoBehaviour {
 
     // input manage  ###########################################################
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        Debug.Log(ctxt + "\t" + ctxt.action.name + "\t" + ctxt.action.phase);
         InputAction a = ctxt.action;
 
         switch (a.phase) {
@@ -174,8 +175,9 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
+        JudgeResult judgeResult = PerformJudge();
+
         // TODO control user
-        Debug.Log(pressedActions);
     }
 
     // helper enum  ============================================================
@@ -287,9 +289,24 @@ public class PieceScript: MonoBehaviour {
     }
 
     // Judge System  ###########################################################
+    private enum JudgeResult {
+        MISS, GOOD, GREAT, PERFECT
+    }
+
+    private JudgeResult PerformJudge() {
+        // TODO
+        return JudgeResult.MISS;
+    }
 
 
     // helpers  ################################################################
+
+    /// <returns>beat count based on Audio Source time,
+    /// start on <c>0.0f</c></returns>
+    private float CalcRealtimeBeatCount() {
+        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+    }
+
 
     private float CalcXFromBeat(float beatCnt) {
         return origin.x + beatCnt * beatmap.BeatSpeed;
