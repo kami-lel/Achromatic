@@ -1,6 +1,6 @@
 {
   "beatPerBar": 4,
-  "beatSpeed": 5.0,
+  "beatSpeed": 3.0,
   "preludeLength": 0.0,
   "tempo": 105.0,
   "beatSubdivision": 4,
@@ -12,8 +12,20 @@
       "type": "jump"
     },
     {
-      "bar": 1,
-      "beat": 2,
+      "bar": 2,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
       "subbeat": 1,
       "type": "jump"
     }

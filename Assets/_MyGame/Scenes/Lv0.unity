@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
   beatmapFile: {fileID: 4900000, guid: c6061a00dc70a474b92fad8a3927a486, type: 3}
-  audioStartOffset: 0.15
+  audioStartOffset: 2.5
 --- !u!82 &458545832
 AudioSource:
   m_ObjectHideFlags: 0

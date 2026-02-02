@@ -49,7 +49,7 @@ public class PieceScript: MonoBehaviour {
     /// <summary>
     /// how many beats before player, notes should render
     /// </summary>
-    private const float NOTE_RENDER_DISTANCE = 2.0f;
+    private const float NOTE_RENDER_DISTANCE = 12.0f;
 
     // private members  ########################################################
     // references
@@ -67,6 +67,12 @@ public class PieceScript: MonoBehaviour {
     private BeatmapPrefabsPool prefabPool;
     private float lastBeatLineOnBeat;
     private float lastBarlineOnBeat;
+
+    /// <summary>
+    /// current beat count, <c>0.0f</c> at start,
+    /// consistent in the same <c>Update()</c>
+    /// </summary>
+    private float currentBeatCount;
 
     /// <summary>
     /// local dynamic copy used for render Q
@@ -114,6 +120,9 @@ public class PieceScript: MonoBehaviour {
     }
 
     public void Update() {
+        // calculate current beat count
+        currentBeatCount = audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+
         UpdateBeatmap();
         UpdatePlayer();
     }
@@ -213,10 +222,8 @@ public class PieceScript: MonoBehaviour {
     /// handle update of beatmap element prefabs
     /// </summary>
     private void UpdateBeatmap() {
-        float beatCount = CalcCurrentBeatCount();
-
         // place beatLine  -----------------------------------------------------
-        float renderBoundaryOnBeat = beatCount
+        float renderBoundaryOnBeat = currentBeatCount
                 + BARLINE_RENDER_DISTANCE * beatPerBar;
         while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
             float placeOnBeat = lastBeatLineOnBeat + 1.0f;
@@ -228,7 +235,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // place barline  ------------------------------------------------------
-        renderBoundaryOnBeat = beatCount + BARLINE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + BARLINE_RENDER_DISTANCE;
         while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
             float placeOnBeat = lastBarlineOnBeat + beatPerBar;
 
@@ -239,10 +246,10 @@ public class PieceScript: MonoBehaviour {
         }
 
         // fixme barline placement overlaps beat lines
-        // bug 1st barline missing
+        // BUG 1st barline missing
 
         // render notes  -------------------------------------------------------
-        renderBoundaryOnBeat = beatCount + NOTE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + NOTE_RENDER_DISTANCE;
 
         while (notesRenderQ.Count > 0) {
             var next = notesRenderQ.Peek();
@@ -265,7 +272,6 @@ public class PieceScript: MonoBehaviour {
         }
     }
 
-
     // Control Player  #########################################################
 
     /// <summary>
@@ -274,17 +280,14 @@ public class PieceScript: MonoBehaviour {
     private void UpdatePlayer() {
         // update user horizontal position
         Vector2 newPosition = new(
-                CalcXFromBeat(CalcCurrentBeatCount()), playerRB.position.y);
+                CalcXFromBeat(currentBeatCount), playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
 
+    // Judge System  ###########################################################
+
 
     // helpers  ################################################################
-
-    /// <returns>beat count, is <c>0.0f</c> at origin</returns>
-    private float CalcCurrentBeatCount() {
-        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
-    }
 
     private float CalcXFromBeat(float beatCnt) {
         return origin.x + beatCnt * beatmap.BeatSpeed;
