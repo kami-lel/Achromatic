@@ -196,7 +196,7 @@ public class PieceScript: MonoBehaviour {
 
 
 
-        // TODO
+        // TODO barline & notes
     }
 
 
