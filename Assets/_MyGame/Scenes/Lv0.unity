@@ -1060,6 +1060,39 @@ MonoBehaviour:
   player: {fileID: 1092030811}
   tmpJudgeResult: {fileID: 1465773383}
   tmpCombo: {fileID: 1017411630}
+  tmpTextboxCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00086672977
+      value: 1.0769037
+      inSlope: 0.043970272
+      outSlope: 0.043970272
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.24010316
+      value: 1.0178592
+      inSlope: -0.28883782
+      outSlope: -0.28883782
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.9772662
+      outWeight: 0.17034177
+    - serializedVersion: 3
+      time: 0.5
+      value: 1.0047607
+      inSlope: -0.10714889
+      outSlope: -0.10714889
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6575408
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &807194026
 GameObject:
   m_ObjectHideFlags: 0
@@ -9074,7 +9107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 170, y: 119}
+  m_AnchoredPosition: {x: 168, y: 145}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1017411630

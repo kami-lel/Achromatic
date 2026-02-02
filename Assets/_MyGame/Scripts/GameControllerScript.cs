@@ -14,6 +14,9 @@ public class GameControllerScript: MonoBehaviour {
     [SerializeField]
     private TMPro.TextMeshProUGUI tmpCombo;
 
+    [SerializeField]
+    private AnimationCurve tmpTextboxCurve;
+
     // public members  #########################################################
 
     /// <summary>
@@ -24,6 +27,8 @@ public class GameControllerScript: MonoBehaviour {
     [NonSerialized]
     public PlayerScript playerScript;
 
+    private float lastTriggerTime;
+
     // class method  ###########################################################
     /// <returns>singleton player</returns>
     public static GameObject GetPlayer() {
@@ -33,7 +38,6 @@ public class GameControllerScript: MonoBehaviour {
 
         return Instance.player;
     }
-
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
@@ -57,6 +61,11 @@ public class GameControllerScript: MonoBehaviour {
         tmpJudgeResult.gameObject.SetActive(false);
     }
 
+    private void Update() {
+        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
+        tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
+    }
+
     // public methods  =========================================================
     // hack tmp method
     public void tmpUpdateText(
@@ -68,15 +77,17 @@ public class GameControllerScript: MonoBehaviour {
             tmpJudgeResult.gameObject.SetActive(true);
         }
 
+
         tmpCombo.text = $"{combo} hits\nscore:{runningScore}";
 
         string judgeText;
 
-        // TODO changing text box size
         if ((judgeResult & JudgeResult.PERFECT) != 0) {
             judgeText = "Perfect!";
         } else {
             judgeText = judgeResult switch {
+                JudgeResult.NO_HIT => "No Hit!",
+                JudgeResult.INCORRECT => "Wrong!",
                 JudgeResult.EARLY_MISS => "Miss! Too Early",
                 JudgeResult.EARLY_GREAT => "Great! Too Early",
                 JudgeResult.EARLY_GOOD => "Good! Too Early",
@@ -88,5 +99,7 @@ public class GameControllerScript: MonoBehaviour {
         }
 
         tmpJudgeResult.text = judgeText;
+
+        lastTriggerTime = Time.time;
     }
 }
