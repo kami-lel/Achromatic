@@ -49,7 +49,6 @@ public class PieceScript: MonoBehaviour {
     private BeatmapPrefabsPool prefabPool;
     private float lastBeatLineOnBeat;
     private float lastBarlineOnBeat;
-    private float beatsPerBar;
 
     // input related
     private PressedActions pressedActions;
@@ -173,9 +172,8 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         tempoDiv60 = beatmap.Tempo / 60.0f;
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60 - 1.0f;
-        lastBeatLineOnBeat = 0.0f;
-        lastBarlineOnBeat = 0.0f;
-        beatsPerBar = (float) beatmap.BeatPerBar;
+        lastBeatLineOnBeat = 0.9f;
+        lastBarlineOnBeat = 0.9f;
     }
 
     /// <summary>
@@ -185,8 +183,15 @@ public class PieceScript: MonoBehaviour {
         float beatCount = CalcCurrentBeatCount();
 
         // place beatLine  -----------------------------------------------------
-        if (beatCount - lastBeatLineOnBeat >= 1.0f) {
+        while (beatCount - lastBeatLineOnBeat >= 1.0f) {
+            float placeOnBeat = (float) Math.Ceiling(lastBeatLineOnBeat);
+            float placeOnX = (placeOnBeat - 1.0f) * beatmap.BeatSpeed
+                    - origin.x;
 
+            prefabPool.Spawn("beatLine", new Vector2(placeOnX, 0.0f));
+
+            lastBarlineOnBeat = placeOnBeat;
+            // BUG BUG BUG
         }
 
 
