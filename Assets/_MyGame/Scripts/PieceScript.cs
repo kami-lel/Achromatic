@@ -32,10 +32,11 @@ public class PieceScript: MonoBehaviour {
     private TextAsset beatmapFile;
 
     /// <summary>
-    /// should be <c>1.0f</c>, unless during debug
+    /// start this piece of music at bar <i>n</i>,
+    /// default to <c>0.0f</c> for normal play
     /// </summary>
     [SerializeField]
-    private float musicStaringBar = 1.0f;
+    private float musicStaringBar = 0.0f;
 
     // Todo place some of these constants in json
     // constants  ##############################################################
@@ -118,7 +119,7 @@ public class PieceScript: MonoBehaviour {
         OnEnableBeatmap();
 
         // start the music
-        if (musicStaringBar != 1.0f) {
+        if (musicStaringBar != 0.0f) {
             // start music midpoint, for debug purpose
             audioSource.time = (musicStaringBar - 1.0f)
                     * beatPerBar
