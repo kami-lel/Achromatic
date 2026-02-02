@@ -69,6 +69,8 @@
     },
     "dotnet.defaultSolution": "usc-ctin532-game-project.slnx",
     "cSpell.words": [
-        "Beatmap","subbeat"
+        "Barline",
+        "Beatmap",
+        "subbeat"
     ]
 }

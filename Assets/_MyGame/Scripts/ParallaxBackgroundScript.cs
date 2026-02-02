@@ -6,7 +6,7 @@ public class ParallaxBackgroundScript: MonoBehaviour {
 
     private float length,
         startpos;
-    public GameObject cam;
+    public UnityEngine.GameObject cam;
     public float parallaxEffect;
 
     void Start() {
