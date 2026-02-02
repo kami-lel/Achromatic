@@ -4,12 +4,22 @@ using System.Collections.Generic;
 
 public class JudgeCriteria {
 
-    private Queue<NoteTiming> timings;
+    private Queue<Timing> timings;
     public EventHandler onDetectPassByMiss;
 
     public JudgeCriteria(BeatmapData beatmap) {
         // pre-calculate all judge timings
-        // TODO
+        timings = new();
+
+        float beat0time = beatmap.PreludeLength;
+        float secondPerBeat = 60.0f / beatmap.Tempo;
+
+        foreach (BeatmapNote note in beatmap.notes) {
+            // per note
+            float centerTiming = secondPerBeat * note.CalcBeatCount()
+                    + beat0time;
+            timings.Enqueue(new Timing(centerTiming));
+        }
     }
 
     public JudgeResult Judge(float time) {
@@ -26,7 +36,7 @@ public class JudgeCriteria {
             return;
         }
 
-        NoteTiming noteTiming = timings.Peek();
+        Timing noteTiming = timings.Peek();
 
         while (noteTiming.IsPassByMiss(time)) {
             // detect pass-by miss
@@ -39,8 +49,7 @@ public class JudgeCriteria {
         }
     }
 
-
-    public class NoteTiming {
+    public class Timing {
 
         // todo dynamic time deltas
         private const float perfectDelta = 0.05f;
@@ -54,7 +63,7 @@ public class JudgeCriteria {
         private float rightGreatBound;
         private float rightPerfectBound;
 
-        public NoteTiming(float centerTiming) {
+        public Timing(float centerTiming) {
             leftGoodBound = centerTiming - goodDelta;
             leftGreatBound = centerTiming - greatDelta;
             leftPerfectBound = centerTiming - perfectDelta;
@@ -68,7 +77,7 @@ public class JudgeCriteria {
         }
 
         public bool IsPassByMiss(float time) {
-            return time < leftGoodBound;
+            return time > rightGoodBound;
         }
 
 

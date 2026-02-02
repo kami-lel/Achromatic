@@ -71,7 +71,7 @@ public class PieceScript: MonoBehaviour {
     private float currentBeatCount;
 
     /// <summary>
-    /// local dynamic copy used for render 
+    /// local dynamic copy used for render
     /// </summary>
     private Queue<BeatmapNote> notesRenderQ;
 
