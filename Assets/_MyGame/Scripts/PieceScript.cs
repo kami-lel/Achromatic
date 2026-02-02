@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Bug prelude not functioning, currently only working w/ prelude = 0
+// BUG prelude not functioning, currently only working w/ prelude = 0
 // todo allows & give feedback for smashing input during empty sessions
 // todo need to be **fast** for sense of velocity
 // Todo score system
@@ -32,7 +32,7 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // Todo better organization, put offset & render distance in json
+    // TODO organize offset & json prelude
     [SerializeField]
     private float audioStartOffset = 0.0f; // in sec
 
@@ -44,6 +44,7 @@ public class PieceScript: MonoBehaviour {
 
     // TODO start bar field, for debug, such that it does not play from start
 
+    // Todo place some of these constants in json
     // constants  ##############################################################
     /// <summary>
     /// how many bars in advance that barline & beat lines will shown
