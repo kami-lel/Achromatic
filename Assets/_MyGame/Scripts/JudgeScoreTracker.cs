@@ -2,8 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 
+// TODO combo
+// Todo docs
 public class JudgeScoreTracker {
 
     /// <summary>
@@ -54,8 +57,16 @@ public class JudgeScoreTracker {
         runningScore += perResultScoresInt[(int)judgeResult];
     }
 
-    public void CalcFinalScore() {
+    public int CalcFinalScore() {
+        float finalScore = 0.0f;
 
+        foreach (JudgeResult result
+                in Enum.GetValues(typeof(JudgeResult))) {
+            float score = perResultScores[(int)result] * resultCnt[result];
+            finalScore += score;
+        }
+
+        return Mathf.RoundToInt(finalScore);
     }
 
 
