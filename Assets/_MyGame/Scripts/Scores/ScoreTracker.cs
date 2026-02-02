@@ -43,6 +43,7 @@ public class ScoreTracker {
     private readonly int[] perResultScoresInt;
 
     public ScoreTracker(BeatmapData beatmap) {
+        return;  // HACK
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<JudgeResult, int>();
         foreach (JudgeResult result
@@ -74,6 +75,9 @@ public class ScoreTracker {
     }
 
     public void Record(JudgeResult judgeResult) {
+
+        Debug.Log("ScoreTracker:Record: "
+                + $"judge:{judgeResult}");
         return;  // TODO upgrade use new enums
 
         // record the result
@@ -92,8 +96,8 @@ public class ScoreTracker {
             }
         }
 
-        Debug.Log("ScoreTracker:Record: "
-                + $"judge:{judgeResult}\tscore:{runningScore}");
+        Debug.Log("ScoreTracker:Record:\t"
+                + $"judge: {judgeResult}\tscore:{runningScore}");
     }
 
     /// <returns>final correct/precise score</returns>

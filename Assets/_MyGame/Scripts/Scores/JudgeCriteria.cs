@@ -30,7 +30,6 @@ public class JudgeCriteria {
             return JudgeResult.NO_HIT;
         }
 
-
         Timing timing = timings.Peek();
         if (timing.IsInJudgingRange(time)) {
             timing = timings.Dequeue();
@@ -68,7 +67,7 @@ public class JudgeCriteria {
         // todo dynamic time deltas
         private const float perfectDelta = 0.05f;
         private const float greatDelta = 0.10f;
-        private const float goodDelta = 0.20f;
+        private const float goodDelta = 0.30f;
 
         private readonly float startJudgeBound;
         private readonly float center;
