@@ -138,7 +138,6 @@ public class PieceScript: MonoBehaviour {
 
     // input manage  ###########################################################
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        Debug.Log(ctxt + "\t" + ctxt.action.name + "\t" + ctxt.action.phase);
         InputAction a = ctxt.action;
 
         switch (a.phase) {

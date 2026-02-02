@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   player: {fileID: 1092030811}
-  tmpPiece: {fileID: 0}
+  tmpPiece: {fileID: 458545829}
 --- !u!1 &807194026
 GameObject:
   m_ObjectHideFlags: 0
