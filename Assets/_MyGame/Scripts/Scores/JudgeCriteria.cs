@@ -22,12 +22,20 @@ public class JudgeCriteria {
     /// used in <c>Update()</c>
     /// </summary>
     public void DetectPassByMiss(float time) {
+        if (timings.Count <= 0) {
+            return;
+        }
 
         NoteTiming noteTiming = timings.Peek();
-        while (timings.Count > 0 && noteTiming.IsPassByMiss(time)) {
+
+        while (noteTiming.IsPassByMiss(time)) {
             // detect pass-by miss
-            timings.Dequeue();
             onDetectPassByMiss?.Invoke(this, EventArgs.Empty);
+
+            timings.Dequeue();
+            if (timings.Count <= 0) {
+                break;
+            }
         }
     }
 
