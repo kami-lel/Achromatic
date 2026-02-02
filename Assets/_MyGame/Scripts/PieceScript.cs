@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// bug prelude not functioning, currently only working w/ prelude = 0
+// Bug prelude not functioning, currently only working w/ prelude = 0
 // todo allows & give feedback for smashing input during empty sessions
 // todo need to be **fast** for sense of velocity
 // Todo score system

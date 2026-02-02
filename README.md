@@ -13,5 +13,3 @@ use 2 keys to control:
 
 <!-- Todo longer song beatmaps -->
 
-<!-- TODO fix maps -->
-

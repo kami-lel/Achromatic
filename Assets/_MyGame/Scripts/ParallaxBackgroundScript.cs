@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ParallaxBackgroundScript: MonoBehaviour {
 
-    // todo implement parallax bg
+    // Todo implement parallax bg
 
     private float length,
         startpos;
