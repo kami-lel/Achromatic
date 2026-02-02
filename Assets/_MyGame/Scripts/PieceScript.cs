@@ -175,9 +175,10 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
+        // TODO user movement during music
         JudgeResult judgeResult = PerformJudge();
 
-        // TODO control user
+        // Todo visual & audio feedback for good/bad action
     }
 
     // helper enum  ============================================================
