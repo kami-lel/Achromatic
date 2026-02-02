@@ -161,7 +161,7 @@ public class PieceScript: MonoBehaviour {
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
 
         // load element prefabs
-        elementsPool = new BeatmapElementsPool(
+        elementsPool = new BeatmapPrefabsPool(
                 GameControllerScript.Instance.transform);
 
 
@@ -197,4 +197,4 @@ public class PieceScript: MonoBehaviour {
 }
 
 
-// FIXME map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
+// fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
