@@ -36,6 +36,12 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float audioStartOffset = 0.0f; // in sec
 
+    /// <summary>
+    /// should be <c>1.0f</c>, unless during debug
+    /// </summary>
+    [SerializeField]
+    private float musicStaringBar = 1.0f;
+
     // TODO start bar field, for debug, such that it does not play from start
 
     // constants  ##############################################################
@@ -118,6 +124,13 @@ public class PieceScript: MonoBehaviour {
         OnEnableBeatmap();
 
         // start the music
+        if (musicStaringBar != 1.0f) {
+            // start music midpoint, for debug purpose
+            // BUG not consider prelude
+            audioSource.time = (musicStaringBar - 1.0f)
+                    * beatPerBar
+                    * (60.0f / beatmap.Tempo);
+        }
         audioSource.Play();
 
     }
