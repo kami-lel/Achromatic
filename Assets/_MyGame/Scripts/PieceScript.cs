@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting.FullSerializer;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,11 +31,6 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // constants  ##############################################################
-    // elements Prefab in Resources --------------------------------------------
-    private const string BARLINE_PATH = "Prefabs/BeatmapElements/Barline";
-    private const string BEAT_LINE_PATH = "Prefabs/BeatmapElements/BeatLine";
-
     // private members  ########################################################
     // references
     private AudioSource audioSource;
@@ -53,12 +45,8 @@ public class PieceScript: MonoBehaviour {
     private float preludeOffsetAsBeat;
     private BeatmapElementsPool elementsPool;
 
-
     // input related
     private PressedActions pressedActions;
-
-
-
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -78,18 +66,7 @@ public class PieceScript: MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
-        // load & set up beatmap
-        if (beatmapFile == null) {
-            Debug.LogWarning("PieceScript: must provide beatmapFile");
-        }
-        beatmap = JsonUtility.FromJson<PieceBeatmap>(beatmapFile.text);
-
-        tempoDiv60 = beatmap.tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
-
-        // load element prefabs
-        elementsPool = new BeatmapElementsPool(
-                GameControllerScript.Instance.transform);
+        AwakeBeatmap();
     }
 
     public void OnEnable() {
@@ -168,9 +145,7 @@ public class PieceScript: MonoBehaviour {
         POWER_JUMP = 1 << 2,
     }
 
-    // Beatmap Elements  #######################################################
-
-
+    // Beatmap control #########################################################
     private class BeatmapElementsPool: IDisposable {  // =======================
 
         // constants  **********************************************************
@@ -185,9 +160,11 @@ public class PieceScript: MonoBehaviour {
         private const string PREFAB_FOLDER_PATH =
                 "Prefabs/BeatmapElements/";
 
+        /// <summary>
+        /// element prefab names under "Prefabs/BeatmapElements/"
+        /// </summary>
         private static readonly string[] ELEMENTS_NAMES =
                 { "Barline", "BeatLine" };
-
 
         /// <summary>
         /// singleton collection of prefabs
@@ -368,6 +345,24 @@ public class PieceScript: MonoBehaviour {
 
     }
 
+
+    /// <summary>
+    /// handle awake of beatmap element prefabs
+    /// </summary>
+    private void AwakeBeatmap() {
+        // load & set up beatmap
+        if (beatmapFile == null) {
+            Debug.LogWarning("PieceScript: must provide beatmapFile");
+        }
+        beatmap = JsonUtility.FromJson<PieceBeatmap>(beatmapFile.text);
+
+        tempoDiv60 = beatmap.tempo / 60.0f;
+        preludeOffsetAsBeat = beatmap.preludeLength * tempoDiv60;
+
+        // load element prefabs
+        elementsPool = new BeatmapElementsPool(
+                GameControllerScript.Instance.transform);
+    }
 
     /// <summary>
     /// handle update of beatmap element prefabs
