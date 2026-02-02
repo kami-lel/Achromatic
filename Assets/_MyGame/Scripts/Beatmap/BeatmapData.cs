@@ -59,7 +59,6 @@ public class BeatmapData {
     /// </summary>
     public float beatPerDivision;
 
-
     public Queue<BeatmapNote> notes;
 
     // private properties  =====================================================
@@ -75,6 +74,11 @@ public class BeatmapData {
         foreach (BeatmapJsonData.BeatmapJsonDataNote jsonNote
                 in jsonData.notes) {
             notes.Enqueue(new BeatmapNote(this, jsonNote));
+        }
+
+        if (notes.Count == 0) {
+            Debug.LogError("BeatmapData: beatmap contains no notes: "
+                    + beatmapFile.name);
         }
     }
 }

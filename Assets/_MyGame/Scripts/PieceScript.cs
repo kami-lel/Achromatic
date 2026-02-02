@@ -287,10 +287,6 @@ public class PieceScript: MonoBehaviour {
     }
 
     // Judge System  ###########################################################
-    private enum JudgeResult {
-        MISS, GOOD, GREAT, PERFECT
-    }
-
     private JudgeResult PerformJudge() {
         // TODO implement judge system
         return JudgeResult.MISS;
