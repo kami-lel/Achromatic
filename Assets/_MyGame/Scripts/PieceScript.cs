@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -67,6 +68,11 @@ public class PieceScript: MonoBehaviour {
     private float lastBeatLineOnBeat;
     private float lastBarlineOnBeat;
 
+    /// <summary>
+    /// local dynamic copy used for render Q
+    /// </summary>
+    private Queue<BeatmapNote> notesRenderQ;
+
     // input related
     private PressedActions pressedActions;
 
@@ -100,8 +106,11 @@ public class PieceScript: MonoBehaviour {
         playerInput.onActionTriggered += OnActionTriggered;
         pressedActions = PressedActions.NONE;
 
+        OnEnableBeatmap();
+
         // start the music
         audioSource.Play();
+
     }
 
     public void Update() {
@@ -180,19 +189,24 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new BeatmapData(beatmapFile);
 
-
         // load element prefabs
         prefabPool = new BeatmapPrefabsPool(
                 GameControllerScript.Instance.transform);
-
 
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
         preludeOffsetAsBeat = (beatmap.PreludeLength + audioStartOffset)
                 * tempoDiv60;
+    }
+
+    /// <summary>
+    /// handle OnEnable of beatmap element prefabs
+    /// </summary>
+    private void OnEnableBeatmap() {
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
+        notesRenderQ = new(beatmap.notes);
     }
 
     /// <summary>
@@ -230,15 +244,15 @@ public class PieceScript: MonoBehaviour {
         // render notes  -------------------------------------------------------
         renderBoundaryOnBeat = beatCount + NOTE_RENDER_DISTANCE;
 
-        while (beatmap.notes.Count > 0) {
-            var next = beatmap.notes.Peek();
+        while (notesRenderQ.Count > 0) {
+            var next = notesRenderQ.Peek();
             float noteOnBeat = next.CalcBeatCount();
 
             if (noteOnBeat >= renderBoundaryOnBeat)
                 break;
 
             // place the note
-            BeatmapNote note = beatmap.notes.Dequeue();
+            BeatmapNote note = notesRenderQ.Dequeue();
 
             string prefabName = note.type switch {
                 BeatmapNoteType.JUMP => "JumpNote",
