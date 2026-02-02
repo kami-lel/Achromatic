@@ -1,5 +1,8 @@
 
-// TODO add no hit
 public enum JudgeResult {
-    MISS = 0, GOOD = 1, GREAT = 2, PERFECT = 3
+    NO_HIT = 0,
+    MISS = 1,
+    GOOD = 2,
+    GREAT = 3,
+    PERFECT = 4
 }

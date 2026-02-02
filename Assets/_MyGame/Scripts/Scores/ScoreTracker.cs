@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO add no hit
-
 // Todo docs
 public class ScoreTracker {
 
@@ -63,6 +61,7 @@ public class ScoreTracker {
         perResultScores[(int)JudgeResult.GREAT] = greatScore;
         perResultScores[(int)JudgeResult.GOOD] = goodScore;
         perResultScores[(int)JudgeResult.MISS] = 0.0f;
+        perResultScores[(int)JudgeResult.NO_HIT] = 0.0f;
 
         // init perResultScoresInt ---------------------------------------------
         perResultScoresInt = new int[enumTypeCount];
@@ -82,7 +81,7 @@ public class ScoreTracker {
         runningScore += perResultScoresInt[(int)judgeResult];
 
         // record combo
-        if (judgeResult == JudgeResult.MISS) {
+        if (judgeResult <= JudgeResult.MISS) {
             combo = 0;  // miss, reset combo
         } else {
             combo += 1;
