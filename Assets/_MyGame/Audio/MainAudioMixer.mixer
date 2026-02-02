@@ -123,7 +123,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PieceSFX
+  m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 12a4e36950475ad43b15a2f33ad1793a
   m_Children: []
