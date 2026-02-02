@@ -20,7 +20,7 @@ public class BeatmapPrefabsPool: IDisposable {
     /// element prefab names under "Prefabs/BeatmapElements/"
     /// </summary>
     private static readonly string[] ELEMENTS_NAMES =
-            { "Barline", "BeatLine" };
+            { "Barline", "BeatLine", "JumpNote", "DashNote"};
 
     // private properties  =====================================================
     private static Dictionary<string, GameObject> prefabs;

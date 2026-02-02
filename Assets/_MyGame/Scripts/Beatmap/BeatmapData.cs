@@ -39,9 +39,10 @@ public class BeatmapData {
     /// </summary>
     public float Tempo => jsonData.tempo;
 
+    public Queue<BeatmapNote> notes;
+
     // private properties  =====================================================
     private readonly BeatmapJsonData jsonData;
-    private readonly Queue<BeatmapNote> notes;
 
     // constructor  ============================================================
     public BeatmapData(TextAsset beatmapFile) {
@@ -84,7 +85,8 @@ public class BeatmapNote {
 
     private readonly BeatmapJsonData.BeatmapJsonDataNote jsonNote;
 
-    public BeatmapNote(BeatmapJsonData.BeatmapJsonDataNote jsonNote) {
+    public BeatmapNote(
+            BeatmapJsonData.BeatmapJsonDataNote jsonNote) {
         this.jsonNote = jsonNote;
 
         // convert string to enum type
@@ -94,6 +96,10 @@ public class BeatmapNote {
             _ => throw new InvalidOperationException(
                 $"BeatmapNote: bad note type: {jsonNote.type}")
         };
+    }
+
+    public float CalcBeatCount(float beatPerBar) {
+        return (jsonNote.bar - 1) * beatPerBar + (jsonNote.beat - 1);
     }
 }
 

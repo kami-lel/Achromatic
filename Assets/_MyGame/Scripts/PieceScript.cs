@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,6 +38,16 @@ public class PieceScript: MonoBehaviour {
     /// how many bars in advance that barline & beat lines will shown
     /// </summary>
     private const float BARLINE_RENDER_DISTANCE = 2.0f;
+
+    /// <summary>
+    /// height of note on board
+    /// </summary>
+    private const float NOTES_HEIGHT = 2.0f;
+
+    /// <summary>
+    /// how many beats before player, notes should render
+    /// </summary>
+    private const float NOTE_RENDER_DISTANCE = 2.0f;
 
     // private members  ########################################################
     // references
@@ -177,9 +188,23 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60 - 1.0f;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
+
+        // HACK
+        prefabPool.Spawn("JumpNote",
+                new Vector2(1.0f, 0.0f));
+        prefabPool.Spawn("JumpNote",
+                new Vector2(2.0f, 0.0f));
+        prefabPool.Spawn("JumpNote",
+                new Vector2(3.0f, 0.0f));
+        prefabPool.Spawn("DashNote",
+                new Vector2(4.0f, 0.0f));
+        prefabPool.Spawn("DashNote",
+                new Vector2(5.0f, 0.0f));
+        prefabPool.Spawn("DashNote",
+                new Vector2(6.0f, 0.0f));
     }
 
     /// <summary>
@@ -189,9 +214,9 @@ public class PieceScript: MonoBehaviour {
         float beatCount = CalcCurrentBeatCount();
 
         // place beatLine  -----------------------------------------------------
-        float renderBeatCount = beatCount
+        float renderBoundaryOnBeat = beatCount
                 + BARLINE_RENDER_DISTANCE * beatPerBar;
-        while (renderBeatCount - lastBeatLineOnBeat > 1.0f) {
+        while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
             float placeOnBeat = lastBeatLineOnBeat + 1.0f;
 
             prefabPool.Spawn("BeatLine",
@@ -201,8 +226,8 @@ public class PieceScript: MonoBehaviour {
         }
 
         // place barline  ------------------------------------------------------
-        renderBeatCount = beatCount + BARLINE_RENDER_DISTANCE;
-        while (renderBeatCount - lastBarlineOnBeat > beatPerBar) {
+        renderBoundaryOnBeat = beatCount + BARLINE_RENDER_DISTANCE;
+        while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
             float placeOnBeat = lastBarlineOnBeat + beatPerBar;
 
             prefabPool.Spawn("Barline",
@@ -213,12 +238,30 @@ public class PieceScript: MonoBehaviour {
             lastBarlineOnBeat = placeOnBeat;
         }
 
-        // fixme beatmap overlaps barline
+        // fixme barline placement overlaps beat lines
 
+        // render notes  -------------------------------------------------------
+        renderBoundaryOnBeat = beatCount + NOTE_RENDER_DISTANCE;
 
-        return;
+        while (beatmap.notes.Count > 0) {
+            var next = beatmap.notes.Peek();
+            float noteOnBeat = next.CalcBeatCount(beatPerBar);
 
-        // TODO place notes
+            if (noteOnBeat >= renderBoundaryOnBeat)
+                break;
+
+            // place the note
+            BeatmapNote note = beatmap.notes.Dequeue();
+
+            string prefabName = note.type switch {
+                BeatmapNoteType.JUMP => "JumpNote",
+                BeatmapNoteType.DASH => "DashNote",
+                _ => null
+            };
+
+            prefabPool.Spawn(prefabName,
+                    new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
+        }
     }
 
 
@@ -237,7 +280,7 @@ public class PieceScript: MonoBehaviour {
 
     // helpers  ################################################################
 
-    /// <returns>beat count, starting at 1</returns>
+    /// <returns>beat count, is <c>0.0f</c> at origin</returns>
     private float CalcCurrentBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
