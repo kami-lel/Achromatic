@@ -89,6 +89,9 @@ public class ScoreTracker {
                 maxCombo = combo;
             }
         }
+
+        Debug.Log("ScoreTracker:Record: "
+                + $"judge:{judgeResult}\tscore:{runningScore}");
     }
 
     /// <returns>final correct/precise score</returns>

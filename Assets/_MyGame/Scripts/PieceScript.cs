@@ -183,7 +183,6 @@ public class PieceScript: MonoBehaviour {
     private void Trigger() {
         // Todo user movement during music
         JudgeResult judgeResult = judgeCriteria.Judge(audioSource.time);
-
         scoreTracker.Record(judgeResult);
 
         // Todo visual & audio feedback for good/bad action
@@ -309,6 +308,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     void OnDetectPassByMiss(object sender, EventArgs e) {
+        scoreTracker.Record(JudgeResult.MISS);
         Debug.Log("Pass-By Miss");  // HACK
     }
     // helpers  ################################################################

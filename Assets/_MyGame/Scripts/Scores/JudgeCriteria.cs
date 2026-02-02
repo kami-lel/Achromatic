@@ -25,10 +25,18 @@ public class JudgeCriteria {
     }
 
     public JudgeResult Judge(float time) {
+        if (timings.Count <= 0) {
+            return JudgeResult.NO_HIT;
+        }
 
+        Timing timing = timings.Peek();
+        if (timing.IsInJudgingRange(time)) {
+            timing = timings.Dequeue();
+            return timing.Judge(time);
 
-
-        return JudgeResult.MISS;  // TODO
+        } else {
+            return JudgeResult.NO_HIT;
+        }
     }
 
     /// <summary>
@@ -59,12 +67,12 @@ public class JudgeCriteria {
         private const float greatDelta = 0.10f;
         private const float goodDelta = 0.20f;
 
-        private float leftGoodBound;
-        private float leftGreatBound;
-        private float leftPerfectBound;
-        public float rightGoodBound; // HACK public
-        private float rightGreatBound;
-        private float rightPerfectBound;
+        private readonly float leftGoodBound;
+        private readonly float leftGreatBound;
+        private readonly float leftPerfectBound;
+        private readonly float rightGoodBound;
+        private readonly float rightGreatBound;
+        private readonly float rightPerfectBound;
 
         public Timing(float centerTiming) {
             leftGoodBound = centerTiming - goodDelta;
@@ -75,15 +83,23 @@ public class JudgeCriteria {
             rightPerfectBound = centerTiming + perfectDelta;
         }
 
-        public JudgeResult Judge(float timing) {
-            return JudgeResult.MISS;  // TODO
+        public JudgeResult Judge(float time) {
+            if (leftPerfectBound < time && time < rightPerfectBound) {
+                return JudgeResult.PERFECT;
+            } else if (leftGreatBound < time && time < rightGreatBound) {
+                return JudgeResult.GREAT;
+            } else if (leftGoodBound < time && time < rightGoodBound) {
+                return JudgeResult.GOOD;
+            } else {
+                return JudgeResult.MISS;
+            }
         }
 
         public bool IsPassByMiss(float time) {
             return time > rightGoodBound;
         }
 
-        private bool IsInJudgingRange(float time) {
+        public bool IsInJudgingRange(float time) {
             return time < leftGoodBound;
         }
     }
