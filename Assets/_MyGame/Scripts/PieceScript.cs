@@ -38,22 +38,12 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float musicStaringBar = 0.0f;
 
-    // TODO place some of these constants in json
     // constants  ##############################################################
-    /// <summary>
-    /// how many bars in advance that barline & beat lines will shown
-    /// </summary>
-    private const float BARLINE_RENDER_DISTANCE = 5.0f;
 
     /// <summary>
     /// height of note on board
     /// </summary>
-    private const float NOTES_HEIGHT = 2.5f;
-
-    /// <summary>
-    /// how many beats before player, notes should render
-    /// </summary>
-    private const float NOTE_RENDER_DISTANCE = 12.0f;
+    private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
 
     // private members  ########################################################
     // references
@@ -236,7 +226,7 @@ public class PieceScript: MonoBehaviour {
     private void UpdateBeatmap() {
         // place beatLine  -----------------------------------------------------
         float renderBoundaryOnBeat = currentBeatCount
-                + BARLINE_RENDER_DISTANCE * beatPerBar;
+                + beatmap.BarlineRenderDistance * beatPerBar;
         while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
             float placeOnBeat = lastBeatLineOnBeat + 1.0f;
 
@@ -247,7 +237,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // place barline  ------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + BARLINE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + beatmap.BarlineRenderDistance;
         while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
             float placeOnBeat = lastBarlineOnBeat + beatPerBar;
 
@@ -261,7 +251,7 @@ public class PieceScript: MonoBehaviour {
         // Bug 1st barline missing
 
         // render notes  -------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + NOTE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + beatmap.NoteRenderDistance;
 
         while (notesRenderQ.Count > 0) {
             var next = notesRenderQ.Peek();
