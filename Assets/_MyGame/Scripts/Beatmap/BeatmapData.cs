@@ -140,8 +140,6 @@ public enum BeatmapNoteType {
 }
 
 
-
-
 // BeatmapJsonData  ############################################################
 /// <summary>
 /// a <b>Serializable</b> equivalent of <c>BeatmapData</c>

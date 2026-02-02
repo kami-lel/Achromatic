@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// TODO remove entire code
 public class BeatmapElementsPool: IDisposable {
 
     // constants  ==============================================================
