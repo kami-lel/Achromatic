@@ -4,6 +4,8 @@
   "preludeLength": 2.43,
   "tempo": 105.0,
   "beatSubdivision": 4,
+  "barlineRenderDistance": 3.0,
+  "noteRenderDistance": 12.0,
   "notes": [
     {
       "bar": 1,
