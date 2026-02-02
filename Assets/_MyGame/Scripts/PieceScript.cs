@@ -98,10 +98,11 @@ public class PieceScript: MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
-        scoreTracker = new(beatmap);
 
         AwakeBeatmap();
-        judgeCriteria = new();
+        AwakeJudge();
+
+        scoreTracker = new(beatmap);
     }
 
     public void OnEnable() {
@@ -132,7 +133,7 @@ public class PieceScript: MonoBehaviour {
 
         UpdateBeatmap();
         UpdatePlayer();
-        judgeCriteria.DetectMiss();
+        judgeCriteria.DetectPassByMiss(audioSource.time);
     }
 
     private void OnDisable() {
@@ -287,11 +288,6 @@ public class PieceScript: MonoBehaviour {
         }
     }
 
-    // helper  *****************************************************************
-    private float CalcTimeFromBeatCount(float beatCount) {
-        return 0.0f;  // TODO
-    }
-
 
     // Control Player  #########################################################
 
@@ -305,6 +301,16 @@ public class PieceScript: MonoBehaviour {
         playerRB.MovePosition(newPosition);
     }
 
+
+    // Judging #################################################################
+    private void AwakeJudge() {
+        judgeCriteria = new(beatmap);
+        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
+    }
+
+    void OnDetectPassByMiss(object sender, EventArgs e) {
+        Debug.Log("Pass-By Miss");  // HACK
+    }
     // helpers  ################################################################
 
     /// <returns>realtime beat count based on Audio Source time,
