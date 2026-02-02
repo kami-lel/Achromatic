@@ -31,9 +31,11 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // todo better organization
+    // todo better organization, put offset & render distance in json
     [SerializeField]
     private float audioStartOffset = 0.0f; // in sec
+
+    // todo start bar field, for debug, such that it does not play from start
 
     // constants  ##############################################################
     /// <summary>

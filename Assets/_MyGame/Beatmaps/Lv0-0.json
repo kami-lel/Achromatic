@@ -1,6 +1,6 @@
 {
   "beatPerBar": 4,
-  "beatSpeed": 3.0,
+  "beatSpeed": 4.0,
   "preludeLength": 0.0,
   "tempo": 105.0,
   "beatSubdivision": 4,
@@ -12,19 +12,43 @@
       "type": "jump"
     },
     {
-      "bar": 2,
-      "beat": 1,
-      "subbeat": 1,
-      "type": "jump"
-    },
-    {
       "bar": 3,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
     },
     {
-      "bar": 4,
+      "bar": 5,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 9,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 10,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 11,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 12,
       "beat": 1,
       "subbeat": 1,
       "type": "jump"
