@@ -77,7 +77,7 @@ public class BeatmapData {
         }
 
         if (notes.Count == 0) {
-            Debug.LogError("BeatmapData: beatmap contains no notes: "
+            Debug.LogError("BeatmapData: beatmap file contains no notes: "
                     + beatmapFile.name);
         }
     }
@@ -150,6 +150,7 @@ public enum BeatmapNoteType {
 // BeatmapJsonData  ############################################################
 /// <summary>
 /// a <b>Serializable</b> equivalent of <c>BeatmapData</c>
+///
 /// to allow save/load as JSON
 /// </summary>
 [Serializable]
