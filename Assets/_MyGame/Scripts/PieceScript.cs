@@ -300,7 +300,7 @@ public class PieceScript: MonoBehaviour {
 
     void OnDetectPassByMiss(object sender, EventArgs e) {
         scoreTracker.Record(JudgeResult.LATE_MISS);
-        // TODO handle pass by miss
+        // Todo handle pass by miss
     }
     // helpers  ################################################################
 
