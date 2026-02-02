@@ -258,7 +258,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // fixme barline placement overlaps beat lines
-        // Bug 1st barline missing
+        // bug 1st barline missing
 
         // render notes  -------------------------------------------------------
         renderBoundaryOnBeat = currentBeatCount + beatmap.NoteRenderDistance;
@@ -309,7 +309,7 @@ public class PieceScript: MonoBehaviour {
 
     private void PlayerDash() {
         SFXMangerScript.Instance.PlayDash();
-        // TODO
+        // TODO player dash
     }
 
 
@@ -321,7 +321,7 @@ public class PieceScript: MonoBehaviour {
 
     void OnDetectPassByMiss(object sender, EventArgs e) {
         scoreTracker.Record(JudgeResult.LATE_MISS);
-        // Todo handle pass by miss
+        // todo handle pass by miss
     }
     // helpers  ################################################################
 
