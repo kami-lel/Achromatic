@@ -86,6 +86,7 @@ public class JudgeCriteria {
         }
 
         public JudgeResult Judge(float time) {
+            // TODO judge early or late?
             if (leftPerfectBound < time && time < rightPerfectBound) {
                 return JudgeResult.PERFECT;
             } else if (leftGreatBound < time && time < rightGreatBound) {
@@ -102,7 +103,7 @@ public class JudgeCriteria {
         }
 
         public bool IsInJudgingRange(float time) {
-            return time < leftGoodBound;
+            return time > leftGoodBound;
         }
     }
 
