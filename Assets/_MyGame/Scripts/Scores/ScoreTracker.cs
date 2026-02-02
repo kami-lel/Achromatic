@@ -1,9 +1,8 @@
-
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO add no hit
 
 // Todo docs
 public class ScoreTracker {

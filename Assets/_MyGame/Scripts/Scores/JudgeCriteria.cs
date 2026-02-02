@@ -25,6 +25,9 @@ public class JudgeCriteria {
     }
 
     public JudgeResult Judge(float time) {
+
+
+
         return JudgeResult.MISS;  // TODO
     }
 
@@ -80,11 +83,9 @@ public class JudgeCriteria {
             return time > rightGoodBound;
         }
 
-        private bool IsTooForwad(float time) {
-
+        private bool IsInJudgingRange(float time) {
+            return time < leftGoodBound;
         }
-
-
     }
 
 }
