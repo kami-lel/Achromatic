@@ -191,20 +191,6 @@ public class PieceScript: MonoBehaviour {
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
-
-        // HACK
-        prefabPool.Spawn("JumpNote",
-                new Vector2(1.0f, 0.0f));
-        prefabPool.Spawn("JumpNote",
-                new Vector2(2.0f, 0.0f));
-        prefabPool.Spawn("JumpNote",
-                new Vector2(3.0f, 0.0f));
-        prefabPool.Spawn("DashNote",
-                new Vector2(4.0f, 0.0f));
-        prefabPool.Spawn("DashNote",
-                new Vector2(5.0f, 0.0f));
-        prefabPool.Spawn("DashNote",
-                new Vector2(6.0f, 0.0f));
     }
 
     /// <summary>
@@ -239,6 +225,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // fixme barline placement overlaps beat lines
+        // bug 1st barline missing
 
         // render notes  -------------------------------------------------------
         renderBoundaryOnBeat = beatCount + NOTE_RENDER_DISTANCE;
