@@ -39,7 +39,6 @@ public class ScoreTracker {
     private readonly int goodScoreInt;
 
 
-
     public ScoreTracker(BeatmapData beatmap) {
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<JudgeResult, int>();
