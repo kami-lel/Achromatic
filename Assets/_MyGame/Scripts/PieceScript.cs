@@ -35,6 +35,11 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float musicStaringBar = 0.0f;
 
+    [SerializeField]
+    private AnimationCurve tmpJumpCurve;
+
+    private float tmpPlayerLastJump;
+
     // constants  ##############################################################
 
     /// <summary>
@@ -294,9 +299,12 @@ public class PieceScript: MonoBehaviour {
     /// handle update of player's control
     /// </summary>
     private void UpdatePlayer() {
+
+        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+
         // update user horizontal position
         Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), origin.y);
+                CalcXFromBeat(currentBeatCount), y);
         playerRB.MovePosition(newPosition);
     }
 
@@ -304,12 +312,11 @@ public class PieceScript: MonoBehaviour {
     private void PlayerJump() {
         SFXMangerScript.Instance.PlayJump();
 
-        // TODO
+        tmpPlayerLastJump = Time.time;
     }
 
     private void PlayerDash() {
         SFXMangerScript.Instance.PlayDash();
-        // TODO player dash
     }
 
 

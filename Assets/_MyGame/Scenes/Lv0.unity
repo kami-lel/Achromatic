@@ -628,6 +628,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
   beatmapFile: {fileID: 4900000, guid: c6061a00dc70a474b92fad8a3927a486, type: 3}
   musicStaringBar: 0
+  tmpJumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 27.08158
+      outSlope: 27.08158
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.0553882
+      value: 1.5
+      inSlope: 1.1942267
+      outSlope: 1.1942267
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1418116
+    - serializedVersion: 3
+      time: 0.4
+      value: 0
+      inSlope: -4.352724
+      outSlope: -4.352724
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!82 &458545832
 AudioSource:
   m_ObjectHideFlags: 0
