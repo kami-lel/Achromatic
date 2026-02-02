@@ -79,7 +79,13 @@ public class BeatmapPrefabsPool: IDisposable {
 
                 Queue<GameObject> q = new();
 
-                for (int i = 0; i < 20; i++) {  // todo not set amount
+                // todo not set amount
+                int cnt = prefabName switch {
+                    "BeatLine" => 30,
+                    _ => 10
+                };
+
+                for (int i = 0; i < cnt; i++) {
                     GameObject go = GameObject.Instantiate(prefab);
                     go.SetActive(false);
                     go.transform.SetParent(root.transform, false);

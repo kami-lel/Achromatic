@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,12 +30,15 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
+    // todo better organization
+    [SerializeField]
+    private float audioStartOffset = 0.0f; // in sec
 
     // constants  ##############################################################
     /// <summary>
     /// how many bars in advance that barline & beat lines will shown
     /// </summary>
-    private const float BARLINE_RENDER_DISTANCE = 2.0f;
+    private const float BARLINE_RENDER_DISTANCE = 5.0f;
 
     /// <summary>
     /// height of note on board
@@ -188,7 +189,8 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
+        preludeOffsetAsBeat = (beatmap.PreludeLength + audioStartOffset)
+                * tempoDiv60;
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
     }
