@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class BeatmapData {
 
-    public BeatmapJsonData jsonData;
+    // public properties  ======================================================
 
     /// <summary>
     /// beats per bar
@@ -38,8 +38,12 @@ public class BeatmapData {
     /// </summary>
     public float Tempo => jsonData.tempo;
 
-    public BeatmapNote[] notes;
+    // private properties  =====================================================
+    private readonly BeatmapJsonData jsonData;
+    private readonly BeatmapNote[] notes;
+    private int peekingIdx;
 
+    // constructor  ============================================================
     public BeatmapData(TextAsset beatmapFile) {
         jsonData = JsonUtility.FromJson<BeatmapJsonData>(beatmapFile.text);
 
@@ -48,6 +52,38 @@ public class BeatmapData {
         for (int i = 0; i < notes.Length; i++) {
             notes[i] = new BeatmapNote(jsonData.notes[i]);
         }
+
+        peekingIdx = 0;
+    }
+
+    // public methods  =========================================================
+
+    /// <summary>
+    /// peek note at cursor, without advance the cursor
+    /// </summary>
+    /// <returns>
+    /// note at the cursor;
+    /// <c>null</c> if exhaust all notes
+    /// </returns>
+    public BeatmapNote PeekNote() {
+        if (peekingIdx >= notes.Length) {
+            return null;  // no more notes
+        }
+
+        return notes[peekingIdx];
+    }
+
+    /// <summary>
+    /// get note at cursor, then advance the cursor
+    /// </summary>
+    /// <returns>
+    /// note at the cursor;
+    /// <c>null</c> if exhaust all notes
+    /// </returns>
+    public BeatmapNote NextNote() {
+        BeatmapNote note = PeekNote();
+        peekingIdx += 1;
+        return note;
     }
 }
 
