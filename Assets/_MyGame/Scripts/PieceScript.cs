@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Bug prelude not functioning, currently only working w/ prelude = 0
-// todo allows & give feedback for smashing input during empty sessions
-// todo need to be **fast** for sense of velocity
-// Todo score system
-// todo allow smash for song climax
+// todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
 
 /// <summary>
@@ -32,27 +28,27 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    // Todo better organization, put offset & render distance in json
+    /// <summary>
+    /// start this piece of music at bar <i>n</i>,
+    /// default to <c>0.0f</c> for normal play
+    /// </summary>
     [SerializeField]
-    private float audioStartOffset = 0.0f; // in sec
+    private float musicStaringBar = 0.0f;
 
-    // Todo start bar field, for debug, such that it does not play from start
+    [SerializeField]
+    private AnimationCurve tmpJumpCurve;
+
+    private float tmpPlayerLastJump;
 
     // constants  ##############################################################
-    /// <summary>
-    /// how many bars in advance that barline & beat lines will shown
-    /// </summary>
-    private const float BARLINE_RENDER_DISTANCE = 5.0f;
 
     /// <summary>
     /// height of note on board
     /// </summary>
-    private const float NOTES_HEIGHT = 2.5f;
+    private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
 
-    /// <summary>
-    /// how many beats before player, notes should render
-    /// </summary>
-    private const float NOTE_RENDER_DISTANCE = 12.0f;
+    // public members  #########################################################
+    public ScoreTracker scoreTracker;
 
     // private members  ########################################################
     // references
@@ -78,12 +74,14 @@ public class PieceScript: MonoBehaviour {
     private float currentBeatCount;
 
     /// <summary>
-    /// local dynamic copy used for render Q
+    /// local dynamic copy used for render
     /// </summary>
     private Queue<BeatmapNote> notesRenderQ;
 
+    private JudgeCriteria judgeCriteria;
+
     // input related
-    private PressedActions pressedActions;
+    private InputPressedActions pressedActions;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -103,7 +101,11 @@ public class PieceScript: MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
+
         AwakeBeatmap();
+        AwakeJudge();
+
+        scoreTracker = new(beatmap);
     }
 
     public void OnEnable() {
@@ -113,13 +115,21 @@ public class PieceScript: MonoBehaviour {
 
         // start input management
         playerInput.onActionTriggered += OnActionTriggered;
-        pressedActions = PressedActions.NONE;
+        pressedActions = InputPressedActions.NONE;
 
         OnEnableBeatmap();
 
         // start the music
+        if (musicStaringBar != 0.0f) {
+            // start music midpoint, for debug purpose
+            audioSource.time = (musicStaringBar - 1.0f)
+                    * beatPerBar
+                    * (60.0f / beatmap.Tempo)
+                    + beatmap.PreludeLength;
+        }
         audioSource.Play();
-
+        // hack
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
     public void Update() {
@@ -128,6 +138,7 @@ public class PieceScript: MonoBehaviour {
 
         UpdateBeatmap();
         UpdatePlayer();
+        judgeCriteria.DetectPassByMiss(audioSource.time);
     }
 
     private void OnDisable() {
@@ -144,13 +155,13 @@ public class PieceScript: MonoBehaviour {
         case InputActionPhase.Started:
             switch (a.name) {
             case "Jump":
-                pressedActions |= PressedActions.JUMP;
+                pressedActions |= InputPressedActions.JUMP;
                 break;
             case "Dash":
-                pressedActions |= PressedActions.DASH;
+                pressedActions |= InputPressedActions.DASH;
                 break;
             case "PowerJump":
-                pressedActions |= PressedActions.POWER_JUMP;
+                pressedActions |= InputPressedActions.POWER_JUMP;
                 break;
             case "Trigger":
                 Trigger();
@@ -161,13 +172,13 @@ public class PieceScript: MonoBehaviour {
         case InputActionPhase.Canceled:
             switch (a.name) {
             case "Jump":
-                pressedActions &= ~PressedActions.JUMP;
+                pressedActions &= ~InputPressedActions.JUMP;
                 break;
             case "Dash":
-                pressedActions &= ~PressedActions.DASH;
+                pressedActions &= ~InputPressedActions.DASH;
                 break;
             case "PowerJump":
-                pressedActions &= ~PressedActions.POWER_JUMP;
+                pressedActions &= ~InputPressedActions.POWER_JUMP;
                 break;
             }
             break;
@@ -175,28 +186,23 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Trigger() {
-        // TODO user movement during music
-        JudgeResult judgeResult = PerformJudge();
+        JudgeResult judgeResult = judgeCriteria.Judge(
+                audioSource.time, pressedActions);
+        scoreTracker.Record(judgeResult);
 
-        Debug.Log(pressedActions);  // HACK
-
-        // HACK
-        if ((pressedActions & PressedActions.JUMP) == PressedActions.JUMP) {
-            Debug.Log("jump!");  // HACK
-            playerScript.Jump(false);
+        // control player  -----------------------------------------------------
+        if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            PlayerJump();
+        } else if ((pressedActions & InputPressedActions.DASH) != 0) {
+            PlayerDash();
         }
 
-        // Todo visual & audio feedback for good/bad action
+        GameControllerScript.Instance.tmpUpdateText(judgeResult,
+                scoreTracker.combo,
+                scoreTracker.runningScore);
+        // todo add audio for feedback
     }
 
-    // helper enum  ============================================================
-    [Flags]
-    private enum PressedActions {
-        NONE = 0,
-        JUMP = 1 << 0,
-        DASH = 1 << 1,
-        POWER_JUMP = 1 << 2,
-    }
 
     // Beatmap control #########################################################
 
@@ -218,8 +224,7 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         beatPerBar = beatmap.BeatPerBar;
         tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = (beatmap.PreludeLength + audioStartOffset)
-                * tempoDiv60;
+        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
     }
 
     /// <summary>
@@ -235,9 +240,10 @@ public class PieceScript: MonoBehaviour {
     /// handle update of beatmap element prefabs
     /// </summary>
     private void UpdateBeatmap() {
+        // todo make note disappear / animation when hit
         // place beatLine  -----------------------------------------------------
         float renderBoundaryOnBeat = currentBeatCount
-                + BARLINE_RENDER_DISTANCE * beatPerBar;
+                + beatmap.BarlineRenderDistance * beatPerBar;
         while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
             float placeOnBeat = lastBeatLineOnBeat + 1.0f;
 
@@ -248,7 +254,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // place barline  ------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + BARLINE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + beatmap.BarlineRenderDistance;
         while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
             float placeOnBeat = lastBarlineOnBeat + beatPerBar;
 
@@ -259,10 +265,10 @@ public class PieceScript: MonoBehaviour {
         }
 
         // fixme barline placement overlaps beat lines
-        // Bug 1st barline missing
+        // bug 1st barline missing
 
         // render notes  -------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + NOTE_RENDER_DISTANCE;
+        renderBoundaryOnBeat = currentBeatCount + beatmap.NoteRenderDistance;
 
         while (notesRenderQ.Count > 0) {
             var next = notesRenderQ.Peek();
@@ -282,8 +288,12 @@ public class PieceScript: MonoBehaviour {
 
             prefabPool.Spawn(prefabName,
                     new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
+
+
+
         }
     }
+
 
     // Control Player  #########################################################
 
@@ -291,37 +301,58 @@ public class PieceScript: MonoBehaviour {
     /// handle update of player's control
     /// </summary>
     private void UpdatePlayer() {
+
+        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+
         // update user horizontal position
         Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), playerRB.position.y);
+                CalcXFromBeat(currentBeatCount), y);
         playerRB.MovePosition(newPosition);
     }
 
-    // Judge System  ###########################################################
-    private enum JudgeResult {
-        MISS, GOOD, GREAT, PERFECT
+
+    private void PlayerJump() {
+        SFXMangerScript.Instance.PlayJump();
+
+        tmpPlayerLastJump = Time.time;
     }
 
-    private JudgeResult PerformJudge() {
-        // TODO
-        return JudgeResult.MISS;
+    private void PlayerDash() {
+        SFXMangerScript.Instance.PlayDash();
     }
 
 
+    // Judging #################################################################
+    private void AwakeJudge() {
+        judgeCriteria = new(beatmap);
+        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
+    }
+
+    void OnDetectPassByMiss(object sender, EventArgs e) {
+        scoreTracker.Record(JudgeResult.LATE_MISS);
+        // todo handle pass by miss
+    }
     // helpers  ################################################################
 
-    /// <returns>beat count based on Audio Source time,
+    /// <returns>realtime beat count based on Audio Source time,
     /// start on <c>0.0f</c></returns>
     private float CalcRealtimeBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
 
-
-    private float CalcXFromBeat(float beatCnt) {
-        return origin.x + beatCnt * beatmap.BeatSpeed;
+    private float CalcXFromBeat(float beatCount) {
+        return origin.x + beatCount * beatmap.BeatSpeed;
     }
 
 }
 
+
+[Flags]
+public enum InputPressedActions {
+    NONE = 0,
+    JUMP = 1 << 0,
+    DASH = 1 << 1,
+    POWER_JUMP = 1 << 2,
+}
 
 // fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

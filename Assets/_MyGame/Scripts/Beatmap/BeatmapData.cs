@@ -28,7 +28,8 @@ public class BeatmapData {
     public float BeatSpeed => jsonData.beatSpeed;
 
     /// <summary>
-    /// seconds before piece starts
+    /// seconds before piece start,
+    /// i.e. period of time before 1st beat of 1st bar
     /// </summary>
     public float PreludeLength => jsonData.preludeLength;
 
@@ -36,6 +37,22 @@ public class BeatmapData {
     /// i.e. BPM
     /// </summary>
     public float Tempo => jsonData.tempo;
+
+    /// <summary>
+    /// control render distance of barline and beat lines<br>
+    ///
+    /// in <b>count of bars</b>,
+    /// how many bars of both barline & beat lines will be rendered
+    /// in advance of the music
+    /// </summary>
+    public float BarlineRenderDistance => jsonData.barlineRenderDistance;
+
+    /// <summary>
+    /// control render distance of beatmap notes<br>
+    /// in <b>count of beats</b>,
+    /// how many notes will be rendered in advanced of the music
+    /// </summary>
+    public float NoteRenderDistance => jsonData.noteRenderDistance;
 
     /// <summary>
     /// 1 / beatSubdivision, pre-calculated for efficiency
@@ -58,9 +75,13 @@ public class BeatmapData {
                 in jsonData.notes) {
             notes.Enqueue(new BeatmapNote(this, jsonNote));
         }
+
+        if (notes.Count == 0) {
+            Debug.LogError("BeatmapData: beatmap file contains no notes: "
+                    + beatmapFile.name);
+        }
     }
 }
-
 
 
 
@@ -87,7 +108,7 @@ public class BeatmapNote {
 
     public BeatmapNoteType type;
 
-    private BeatmapData container;
+    private readonly BeatmapData container;
     private readonly BeatmapJsonData.BeatmapJsonDataNote jsonNote;
 
     public BeatmapNote(
@@ -128,6 +149,7 @@ public enum BeatmapNoteType {
 // BeatmapJsonData  ############################################################
 /// <summary>
 /// a <b>Serializable</b> equivalent of <c>BeatmapData</c>
+///
 /// to allow save/load as JSON
 /// </summary>
 [Serializable]
@@ -137,6 +159,8 @@ public class BeatmapJsonData {
     public float beatSpeed;
     public float preludeLength;
     public float tempo;
+    public float barlineRenderDistance;
+    public float noteRenderDistance;
 
     /// <remark>
     /// must be in order of appearances

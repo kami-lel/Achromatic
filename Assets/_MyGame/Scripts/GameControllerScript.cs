@@ -9,7 +9,13 @@ public class GameControllerScript: MonoBehaviour {
     private GameObject player;
 
     [SerializeField]
-    private GameObject tmpPiece;  // HACK
+    private TMPro.TextMeshProUGUI tmpJudgeResult;
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI tmpCombo;
+
+    [SerializeField]
+    private AnimationCurve tmpTextboxCurve;
 
     // public members  #########################################################
 
@@ -21,6 +27,8 @@ public class GameControllerScript: MonoBehaviour {
     [NonSerialized]
     public PlayerScript playerScript;
 
+    private float lastTriggerTime;
+
     // class method  ###########################################################
     /// <returns>singleton player</returns>
     public static GameObject GetPlayer() {
@@ -30,7 +38,6 @@ public class GameControllerScript: MonoBehaviour {
 
         return Instance.player;
     }
-
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
@@ -48,16 +55,51 @@ public class GameControllerScript: MonoBehaviour {
 
         // reference to playerScript
         playerScript = player.GetComponent<PlayerScript>();
+
+        // disable textbox
+        tmpCombo.gameObject.SetActive(false);
+        tmpJudgeResult.gameObject.SetActive(false);
     }
 
-    private void Start() {
-        // HACK rm
-        StartCoroutine(ActivateAfterDelay());
+    private void Update() {
+        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
+        tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
     }
 
-    // HACK rm
-    private IEnumerator ActivateAfterDelay() {
-        yield return new WaitForSeconds(5);
-        tmpPiece.SetActive(true);
+    // public methods  =========================================================
+    // hack tmp method
+    public void tmpUpdateText(
+            JudgeResult judgeResult, int combo, int runningScore) {
+        if (!tmpCombo.gameObject.activeSelf) {
+            tmpCombo.gameObject.SetActive(true);
+        }
+        if (!tmpJudgeResult.gameObject.activeSelf) {
+            tmpJudgeResult.gameObject.SetActive(true);
+        }
+
+
+        tmpCombo.text = $"{combo} hits\nscore:{runningScore}";
+
+        string judgeText;
+
+        if ((judgeResult & JudgeResult.PERFECT) != 0) {
+            judgeText = "Perfect!";
+        } else {
+            judgeText = judgeResult switch {
+                JudgeResult.NO_HIT => "No Hit!",
+                JudgeResult.INCORRECT => "Wrong!",
+                JudgeResult.EARLY_MISS => "Miss! Too Early",
+                JudgeResult.EARLY_GREAT => "Great! Too Early",
+                JudgeResult.EARLY_GOOD => "Good! Too Early",
+                JudgeResult.LATE_MISS => "Miss! Too Late",
+                JudgeResult.LATE_GREAT => "Great! Too Late",
+                JudgeResult.LATE_GOOD => "Good! Too Late",
+                _ => null
+            };
+        }
+
+        tmpJudgeResult.text = judgeText;
+
+        lastTriggerTime = Time.time;
     }
 }

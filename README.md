@@ -10,5 +10,4 @@ use 2 keys to control:
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 
-<!-- Todo longer song beatmaps -->
 
