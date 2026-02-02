@@ -36,7 +36,7 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float audioStartOffset = 0.0f; // in sec
 
-    // Todo start bar field, for debug, such that it does not play from start
+    // TODO start bar field, for debug, such that it does not play from start
 
     // constants  ##############################################################
     /// <summary>
