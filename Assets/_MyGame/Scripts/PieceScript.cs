@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// todo allows & give feedback for smashing input during empty sessions
-// todo need to be **fast** for sense of velocity
-// todo allow smash for song climax
+// todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
 
 /// <summary>
@@ -78,7 +76,7 @@ public class PieceScript: MonoBehaviour {
     private JudgeCriteria judgeCriteria;
 
     // input related
-    private PressedActions pressedActions;
+    private InputPressedActions pressedActions;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -112,7 +110,7 @@ public class PieceScript: MonoBehaviour {
 
         // start input management
         playerInput.onActionTriggered += OnActionTriggered;
-        pressedActions = PressedActions.NONE;
+        pressedActions = InputPressedActions.NONE;
 
         OnEnableBeatmap();
 
@@ -150,13 +148,13 @@ public class PieceScript: MonoBehaviour {
         case InputActionPhase.Started:
             switch (a.name) {
             case "Jump":
-                pressedActions |= PressedActions.JUMP;
+                pressedActions |= InputPressedActions.JUMP;
                 break;
             case "Dash":
-                pressedActions |= PressedActions.DASH;
+                pressedActions |= InputPressedActions.DASH;
                 break;
             case "PowerJump":
-                pressedActions |= PressedActions.POWER_JUMP;
+                pressedActions |= InputPressedActions.POWER_JUMP;
                 break;
             case "Trigger":
                 Trigger();
@@ -167,13 +165,13 @@ public class PieceScript: MonoBehaviour {
         case InputActionPhase.Canceled:
             switch (a.name) {
             case "Jump":
-                pressedActions &= ~PressedActions.JUMP;
+                pressedActions &= ~InputPressedActions.JUMP;
                 break;
             case "Dash":
-                pressedActions &= ~PressedActions.DASH;
+                pressedActions &= ~InputPressedActions.DASH;
                 break;
             case "PowerJump":
-                pressedActions &= ~PressedActions.POWER_JUMP;
+                pressedActions &= ~InputPressedActions.POWER_JUMP;
                 break;
             }
             break;
@@ -188,14 +186,6 @@ public class PieceScript: MonoBehaviour {
         // Todo visual & audio feedback for good/bad action
     }
 
-    // helper enum  ============================================================
-    [Flags]
-    private enum PressedActions {
-        NONE = 0,
-        JUMP = 1 << 0,
-        DASH = 1 << 1,
-        POWER_JUMP = 1 << 2,
-    }
 
     // Beatmap control #########################################################
 
@@ -325,5 +315,13 @@ public class PieceScript: MonoBehaviour {
 
 }
 
+
+[Flags]
+public enum InputPressedActions {
+    NONE = 0,
+    JUMP = 1 << 0,
+    DASH = 1 << 1,
+    POWER_JUMP = 1 << 2,
+}
 
 // fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

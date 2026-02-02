@@ -21,11 +21,19 @@ public class JudgeCriteria {
             // per note
             float centerTiming = secondPerBeat * note.CalcBeatCount()
                     + beat0time;
-            timings.Enqueue(new Timing(centerTiming));
+
+            // todo allow different actions for single note type
+            InputPressedActions action = note.type switch {
+                BeatmapNoteType.JUMP => InputPressedActions.JUMP,
+                BeatmapNoteType.DASH => InputPressedActions.DASH,
+                _ => InputPressedActions.NONE
+            };
+
+            timings.Enqueue(new Timing(centerTiming, action));
         }
     }
 
-    public JudgeResult Judge(float time) {
+    public JudgeResult Judge(float time, InputPressedActions actions) {
         if (timings.Count <= 0) {
             return JudgeResult.NO_HIT;
         }
@@ -33,8 +41,7 @@ public class JudgeCriteria {
         Timing timing = timings.Peek();
         if (timing.IsInJudgingRange(time)) {
             timing = timings.Dequeue();
-            // TODO judge note type!
-            return timing.Judge(time);
+            return timing.Judge(time, actions);
 
         } else {
             return JudgeResult.NO_HIT;
@@ -79,19 +86,27 @@ public class JudgeCriteria {
         private readonly float rightGreatBound;
         private readonly float rightPerfectBound;
 
-        public Timing(float centerTiming) {
+        private readonly InputPressedActions allowedAction;
+
+        public Timing(float centerTiming, InputPressedActions action) {
             center = centerTiming;
+            allowedAction = action;
+
             leftGoodBound = centerTiming - goodDelta;
-            // fixme better generation
-            startJudgeBound = leftGoodBound - goodDelta;
             leftGreatBound = centerTiming - greatDelta;
             leftPerfectBound = centerTiming - perfectDelta;
             rightGoodBound = centerTiming + goodDelta;
             rightGreatBound = centerTiming + greatDelta;
             rightPerfectBound = centerTiming + perfectDelta;
+
+            startJudgeBound = leftGoodBound - goodDelta;
         }
 
-        public JudgeResult Judge(float time) {
+        public JudgeResult Judge(float time, InputPressedActions action) {
+            if (action != allowedAction) {
+                return JudgeResult.INCORRECT;
+            }
+
             if (time < leftGoodBound) {
                 return JudgeResult.EARLY_MISS;
             } else if (time < leftGreatBound) {
