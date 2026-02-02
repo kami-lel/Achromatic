@@ -79,8 +79,7 @@ public class BeatmapPrefabsPool: IDisposable {
 
                 Queue<GameObject> q = new();
 
-                for (int i = 0; i < 10; i++) {
-                    // todo instead of set amount of 15 instances
+                for (int i = 0; i < 20; i++) {  // todo not set amount
                     GameObject go = GameObject.Instantiate(prefab);
                     go.SetActive(false);
                     go.transform.SetParent(root.transform, false);
@@ -117,6 +116,7 @@ public class BeatmapPrefabsPool: IDisposable {
         go.SetActive(true);
         go.transform.position = pos;
 
+        q.Enqueue(go);  // add back to the queue
         return go;
     }
 

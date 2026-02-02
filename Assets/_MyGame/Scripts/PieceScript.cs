@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,7 +33,7 @@ public class PieceScript: MonoBehaviour {
 
 
     // constants  ##############################################################
-    private const float RENDER_DIST_X = 10.0f;
+    private const float BEAT_LINE_RENDER_DISTANCE = 5.0f;
 
     // private members  ########################################################
     // references
@@ -60,7 +61,7 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     public void Awake() {
         // link references
-        origin = (Vector2) transform.position;
+        origin = (Vector2)transform.position;
         // link player references
         GameObject player = GameControllerScript.GetPlayer();
         playerRB = player.GetComponent<Rigidbody2D>();
@@ -172,8 +173,8 @@ public class PieceScript: MonoBehaviour {
         // set up vars
         tempoDiv60 = beatmap.Tempo / 60.0f;
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60 - 1.0f;
-        lastBeatLineOnBeat = 0.9f;
-        lastBarlineOnBeat = 0.9f;
+        lastBeatLineOnBeat = 0.0f;
+        lastBarlineOnBeat = 0.0f;
     }
 
     /// <summary>
@@ -183,15 +184,43 @@ public class PieceScript: MonoBehaviour {
         float beatCount = CalcCurrentBeatCount();
 
         // place beatLine  -----------------------------------------------------
-        while (beatCount - lastBeatLineOnBeat >= 1.0f) {
-            float placeOnBeat = (float) Math.Ceiling(lastBeatLineOnBeat);
+        int tmpCnt = 0;  // HACK
+
+        float renderBeatCount = beatCount + BEAT_LINE_RENDER_DISTANCE;
+        while (renderBeatCount - lastBeatLineOnBeat > 1.0f) {
+            float placeOnBeat = lastBeatLineOnBeat + 1.0f;
+
+            prefabPool.Spawn("BeatLine",
+                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
+
+            lastBeatLineOnBeat = placeOnBeat;
+        }
+
+
+
+        return;
+
+        while (beatCount - lastBeatLineOnBeat > 1.0f) {
+            float placeOnBeat = (float)Math.Ceiling(lastBeatLineOnBeat);
             float placeOnX = (placeOnBeat - 1.0f) * beatmap.BeatSpeed
                     - origin.x;
 
-            prefabPool.Spawn("beatLine", new Vector2(placeOnX, 0.0f));
+            prefabPool.Spawn("BeatLine", new Vector2(placeOnX, 0.0f));
 
-            lastBarlineOnBeat = placeOnBeat;
+            lastBeatLineOnBeat = placeOnBeat;
+
             // BUG BUG BUG
+
+
+            // HACK
+            Debug.Log(beatCount + "\t" + lastBeatLineOnBeat + "\t" + placeOnBeat + "\t" + placeOnX);
+
+
+            // HACK
+            tmpCnt += 1;
+            if (tmpCnt > 5) {
+                return;
+            }
         }
 
 
@@ -207,15 +236,21 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     private void UpdatePlayer() {
         // update user horizontal position
-        float x = transform.position.x
-                + CalcCurrentBeatCount() * beatmap.BeatSpeed;
-        Vector2 newPosition = new(x, playerRB.position.y);
+        Vector2 newPosition = new(
+                CalcXFromBeat(CalcCurrentBeatCount()), playerRB.position.y);
         playerRB.MovePosition(newPosition);
     }
+
+
+    // helpers  ################################################################
 
     /// <returns>beat count, starting at 1</returns>
     private float CalcCurrentBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
+    }
+
+    private float CalcXFromBeat(float beatCnt) {
+        return origin.x + beatCnt * beatmap.BeatSpeed;
     }
 
 }
