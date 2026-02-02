@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 // todo need to be **fast** for sense of velocity
 // Todo score system
 // todo allow smash for song climax
+// bug piece will have error if Active at beginning of scene
 
 /// <summary>
 /// controller during <c>Music Play</c>, enables:

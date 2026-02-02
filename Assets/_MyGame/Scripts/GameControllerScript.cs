@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameControllerScript: MonoBehaviour {
@@ -6,6 +7,9 @@ public class GameControllerScript: MonoBehaviour {
     // Inspector Fields  #######################################################
     [SerializeField]
     private GameObject player;
+
+    [SerializeField]
+    private GameObject tmpPiece;  // HACK
 
     // public members  #########################################################
 
@@ -44,5 +48,16 @@ public class GameControllerScript: MonoBehaviour {
 
         // reference to playerScript
         playerScript = player.GetComponent<PlayerScript>();
+    }
+
+    private void Start() {
+        // HACK rm
+        StartCoroutine(ActivateAfterDelay());
+    }
+
+    // HACK rm
+    private IEnumerator ActivateAfterDelay() {
+        yield return new WaitForSeconds(5);
+        tmpPiece.SetActive(true);
     }
 }
