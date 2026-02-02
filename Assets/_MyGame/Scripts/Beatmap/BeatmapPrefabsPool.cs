@@ -60,7 +60,7 @@ public class BeatmapPrefabsPool: IDisposable {
 
                 if (prefab == null) {
                     Debug.LogError(
-            "PieceScript: missing Prefab: Resources/" + path);
+            "BeatmapPrefabPools: missing Prefab: Resources/" + path);
                     continue;
                 }
 
@@ -101,10 +101,19 @@ public class BeatmapPrefabsPool: IDisposable {
         GC.SuppressFinalize(this);
     }
 
-
     // public methods  =========================================================
     public GameObject Spawn(GameObject prefab, Vector2 pos) {
-        return null;  // TODO
+        if (!pools.TryGetValue(prefab, out var q)) {
+            Debug.LogError("BeatmapPrefabPools: must be Beatmap Prefab, not: "
+                    + prefab);
+            return null;
+        }
+
+        GameObject go = q.Dequeue();
+        go.SetActive(true);
+        go.transform.position = pos;
+
+        return go;
     }
 
     private void Clear() {
