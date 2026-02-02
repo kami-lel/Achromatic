@@ -53,8 +53,43 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
+## [0.2.0] - 2026-01-25
 
-[unreleased]: https://github.com/kami-lel/kaye/compare/v0.1.0...dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [0.1.0] - 2026-01-22
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[unreleased]: https://github.com/kami-lel/kaye/compare/v0.3.0...dev
+[0.2.0]: https://github.com/kami-lel/kaye/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/kami-lel/kaye/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/kami-lel/kaye/compare/v0.1.0
 
 
 
@@ -69,5 +104,3 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 [^format]: CHANGELOG format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); Version scheme adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-<!-- TODO write changelog for previous releases -->
