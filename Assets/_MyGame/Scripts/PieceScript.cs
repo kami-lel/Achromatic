@@ -71,9 +71,11 @@ public class PieceScript: MonoBehaviour {
     private float currentBeatCount;
 
     /// <summary>
-    /// local dynamic copy used for render Q
+    /// local dynamic copy used for render 
     /// </summary>
     private Queue<BeatmapNote> notesRenderQ;
+
+    private JudgeController judgeCriteria;
 
     // input related
     private PressedActions pressedActions;
@@ -99,6 +101,7 @@ public class PieceScript: MonoBehaviour {
         scoreTracker = new(beatmap);
 
         AwakeBeatmap();
+        judgeCriteria = new();
     }
 
     public void OnEnable() {
@@ -121,7 +124,6 @@ public class PieceScript: MonoBehaviour {
                     + beatmap.PreludeLength;
         }
         audioSource.Play();
-
     }
 
     public void Update() {
@@ -130,6 +132,7 @@ public class PieceScript: MonoBehaviour {
 
         UpdateBeatmap();
         UpdatePlayer();
+        judgeCriteria.DetectMiss();
     }
 
     private void OnDisable() {
@@ -178,7 +181,7 @@ public class PieceScript: MonoBehaviour {
 
     private void Trigger() {
         // Todo user movement during music
-        JudgeResult judgeResult = PerformJudge();
+        JudgeResult judgeResult = judgeCriteria.Judge(audioSource.time);
 
         scoreTracker.Record(judgeResult);
 
@@ -230,6 +233,7 @@ public class PieceScript: MonoBehaviour {
     /// handle update of beatmap element prefabs
     /// </summary>
     private void UpdateBeatmap() {
+        // todo make note disappear / animation when hit
         // place beatLine  -----------------------------------------------------
         float renderBoundaryOnBeat = currentBeatCount
                 + beatmap.BarlineRenderDistance * beatPerBar;
@@ -277,8 +281,17 @@ public class PieceScript: MonoBehaviour {
 
             prefabPool.Spawn(prefabName,
                     new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
+
+
+
         }
     }
+
+    // helper  *****************************************************************
+    private float CalcTimeFromBeatCount(float beatCount) {
+        return 0.0f;  // TODO
+    }
+
 
     // Control Player  #########################################################
 
@@ -293,23 +306,39 @@ public class PieceScript: MonoBehaviour {
     }
 
     // Judge System  ###########################################################
-    private JudgeResult PerformJudge() {
-        // TODO implement judge system
-        return JudgeResult.MISS;
-    }
 
+    private class JudgeController {
+
+        public JudgeController() {
+            // pre-calculate all judge times
+            // TODO
+        }
+
+        public JudgeResult Judge(float time) {
+            return JudgeResult.MISS;  // TODO
+        }
+
+        /// <summary>
+        /// detect miss then player is too far away
+        ///
+        /// used in <c>Update()</c>
+        /// </summary>
+        public void DetectMiss() {
+            // TODO TODO
+        }
+
+    }
 
     // helpers  ################################################################
 
-    /// <returns>beat count based on Audio Source time,
+    /// <returns>realtime beat count based on Audio Source time,
     /// start on <c>0.0f</c></returns>
     private float CalcRealtimeBeatCount() {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
 
-
-    private float CalcXFromBeat(float beatCnt) {
-        return origin.x + beatCnt * beatmap.BeatSpeed;
+    private float CalcXFromBeat(float beatCount) {
+        return origin.x + beatCount * beatmap.BeatSpeed;
     }
 
 }

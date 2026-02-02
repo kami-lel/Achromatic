@@ -81,8 +81,6 @@ public class ScoreTracker {
 
         return Mathf.RoundToInt(finalScore);
     }
-
-
 }
 
 
