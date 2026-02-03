@@ -3,6 +3,7 @@ using UnityEngine;
 public class SFXMangerScript: MonoBehaviour {
 
     // todo randomize b/t different samples
+    // TODO send feedback to controller
 
     // Inspector Fields  =======================================================
     [SerializeField]

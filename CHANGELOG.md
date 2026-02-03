@@ -18,6 +18,9 @@
 ## [Unreleased]
 
 ### Added
+
+- Support Gamepad Controller
+
 ### Changed
 ### Deprecated
 ### Removed
