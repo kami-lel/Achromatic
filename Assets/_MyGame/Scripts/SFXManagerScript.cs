@@ -6,6 +6,7 @@ public class SFXMangerScript: MonoBehaviour {
     // todo randomize b/t different samples
     // Todo rumble control as its own script
     // Todo rumble fine tuning data
+    // todo rumble to reflects both judge result & action type
 
     // Inspector Fields  =======================================================
     [SerializeField]
@@ -35,18 +36,19 @@ public class SFXMangerScript: MonoBehaviour {
         }
     }
 
+    // todo audio cue to reflects both judge result & action type
 
     // public methods  ========================================================
     public void PlayJump() {
         sfxJump.Play();
         sfxJump.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble(0.1f, 0.75f, 0.15f);
+        PlayRumble(0.1f, 0.8f, 0.1f);
     }
 
     public void PlayDash() {
         sfxDash.Play();
         sfxDash.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble(0.75f, 0.25f, 0.3f);
+        PlayRumble(0.7f, 0.1f, 0.2f);
     }
 
     // private methods  ========================================================
