@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SFXMangerScript: MonoBehaviour {
 
     // todo randomize b/t different samples
-    // TODO send feedback to controller
+    // Todo rumble control as its own script
+    // Todo rumble fine tuning data
 
     // Inspector Fields  =======================================================
     [SerializeField]
@@ -38,12 +40,33 @@ public class SFXMangerScript: MonoBehaviour {
     public void PlayJump() {
         sfxJump.Play();
         sfxJump.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        PlayRumble(0.1f, 0.75f, 0.15f);
     }
 
     public void PlayDash() {
         sfxDash.Play();
         sfxDash.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        PlayRumble(0.75f, 0.25f, 0.3f);
     }
+
+    // private methods  ========================================================
+    public void PlayRumble(float low, float high, float duration) {
+        var pad = Gamepad.current;
+        if (pad == null) {
+            return;
+        }
+
+        pad.SetMotorSpeeds(low, high);  // start motors
+        StartCoroutine(StopRumbleAfter(pad, duration));
+    }
+
+    private System.Collections.IEnumerator StopRumbleAfter(
+            Gamepad pad, float duration) {
+        yield return new WaitForSeconds(duration);
+        if (pad != null)
+            pad.SetMotorSpeeds(0f, 0f);  // stop motors
+    }
+
 
 }
 
