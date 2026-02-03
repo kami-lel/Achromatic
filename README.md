@@ -6,7 +6,7 @@ use 2 keys to control:
 - D key to dash
 
 <!-- todo background music during explore play -->
-<!-- todo use controller -->
+<!-- TODO use controller -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 
