@@ -97,7 +97,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""217e5813-980a-4013-a0c7-8df86ba02a56"",
                     ""expectedControlType"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -105,15 +105,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""10c958e7-2358-45df-b93c-c32085d289e4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PowerJump"",
-                    ""type"": ""Button"",
-                    ""id"": ""0d660870-e0a5-4893-a6b4-9a3f65696e53"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -143,12 +134,12 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""424f7ec1-e2e1-44c5-8f63-8d88305bdd32"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""id"": ""ffb7a715-0db9-4690-957b-a986afca73cf"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PowerJump"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -165,10 +156,32 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c30de2a6-f405-45e9-a4b5-580a260ddbbc"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""71c58f14-d37f-4164-9de9-be98e7d195c5"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""060209cb-a8ae-4d06-a74b-256557b97c0f"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
@@ -212,7 +225,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""dee5743d-1793-403c-8e74-3cb978ddac04"",
                     ""expectedControlType"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -240,10 +253,32 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7232ebce-e9ff-4ddb-9fb1-4608d6ed962e"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""6c7c7af3-d71b-4c95-b86f-133a6390b72e"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bd17781-a121-43eb-8421-ef504e30970c"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
                     ""action"": ""Left"",
                     ""isComposite"": false,
@@ -262,10 +297,32 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""76290f77-a061-4f0d-88a0-c5c04b63bb6d"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""cd641f6c-e8bd-4558-8df0-fd7445e8d57a"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b87c0a06-5fd5-416f-92de-1a598eb0292d"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
@@ -281,6 +338,17 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""435e6828-25d0-4b78-9399-fefafc4b3413"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,7 +359,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         m_PlayerMusicPlay = asset.FindActionMap("PlayerMusicPlay", throwIfNotFound: true);
         m_PlayerMusicPlay_Jump = m_PlayerMusicPlay.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMusicPlay_Dash = m_PlayerMusicPlay.FindAction("Dash", throwIfNotFound: true);
-        m_PlayerMusicPlay_PowerJump = m_PlayerMusicPlay.FindAction("PowerJump", throwIfNotFound: true);
         m_PlayerMusicPlay_Trigger = m_PlayerMusicPlay.FindAction("Trigger", throwIfNotFound: true);
         // PlayerExplorePlay
         m_PlayerExplorePlay = asset.FindActionMap("PlayerExplorePlay", throwIfNotFound: true);
@@ -383,7 +450,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
     private List<IPlayerMusicPlayActions> m_PlayerMusicPlayActionsCallbackInterfaces = new List<IPlayerMusicPlayActions>();
     private readonly InputAction m_PlayerMusicPlay_Jump;
     private readonly InputAction m_PlayerMusicPlay_Dash;
-    private readonly InputAction m_PlayerMusicPlay_PowerJump;
     private readonly InputAction m_PlayerMusicPlay_Trigger;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerMusicPlay".
@@ -404,10 +470,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerMusicPlay/Dash".
         /// </summary>
         public InputAction @Dash => m_Wrapper.m_PlayerMusicPlay_Dash;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerMusicPlay/PowerJump".
-        /// </summary>
-        public InputAction @PowerJump => m_Wrapper.m_PlayerMusicPlay_PowerJump;
         /// <summary>
         /// Provides access to the underlying input action "PlayerMusicPlay/Trigger".
         /// </summary>
@@ -444,9 +506,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @PowerJump.started += instance.OnPowerJump;
-            @PowerJump.performed += instance.OnPowerJump;
-            @PowerJump.canceled += instance.OnPowerJump;
             @Trigger.started += instance.OnTrigger;
             @Trigger.performed += instance.OnTrigger;
             @Trigger.canceled += instance.OnTrigger;
@@ -467,9 +526,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @PowerJump.started -= instance.OnPowerJump;
-            @PowerJump.performed -= instance.OnPowerJump;
-            @PowerJump.canceled -= instance.OnPowerJump;
             @Trigger.started -= instance.OnTrigger;
             @Trigger.performed -= instance.OnTrigger;
             @Trigger.canceled -= instance.OnTrigger;
@@ -667,13 +723,6 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDash(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "PowerJump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPowerJump(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Trigger" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

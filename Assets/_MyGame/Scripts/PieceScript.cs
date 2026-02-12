@@ -312,13 +312,13 @@ public class PieceScript: MonoBehaviour {
 
 
     private void PlayerJump() {
-        SFXMangerScript.Instance.PlayJump();
+        GameControllerScript.Instance.PlayJump();
 
         tmpPlayerLastJump = Time.time;
     }
 
     private void PlayerDash() {
-        SFXMangerScript.Instance.PlayDash();
+        GameControllerScript.Instance.PlayDash();
     }
 
 
