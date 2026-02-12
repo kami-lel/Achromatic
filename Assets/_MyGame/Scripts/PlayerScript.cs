@@ -31,6 +31,15 @@ public class PlayerScript: MonoBehaviour {
     private AnimationCurve walkingSlowDownCurve =
             AnimationCurve.EaseInOut(0.0f, 1.0f, 0.75f, 0.0f);
 
+    [SerializeField]
+    private GameObject tmpIdle;
+
+    [SerializeField]
+    private GameObject tmpJump;
+
+    [SerializeField]
+    private GameObject tmpRun;
+
     // public members  #########################################################
 
     public void SetPlayTypeAsExplore(bool isExplorePlay) {
@@ -112,6 +121,9 @@ public class PlayerScript: MonoBehaviour {
                 walkingMovementElapsedTime += Time.deltaTime;
             }
         }
+
+
+        UpdateCheck();
     }
 
     // player movement  ########################################################
@@ -183,6 +195,22 @@ public class PlayerScript: MonoBehaviour {
         }
     }
 
+    // HACK rm
+    public void PublicJump() {
+        Debug.Log("public jump");
+        tmpIdle.GetComponent<Renderer>().enabled = false;
+        tmpJump.GetComponent<Renderer>().enabled = true;
+    }
+
+    // HACK rm
+    public void UpdateCheck() {
+        if (playerRB.IsTouchingLayers(groundLayerMask)) {
+            tmpIdle.GetComponent<Renderer>().enabled = true;
+            tmpJump.GetComponent<Renderer>().enabled = false;
+
+        }
+    }
+
     /// <summary>
     /// player jump (during <i>explore play</i>)
     /// </summary>
@@ -191,8 +219,9 @@ public class PlayerScript: MonoBehaviour {
             return;
 
         playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        PublicJump();
 
-        SFXMangerScript.Instance.PlayJump();
+        GameControllerScript.Instance.PlayJump();
     }
 
     /// <summary>
@@ -200,7 +229,7 @@ public class PlayerScript: MonoBehaviour {
     /// </summary>
     private void Dash() {
         Debug.Log("DASH");  // todo implement dash in explore play
-        SFXMangerScript.Instance.PlayDash();
+        GameControllerScript.Instance.PlayDash();
     }
 
     /// <summary>
