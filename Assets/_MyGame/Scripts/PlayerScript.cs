@@ -192,7 +192,7 @@ public class PlayerScript: MonoBehaviour {
 
         playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        SFXMangerScript.Instance.PlayJump();
+        GameControllerScript.Instance.PlayJump();
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class PlayerScript: MonoBehaviour {
     /// </summary>
     private void Dash() {
         Debug.Log("DASH");  // todo implement dash in explore play
-        SFXMangerScript.Instance.PlayDash();
+        GameControllerScript.Instance.PlayDash();
     }
 
     /// <summary>
