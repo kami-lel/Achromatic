@@ -1,164 +1,71 @@
 using System;
-using System.Runtime.CompilerServices;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class PlayerScript: MonoBehaviour {
-
     // Inspector Fields  #######################################################
-
-    [SerializeField]
-    private float gravityScale = 1.0f;
-
-    [SerializeField]
-    private float jumpForce = 5.0f;
 
     [SerializeField]
     private LayerMask groundLayerMask = Physics2D.AllLayers;
 
-    [Header("Horizontal Movement")]  // ----------------------------------------
-
-    [SerializeField]
-    private float maxWalkingSpeed = 5.0f;
-
-    [SerializeField]
-    private AnimationCurve walkingSpeedUpCurve =
-            AnimationCurve.EaseInOut(0.0f, 0.0f, 0.75f, 1.0f);
-
-    [SerializeField]
-    private AnimationCurve walkingSlowDownCurve =
-            AnimationCurve.EaseInOut(0.0f, 1.0f, 0.75f, 0.0f);
-
-    [SerializeField]
-    private GameObject tmpIdle;
-
-    [SerializeField]
-    private GameObject tmpJump;
-
-    [SerializeField]
-    private GameObject tmpRun;
-
-    // public members  #########################################################
-
-    public void SetPlayTypeAsExplore(bool isExplorePlay) {
-        if (isExplorePlay) {
-            playerRB.bodyType = RigidbodyType2D.Dynamic;
-            hasSelfControl = true;
-            playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-
-        } else {
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            hasSelfControl = false;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        }
-    }
-
-    // private members  ########################################################
-    private bool hasSelfControl;
-    private Rigidbody2D playerRB;
-    private PlayerInput playerInput;
-    private WalkingState walkingState = WalkingState.STOP;
-    private float walkingMovementElapsedTime = 0.0f;
-    private Animator animator;
-    private static readonly int animatorParamSpeed =
-           Animator.StringToHash("Speed");
-    private static readonly int animatorParamJump =
-           Animator.StringToHash("Jump");
-    private static readonly int animatorParamStopJump =
-           Animator.StringToHash("StopJump");
-
     // MonoBehavior Lifecycle  #################################################
-    public void Start() {
+
+    void Awake() {
         playerRB = GetComponent<Rigidbody2D>();
-        playerRB.gravityScale = gravityScale;
-        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        playerInput.defaultActionMap = "PlayerExplorePlay";
-
-        SetPlayTypeAsExplore(true);
-    }
-
-    public void OnEnable() {
-        // subscribe to input system
         playerInput = GetComponent<PlayerInput>();
-        playerInput.onActionTriggered += OnActionTriggered;
-        hasSelfControl = true;
-
         animator = GetComponent<Animator>();
     }
 
-    public void OnDisable() {
-        // unsubscribe
-        playerInput.onActionTriggered -= OnActionTriggered;
+    private void OnEnable() {
+        SetPlayTypeAsMusic(false);
+        playerInput.defaultActionMap = "PlayerExplorePlay";
+        playerInput.onActionTriggered += OnActionTriggered;
+    }
+
+    void FixedUpdate() {
+        MovementFixedUpdate();
     }
 
     private void Update() {
-        if (!hasSelfControl)
-            return;
+        AnimationUpdate();
+    }
 
-        // walking  ============================================================
-        // todo change to force-based
-        if ((walkingState & WalkingState.SPEED_UP) != 0) {
-            // speed up & sustaining walking
-            playerRB.linearVelocityX =
-                    walkingSpeedUpCurve.Evaluate(walkingMovementElapsedTime)
-                    * maxWalkingSpeed
-                    * (walkingState == WalkingState.SPEED_UP_RIGHT ?
-                            1.0f : -1.0f);
+    private void OnDisable() {
+        playerInput.onActionTriggered -= OnActionTriggered;
+    }
 
-            walkingMovementElapsedTime += Time.deltaTime;
+    // public methods  #########################################################
 
-        } else if ((walkingState & WalkingState.SLOW_DOWN) != 0) {
-            // slow down
-            float curveValue = walkingSlowDownCurve.Evaluate(
-                    walkingMovementElapsedTime);
+    public void SetPlayTypeAsMusic(bool as_music_play) {
+        this.as_music_play = as_music_play;
 
-            if (curveValue <= 0.0f) {
-                // reach end of slowing down curve
-                walkingState = WalkingState.STOP;
-                playerRB.linearVelocityX = 0.0f;
+        if (as_music_play) {
+            playerRB.bodyType = RigidbodyType2D.Kinematic;
+            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
 
-            } else {
-                playerRB.linearVelocityX =
-                        curveValue
-                        * maxWalkingSpeed
-                        * (walkingState == WalkingState.SLOW_DOWN_RIGHT ?
-                                1.0f : -1.0f);
+        } else {
+            playerRB.bodyType = RigidbodyType2D.Dynamic;
+            playerRB.gravityScale = GRAVITY_SCALE;
+            playerRB.freezeRotation = true;
 
-                walkingMovementElapsedTime += Time.deltaTime;
-            }
+            playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
         }
 
-        // animation  ----------------------------------------------------------
-        animator.SetFloat(animatorParamSpeed, Mathf.Abs(playerRB.linearVelocityX));
-
-        UpdateCheck();
     }
 
-    // player movement  ########################################################
-    // during explore play
+    // private members  ########################################################
 
-    [Flags]
-    private enum WalkingState {
-        STOP = 0,
-        SPEED_UP_LEFT = 1 << 0,
-        SLOW_DOWN_LEFT = 1 << 2,
-        SPEED_UP_RIGHT = 1 << 3,
-        SLOW_DOWN_RIGHT = 1 << 4,
-        SPEED_UP = SPEED_UP_LEFT | SPEED_UP_RIGHT,
-        SLOW_DOWN = SLOW_DOWN_LEFT | SLOW_DOWN_RIGHT,
-    }
+    private bool as_music_play;
 
+    // inputs  #################################################################
 
-    /// <summary>
-    /// event handler for inputs during <b>explore play</b>
-    /// </summary>
+    private PlayerInput playerInput;
+
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if (!hasSelfControl)
-            return;
 
         switch (ctxt.action.phase) {
         case InputActionPhase.Started:  // -------------------------------------
@@ -168,92 +75,127 @@ public class PlayerScript: MonoBehaviour {
                 break;
 
             case "Left":
-                walkingState = WalkingState.SPEED_UP_LEFT;
-                walkingMovementElapsedTime = 0.0f;
+                TurnLeft();
                 break;
 
             case "Right":
-                walkingState = WalkingState.SPEED_UP_RIGHT;
-                walkingMovementElapsedTime = 0.0f;
+                TurnRight();
                 break;
 
             case "Dash":
-                Dash();
+                Debug.Log("Dash");  // todo
                 break;
 
             case "Interact":
-                Interact();
+                Debug.Log("Interact!!!");  // todo
                 break;
 
             }
             break;
 
         case InputActionPhase.Canceled:  // ------------------------------------
-
             switch (ctxt.action.name) {
             case "Left":
-                walkingState = WalkingState.SLOW_DOWN_LEFT;
-                walkingMovementElapsedTime = 0.0f;
-                break;
-
             case "Right":
-                walkingState = WalkingState.SLOW_DOWN_RIGHT;
-                walkingMovementElapsedTime = 0.0f;
-
+                StopMovement();
                 break;
             }
             break;
-
         }
     }
 
-    // HACK rm
-    public void PublicJump() {
-        Debug.Log("public jump");
-        tmpIdle.GetComponent<Renderer>().enabled = false;
-        tmpJump.GetComponent<Renderer>().enabled = true;
+    // movements  ##############################################################
+
+    // public methods  =========================================================
+
+    public void TurnLeft() {
+        moveDir = -1;
+        MovementEnsureFacing(-1);
+        animator.SetBool(IN_MOVEMENT_ID, true);
     }
 
-    // HACK rm
-    public void UpdateCheck() {
-        if (playerRB.IsTouchingLayers(groundLayerMask)) {
-            tmpIdle.GetComponent<Renderer>().enabled = true;
-            tmpJump.GetComponent<Renderer>().enabled = false;
-
-            animator.SetTrigger(animatorParamStopJump);
-
-        }
+    public void TurnRight() {
+        moveDir = 1;
+        MovementEnsureFacing(1);
+        animator.SetBool(IN_MOVEMENT_ID, true);
     }
 
-    /// <summary>
-    /// player jump (during <i>explore play</i>)
-    /// </summary>
-    private void Jump() {
+    public void StopMovement() {
+        moveDir = 0;
+        animator.SetBool(IN_MOVEMENT_ID, false);
+    }
+
+    public void Jump() {
         if (!playerRB.IsTouchingLayers(groundLayerMask))
             return;
 
-        playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        PublicJump();
+        playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
-        GameControllerScript.Instance.PlayJump();
-
-        animator.SetTrigger(animatorParamJump);
+        animator.SetTrigger(JUMP_ID);
     }
 
-    /// <summary>
-    /// player dash (during <i>explore play</i>)
-    /// </summary>
-    private void Dash() {
-        Debug.Log("DASH");  // todo implement dash in explore play
-        GameControllerScript.Instance.PlayDash();
+    // private members  ========================================================
+
+    private Rigidbody2D playerRB;
+    bool isFacingRight = true;
+    int moveDir = 0;
+
+    // constants  --------------------------------------------------------------
+    readonly private float GRAVITY_SCALE = 1.0f;
+    readonly private float JUMP_FORCE = 5.0f;
+    readonly private float MAX_WALKING_SPEED = 15.0f;
+
+    private void MovementFixedUpdate() {
+        // apply horizontal force toward target velocity
+        float targetVelX = moveDir * MAX_WALKING_SPEED;
+        float velDiff = targetVelX - playerRB.linearVelocityX;
+        float requiredAccel = velDiff / Time.fixedDeltaTime;
+        float maxForce = Mathf.Abs(requiredAccel * playerRB.mass);
+        // clamp force to avoid extreme impulses
+        float forceX = Mathf.Clamp(requiredAccel * playerRB.mass,
+            -maxForce, maxForce);
+        playerRB.AddForce(new Vector2(forceX, 0f));
+
+        // light damping when idle to reduce sliding
+        if (moveDir == 0 && Mathf.Abs(playerRB.linearVelocityX) < 0.01f) {
+            playerRB.linearVelocity = new Vector2(0f, playerRB.linearVelocityY);
+        }
+
     }
 
-    /// <summary>
-    /// player main interact (during <i>explore play</i>)
-    /// </summary>
-    private void Interact() {
-        Debug.Log("Interact");  // todo implement interact in explore play
+    // helpers  ================================================================
+
+    private void MovementEnsureFacing(int dir) {
+        if (dir == 0)
+            return;
+        bool shouldFaceRight = dir > 0;
+        if (shouldFaceRight != isFacingRight)
+            MovementFlip();
     }
+
+    private void MovementFlip() {
+        isFacingRight = !isFacingRight;
+        Vector3 s = transform.localScale;
+        s.x = -s.x;
+        transform.localScale = s;
+    }
+
+
+    // animations  #############################################################
+
+    private Animator animator;
+
+    private void AnimationUpdate() {
+        if (playerRB.IsTouchingLayers(groundLayerMask)) {
+            // HACK
+            // animator.SetBool(IN_AIR_ID, false);
+        }
+    }
+
+    // constants  ==============================================================
+    readonly private int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
+    readonly private int JUMP_ID = Animator.StringToHash("Jump");
+
+
+    // TODO SFX
 }
-
-

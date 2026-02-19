@@ -114,7 +114,7 @@ public class PieceScript: MonoBehaviour {
 
     public void OnEnable() {
         // take over control of player
-        playerScript.SetPlayTypeAsExplore(false);
+        playerScript.SetPlayTypeAsMusic(true);
         playerRB.MovePosition(origin);
 
         // start input management
@@ -147,7 +147,7 @@ public class PieceScript: MonoBehaviour {
 
     private void OnDisable() {
         // return control back to user
-        playerScript.SetPlayTypeAsExplore(true);
+        playerScript.SetPlayTypeAsMusic(false);
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
