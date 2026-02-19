@@ -3,10 +3,7 @@
 [^format]
 
 <!-- todo implement barline & beat line as environmental element -->
-<!-- Fixme vertical slice: special sequences -->
-<!-- Fixme vertical slice: 3 Cs -->
-<!-- Fixme vertical slice: 1/2 levels using blockmesh design process -->
-<!-- Fixme vertical slide: a beautiful corner -->
+<!-- FIXME camera better -->
 <!-- fixme reorganize resource -->
 
 
