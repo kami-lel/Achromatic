@@ -37,12 +37,10 @@ public class PieceScript: MonoBehaviour {
     /// default to <c>0.0f</c> for normal play
     /// </summary>
     [SerializeField]
-    private float musicStaringBar = 0.0f;
+    private float debugMusicStaringBar = 0.0f;
 
     [SerializeField]
-    private AnimationCurve tmpJumpCurve;
-
-    private float tmpPlayerLastJump;
+    private Collider2D preludePlayCollider;
 
     // constants  ##############################################################
 
@@ -54,15 +52,108 @@ public class PieceScript: MonoBehaviour {
     // public members  #########################################################
     public ScoreTracker scoreTracker;
 
+    // MonoBehavior Lifecycle  #################################################
+    private void Awake() {
+        origin = (Vector2)transform.position;
+        judgeCriteria = new(beatmap);
+
+        PlayerAwake();
+        AudioAwake();
+        BeatmapAwake();
+    }
+
+    private void Start() {
+        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
+
+        PlayerStart();
+        InputStart();
+        BeatmapStart();
+    }
+
+    private void Update() {
+        // calculate current beat count
+        currentBeatCount = CalcRealtimeBeatCount();
+
+        BeatmapUpdate();
+        PlayerUpdate();
+        judgeCriteria.DetectPassByMiss(audioSource.time);
+    }
+
+    void OnDisable() {
+        judgeCriteria.onDetectPassByMiss -= OnDetectPassByMiss;
+
+        PlayerOnDisable();
+    }
+
     // private members  ########################################################
-    // references
-    private AudioSource audioSource;
+    private Vector2 origin;
+
+
+    // player  #################################################################
+
     private PlayerScript playerScript;
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
-    private Vector2 origin;
 
-    // beatmap related
+    private void PlayerAwake() {
+        // link player references
+        GameObject player = GameControllerScript.GetPlayer();
+        playerRB = player.GetComponent<Rigidbody2D>();
+        playerScript = player.GetComponent<PlayerScript>();
+        playerInput = player.GetComponent<PlayerInput>();
+    }
+
+    /// <summary>
+    /// handle update of player's control
+    /// </summary>
+    private void PlayerUpdate() {
+
+        float y = 0f;
+        // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+
+        // update user horizontal position
+        Vector2 newPosition = new(
+                CalcXFromBeat(currentBeatCount), y);
+        playerRB.MovePosition(newPosition);
+    }
+
+    private void PlayerStart() {
+        playerScript.SetExplorePlay(false);
+        playerRB.MovePosition(origin);
+    }
+
+    private void PlayerOnDisable() {
+        playerScript.SetExplorePlay(true);
+        playerInput.onActionTriggered -= OnActionTriggered;
+
+    }
+
+
+
+    // audio  ##################################################################
+    private AudioSource audioSource;
+
+    private void AudioAwake() {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
+
+    private void AudioStart() {
+        // TODO make it actually work with prelude
+        // start the music
+        if (debugMusicStaringBar != 0.0f) {
+            // start music midpoint, for debug purpose
+            audioSource.time = (debugMusicStaringBar - 1.0f)
+                    * beatPerBar
+                    * (60.0f / beatmap.Tempo)
+                    + beatmap.PreludeLength;
+        }
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
+    }
+
+
+    // beatmap  ################################################################
     private BeatmapData beatmap;
     private float beatPerBar;
     private float tempoDiv60;
@@ -84,136 +175,12 @@ public class PieceScript: MonoBehaviour {
 
     private JudgeCriteria judgeCriteria;
 
-    // input related
-    private InputPressedActions pressedActions;
-
-    // MonoBehavior Lifecycle  #################################################
-
-    /// <summary>
-    /// initialize PieceScript
-    /// </summary>
-    public void Awake() {
-        // link references
-        origin = (Vector2)transform.position;
-        // link player references
-        GameObject player = GameControllerScript.GetPlayer();
-        playerRB = player.GetComponent<Rigidbody2D>();
-        playerScript = player.GetComponent<PlayerScript>();
-        playerInput = player.GetComponent<PlayerInput>();
-
-        // set up audio
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-
-
-        AwakeBeatmap();
-        AwakeJudge();
-
-        scoreTracker = new(beatmap);
-    }
-
-    public void OnEnable() {
-        // take over control of player
-        playerScript.SetExplorePlay(false);
-        playerRB.MovePosition(origin);
-
-        // start input management
-        playerInput.onActionTriggered += OnActionTriggered;
-        pressedActions = InputPressedActions.NONE;
-
-        OnEnableBeatmap();
-
-        // start the music
-        if (musicStaringBar != 0.0f) {
-            // start music midpoint, for debug purpose
-            audioSource.time = (musicStaringBar - 1.0f)
-                    * beatPerBar
-                    * (60.0f / beatmap.Tempo)
-                    + beatmap.PreludeLength;
-        }
-        audioSource.Play();
-        // hack
-        audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
-    }
-
-    public void Update() {
-        // calculate current beat count
-        currentBeatCount = CalcRealtimeBeatCount();
-
-        UpdateBeatmap();
-        UpdatePlayer();
-        judgeCriteria.DetectPassByMiss(audioSource.time);
-    }
-
-    private void OnDisable() {
-        // return control back to user
-        playerScript.SetExplorePlay(true);
-        playerInput.onActionTriggered -= OnActionTriggered;
-    }
-
-    // input manage  ###########################################################
-    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        InputAction a = ctxt.action;
-
-        switch (a.phase) {
-        case InputActionPhase.Started:
-            switch (a.name) {
-            case "Jump":
-                pressedActions |= InputPressedActions.JUMP;
-                break;
-            case "Dash":
-                pressedActions |= InputPressedActions.DASH;
-                break;
-            case "PowerJump":
-                pressedActions |= InputPressedActions.POWER_JUMP;
-                break;
-            case "Trigger":
-                Trigger();
-                break;
-            }
-            break;
-
-        case InputActionPhase.Canceled:
-            switch (a.name) {
-            case "Jump":
-                pressedActions &= ~InputPressedActions.JUMP;
-                break;
-            case "Dash":
-                pressedActions &= ~InputPressedActions.DASH;
-                break;
-            case "PowerJump":
-                pressedActions &= ~InputPressedActions.POWER_JUMP;
-                break;
-            }
-            break;
-        }
-    }
-
-    private void Trigger() {
-        JudgeResult judgeResult = judgeCriteria.Judge(
-                audioSource.time, pressedActions);
-        scoreTracker.Record(judgeResult);
-
-        // control player  -----------------------------------------------------
-        if ((pressedActions & InputPressedActions.JUMP) != 0) {
-            PlayerJump();
-        } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-            PlayerDash();
-        }
-
-        GameControllerScript.Instance.tmpUpdateText(judgeResult,
-                scoreTracker.combo,
-                scoreTracker.runningScore);
-        // todo add audio for feedback
-    }
-
-
-    // Beatmap control #########################################################
+    // MonoBehavior Lifecycle  =================================================
 
     /// <summary>
     /// handle awake of beatmap element prefabs
     /// </summary>
-    private void AwakeBeatmap() {
+    private void BeatmapAwake() {
         // load & set up beatmap
         if (beatmapFile == null) {
             Debug.LogWarning("PieceScript: must provide beatmapFile");
@@ -231,19 +198,13 @@ public class PieceScript: MonoBehaviour {
         preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
     }
 
-    /// <summary>
-    /// handle OnEnable of beatmap element prefabs
-    /// </summary>
-    private void OnEnableBeatmap() {
+    private void BeatmapStart() {
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
         notesRenderQ = new(beatmap.notes);
     }
 
-    /// <summary>
-    /// handle update of beatmap element prefabs
-    /// </summary>
-    private void UpdateBeatmap() {
+    private void BeatmapUpdate() {
         // todo make note disappear / animation when hit
         // place beatLine  -----------------------------------------------------
         float renderBoundaryOnBeat = currentBeatCount
@@ -293,50 +254,10 @@ public class PieceScript: MonoBehaviour {
             prefabPool.Spawn(prefabName,
                     new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
 
-
-
         }
     }
 
-
-    // Control Player  #########################################################
-
-    /// <summary>
-    /// handle update of player's control
-    /// </summary>
-    private void UpdatePlayer() {
-
-        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
-
-        // update user horizontal position
-        Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), y);
-        playerRB.MovePosition(newPosition);
-    }
-
-
-    private void PlayerJump() {
-        SFXManagerScript.Instance.PlayJumpSFX();
-
-        tmpPlayerLastJump = Time.time;
-    }
-
-    private void PlayerDash() {
-        SFXManagerScript.Instance.PlayDashSFX();
-    }
-
-
-    // Judging #################################################################
-    private void AwakeJudge() {
-        judgeCriteria = new(beatmap);
-        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
-    }
-
-    void OnDetectPassByMiss(object sender, EventArgs e) {
-        scoreTracker.Record(JudgeResult.LATE_MISS);
-        // todo handle pass by miss
-    }
-    // helpers  ################################################################
+    // helpers  ================================================================
 
     /// <returns>realtime beat count based on Audio Source time,
     /// start on <c>0.0f</c></returns>
@@ -344,13 +265,83 @@ public class PieceScript: MonoBehaviour {
         return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
 
+    // Input  ##################################################################
+
+    private InputPressedActions pressedActions;
+
+    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        InputAction a = ctxt.action;
+
+        switch (a.phase) {
+        case InputActionPhase.Started:
+            switch (a.name) {
+            case "Jump":
+                pressedActions |= InputPressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions |= InputPressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions |= InputPressedActions.POWER_JUMP;
+                break;
+            case "Trigger":
+                InputTrigger();
+                break;
+            }
+            break;
+
+        case InputActionPhase.Canceled:
+            switch (a.name) {
+            case "Jump":
+                pressedActions &= ~InputPressedActions.JUMP;
+                break;
+            case "Dash":
+                pressedActions &= ~InputPressedActions.DASH;
+                break;
+            case "PowerJump":
+                pressedActions &= ~InputPressedActions.POWER_JUMP;
+                break;
+            }
+            break;
+        }
+    }
+
+    private void InputTrigger() {
+        JudgeResult judgeResult = judgeCriteria.Judge(
+                audioSource.time, pressedActions);
+        scoreTracker.Record(judgeResult);
+
+        // control player  -----------------------------------------------------
+        if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            playerScript.AnimationJump();
+        } else if ((pressedActions & InputPressedActions.DASH) != 0) {
+            playerScript.AnimationDash();
+        }
+
+        GameControllerScript.Instance.tmpUpdateText(judgeResult,
+                scoreTracker.combo,
+                scoreTracker.runningScore);
+        // todo add audio for feedback
+    }
+
+    private void InputStart() {
+        playerInput.onActionTriggered += OnActionTriggered;
+        pressedActions = InputPressedActions.NONE;
+    }
+
+    // Judging  ################################################################
+
+    private void OnDetectPassByMiss(object sender, EventArgs e) {
+        scoreTracker.Record(JudgeResult.LATE_MISS);
+        // todo handle pass by miss
+    }
+
+
+    // helpers  ################################################################
     private float CalcXFromBeat(float beatCount) {
         return origin.x + beatCount * beatmap.BeatSpeed;
     }
-
 }
-
-
 [Flags]
 public enum InputPressedActions {
     NONE = 0,
