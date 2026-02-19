@@ -12,16 +12,22 @@ public class PlayerScript: MonoBehaviour {
     [SerializeField]
     private LayerMask groundLayerMask = Physics2D.AllLayers;
 
+
+    [SerializeField]
+    private GameObject tmpPlayerSprite;  // hack
+
     // MonoBehavior Lifecycle  #################################################
 
     void Awake() {
         playerRB = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
+
+        tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
     private void OnEnable() {
-        SetPlayTypeAsMusic(false);
+        SetExplorePlay(true);
         playerInput.defaultActionMap = "PlayerExplorePlay";
         playerInput.onActionTriggered += OnActionTriggered;
     }
@@ -30,36 +36,33 @@ public class PlayerScript: MonoBehaviour {
         MovementFixedUpdate();
     }
 
-    private void Update() {
-        AnimationUpdate();
-    }
-
     private void OnDisable() {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
     // public methods  #########################################################
 
-    public void SetPlayTypeAsMusic(bool as_music_play) {
-        this.as_music_play = as_music_play;
+    public void SetExplorePlay(bool in_explore_play) {
+        this.in_explore_play = in_explore_play;
 
-        if (as_music_play) {
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-
-        } else {
+        if (in_explore_play) {
             playerRB.bodyType = RigidbodyType2D.Dynamic;
             playerRB.gravityScale = GRAVITY_SCALE;
             playerRB.freezeRotation = true;
 
             playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
+
+        } else {
+            playerRB.bodyType = RigidbodyType2D.Kinematic;
+
+            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         }
 
     }
 
     // private members  ########################################################
 
-    private bool as_music_play;
+    private bool in_explore_play;
 
     // inputs  #################################################################
 
@@ -71,7 +74,7 @@ public class PlayerScript: MonoBehaviour {
         case InputActionPhase.Started:  // -------------------------------------
             switch (ctxt.action.name) {
             case "Jump":
-                Jump();
+                MovementJump();
                 break;
 
             case "Left":
@@ -83,7 +86,7 @@ public class PlayerScript: MonoBehaviour {
                 break;
 
             case "Dash":
-                Debug.Log("Dash");  // todo
+                MovementDash();
                 break;
 
             case "Interact":
@@ -120,19 +123,27 @@ public class PlayerScript: MonoBehaviour {
         animator.SetBool(IN_MOVEMENT_ID, true);
     }
 
+    public void MovementDash() {
+        if (!playerRB.IsTouchingLayers(groundLayerMask))
+            return;
+
+        AnimationDash();
+    }
+
     public void StopMovement() {
         moveDir = 0;
         animator.SetBool(IN_MOVEMENT_ID, false);
     }
 
-    public void Jump() {
+    public void MovementJump() {
         if (!playerRB.IsTouchingLayers(groundLayerMask))
             return;
 
         playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
-        animator.SetTrigger(JUMP_ID);
+        AnimationJump();
     }
+
 
     // private members  ========================================================
 
@@ -185,17 +196,22 @@ public class PlayerScript: MonoBehaviour {
 
     private Animator animator;
 
-    private void AnimationUpdate() {
-        if (playerRB.IsTouchingLayers(groundLayerMask)) {
-            // HACK
-            // animator.SetBool(IN_AIR_ID, false);
-        }
-    }
-
     // constants  ==============================================================
     readonly private int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
     readonly private int JUMP_ID = Animator.StringToHash("Jump");
 
+    // public methods  =========================================================
 
-    // TODO SFX
+    public void AnimationDash() {
+        Debug.Log("Dash");
+
+        // hack need animation for dash
+
+        SFXManagerScript.Instance.PlayDashSFX();
+    }
+
+    public void AnimationJump() {
+        SFXManagerScript.Instance.PlayJumpSFX();
+        animator.SetTrigger(JUMP_ID);
+    }
 }

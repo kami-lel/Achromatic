@@ -114,7 +114,7 @@ public class PieceScript: MonoBehaviour {
 
     public void OnEnable() {
         // take over control of player
-        playerScript.SetPlayTypeAsMusic(true);
+        playerScript.SetExplorePlay(false);
         playerRB.MovePosition(origin);
 
         // start input management
@@ -147,7 +147,7 @@ public class PieceScript: MonoBehaviour {
 
     private void OnDisable() {
         // return control back to user
-        playerScript.SetPlayTypeAsMusic(false);
+        playerScript.SetExplorePlay(true);
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
@@ -316,13 +316,13 @@ public class PieceScript: MonoBehaviour {
 
 
     private void PlayerJump() {
-        GameControllerScript.Instance.PlayJump();
+        SFXManagerScript.Instance.PlayJumpSFX();
 
         tmpPlayerLastJump = Time.time;
     }
 
     private void PlayerDash() {
-        GameControllerScript.Instance.PlayDash();
+        SFXManagerScript.Instance.PlayDashSFX();
     }
 
 

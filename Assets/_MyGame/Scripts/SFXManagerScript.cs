@@ -42,7 +42,7 @@ public class SFXManagerScript: MonoBehaviour {
 
     // private methods  ########################################################
 
-    public void PlayRumble(float low, float high, float duration) {
+    private void PlayRumble(float low, float high, float duration) {
         var pad = Gamepad.current;
         if (pad == null) {
             return;
