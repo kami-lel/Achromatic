@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ParallaxBackgroundScript: MonoBehaviour {
 
-    // TODO implement parallax bg
+    // todo implement parallax bg
 
     // Inspector Fields  #######################################################
 

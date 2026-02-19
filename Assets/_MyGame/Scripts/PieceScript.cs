@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -114,7 +115,10 @@ public class PieceScript: MonoBehaviour {
             judgeCriteria.DetectPassByMiss(audioSource.time);
             beatmap.Update();
 
-            if (tmpAudioEndTime > Time.time) {
+            if (tmpAudioEndTime < Time.time) {
+                GameStats.Instance.maxCombo = scoreTracker.maxCombo;
+                GameStats.Instance.totalScore = scoreTracker.CalcFinalScore();
+
                 SceneManager.LoadScene("EndScene");
             }
         }
@@ -155,6 +159,18 @@ public class PieceScript: MonoBehaviour {
 
         tmpAudioEndTime = audioSource.clip.length + Time.time + 1.0f;
 
+        if (_timerRoutine != null)
+            StopCoroutine(_timerRoutine);  // stop old
+        _timerRoutine = StartCoroutine(TimerCoroutine());
+    }
+
+    private IEnumerator TimerCoroutine() {
+        double targetDsp = AudioSettings.dspTime + TARGET_SECONDS;  // compute dsp target
+        while (AudioSettings.dspTime < targetDsp) {
+            yield return null;  // wait until dspTime reaches target
+        }
+        _timerRoutine = null;  // clear handle
+        SceneManager.LoadScene("EndScene");  // perform scene change
     }
 
     // player  #################################################################
@@ -182,6 +198,7 @@ public class PieceScript: MonoBehaviour {
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
         playerInput = player.GetComponent<PlayerInput>();
+
     }
 
     private void PlayerOnDisable() {
@@ -192,6 +209,8 @@ public class PieceScript: MonoBehaviour {
 
     }
 
+    private const float TARGET_SECONDS = 161f;
+    private Coroutine _timerRoutine;
 
 
     // audio  ##################################################################
@@ -215,10 +234,6 @@ public class PieceScript: MonoBehaviour {
         audioSource.Play();
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
-
-    // TODO end scene
-    // TODO larger tilemap
-    // TODO audio mix smaller
 
     // beatmap  ################################################################
     private Beatmap beatmap;
