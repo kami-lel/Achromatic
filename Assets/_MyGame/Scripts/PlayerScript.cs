@@ -137,8 +137,9 @@ public class PlayerScript: MonoBehaviour {
     }
 
     public void MovementDash() {
-        if (!playerRB.IsTouchingLayers(groundLayerMask))
+        if (!IsOnGround()) {
             return;
+        }
 
         AnimationDash();
     }
@@ -149,12 +150,16 @@ public class PlayerScript: MonoBehaviour {
     }
 
     public void MovementJump() {
-        if (!playerRB.IsTouchingLayers(groundLayerMask))
+        if (!IsOnGround())
             return;
 
         playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
         AnimationJump();
+    }
+
+    public bool IsOnGround() {
+        return playerRB.IsTouchingLayers(groundLayerMask);
     }
 
 
@@ -166,7 +171,7 @@ public class PlayerScript: MonoBehaviour {
 
     // constants  --------------------------------------------------------------
     readonly private float GRAVITY_SCALE = 1.0f;
-    readonly private float JUMP_FORCE = 5.0f;
+    readonly private float JUMP_FORCE = 8.0f;
     readonly private float MAX_WALKING_SPEED = 15.0f;
 
     private void MovementFixedUpdate() {
