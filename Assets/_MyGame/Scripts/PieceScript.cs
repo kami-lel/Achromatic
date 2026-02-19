@@ -160,7 +160,7 @@ public class PieceScript: MonoBehaviour {
     /// </summary>
     private void PlayerUpdate() {
 
-        float y = 0f;
+        float y = -0.8345073f; // hack
         // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
         // update user horizontal position
@@ -205,10 +205,13 @@ public class PieceScript: MonoBehaviour {
         }
         // start the music
         audioSource.Play();
-        // HACK ending time
+        // Hack ending time
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
+
+    // TODO end scene
+    // TODO 16 more bars
 
     // beatmap  ################################################################
     private Beatmap beatmap;
@@ -229,11 +232,9 @@ public class PieceScript: MonoBehaviour {
             switch (a.name) {
             case "Jump":
                 pressedActions |= InputPressedActions.JUMP;
-                playerScript.AnimationJump();
                 break;
             case "Dash":
                 pressedActions |= InputPressedActions.DASH;
-                playerScript.AnimationDash();
                 break;
             case "PowerJump":
                 pressedActions |= InputPressedActions.POWER_JUMP;
