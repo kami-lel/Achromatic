@@ -1,10 +1,13 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
+
 
 /// <summary>
 /// controller during <c>Music Play</c>, enables:
@@ -33,121 +36,208 @@ public class PieceScript: MonoBehaviour {
     /// default to <c>0.0f</c> for normal play
     /// </summary>
     [SerializeField]
-    private float musicStaringBar = 0.0f;
+    private float debugMusicStaringBar = 0.0f;
+
+    [Header("Triggers")]
 
     [SerializeField]
-    private AnimationCurve tmpJumpCurve;
+    private Collider2D playerCollider;
 
-    private float tmpPlayerLastJump;
+    [SerializeField]
+    private Collider2D playStartHitBox;
 
-    // constants  ##############################################################
-
-    /// <summary>
-    /// height of note on board
-    /// </summary>
-    private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
 
     // public members  #########################################################
     public ScoreTracker scoreTracker;
 
+
+    // MonoBehavior Lifecycle  #################################################
+    private void Awake() {
+        AudioAwake();
+    }
+
+    private void Start() {
+        PlayerStart();
+
+        phase = PiecePhase.NONE;
+
+        origin = (Vector2)transform.position;
+        beatmap = new(origin, beatmapFile);
+
+        judgeCriteria = new(beatmap.beatmapData);
+        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
+
+        scoreTracker = new(beatmap.beatmapData);
+        InputStart();
+    }
+
+    private void Update() {
+        // hack use dist
+        float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
+        switch (phase) {
+        case PiecePhase.NONE:
+            if (dist <= 20.0f) {
+                EnterPrelude();
+            }
+            break;
+
+        case PiecePhase.PRELUDE:
+            if (playStartHitBox.IsTouching(playerCollider)) {
+                StartPlay();
+            } else if (dist > 20.0f) {
+                LeavePrelude();
+            }
+            break;
+
+
+        default:
+            break;
+        }
+
+        switch (phase) {
+        case PiecePhase.PRELUDE:
+            audioSource.volume = 1.0f - dist / 20f;
+            if (audioSource.time > 8.0f) {
+                audioSource.time = 0.0f;
+            }
+            break;
+
+        default:
+            break;
+        }
+
+        if (phase == PiecePhase.PLAY) {
+            // calculate current beat count
+            beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
+
+            BeatmapUpdate();
+            PlayerUpdate();
+            judgeCriteria.DetectPassByMiss(audioSource.time);
+            beatmap.Update();
+        }
+    }
+
+    void OnDisable() {
+        if (judgeCriteria != null) {
+            judgeCriteria.onDetectPassByMiss -= OnDetectPassByMiss;
+        }
+
+        PlayerOnDisable();
+    }
+
     // private members  ########################################################
-    // references
-    private AudioSource audioSource;
+    private Vector2 origin;
+    private JudgeCriteria judgeCriteria;
+    private PiecePhase phase = PiecePhase.NONE;
+
+    private void EnterPrelude() {
+        Debug.Log("PieceScript: player enters Prelude Play hit box");
+        phase = PiecePhase.PRELUDE;
+        audioSource.Play();
+    }
+
+    private void LeavePrelude() {
+        phase = PiecePhase.NONE;
+        audioSource.Stop();
+    }
+
+    private void StartPlay() {
+        Debug.Log("PieceScript: player enters Start Play hit box");
+        phase = PiecePhase.PLAY;
+
+        playerScript.SetExplorePlay(false);
+        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+        playerRB.MovePosition(origin);
+        playerScript.AnimationStartWalk();
+
+
+        if (_timerRoutine != null)
+            StopCoroutine(_timerRoutine);  // stop old
+        _timerRoutine = StartCoroutine(TimerCoroutine());
+    }
+
+    private IEnumerator TimerCoroutine() {
+        double targetDsp = AudioSettings.dspTime + TARGET_SECONDS;  // compute dsp target
+        while (AudioSettings.dspTime < targetDsp) {
+            yield return null;  // wait until dspTime reaches target
+        }
+        _timerRoutine = null;  // clear handle
+        SceneManager.LoadScene("EndScene");  // perform scene change
+    }
+
+    // player  #################################################################
+
     private PlayerScript playerScript;
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
-    private Vector2 origin;
-
-    // beatmap related
-    private BeatmapData beatmap;
-    private float beatPerBar;
-    private float tempoDiv60;
-    private float preludeOffsetAsBeat;
-    private BeatmapPrefabsPool prefabPool;
-    private float lastBeatLineOnBeat;
-    private float lastBarlineOnBeat;
 
     /// <summary>
-    /// current beat count, <c>0.0f</c> at start,
-    /// consistent in the same <c>Update()</c>
+    /// handle update of player's control
     /// </summary>
-    private float currentBeatCount;
+    private void PlayerUpdate() {
 
-    /// <summary>
-    /// local dynamic copy used for render
-    /// </summary>
-    private Queue<BeatmapNote> notesRenderQ;
+        float y = -0.8345073f; // hack
+        // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
-    private JudgeCriteria judgeCriteria;
+        // update user horizontal position
+        Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
+        playerRB.MovePosition(newPosition);
+    }
 
-    // input related
-    private InputPressedActions pressedActions;
-
-    // MonoBehavior Lifecycle  #################################################
-
-    /// <summary>
-    /// initialize PieceScript
-    /// </summary>
-    public void Awake() {
-        // link references
-        origin = (Vector2)transform.position;
+    private void PlayerStart() {
         // link player references
         GameObject player = GameControllerScript.GetPlayer();
         playerRB = player.GetComponent<Rigidbody2D>();
         playerScript = player.GetComponent<PlayerScript>();
         playerInput = player.GetComponent<PlayerInput>();
 
-        // set up audio
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-
-
-        AwakeBeatmap();
-        AwakeJudge();
-
-        scoreTracker = new(beatmap);
     }
 
-    public void OnEnable() {
-        // take over control of player
-        playerScript.SetPlayTypeAsExplore(false);
-        playerRB.MovePosition(origin);
-
-        // start input management
-        playerInput.onActionTriggered += OnActionTriggered;
-        pressedActions = InputPressedActions.NONE;
-
-        OnEnableBeatmap();
-
-        // start the music
-        if (musicStaringBar != 0.0f) {
-            // start music midpoint, for debug purpose
-            audioSource.time = (musicStaringBar - 1.0f)
-                    * beatPerBar
-                    * (60.0f / beatmap.Tempo)
-                    + beatmap.PreludeLength;
+    private void PlayerOnDisable() {
+        if (playerScript != null) {
+            playerScript.SetExplorePlay(true);
         }
+        playerInput.onActionTriggered -= OnActionTriggered;
+
+    }
+
+    private const float TARGET_SECONDS = 169f;
+    private Coroutine _timerRoutine;
+
+
+    // audio  ##################################################################
+    private AudioSource audioSource;
+    private float tmpAudioEndTime;
+
+    private void AudioAwake() {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
+
+    private void AudioStart() { // hack
+        // start music midpoint, for debug purpose
+        if (debugMusicStaringBar != 0.0f) {
+            audioSource.time = (debugMusicStaringBar - 1.0f)
+                    * beatmap.beatPerBar
+                    * (60.0f / beatmap.beatmapData.Tempo)
+                    + beatmap.beatmapData.PreludeLength;
+        }
+        // start the music
         audioSource.Play();
-        // hack
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
-    public void Update() {
-        // calculate current beat count
-        currentBeatCount = CalcRealtimeBeatCount();
+    // beatmap  ################################################################
+    private Beatmap beatmap;
 
-        UpdateBeatmap();
-        UpdatePlayer();
-        judgeCriteria.DetectPassByMiss(audioSource.time);
+    private void BeatmapUpdate() {
     }
 
-    private void OnDisable() {
-        // return control back to user
-        playerScript.SetPlayTypeAsExplore(true);
-        playerInput.onActionTriggered -= OnActionTriggered;
-    }
 
-    // input manage  ###########################################################
+    // Input  ##################################################################
+
+    private InputPressedActions pressedActions;
+
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         InputAction a = ctxt.action;
 
@@ -164,7 +254,7 @@ public class PieceScript: MonoBehaviour {
                 pressedActions |= InputPressedActions.POWER_JUMP;
                 break;
             case "Trigger":
-                Trigger();
+                InputTrigger();
                 break;
             }
             break;
@@ -185,16 +275,16 @@ public class PieceScript: MonoBehaviour {
         }
     }
 
-    private void Trigger() {
+    private void InputTrigger() {
         JudgeResult judgeResult = judgeCriteria.Judge(
                 audioSource.time, pressedActions);
         scoreTracker.Record(judgeResult);
 
         // control player  -----------------------------------------------------
         if ((pressedActions & InputPressedActions.JUMP) != 0) {
-            PlayerJump();
+            playerScript.AnimationJump();
         } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-            PlayerDash();
+            playerScript.AnimationDash();
         }
 
         GameControllerScript.Instance.tmpUpdateText(judgeResult,
@@ -203,156 +293,34 @@ public class PieceScript: MonoBehaviour {
         // todo add audio for feedback
     }
 
-
-    // Beatmap control #########################################################
-
-    /// <summary>
-    /// handle awake of beatmap element prefabs
-    /// </summary>
-    private void AwakeBeatmap() {
-        // load & set up beatmap
-        if (beatmapFile == null) {
-            Debug.LogWarning("PieceScript: must provide beatmapFile");
-        }
-
-        beatmap = new BeatmapData(beatmapFile);
-
-        // load element prefabs
-        prefabPool = new BeatmapPrefabsPool(
-                GameControllerScript.Instance.transform);
-
-        // set up vars
-        beatPerBar = beatmap.BeatPerBar;
-        tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
+    private void InputStart() {
+        playerInput.onActionTriggered += OnActionTriggered;
+        pressedActions = InputPressedActions.NONE;
     }
 
-    /// <summary>
-    /// handle OnEnable of beatmap element prefabs
-    /// </summary>
-    private void OnEnableBeatmap() {
-        lastBeatLineOnBeat = 0.0f;
-        lastBarlineOnBeat = 0.0f;
-        notesRenderQ = new(beatmap.notes);
-    }
+    // Judging  ################################################################
 
-    /// <summary>
-    /// handle update of beatmap element prefabs
-    /// </summary>
-    private void UpdateBeatmap() {
-        // todo make note disappear / animation when hit
-        // place beatLine  -----------------------------------------------------
-        float renderBoundaryOnBeat = currentBeatCount
-                + beatmap.BarlineRenderDistance * beatPerBar;
-        while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
-            float placeOnBeat = lastBeatLineOnBeat + 1.0f;
-
-            prefabPool.Spawn("BeatLine",
-                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
-
-            lastBeatLineOnBeat = placeOnBeat;
-        }
-
-        // place barline  ------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + beatmap.BarlineRenderDistance;
-        while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
-            float placeOnBeat = lastBarlineOnBeat + beatPerBar;
-
-            prefabPool.Spawn("Barline",
-                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
-
-            lastBarlineOnBeat = placeOnBeat;
-        }
-
-        // fixme barline placement overlaps beat lines
-        // bug 1st barline missing
-
-        // render notes  -------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + beatmap.NoteRenderDistance;
-
-        while (notesRenderQ.Count > 0) {
-            var next = notesRenderQ.Peek();
-            float noteOnBeat = next.CalcBeatCount();
-
-            if (noteOnBeat >= renderBoundaryOnBeat)
-                break;
-
-            // place the note
-            BeatmapNote note = notesRenderQ.Dequeue();
-
-            string prefabName = note.type switch {
-                BeatmapNoteType.JUMP => "JumpNote",
-                BeatmapNoteType.DASH => "DashNote",
-                _ => null
-            };
-
-            prefabPool.Spawn(prefabName,
-                    new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
-
-
-
-        }
-    }
-
-
-    // Control Player  #########################################################
-
-    /// <summary>
-    /// handle update of player's control
-    /// </summary>
-    private void UpdatePlayer() {
-
-        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
-
-        // update user horizontal position
-        Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), y);
-        playerRB.MovePosition(newPosition);
-    }
-
-
-    private void PlayerJump() {
-        GameControllerScript.Instance.PlayJump();
-
-        tmpPlayerLastJump = Time.time;
-    }
-
-    private void PlayerDash() {
-        GameControllerScript.Instance.PlayDash();
-    }
-
-
-    // Judging #################################################################
-    private void AwakeJudge() {
-        judgeCriteria = new(beatmap);
-        judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
-    }
-
-    void OnDetectPassByMiss(object sender, EventArgs e) {
+    private void OnDetectPassByMiss(object sender, EventArgs e) {
         scoreTracker.Record(JudgeResult.LATE_MISS);
         // todo handle pass by miss
     }
-    // helpers  ################################################################
 
-    /// <returns>realtime beat count based on Audio Source time,
-    /// start on <c>0.0f</c></returns>
-    private float CalcRealtimeBeatCount() {
-        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
-    }
-
-    private float CalcXFromBeat(float beatCount) {
-        return origin.x + beatCount * beatmap.BeatSpeed;
-    }
 
 }
-
-
 [Flags]
 public enum InputPressedActions {
     NONE = 0,
     JUMP = 1 << 0,
     DASH = 1 << 1,
     POWER_JUMP = 1 << 2,
+}
+
+
+[Flags]
+public enum PiecePhase {
+    NONE = 0,
+    PRELUDE = 1 << 0,
+    PLAY = 1 << 1,
 }
 
 // fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

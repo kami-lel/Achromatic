@@ -3,10 +3,7 @@
 [^format]
 
 <!-- todo implement barline & beat line as environmental element -->
-<!-- Fixme vertical slice: special sequences -->
-<!-- Fixme vertical slice: 3 Cs -->
-<!-- Fixme vertical slice: 1/2 levels using blockmesh design process -->
-<!-- Fixme vertical slide: a beautiful corner -->
+<!-- fixme camera better -->
 <!-- fixme reorganize resource -->
 
 
@@ -25,13 +22,23 @@
 ## [Unreleased]
 
 ### Added
-
-- Support Gamepad Controller
-
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+
+## [0.4.0] Vertical Slice - 2026-02-18
+
+#### Controls
+
+During *Explore*: use WSAD/LeftStick to move around
+
+During *Music*:
+Hold `W` for Up Arrow;
+Hold `S` for Forward Arrow;
+Use `Space` / RightTrigger to trigger
+
+
 
 
 
