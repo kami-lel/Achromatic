@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,8 +36,14 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private float debugMusicStaringBar = 0.0f;
 
+    [Header("Triggers")]
+
     [SerializeField]
-    private Collider2D preludePlayCollider;
+    private Collider2D playerCollider;
+
+    [SerializeField]
+    private Collider2D playStartHitBox;
+
 
     // public members  #########################################################
     public ScoreTracker scoreTracker;
@@ -44,32 +51,74 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
-        origin = (Vector2)transform.position;
-        beatmap = new(origin, beatmapFile);
-        judgeCriteria = new(beatmap.beatmapData);
-
-        PlayerAwake();
         AudioAwake();
     }
 
     private void Start() {
+        PlayerStart();
+
+        phase = PiecePhase.NONE;
+
+        origin = (Vector2)transform.position;
+        beatmap = new(origin, beatmapFile);
+
+        judgeCriteria = new(beatmap.beatmapData);
         judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
 
-        PlayerStart();
+        scoreTracker = new(beatmap.beatmapData);
         InputStart();
     }
 
     private void Update() {
-        // calculate current beat count
-        beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
+        // hack use dist
+        float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
+        switch (phase) {
+        case PiecePhase.NONE:
+            if (dist <= 20.0f) {
+                EnterPrelude();
+            }
+            break;
 
-        BeatmapUpdate();
-        PlayerUpdate();
-        judgeCriteria.DetectPassByMiss(audioSource.time);
+        case PiecePhase.PRELUDE:
+            if (playStartHitBox.IsTouching(playerCollider)) {
+                StartPlay();
+            } else if (dist > 20.0f) {
+                LeavePrelude();
+            }
+            break;
+
+
+        default:
+            break;
+        }
+
+        switch (phase) {
+        case PiecePhase.PRELUDE:
+            audioSource.volume = 1.0f - dist / 20f;
+            if (audioSource.time > 8.0f) {
+                audioSource.time = 0.0f;
+            }
+            break;
+
+        default:
+            break;
+        }
+
+        if (phase == PiecePhase.PLAY) {
+            // calculate current beat count
+            beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
+
+            BeatmapUpdate();
+            PlayerUpdate();
+            judgeCriteria.DetectPassByMiss(audioSource.time);
+            beatmap.Update();
+        }
     }
 
     void OnDisable() {
-        judgeCriteria.onDetectPassByMiss -= OnDetectPassByMiss;
+        if (judgeCriteria != null) {
+            judgeCriteria.onDetectPassByMiss -= OnDetectPassByMiss;
+        }
 
         PlayerOnDisable();
     }
@@ -77,21 +126,34 @@ public class PieceScript: MonoBehaviour {
     // private members  ########################################################
     private Vector2 origin;
     private JudgeCriteria judgeCriteria;
+    private PiecePhase phase = PiecePhase.NONE;
 
+    private void EnterPrelude() {
+        Debug.Log("PieceScript: player enters Prelude Play hit box");
+        phase = PiecePhase.PRELUDE;
+        audioSource.Play();
+    }
+
+    private void LeavePrelude() {
+        phase = PiecePhase.NONE;
+        audioSource.Stop();
+    }
+
+    private void StartPlay() {
+        Debug.Log("PieceScript: player enters Start Play hit box");
+        phase = PiecePhase.PLAY;
+
+        playerScript.SetExplorePlay(false);
+        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+        playerRB.MovePosition(origin);
+        playerScript.AnimationStartWalk();
+    }
 
     // player  #################################################################
 
     private PlayerScript playerScript;
     private Rigidbody2D playerRB;
     private PlayerInput playerInput;
-
-    private void PlayerAwake() {
-        // link player references
-        GameObject player = GameControllerScript.GetPlayer();
-        playerRB = player.GetComponent<Rigidbody2D>();
-        playerScript = player.GetComponent<PlayerScript>();
-        playerInput = player.GetComponent<PlayerInput>();
-    }
 
     /// <summary>
     /// handle update of player's control
@@ -107,12 +169,17 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void PlayerStart() {
-        playerScript.SetExplorePlay(false);
-        playerRB.MovePosition(origin);
+        // link player references
+        GameObject player = GameControllerScript.GetPlayer();
+        playerRB = player.GetComponent<Rigidbody2D>();
+        playerScript = player.GetComponent<PlayerScript>();
+        playerInput = player.GetComponent<PlayerInput>();
     }
 
     private void PlayerOnDisable() {
-        playerScript.SetExplorePlay(true);
+        if (playerScript != null) {
+            playerScript.SetExplorePlay(true);
+        }
         playerInput.onActionTriggered -= OnActionTriggered;
 
     }
@@ -129,15 +196,16 @@ public class PieceScript: MonoBehaviour {
 
     private void AudioStart() {
         // TODO make it actually work with prelude
-        // start the music
+        // start music midpoint, for debug purpose
         if (debugMusicStaringBar != 0.0f) {
-            // start music midpoint, for debug purpose
             audioSource.time = (debugMusicStaringBar - 1.0f)
                     * beatmap.beatPerBar
                     * (60.0f / beatmap.beatmapData.Tempo)
                     + beatmap.beatmapData.PreludeLength;
         }
+        // start the music
         audioSource.Play();
+        // HACK ending time
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
@@ -161,9 +229,11 @@ public class PieceScript: MonoBehaviour {
             switch (a.name) {
             case "Jump":
                 pressedActions |= InputPressedActions.JUMP;
+                playerScript.AnimationJump();
                 break;
             case "Dash":
                 pressedActions |= InputPressedActions.DASH;
+                playerScript.AnimationDash();
                 break;
             case "PowerJump":
                 pressedActions |= InputPressedActions.POWER_JUMP;
@@ -228,6 +298,14 @@ public enum InputPressedActions {
     JUMP = 1 << 0,
     DASH = 1 << 1,
     POWER_JUMP = 1 << 2,
+}
+
+
+[Flags]
+public enum PiecePhase {
+    NONE = 0,
+    PRELUDE = 1 << 0,
+    PLAY = 1 << 1,
 }
 
 // fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

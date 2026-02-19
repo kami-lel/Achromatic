@@ -1,16 +1,17 @@
 
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+
+// fixme organize & factorization
 
 public class Beatmap {
 
     public BeatmapData beatmapData;
     public float beatPerBar;
-    private float tempoDiv60;
-    private float preludeOffsetAsBeat;
-    private BeatmapPrefabsPool prefabPool;
+    readonly private float tempoDiv60;
+    readonly private float preludeOffsetAsBeat;
+    readonly private BeatmapPrefabsPool prefabPool;
     private float lastBeatLineOnBeat;
     private float lastBarlineOnBeat;
     private Vector2 origin;
@@ -56,7 +57,6 @@ public class Beatmap {
         lastBarlineOnBeat = 0.0f;
         notesRenderQ = new(beatmapData.notes);
     }
-
 
     public void Update() {
         // todo make note disappear / animation when hit

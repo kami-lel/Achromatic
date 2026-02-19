@@ -66,6 +66,7 @@ public class PlayerScript: MonoBehaviour {
             playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
 
         } else {
+
             playerRB.bodyType = RigidbodyType2D.Kinematic;
 
             playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
@@ -82,6 +83,9 @@ public class PlayerScript: MonoBehaviour {
     private PlayerInput playerInput;
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+        if (!in_explore_play) {
+            return;
+        }
 
         switch (ctxt.action.phase) {
         case InputActionPhase.Started:  // -------------------------------------
@@ -127,13 +131,13 @@ public class PlayerScript: MonoBehaviour {
     public void TurnLeft() {
         moveDir = -1;
         MovementEnsureFacing(-1);
-        animator.SetBool(IN_MOVEMENT_ID, true);
+        AnimationStartWalk();
     }
 
     public void TurnRight() {
         moveDir = 1;
         MovementEnsureFacing(1);
-        animator.SetBool(IN_MOVEMENT_ID, true);
+        AnimationStartWalk();
     }
 
     public void MovementDash() {
@@ -244,5 +248,9 @@ public class PlayerScript: MonoBehaviour {
     public void AnimationJump() {
         SFXManagerScript.Instance.PlayJumpSFX();
         animator.SetTrigger(JUMP_ID);
+    }
+
+    public void AnimationStartWalk() {
+        animator.SetBool(IN_MOVEMENT_ID, true);
     }
 }
