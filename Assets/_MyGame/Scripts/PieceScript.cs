@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 // todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
 
+
+
+
+
 /// <summary>
 /// controller during <c>Music Play</c>, enables:
 /// <list type="bullet">

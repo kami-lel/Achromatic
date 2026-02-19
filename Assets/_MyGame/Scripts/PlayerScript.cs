@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -61,6 +62,13 @@ public class PlayerScript: MonoBehaviour {
     private PlayerInput playerInput;
     private WalkingState walkingState = WalkingState.STOP;
     private float walkingMovementElapsedTime = 0.0f;
+    private Animator animator;
+    private static readonly int animatorParamSpeed =
+           Animator.StringToHash("Speed");
+    private static readonly int animatorParamJump =
+           Animator.StringToHash("Jump");
+    private static readonly int animatorParamStopJump =
+           Animator.StringToHash("StopJump");
 
     // MonoBehavior Lifecycle  #################################################
     public void Start() {
@@ -78,6 +86,8 @@ public class PlayerScript: MonoBehaviour {
         playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += OnActionTriggered;
         hasSelfControl = true;
+
+        animator = GetComponent<Animator>();
     }
 
     public void OnDisable() {
@@ -122,6 +132,8 @@ public class PlayerScript: MonoBehaviour {
             }
         }
 
+        // animation  ----------------------------------------------------------
+        animator.SetFloat(animatorParamSpeed, Mathf.Abs(playerRB.linearVelocityX));
 
         UpdateCheck();
     }
@@ -208,6 +220,8 @@ public class PlayerScript: MonoBehaviour {
             tmpIdle.GetComponent<Renderer>().enabled = true;
             tmpJump.GetComponent<Renderer>().enabled = false;
 
+            animator.SetTrigger(animatorParamStopJump);
+
         }
     }
 
@@ -222,6 +236,8 @@ public class PlayerScript: MonoBehaviour {
         PublicJump();
 
         GameControllerScript.Instance.PlayJump();
+
+        animator.SetTrigger(animatorParamJump);
     }
 
     /// <summary>
