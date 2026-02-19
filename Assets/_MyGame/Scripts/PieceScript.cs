@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 // todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
-
-
-
 
 
 /// <summary>
@@ -42,24 +38,18 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private Collider2D preludePlayCollider;
 
-    // constants  ##############################################################
-
-    /// <summary>
-    /// height of note on board
-    /// </summary>
-    private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
-
     // public members  #########################################################
     public ScoreTracker scoreTracker;
+
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
         origin = (Vector2)transform.position;
-        judgeCriteria = new(beatmap);
+        beatmap = new(origin, beatmapFile);
+        judgeCriteria = new(beatmap.beatmapData);
 
         PlayerAwake();
         AudioAwake();
-        BeatmapAwake();
     }
 
     private void Start() {
@@ -67,12 +57,11 @@ public class PieceScript: MonoBehaviour {
 
         PlayerStart();
         InputStart();
-        BeatmapStart();
     }
 
     private void Update() {
         // calculate current beat count
-        currentBeatCount = CalcRealtimeBeatCount();
+        beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
 
         BeatmapUpdate();
         PlayerUpdate();
@@ -87,6 +76,7 @@ public class PieceScript: MonoBehaviour {
 
     // private members  ########################################################
     private Vector2 origin;
+    private JudgeCriteria judgeCriteria;
 
 
     // player  #################################################################
@@ -112,8 +102,7 @@ public class PieceScript: MonoBehaviour {
         // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
         // update user horizontal position
-        Vector2 newPosition = new(
-                CalcXFromBeat(currentBeatCount), y);
+        Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
         playerRB.MovePosition(newPosition);
     }
 
@@ -144,9 +133,9 @@ public class PieceScript: MonoBehaviour {
         if (debugMusicStaringBar != 0.0f) {
             // start music midpoint, for debug purpose
             audioSource.time = (debugMusicStaringBar - 1.0f)
-                    * beatPerBar
-                    * (60.0f / beatmap.Tempo)
-                    + beatmap.PreludeLength;
+                    * beatmap.beatPerBar
+                    * (60.0f / beatmap.beatmapData.Tempo)
+                    + beatmap.beatmapData.PreludeLength;
         }
         audioSource.Play();
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
@@ -154,116 +143,11 @@ public class PieceScript: MonoBehaviour {
 
 
     // beatmap  ################################################################
-    private BeatmapData beatmap;
-    private float beatPerBar;
-    private float tempoDiv60;
-    private float preludeOffsetAsBeat;
-    private BeatmapPrefabsPool prefabPool;
-    private float lastBeatLineOnBeat;
-    private float lastBarlineOnBeat;
-
-    /// <summary>
-    /// current beat count, <c>0.0f</c> at start,
-    /// consistent in the same <c>Update()</c>
-    /// </summary>
-    private float currentBeatCount;
-
-    /// <summary>
-    /// local dynamic copy used for render
-    /// </summary>
-    private Queue<BeatmapNote> notesRenderQ;
-
-    private JudgeCriteria judgeCriteria;
-
-    // MonoBehavior Lifecycle  =================================================
-
-    /// <summary>
-    /// handle awake of beatmap element prefabs
-    /// </summary>
-    private void BeatmapAwake() {
-        // load & set up beatmap
-        if (beatmapFile == null) {
-            Debug.LogWarning("PieceScript: must provide beatmapFile");
-        }
-
-        beatmap = new BeatmapData(beatmapFile);
-
-        // load element prefabs
-        prefabPool = new BeatmapPrefabsPool(
-                GameControllerScript.Instance.transform);
-
-        // set up vars
-        beatPerBar = beatmap.BeatPerBar;
-        tempoDiv60 = beatmap.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmap.PreludeLength * tempoDiv60;
-    }
-
-    private void BeatmapStart() {
-        lastBeatLineOnBeat = 0.0f;
-        lastBarlineOnBeat = 0.0f;
-        notesRenderQ = new(beatmap.notes);
-    }
+    private Beatmap beatmap;
 
     private void BeatmapUpdate() {
-        // todo make note disappear / animation when hit
-        // place beatLine  -----------------------------------------------------
-        float renderBoundaryOnBeat = currentBeatCount
-                + beatmap.BarlineRenderDistance * beatPerBar;
-        while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
-            float placeOnBeat = lastBeatLineOnBeat + 1.0f;
-
-            prefabPool.Spawn("BeatLine",
-                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
-
-            lastBeatLineOnBeat = placeOnBeat;
-        }
-
-        // place barline  ------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + beatmap.BarlineRenderDistance;
-        while (renderBoundaryOnBeat - lastBarlineOnBeat > beatPerBar) {
-            float placeOnBeat = lastBarlineOnBeat + beatPerBar;
-
-            prefabPool.Spawn("Barline",
-                    new Vector2(CalcXFromBeat(placeOnBeat), 0.0f));
-
-            lastBarlineOnBeat = placeOnBeat;
-        }
-
-        // fixme barline placement overlaps beat lines
-        // bug 1st barline missing
-
-        // render notes  -------------------------------------------------------
-        renderBoundaryOnBeat = currentBeatCount + beatmap.NoteRenderDistance;
-
-        while (notesRenderQ.Count > 0) {
-            var next = notesRenderQ.Peek();
-            float noteOnBeat = next.CalcBeatCount();
-
-            if (noteOnBeat >= renderBoundaryOnBeat)
-                break;
-
-            // place the note
-            BeatmapNote note = notesRenderQ.Dequeue();
-
-            string prefabName = note.type switch {
-                BeatmapNoteType.JUMP => "JumpNote",
-                BeatmapNoteType.DASH => "DashNote",
-                _ => null
-            };
-
-            prefabPool.Spawn(prefabName,
-                    new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
-
-        }
     }
 
-    // helpers  ================================================================
-
-    /// <returns>realtime beat count based on Audio Source time,
-    /// start on <c>0.0f</c></returns>
-    private float CalcRealtimeBeatCount() {
-        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
-    }
 
     // Input  ##################################################################
 
@@ -337,10 +221,6 @@ public class PieceScript: MonoBehaviour {
     }
 
 
-    // helpers  ################################################################
-    private float CalcXFromBeat(float beatCount) {
-        return origin.x + beatCount * beatmap.BeatSpeed;
-    }
 }
 [Flags]
 public enum InputPressedActions {
