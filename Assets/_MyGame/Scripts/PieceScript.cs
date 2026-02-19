@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // todo allows & give feedback for smashing input during: empty or climax
 // bug piece will have error if Active at beginning of scene
@@ -112,6 +113,10 @@ public class PieceScript: MonoBehaviour {
             PlayerUpdate();
             judgeCriteria.DetectPassByMiss(audioSource.time);
             beatmap.Update();
+
+            if (tmpAudioEndTime > Time.time) {
+                SceneManager.LoadScene("EndScene");
+            }
         }
     }
 
@@ -147,6 +152,9 @@ public class PieceScript: MonoBehaviour {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         playerRB.MovePosition(origin);
         playerScript.AnimationStartWalk();
+
+        tmpAudioEndTime = audioSource.clip.length + Time.time + 1.0f;
+
     }
 
     // player  #################################################################
@@ -188,14 +196,14 @@ public class PieceScript: MonoBehaviour {
 
     // audio  ##################################################################
     private AudioSource audioSource;
+    private float tmpAudioEndTime;
 
     private void AudioAwake() {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
 
-    private void AudioStart() {
-        // TODO make it actually work with prelude
+    private void AudioStart() { // hack
         // start music midpoint, for debug purpose
         if (debugMusicStaringBar != 0.0f) {
             audioSource.time = (debugMusicStaringBar - 1.0f)
@@ -205,13 +213,12 @@ public class PieceScript: MonoBehaviour {
         }
         // start the music
         audioSource.Play();
-        // Hack ending time
         audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
     }
 
-
     // TODO end scene
-    // TODO 16 more bars
+    // TODO larger tilemap
+    // TODO audio mix smaller
 
     // beatmap  ################################################################
     private Beatmap beatmap;

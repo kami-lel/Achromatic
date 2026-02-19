@@ -3,7 +3,7 @@
 [^format]
 
 <!-- todo implement barline & beat line as environmental element -->
-<!-- FIXME camera better -->
+<!-- fixme camera better -->
 <!-- fixme reorganize resource -->
 
 

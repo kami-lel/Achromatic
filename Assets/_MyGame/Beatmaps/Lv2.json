@@ -756,6 +756,168 @@
       "beat": 4,
       "subbeat": 1,
       "type": "jump"
+    },
+    {
+      "bar": 65,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 65,
+      "beat": 2,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 65,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 65,
+      "beat": 4,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 66,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 66,
+      "beat": 2,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 66,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 66,
+      "beat": 4,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 67,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 67,
+      "beat": 2,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 67,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 67,
+      "beat": 4,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 68,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 68,
+      "beat": 2,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 68,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 68,
+      "beat": 4,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 69,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 70,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 71,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 72,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 73,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 74,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 75,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 76,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 77,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "dash"
+    },
+    {
+      "bar": 78,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 79,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
     }
   ]
 }
