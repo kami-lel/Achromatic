@@ -114,13 +114,6 @@ public class PieceScript: MonoBehaviour {
             PlayerUpdate();
             judgeCriteria.DetectPassByMiss(audioSource.time);
             beatmap.Update();
-
-            if (tmpAudioEndTime < Time.time) {
-                GameStats.Instance.maxCombo = scoreTracker.maxCombo;
-                GameStats.Instance.totalScore = scoreTracker.CalcFinalScore();
-
-                SceneManager.LoadScene("EndScene");
-            }
         }
     }
 
@@ -157,7 +150,6 @@ public class PieceScript: MonoBehaviour {
         playerRB.MovePosition(origin);
         playerScript.AnimationStartWalk();
 
-        tmpAudioEndTime = audioSource.clip.length + Time.time + 1.0f;
 
         if (_timerRoutine != null)
             StopCoroutine(_timerRoutine);  // stop old
@@ -209,7 +201,7 @@ public class PieceScript: MonoBehaviour {
 
     }
 
-    private const float TARGET_SECONDS = 161f;
+    private const float TARGET_SECONDS = 169f;
     private Coroutine _timerRoutine;
 
 
