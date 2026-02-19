@@ -4,10 +4,26 @@ public class ParallaxBackgroundScript: MonoBehaviour {
 
     // todo implement parallax bg
 
-    private float length,
-        startpos;
-    public UnityEngine.GameObject cam;
-    public float parallaxEffect;
+    // Inspector Fields  #######################################################
+
+    [SerializeField]
+    private GameObject mainCamera;
+
+    [SerializeField]
+    private float parallaxEffectAmount;
+
+    [Header("Background Sprites")]
+
+    [SerializeField]
+    private Sprite sprite1;
+
+    [SerializeField]
+    private Sprite sprite2;
+
+    [SerializeField]
+    private Sprite sprite3;
+
+    // MonoBehavior Lifecycle  #################################################
 
     void Start() {
         startpos = transform.position.x;
@@ -15,8 +31,8 @@ public class ParallaxBackgroundScript: MonoBehaviour {
     }
 
     void Update() {
-        float temp = (cam.transform.position.x * (1 - parallaxEffect));
-        float dist = (cam.transform.position.x * parallaxEffect);
+        float temp = mainCamera.transform.position.x * (1 - parallaxEffectAmount);
+        float dist = (mainCamera.transform.position.x * parallaxEffectAmount);
 
         transform.position = new Vector3(
             startpos + dist,
@@ -29,4 +45,13 @@ public class ParallaxBackgroundScript: MonoBehaviour {
         else if (temp < startpos - length)
             startpos -= length;
     }
+
+
+
+    // private members  ########################################################
+
+
+    private float length,
+        startpos;
+
 }
