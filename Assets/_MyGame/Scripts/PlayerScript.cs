@@ -23,6 +23,7 @@ public class PlayerScript: MonoBehaviour {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
 
+        // hack rm
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
@@ -34,6 +35,18 @@ public class PlayerScript: MonoBehaviour {
 
     void FixedUpdate() {
         MovementFixedUpdate();
+    }
+
+    private void Update() {
+        // hack rm
+        if (!is_squashed)
+            return;  // skip when not squashed
+        timer -= Time.deltaTime;  // decrement Timer each frame
+        if (timer <= 0f) {
+            tmpPlayerSprite.transform.localScale = tmpOriginalScale;  // restore Original Scale
+            is_squashed = false;  // clear flag
+            timer = 0f;  // clear timer
+        }
     }
 
     private void OnDisable() {
@@ -195,6 +208,12 @@ public class PlayerScript: MonoBehaviour {
     // animations  #############################################################
 
     private Animator animator;
+    // hack tmp vars
+    private Vector3 tmpOriginalScale;
+    private float timer = 0.0f;
+    private float squashDuration = 0.5f;  // default Duration seconds
+    private float squashTargetY = 0.1f;  // default Target Y scale
+    private bool is_squashed = false;  // flag Squash Active
 
     // constants  ==============================================================
     readonly private int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
@@ -206,6 +225,13 @@ public class PlayerScript: MonoBehaviour {
         Debug.Log("Dash");
 
         // hack need animation for dash
+        squashTargetY = 0.35f;  // set Target Y value
+        squashDuration = 0.5f;  // set Duration value
+        timer = squashDuration;  // reset Timer
+        is_squashed = true;  // enable restore logic
+        Vector3 s = tmpPlayerSprite.transform.localScale;  // read current scale
+        s.y = squashTargetY;  // assign squashed Y
+        tmpPlayerSprite.transform.localScale = s;  // apply immediate squash
 
         SFXManagerScript.Instance.PlayDashSFX();
     }

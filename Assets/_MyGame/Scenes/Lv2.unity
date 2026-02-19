@@ -709,6 +709,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  tmpPlayerSprite: {fileID: 1797996515}
 --- !u!50 &1054195993
 Rigidbody2D:
   serializedVersion: 5
