@@ -22,13 +22,23 @@
 ## [Unreleased]
 
 ### Added
-
-- Support Gamepad Controller
-
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+
+## [0.4.0] Vertical Slice - 2026-02-18
+
+#### Controls
+
+During *Explore*: use WSAD/LeftStick to move around
+
+During *Music*:
+Hold `W` for Up Arrow;
+Hold `S` for Forward Arrow;
+Use `Space` / RightTrigger to trigger
+
+
 
 
 
