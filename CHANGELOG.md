@@ -5,6 +5,11 @@
 <!-- todo implement barline & beat line as environmental element -->
 <!-- fixme camera better -->
 <!-- fixme reorganize resource -->
+<!-- Fixme dual control system still confusing -->
+<!-- Todo show character origin -->
+<!-- Todo need dramatic shift visually to indicate music has started -->
+<!-- Todo more juices -->
+<!-- todo use enemy to kill as score point -->
 
 
 
