@@ -1,3 +1,4 @@
+using Assets._Achromatic.Scripts.Beatmap;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -42,7 +43,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // TODO TODO
 
-        public void Update(Phase phase, float dist) {
+        public void Update(float dist) {
             // switch (phase) {
             // case Phase.PRELUDE:
             //     audioSource.volume = 1.0f - dist / 20f;

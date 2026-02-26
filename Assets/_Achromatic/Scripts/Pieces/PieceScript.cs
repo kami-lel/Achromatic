@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
@@ -61,8 +59,6 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
-        phase = Phase.INIT;
-
         music = new(bgm, prelude, mainSong);
         notes = new(beatmapFile, music, beatmapSetting);
         prefabs = new();
@@ -80,19 +76,19 @@ public class PieceScript: MonoBehaviour {
 
         // TODO TODO better phase management
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
-        switch (phase) {
-        case Phase.INIT:
+        switch (GameControllerScript.Instance.gameState) {
+        case GameState.EXPLORE:
             if (dist <= 20.0f) {
                 Debug.Log("Start Prelude");
-                phase = Phase.PRELUDE;
+                GameControllerScript.Instance.gameState = GameState.PRELUDE;
             }
             break;
 
-        case Phase.PRELUDE:
+        case GameState.PRELUDE:
             if (playStartHitBox.IsTouching(playerCollider)) {
                 playerManager.StartControlPlayer();
             } else if (dist > 20.0f) {
-                phase = Phase.INIT;
+                GameControllerScript.Instance.gameState = GameState.MUSIC_PLAY;
             }
             break;
 
@@ -101,10 +97,10 @@ public class PieceScript: MonoBehaviour {
         }
 
         // update managers  ----------------------------------------------------
-        music.Update(phase, dist);
+        music.Update(dist);
 
 
-        if (phase == Phase.MAIN_PLAY) {
+        if (GameControllerScript.Instance.gameState == GameState.MUSIC_PLAY) {
             criteria.Update();
             prefabs.Update();
             playerManager.Update();
@@ -117,8 +113,6 @@ public class PieceScript: MonoBehaviour {
     }
 
     // private members  ########################################################
-    private Phase phase = Phase.INIT;
-
     // managers
     private Notes notes;
     private Music music;

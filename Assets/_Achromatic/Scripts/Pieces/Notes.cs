@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using System.Collections.Generic;
+
 using Assets._Achromatic.Scripts.Beatmap;
 
 
@@ -21,12 +23,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             data = JsonUtility.FromJson<BeatmapData>(beatmapFile.text);
-
             if (data.notes.Length == 0) {
                 Debug.LogError("beatmap file contains no notes: "
                         + beatmapFile.name);
             }
 
+            // fill notesQ
+            notesQ = new();
+            foreach (BeatmapData.JsonDataNote jsonNote
+                    in data.notes) {
+                notesQ.Enqueue(new BeatmapNote(jsonNote));
+            }
             // init vars
             beatPerSec = setting.tempo / 60.0f;
             preludeOffsetAsBeat = setting.preludeBarCount * beatPerSec;
@@ -35,6 +42,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public readonly BeatmapData data;
         public readonly BeatmapSetting setting;  // cached
+        public Queue<BeatmapNote> notesQ;
 
         /// <returns>realtime beat count based on Audio Source time,
         /// start on <c>0.0f</c></returns>
