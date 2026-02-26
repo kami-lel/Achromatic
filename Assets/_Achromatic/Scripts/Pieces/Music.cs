@@ -2,14 +2,20 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
-    public class MusicManager {
+    public class Music {
 
-        public MusicManager(AudioSource audioSource) {
+        public Music(AudioSource audioSource) {
             this.audioSource = audioSource;
             audioSource.playOnAwake = false;
         }
 
-        AudioSource audioSource;
+        private AudioSource audioSource;
+
+        public float Time {
+            get {
+                return audioSource.time;
+            }
+        }
 
         // private void AudioStart() { // Hack
         //     // start music midpoint, for debug purpose

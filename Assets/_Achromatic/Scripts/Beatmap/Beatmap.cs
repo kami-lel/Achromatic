@@ -11,7 +11,6 @@ public class Beatmap {
 
     public BeatmapData beatmapData;
     public float beatPerBar;
-    readonly private float tempoDiv60;
     readonly private float preludeOffsetAsBeat;
     readonly private BeatmapPrefabsPool prefabPool;
     private float lastBeatLineOnBeat;
@@ -39,21 +38,12 @@ public class Beatmap {
     public Beatmap(Vector2 origin, TextAsset beatmapFile) {
         this.origin = origin;
 
-        // load & set up beatmap
-        if (beatmapFile == null) {
-            Debug.LogWarning("PieceScript: must provide beatmapFile");
-        }
-
-        beatmapData = new BeatmapData(beatmapFile);
-
         // load element prefabs
         prefabPool = new BeatmapPrefabsPool(
                 GameControllerScript.Instance.transform);
 
         // set up vars
         beatPerBar = beatmapData.BeatPerBar;
-        tempoDiv60 = beatmapData.Tempo / 60.0f;
-        preludeOffsetAsBeat = beatmapData.PreludeLength * tempoDiv60;
 
         lastBeatLineOnBeat = 0.0f;
         lastBarlineOnBeat = 0.0f;
@@ -112,20 +102,18 @@ public class Beatmap {
 
         }
 
-    }
 
-    /// <returns>realtime beat count based on Audio Source time,
-    /// start on <c>0.0f</c></returns>
-    public float CalcRealtimeBeatCount(AudioSource audioSource) {
-        return audioSource.time * tempoDiv60 - preludeOffsetAsBeat;
     }
 
     public float CalcXFromBeat(float beatCount) {
-        return origin.x + beatCount * beatmapData.BeatSpeed;
+        return 0.0f;  // HACK
+        // return origin.x + beatCount * data.BeatSpeed;
     }
+
 
     public float CalcCurrentXFromBeat() {
         return CalcXFromBeat(currentBeatCount);
     }
+
 
 }

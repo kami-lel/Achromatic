@@ -56,35 +56,43 @@ public class PieceScript: MonoBehaviour {
     // private members  ########################################################
 
     // managers
-    private MusicManager musicManager;
+    private Music music;
+    private Notes notes;
+
+    // scores
+    private Criteria criteria;
     private ScoreTracker scoreTracker;
 
     // cached references
-    private AudioSource audioSource;
 
 
 
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
-        // music
-        audioSource = GetComponent<AudioSource>();
-        musicManager = new(audioSource);
-
-        PlayerStart();
-
         phase = Phase.INIT;
 
+        music = new(GetComponent<AudioSource>());
+        notes = new(beatmapFile, music);
+
+        criteria = new(notes.data);
+        scoreTracker = new(notes.data);
+
+        // HACK HACK
+        PlayerStart();
+
+
         origin = (Vector2)transform.position;
-        beatmap = new(origin, beatmapFile);
 
         judgeCriteria = new(beatmap.beatmapData);
         judgeCriteria.onDetectPassByMiss += OnDetectPassByMiss;
 
-        scoreTracker = new(beatmap.beatmapData);
         InputStart();
     }
 
     private void Update() {
+        criteria.Update(phase);
+        return;  // HACK
+
         // Hack use dist
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         switch (phase) {
@@ -119,22 +127,21 @@ public class PieceScript: MonoBehaviour {
             break;
         }
 
+
         if (phase == Phase.MAIN_PLAY) {
+            criteria.DetectPassByMiss();
+
             // calculate current beat count
             beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
 
             BeatmapUpdate();
             PlayerUpdate();
-            judgeCriteria.DetectPassByMiss(audioSource.time);
+            judgeCriteria.DetectPassByMiss();
             beatmap.Update();
         }
     }
 
     void OnDisable() {
-        if (judgeCriteria != null) {
-            judgeCriteria.onDetectPassByMiss -= OnDetectPassByMiss;
-        }
-
         PlayerOnDisable();
     }
 
@@ -216,13 +223,6 @@ public class PieceScript: MonoBehaviour {
 
     private const float TARGET_SECONDS = 169f;
     private Coroutine _timerRoutine;
-
-
-    // beatmap  ################################################################
-    private Beatmap beatmap;
-
-    private void BeatmapUpdate() {
-    }
 
 
     // Input  ##################################################################
