@@ -3,7 +3,7 @@ using System;
 
 namespace Assets._Achromatic.Scripts.Scores {
     [Flags]
-    public enum Judgement {
+    public enum Hit {
 
         // results  ----------------------------------------------------------------
 

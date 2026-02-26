@@ -1,4 +1,5 @@
 using System;
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -72,7 +73,7 @@ public class GameControllerScript: MonoBehaviour {
     // public methods  #########################################################
     // Hack tmp method
     public void tmpUpdateText(
-            Judge judgeResult, int combo, int runningScore) {
+            Hit judgeResult, int combo, int runningScore) {
         if (!tmpCombo.gameObject.activeSelf) {
             tmpCombo.gameObject.SetActive(true);
         }
@@ -85,18 +86,18 @@ public class GameControllerScript: MonoBehaviour {
 
         string judgeText;
 
-        if ((judgeResult & Judge.PERFECT) != 0) {
+        if ((judgeResult & Hit.PERFECT) != 0) {
             judgeText = "Perfect!";
         } else {
             judgeText = judgeResult switch {
-                Judge.NO_HIT => "No Hit!",
-                Judge.INCORRECT => "Wrong!",
-                Judge.EARLY_MISS => "Miss! Too Early",
-                Judge.EARLY_GREAT => "Great! Too Early",
-                Judge.EARLY_GOOD => "Good! Too Early",
-                Judge.LATE_MISS => "Miss! Too Late",
-                Judge.LATE_GREAT => "Great! Too Late",
-                Judge.LATE_GOOD => "Good! Too Late",
+                Hit.NO_HIT => "No Hit!",
+                Hit.INCORRECT => "Wrong!",
+                Hit.EARLY_MISS => "Miss! Too Early",
+                Hit.EARLY_GREAT => "Great! Too Early",
+                Hit.EARLY_GOOD => "Good! Too Early",
+                Hit.LATE_MISS => "Miss! Too Late",
+                Hit.LATE_GREAT => "Great! Too Late",
+                Hit.LATE_GOOD => "Good! Too Late",
                 _ => null
             };
         }

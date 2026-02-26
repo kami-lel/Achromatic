@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using Assets._Achromatic.Scripts.Beatmap;
 
 namespace Assets._Achromatic.Scripts.Scores {
 
@@ -36,9 +37,9 @@ namespace Assets._Achromatic.Scripts.Scores {
             }
         }
 
-        public Judgement Judge(float time, InputPressedActions actions) {
+        public Hit Judge(float time, InputPressedActions actions) {
             if (timings.Count <= 0) {
-                return Judgement.NO_HIT;
+                return Hit.NO_HIT;
             }
 
             Timing timing = timings.Peek();
@@ -47,7 +48,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                 return timing.Judge(time, actions);
 
             } else {
-                return Judgement.NO_HIT;
+                return Hit.NO_HIT;
             }
         }
 
@@ -105,27 +106,27 @@ namespace Assets._Achromatic.Scripts.Scores {
                 startJudgeBound = leftGoodBound - goodDelta;
             }
 
-            public Judgement Judge(float time, InputPressedActions action) {
+            public Hit Judge(float time, InputPressedActions action) {
                 if (action != allowedAction) {
-                    return Judgement.INCORRECT;
+                    return Hit.INCORRECT;
                 }
 
                 if (time < leftGoodBound) {
-                    return Judgement.EARLY_MISS;
+                    return Hit.EARLY_MISS;
                 } else if (time < leftGreatBound) {
-                    return Judgement.EARLY_GOOD;
+                    return Hit.EARLY_GOOD;
                 } else if (time < leftPerfectBound) {
-                    return Judgement.EARLY_GREAT;
+                    return Hit.EARLY_GREAT;
                 } else if (time < center) {
-                    return Judgement.EARLY_PERFECT;
+                    return Hit.EARLY_PERFECT;
                 } else if (time < rightPerfectBound) {
-                    return Judgement.LATE_PERFECT;
+                    return Hit.LATE_PERFECT;
                 } else if (time < rightGreatBound) {
-                    return Judgement.LATE_GREAT;
+                    return Hit.LATE_GREAT;
                 } else if (time < rightGoodBound) {
-                    return Judgement.LATE_GOOD;
+                    return Hit.LATE_GOOD;
                 } else {
-                    return Judgement.LATE_MISS;
+                    return Hit.LATE_MISS;
                 }
             }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using Assets._Achromatic.Scripts.Beatmap;
 using Assets._Achromatic.Scripts.Scores;
 
 // Todo show score overlay UI
@@ -33,7 +34,7 @@ public class ScoreTracker {
     /// <summary>
     /// count each type of result
     /// </summary>
-    private Dictionary<Judgement, int> resultCnt;
+    private Dictionary<Hit, int> resultCnt;
 
     private readonly float perfectScore;
     private readonly float greatScore;
@@ -45,9 +46,9 @@ public class ScoreTracker {
 
     public ScoreTracker(BeatmapData beatmap) {
         // init resultCnt  -----------------------------------------------------
-        resultCnt = new Dictionary<Judgement, int>();
-        foreach (Judgement result
-                in Enum.GetValues(typeof(Judgement))) {
+        resultCnt = new Dictionary<Hit, int>();
+        foreach (Hit result
+                in Enum.GetValues(typeof(Hit))) {
             resultCnt[result] = 0;  // filled w/ 0
         }
 
@@ -67,22 +68,22 @@ public class ScoreTracker {
         maxCombo = 0;
     }
 
-    public void Record(Judgement judgeResult) {
+    public void Record(Hit judgeResult) {
         // record the result as count
         resultCnt[judgeResult] += 1;
 
         // update running score
-        if ((judgeResult & Judgement.PERFECT) != 0) {
+        if ((judgeResult & Hit.PERFECT) != 0) {
             runningScore += perfectScoreInt;
-        } else if ((judgeResult & Judgement.GREAT) != 0) {
+        } else if ((judgeResult & Hit.GREAT) != 0) {
             runningScore += greatScoreInt;
-        } else if ((judgeResult & Judgement.GOOD) != 0) {
+        } else if ((judgeResult & Hit.GOOD) != 0) {
             runningScore += goodScoreInt;
         }
 
 
         // record combo
-        if ((judgeResult & Judgement.NO_SCORE) != 0) {
+        if ((judgeResult & Hit.NO_SCORE) != 0) {
             combo = 0;  // miss, reset combo
         } else {
             combo += 1;
@@ -102,16 +103,16 @@ public class ScoreTracker {
     public int CalcFinalScore() {
         float finalScore = 0.0f;
 
-        foreach (Judgement result
-                in Enum.GetValues(typeof(Judgement))) {
+        foreach (Hit result
+                in Enum.GetValues(typeof(Hit))) {
 
-            if ((result & Judgement.NO_SCORE) != 0) {
+            if ((result & Hit.NO_SCORE) != 0) {
                 continue;
             }
 
-            if ((result & Judgement.PERFECT) != 0) {
+            if ((result & Hit.PERFECT) != 0) {
                 finalScore += perfectScore;
-            } else if ((result & Judgement.GREAT) != 0) {
+            } else if ((result & Hit.GREAT) != 0) {
                 finalScore += greatScore;
             } else {
                 finalScore += goodScore;
