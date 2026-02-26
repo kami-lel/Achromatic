@@ -28,7 +28,7 @@ public class PlayerScript: MonoBehaviour {
     }
 
     private void OnEnable() {
-        SetExplorePlay(true);
+        SetExplorePlay();
         playerInput.defaultActionMap = "PlayerExplorePlay";
         playerInput.onActionTriggered += OnActionTriggered;
     }
@@ -55,35 +55,27 @@ public class PlayerScript: MonoBehaviour {
 
     // public methods  #########################################################
 
-    public void SetExplorePlay(bool in_explore_play) {
-        this.in_explore_play = in_explore_play;
+    public void SetExplorePlay() {
+        GameControllerScript.Instance.gameState = GameState.EXPLORE;
 
-        if (in_explore_play) {
-            playerRB.bodyType = RigidbodyType2D.Dynamic;
-            playerRB.gravityScale = GRAVITY_SCALE;
-            playerRB.freezeRotation = true;
+        playerRB.bodyType = RigidbodyType2D.Dynamic;
+        playerRB.gravityScale = GRAVITY_SCALE;
+        playerRB.freezeRotation = true;
 
-            playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-
-        } else {
-
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        }
-
+        playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
     }
 
-    // private members  ########################################################
-
-    private bool in_explore_play;
+    public void UnsetExplorePlay() {
+        playerRB.bodyType = RigidbodyType2D.Kinematic;
+        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+    }
 
     // inputs  #################################################################
 
     private PlayerInput playerInput;
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if (!in_explore_play) {
+        if (GameControllerScript.Instance.gameState != GameState.EXPLORE) {
             return;
         }
 

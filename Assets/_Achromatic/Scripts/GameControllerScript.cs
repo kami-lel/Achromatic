@@ -5,6 +5,36 @@ using UnityEngine.InputSystem;
 
 public class GameControllerScript: MonoBehaviour {
 
+    // singleton
+    public static GameControllerScript Instance {
+        get; private set;
+    }
+
+    public GameState gameState;
+
+    // MonoBehavior Lifecycle  #################################################
+    private void Awake() {
+        if (Instance == null) {  // create Singleton
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+        if (Instance != this) {  // guard against duplicate
+            Debug.LogError("place GameController Prefab only in 1st scene");
+            Destroy(gameObject);
+        }
+
+
+        // Hack rm these
+        // reference to playerScript
+        playerScript = player.GetComponent<PlayerScript>();
+
+        // disable textbox
+        tmpCombo.gameObject.SetActive(false);
+        tmpJudgeResult.gameObject.SetActive(false);
+    }
+
+
     // Fixme create score overlay
 
     // Inspector Fields  #######################################################
@@ -23,10 +53,6 @@ public class GameControllerScript: MonoBehaviour {
 
     // public members  #########################################################
 
-    /// <summary>
-    /// singleton instance of <c>GameControllerScript</c>
-    /// </summary>
-    public static GameControllerScript Instance;  // singleton
 
     [NonSerialized]
     public PlayerScript playerScript;
@@ -41,28 +67,6 @@ public class GameControllerScript: MonoBehaviour {
         }
 
         return Instance.player;
-    }
-
-    // MonoBehavior Lifecycle  #################################################
-    private void Awake() {
-        // singleton single instance
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            // avoid duplicates
-            Debug.LogError(
-                    "GameControllerScript: Duplicate instance:"
-                    + gameObject.name);
-            Destroy(gameObject);
-        }
-
-        // reference to playerScript
-        playerScript = player.GetComponent<PlayerScript>();
-
-        // disable textbox
-        tmpCombo.gameObject.SetActive(false);
-        tmpJudgeResult.gameObject.SetActive(false);
     }
 
     private void Update() {

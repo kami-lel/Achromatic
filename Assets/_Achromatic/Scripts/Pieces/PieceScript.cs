@@ -63,8 +63,8 @@ public class PieceScript: MonoBehaviour {
     private void Start() {
         phase = Phase.INIT;
 
-        notes = new(beatmapFile, music, beatmapSetting);
         music = new(bgm, prelude, mainSong);
+        notes = new(beatmapFile, music, beatmapSetting);
         prefabs = new();
 
         criteria = new(notes.data, scoreTracker, music);
@@ -77,6 +77,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
+
         // TODO TODO better phase management
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         switch (phase) {
@@ -89,7 +90,7 @@ public class PieceScript: MonoBehaviour {
 
         case Phase.PRELUDE:
             if (playStartHitBox.IsTouching(playerCollider)) {
-                playerManager.StartControl();
+                playerManager.StartControlPlayer();
             } else if (dist > 20.0f) {
                 phase = Phase.INIT;
             }
@@ -110,7 +111,7 @@ public class PieceScript: MonoBehaviour {
         }
     }
 
-    void OnDisable() {
+    private void OnDisable() {
         playerManager.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
     }

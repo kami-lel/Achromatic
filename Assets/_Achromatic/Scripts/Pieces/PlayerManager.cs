@@ -17,7 +17,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
 
-        public void StartControl() {
+        public void StartControlPlayer() {
 
         }
 
