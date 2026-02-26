@@ -5,6 +5,7 @@ using UnityEngine;
 
 using Assets._Achromatic.Scripts.Beatmap;
 using Assets._Achromatic.Scripts.Scores;
+using Assets._Achromatic.Scripts.Pieces;
 
 // Todo show score overlay UI
 
@@ -34,7 +35,7 @@ public class ScoreTracker {
     /// <summary>
     /// count each type of result
     /// </summary>
-    private Dictionary<Hit, int> resultCnt;
+    private readonly Dictionary<Hit, int> resultCnt;
 
     private readonly float perfectScore;
     private readonly float greatScore;
@@ -44,7 +45,7 @@ public class ScoreTracker {
     private readonly int goodScoreInt;
 
 
-    public ScoreTracker(BeatmapData beatmap) {
+    public ScoreTracker(Notes notes) {
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<Hit, int>();
         foreach (Hit result
@@ -54,8 +55,7 @@ public class ScoreTracker {
 
 
         // init perResultScores  -----------------------------------------------
-        // perfectScore = TOTAL_SCORES / beatmap.notes.Count;
-        perfectScore = 10;  // Hack
+        perfectScore = TOTAL_SCORES / notes.data.notes.Length;
         greatScore = perfectScore * 0.7f;
         goodScore = perfectScore * 0.3f;
 

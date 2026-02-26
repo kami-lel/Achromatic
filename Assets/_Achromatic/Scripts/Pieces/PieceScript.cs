@@ -63,8 +63,8 @@ public class PieceScript: MonoBehaviour {
         notes = new(beatmapFile, music, beatmapSetting);
         prefabs = new();
 
-        criteria = new(notes.data, scoreTracker, music);
-        scoreTracker = new(notes.data);
+        scoreTracker = new(notes);
+        criteria = new(music, notes, scoreTracker);
 
         playerManager = new();
 

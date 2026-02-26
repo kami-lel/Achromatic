@@ -8,7 +8,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
     public class Criteria {
 
-        public Criteria(BeatmapData beatmapData, ScoreTracker scoreTracker, Music music) {
+        public Criteria(Music music, Notes notes, ScoreTracker scoreTracker) {
             this.scoreTracker = scoreTracker;
             this.music = music;
 
