@@ -1,9 +1,12 @@
+
 using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
+using Assets._Achromatic.Scripts.Pieces;
 
 // todo allows & give feedback for smashing input during: empty or climax
 // todo background music during explore play
@@ -277,7 +280,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void InputTrigger() {
-        JudgeResult judgeResult = judgeCriteria.Judge(
+        Judge judgeResult = judgeCriteria.Judge(
                 audioSource.time, pressedActions);
         scoreTracker.Record(judgeResult);
 
@@ -302,7 +305,7 @@ public class PieceScript: MonoBehaviour {
     // Judging  ################################################################
 
     private void OnDetectPassByMiss(object sender, EventArgs e) {
-        scoreTracker.Record(JudgeResult.LATE_MISS);
+        scoreTracker.Record(Judge.LATE_MISS);
         // Todo handle pass by miss
     }
 

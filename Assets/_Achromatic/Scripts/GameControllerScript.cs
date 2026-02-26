@@ -72,7 +72,7 @@ public class GameControllerScript: MonoBehaviour {
     // public methods  #########################################################
     // Hack tmp method
     public void tmpUpdateText(
-            JudgeResult judgeResult, int combo, int runningScore) {
+            Judge judgeResult, int combo, int runningScore) {
         if (!tmpCombo.gameObject.activeSelf) {
             tmpCombo.gameObject.SetActive(true);
         }
@@ -85,18 +85,18 @@ public class GameControllerScript: MonoBehaviour {
 
         string judgeText;
 
-        if ((judgeResult & JudgeResult.PERFECT) != 0) {
+        if ((judgeResult & Judge.PERFECT) != 0) {
             judgeText = "Perfect!";
         } else {
             judgeText = judgeResult switch {
-                JudgeResult.NO_HIT => "No Hit!",
-                JudgeResult.INCORRECT => "Wrong!",
-                JudgeResult.EARLY_MISS => "Miss! Too Early",
-                JudgeResult.EARLY_GREAT => "Great! Too Early",
-                JudgeResult.EARLY_GOOD => "Good! Too Early",
-                JudgeResult.LATE_MISS => "Miss! Too Late",
-                JudgeResult.LATE_GREAT => "Great! Too Late",
-                JudgeResult.LATE_GOOD => "Good! Too Late",
+                Judge.NO_HIT => "No Hit!",
+                Judge.INCORRECT => "Wrong!",
+                Judge.EARLY_MISS => "Miss! Too Early",
+                Judge.EARLY_GREAT => "Great! Too Early",
+                Judge.EARLY_GOOD => "Good! Too Early",
+                Judge.LATE_MISS => "Miss! Too Late",
+                Judge.LATE_GREAT => "Great! Too Late",
+                Judge.LATE_GOOD => "Good! Too Late",
                 _ => null
             };
         }
