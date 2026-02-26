@@ -79,7 +79,7 @@ public class BeatmapPrefabsPool: IDisposable {
 
                 Queue<GameObject> q = new();
 
-                // todo not set amount
+                // Todo not set amount
                 int cnt = prefabName switch {
                     "BeatLine" => 30,
                     _ => 10
@@ -127,7 +127,7 @@ public class BeatmapPrefabsPool: IDisposable {
     }
 
     private void Clear() {
-        // todo
+        // Todo
     }
 
 

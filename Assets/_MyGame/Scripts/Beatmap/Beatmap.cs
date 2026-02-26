@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// fixme organize & factorization
+// Fixme organize & factorization
 
 public class Beatmap {
 
@@ -21,7 +21,7 @@ public class Beatmap {
     /// <summary>
     /// height of note on board
     /// </summary>
-    private const float NOTES_HEIGHT = 2.5f; // fixme more dynamic?
+    private const float NOTES_HEIGHT = 2.5f; // Fixme more dynamic?
 
     /// <summary>
     /// current beat count, <c>0.0f</c> at start,
@@ -83,8 +83,8 @@ public class Beatmap {
             lastBarlineOnBeat = placeOnBeat;
         }
 
-        // fixme barline placement overlaps beat lines
-        // bug 1st barline missing
+        // Fixme barline placement overlaps beat lines
+        // Bug 1st barline missing
 
         // render notes  -------------------------------------------------------
         renderBoundaryOnBeat = currentBeatCount + beatmapData.NoteRenderDistance;

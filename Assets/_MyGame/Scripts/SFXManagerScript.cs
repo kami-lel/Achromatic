@@ -3,11 +3,11 @@ using UnityEngine.InputSystem;
 
 public class SFXManagerScript: MonoBehaviour {
 
-    // todo randomize b/t different samples
-    // todo rumble control as its own script
-    // todo rumble fine tuning data
-    // todo rumble to reflects both judge result & action type
-    // todo audio cue to reflects both judge result & action type
+    // Todo randomize b/t different samples
+    // Todo rumble control as its own script
+    // Todo rumble fine tuning data
+    // Todo rumble to reflects both judge result & action type
+    // Todo audio cue to reflects both judge result & action type
 
     // Inspector Fields  #######################################################
     [SerializeField]

@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Todo show score overlay UI
+
 public class ScoreTracker {
 
     /// <summary>

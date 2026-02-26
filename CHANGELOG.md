@@ -2,13 +2,13 @@
 
 [^format]
 
-<!-- todo implement barline & beat line as environmental element -->
-<!-- fixme camera better -->
-<!-- fixme reorganize resource -->
+<!-- Todo implement barline & beat line as environmental element -->
+<!-- Fixme camera better -->
+<!-- Fixme reorganize resource -->
 <!-- Fixme dual control system still confusing -->
-<!-- Todo show character origin -->
+<!-- todo show character origin -->
 <!-- Todo need dramatic shift visually to indicate music has started -->
-<!-- Todo more juices -->
+<!-- Todo more juices: particles efx -->
 <!-- todo use enemy to kill as score point -->
 
 

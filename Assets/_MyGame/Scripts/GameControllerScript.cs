@@ -68,7 +68,7 @@ public class GameControllerScript: MonoBehaviour {
     }
 
     // public methods  #########################################################
-    // hack tmp method
+    // Hack tmp method
     public void tmpUpdateText(
             JudgeResult judgeResult, int combo, int runningScore) {
         if (!tmpCombo.gameObject.activeSelf) {
