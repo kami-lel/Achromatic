@@ -4,7 +4,6 @@ using Assets._Achromatic.Scripts.Beatmap;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
-    // Todo prelude count in bars
 
     /// <summary>
     /// load beatmap data from Beatmap file,
@@ -24,7 +23,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             this.music = musicManager;
 
             tempoDiv60 = data.Tempo / 60.0f;
-            preludeOffsetAsBeat = data.PreludeLength * tempoDiv60;
+            preludeOffsetAsBeat = data.PreludeBarCount * tempoDiv60;
+            beatsPerDivision = 1 / data.BeatSubdivision;
         }
 
         public readonly BeatmapData data;
@@ -40,6 +40,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly Music music;  // cached
         private readonly float tempoDiv60;
         private readonly float preludeOffsetAsBeat;
+        private readonly float beatsPerDivision;
+
+        // Hack
+        // // fill notes
+        // notes = new();
+        // foreach (BeatmapJsonData.BeatmapJsonDataNote jsonNote
+        //         in jsonData.notes) {
+        //     notes.Enqueue(new BeatmapNote(this, jsonNote));
+        // }
+
+        // if (notes.Count == 0) {
+        //     Debug.LogError("BeatmapData: beatmap file contains no notes: "
+        //             + beatmapFile.name);
+        // }
     }
 
 }

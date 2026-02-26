@@ -15,7 +15,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             // pre-calculate all judge timings
             timings = new();
 
-            float beat0time = beatmapData.PreludeLength;
+            float beat0time = beatmapData.PreludeBarCount;
             float secondPerBeat = 60.0f / beatmapData.Tempo;
 
             foreach (BeatmapNote note in beatmapData.notes) {

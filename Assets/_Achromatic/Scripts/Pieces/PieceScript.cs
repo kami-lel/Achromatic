@@ -56,8 +56,8 @@ public class PieceScript: MonoBehaviour {
     private void Start() {
         phase = Phase.INIT;
 
-        music = new(GetComponent<AudioSource>());
         notes = new(beatmapFile, music);
+        music = new(GetComponent<AudioSource>());
         prefabs = new();
 
         criteria = new(notes.data, scoreTracker, music);
@@ -112,8 +112,8 @@ public class PieceScript: MonoBehaviour {
     private Phase phase = Phase.INIT;
 
     // managers
-    private Music music;
     private Notes notes;
+    private Music music;
     private PrefabsManager prefabs;
     private Criteria criteria;
     private ScoreTracker scoreTracker;

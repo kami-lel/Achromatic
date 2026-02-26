@@ -10,13 +10,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
     /// </summary>
     [Serializable]
     public class BeatmapJsonData {
-        public int beatPerBar;
-        public int beatSubdivision;
-        public float beatSpeed;
-        public float preludeLength;
-        public float tempo;
-        public float barlineRenderDistance;
-        public float noteRenderDistance;
 
         /// <remark>
         /// must be in order of appearances
