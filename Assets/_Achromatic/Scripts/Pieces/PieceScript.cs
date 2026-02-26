@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 using Assets._Achromatic.Scripts.Scores;
+using Assets._Achromatic.Scripts.Pieces;
 
 
 // todo allows & give feedback for smashing input during: empty or climax
@@ -52,19 +53,26 @@ public class PieceScript: MonoBehaviour {
     private Collider2D playStartHitBox;
 
 
-    // public members  #########################################################
-    public ScoreTracker scoreTracker;
+    // private members  ########################################################
+
+    // managers
+    private MusicManager musicManager;
+    private ScoreTracker scoreTracker;
+
+    // cached references
+    private AudioSource audioSource;
+
 
 
     // MonoBehavior Lifecycle  #################################################
-    private void Awake() {
-        AudioAwake();
-    }
-
     private void Start() {
+        // music
+        audioSource = GetComponent<AudioSource>();
+        musicManager = new(audioSource);
+
         PlayerStart();
 
-        phase = PiecePhase.NONE;
+        phase = Phase.INIT;
 
         origin = (Vector2)transform.position;
         beatmap = new(origin, beatmapFile);
@@ -80,13 +88,13 @@ public class PieceScript: MonoBehaviour {
         // Hack use dist
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         switch (phase) {
-        case PiecePhase.NONE:
+        case Phase.INIT:
             if (dist <= 20.0f) {
                 EnterPrelude();
             }
             break;
 
-        case PiecePhase.PRELUDE:
+        case Phase.PRELUDE:
             if (playStartHitBox.IsTouching(playerCollider)) {
                 StartPlay();
             } else if (dist > 20.0f) {
@@ -100,7 +108,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         switch (phase) {
-        case PiecePhase.PRELUDE:
+        case Phase.PRELUDE:
             audioSource.volume = 1.0f - dist / 20f;
             if (audioSource.time > 8.0f) {
                 audioSource.time = 0.0f;
@@ -111,7 +119,7 @@ public class PieceScript: MonoBehaviour {
             break;
         }
 
-        if (phase == PiecePhase.PLAY) {
+        if (phase == Phase.MAIN_PLAY) {
             // calculate current beat count
             beatmap.currentBeatCount = beatmap.CalcRealtimeBeatCount(audioSource);
 
@@ -133,22 +141,22 @@ public class PieceScript: MonoBehaviour {
     // private members  ########################################################
     private Vector2 origin;
     private Criteria judgeCriteria;
-    private PiecePhase phase = PiecePhase.NONE;
+    private Phase phase = Phase.INIT;
 
     private void EnterPrelude() {
         Debug.Log("PieceScript: player enters Prelude Play hit box");
-        phase = PiecePhase.PRELUDE;
+        phase = Phase.PRELUDE;
         audioSource.Play();
     }
 
     private void LeavePrelude() {
-        phase = PiecePhase.NONE;
+        phase = Phase.INIT;
         audioSource.Stop();
     }
 
     private void StartPlay() {
         Debug.Log("PieceScript: player enters Start Play hit box");
-        phase = PiecePhase.PLAY;
+        phase = Phase.MAIN_PLAY;
 
         playerScript.SetExplorePlay(false);
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
@@ -209,28 +217,6 @@ public class PieceScript: MonoBehaviour {
     private const float TARGET_SECONDS = 169f;
     private Coroutine _timerRoutine;
 
-
-    // audio  ##################################################################
-    private AudioSource audioSource;
-    private float tmpAudioEndTime;
-
-    private void AudioAwake() {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-    }
-
-    private void AudioStart() { // Hack
-        // start music midpoint, for debug purpose
-        if (debugMusicStaringBar != 0.0f) {
-            audioSource.time = (debugMusicStaringBar - 1.0f)
-                    * beatmap.beatPerBar
-                    * (60.0f / beatmap.beatmapData.Tempo)
-                    + beatmap.beatmapData.PreludeLength;
-        }
-        // start the music
-        audioSource.Play();
-        audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
-    }
 
     // beatmap  ################################################################
     private Beatmap beatmap;
@@ -320,13 +306,6 @@ public enum InputPressedActions {
     POWER_JUMP = 1 << 2,
 }
 
-
-[Flags]
-public enum PiecePhase {
-    NONE = 0,
-    PRELUDE = 1 << 0,
-    PLAY = 1 << 1,
-}
 
 // Bug audio start is jarring, lose framerate
 // Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
