@@ -12,26 +12,27 @@ namespace Assets._Achromatic.Scripts.Scores {
             this.scoreTracker = scoreTracker;
             this.music = music;
 
-            // pre-calculate all judge timings
-            timings = new();
+            // TODO
+            // // pre-calculate all judge timings
+            // timings = new();
 
-            float beat0time = beatmapData.PreludeBarCount;
-            float secondPerBeat = 60.0f / beatmapData.Tempo;
+            // float beat0time = beatmapData.PreludeBarCount;
+            // float secondPerBeat = 60.0f / beatmapData.Tempo;
 
-            foreach (BeatmapNote note in beatmapData.notes) {
-                // per note
-                float centerTiming = secondPerBeat * note.CalcBeatCount()
-                        + beat0time;
+            // foreach (BeatmapNote note in beatmapData.notes) {
+            //     // per note
+            //     float centerTiming = secondPerBeat * note.CalcBeatCount()
+            //             + beat0time;
 
-                // todo allow different actions for single note type
-                PressedActions action = note.type switch {
-                    BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.DASH,
-                    _ => PressedActions.NONE
-                };
+            //     // todo allow different actions for single note type
+            //     PressedActions action = note.type switch {
+            //         BeatmapNoteType.JUMP => PressedActions.JUMP,
+            //         BeatmapNoteType.DASH => PressedActions.DASH,
+            //         _ => PressedActions.NONE
+            //     };
 
-                timings.Enqueue(new Timing(centerTiming, action));
-            }
+            //     timings.Enqueue(new Timing(centerTiming, action));
+            // }
         }
 
         public Hit Judge(PressedActions actions) {

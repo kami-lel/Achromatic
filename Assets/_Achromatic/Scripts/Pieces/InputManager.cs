@@ -66,7 +66,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Hit judgeResult = criteria.Judge(pressed);
             scoreTracker.Record(judgeResult);
 
-            // FIXME  control player
+            // Fixme  control player
             // if ((pressedActions & InputPressedActions.JUMP) != 0) {
             //     playerScript.AnimationJump();
             // } else if ((pressedActions & InputPressedActions.DASH) != 0) {

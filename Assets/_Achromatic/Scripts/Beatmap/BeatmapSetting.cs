@@ -13,6 +13,7 @@ public class BeatmapSetting: ScriptableObject {
     public float horizontalSpeedPerBeat;
     public float barlineRenderDistance;
     public float noteRenderDistance;
+    public float silenceSecondBeforeMainSong;
 
     [Header("Judge")]
     public float perfectDeltaSecond;
