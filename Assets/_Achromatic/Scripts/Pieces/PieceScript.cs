@@ -37,12 +37,8 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private TextAsset beatmapFile;
 
-    /// <summary>
-    /// start this piece of music at bar <i>n</i>,
-    /// default to <c>0.0f</c> for normal play
-    /// </summary>
     [SerializeField]
-    private float debugMusicStaringBar = 0.0f;
+    private BeatmapSetting beatmapSetting;
 
     [Header("Triggers")]
 

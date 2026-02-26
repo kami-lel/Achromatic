@@ -11,20 +11,27 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class Notes {
 
-        public Notes(TextAsset beatmapFile, Music musicManager) {
-            if (beatmapFile == null) {
-                Debug.LogWarning("must provide beatmapFile");
-            }
-
-            // load data
-            data = new(beatmapFile);
+        public Notes(TextAsset beatmapFile, Music music, BeatmapSetting beatmapSetting) {
 
             // cache musicManger
-            this.music = musicManager;
+            this.music = music;
 
-            tempoDiv60 = data.Tempo / 60.0f;
-            preludeOffsetAsBeat = data.PreludeBarCount * tempoDiv60;
-            beatsPerDivision = 1 / data.BeatSubdivision;
+            // load data
+            if (beatmapFile == null) {
+                Debug.LogError("must provide beatmapFile");
+            }
+
+            data = JsonUtility.FromJson<BeatmapData>(beatmapFile.text);
+
+            if (data.notes.Length == 0) {
+                Debug.LogError("beatmap file contains no notes: "
+                        + beatmapFile.name);
+            }
+
+            // init vars
+            beatPerSec = beatmapSetting.tempo / 60.0f;
+            preludeOffsetAsBeat = beatmapSetting.preludeBarCount * beatPerSec;
+            beatsPerDivision = 1 / beatmapSetting.subdivisionPerBeat;
         }
 
         public readonly BeatmapData data;
@@ -33,27 +40,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         /// start on <c>0.0f</c></returns>
         public float BeatCount {
             get {
-                return music.Time * tempoDiv60 - preludeOffsetAsBeat;
+                return music.Time * beatPerSec - preludeOffsetAsBeat;
             }
         }
 
         private readonly Music music;  // cached
-        private readonly float tempoDiv60;
+        private readonly float beatPerSec;
         private readonly float preludeOffsetAsBeat;
         private readonly float beatsPerDivision;
-
-        // Hack
-        // // fill notes
-        // notes = new();
-        // foreach (BeatmapJsonData.BeatmapJsonDataNote jsonNote
-        //         in jsonData.notes) {
-        //     notes.Enqueue(new BeatmapNote(this, jsonNote));
-        // }
-
-        // if (notes.Count == 0) {
-        //     Debug.LogError("BeatmapData: beatmap file contains no notes: "
-        //             + beatmapFile.name);
-        // }
     }
 
 }

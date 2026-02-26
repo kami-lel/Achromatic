@@ -25,14 +25,11 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
         public BeatmapNoteType type;
 
-        private readonly BeatmapData container;
-        private readonly BeatmapJsonData.BeatmapJsonDataNote jsonNote;
+        private readonly BeatmapData.JsonDataNote jsonNote;
 
         public BeatmapNote(
-                BeatmapData container,
-                BeatmapJsonData.BeatmapJsonDataNote jsonNote) {
+                BeatmapData.JsonDataNote jsonNote) {
 
-            this.container = container;
             this.jsonNote = jsonNote;
 
             // convert string to enum type
@@ -44,10 +41,10 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             };
         }
 
-        public float CalcBeatCount() {
-            return (jsonNote.bar - 1) * container.BeatPerBar
+        public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
+            return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
                     + (jsonNote.beat - 1)
-                    + (jsonNote.subbeat - 1) * container.beatPerDivision;
+                    + (jsonNote.subbeat - 1) * beatsPerDivision;
         }
     }
 }

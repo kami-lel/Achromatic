@@ -9,15 +9,15 @@ namespace Assets._Achromatic.Scripts.Beatmap {
     /// to allow save/load as JSON
     /// </summary>
     [Serializable]
-    public class BeatmapJsonData {
+    public class BeatmapData {
 
         /// <remark>
         /// must be in order of appearances
         /// </remark>
-        public BeatmapJsonDataNote[] notes;
+        public JsonDataNote[] notes;
 
         [Serializable]
-        public class BeatmapJsonDataNote {
+        public class JsonDataNote {
 
             public int bar;
             public int beat;
