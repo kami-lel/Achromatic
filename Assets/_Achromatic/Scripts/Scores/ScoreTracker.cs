@@ -54,7 +54,8 @@ public class ScoreTracker {
 
 
         // init perResultScores  -----------------------------------------------
-        perfectScore = TOTAL_SCORES / beatmap.notes.Count;
+        // perfectScore = TOTAL_SCORES / beatmap.notes.Count;
+        perfectScore = 10;  // Hack
         greatScore = perfectScore * 0.7f;
         goodScore = perfectScore * 0.3f;
 
