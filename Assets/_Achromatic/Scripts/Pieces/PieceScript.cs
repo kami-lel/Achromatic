@@ -73,6 +73,7 @@ public class PieceScript: MonoBehaviour {
     private void Update() {
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         // fixme fixed triggering distance
+        // TODO TODO
         switch (GameControllerScript.Instance.gameState) {
         case GameState.EXPLORE:
             if (dist <= 20.0f) {

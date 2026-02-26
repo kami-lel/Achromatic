@@ -8,7 +8,7 @@ namespace Assets._Achromatic.Scripts.Scores {
     /// </summary>
     public class Timing {
 
-        // todo dynamic time deltas
+        // Todo dynamic time deltas
         private const float perfectDelta = 0.05f;
         private const float greatDelta = 0.10f;
         private const float goodDelta = 0.30f;

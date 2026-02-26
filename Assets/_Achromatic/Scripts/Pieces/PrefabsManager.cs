@@ -5,6 +5,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class PrefabsManager {
 
+        // FIXME
+
         public PrefabsManager() {
 
         }

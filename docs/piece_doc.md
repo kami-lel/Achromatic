@@ -1,3 +1,3 @@
 # Piece-related Documentation
 
-<!-- TODO -->
+<!-- todo -->
