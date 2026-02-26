@@ -5,22 +5,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
     public class Music {
 
         public Music(AudioSource bgm, AudioSource prelude, AudioSource mainSong) {
-            if (bgm == null) {
-                Debug.LogError("must assign BGM audio source");
-            }
-            if (prelude == null) {
-                Debug.LogError("must assign Prelude audio source");
-            }
-            if (mainSong == null) {
-                Debug.LogError("must assign Main Song audio source");
-            }
-
             this.bgm = bgm;
             this.prelude = prelude;
             this.mainSong = mainSong;
 
-            bgm.playOnAwake = false;
-            prelude.playOnAwake = false;
+            if (bgm == null) {
+                Debug.LogWarning("BGM audio source not given");
+            } else {
+                bgm.playOnAwake = true;
+            }
+
+            if (prelude == null) {
+                Debug.LogWarning("Prelude audio source not given");
+            } else {
+
+                prelude.playOnAwake = false;
+            }
+
+            if (mainSong == null) {
+                Debug.LogError("must assign Main Song audio source");
+            }
             mainSong.playOnAwake = false;
         }
 
