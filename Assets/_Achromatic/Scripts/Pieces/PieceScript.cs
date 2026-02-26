@@ -40,6 +40,17 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapSetting beatmapSetting;
 
+    [Header("Audio Sources")]
+
+    [SerializeField]
+    private AudioSource bgm;
+
+    [SerializeField]
+    private AudioSource prelude;
+
+    [SerializeField]
+    private AudioSource mainSong;
+
     [Header("Triggers")]
 
     [SerializeField]
@@ -52,8 +63,8 @@ public class PieceScript: MonoBehaviour {
     private void Start() {
         phase = Phase.INIT;
 
-        notes = new(beatmapFile, music);
-        music = new(GetComponent<AudioSource>());
+        notes = new(beatmapFile, music, beatmapSetting);
+        music = new(bgm, prelude, mainSong);
         prefabs = new();
 
         criteria = new(notes.data, scoreTracker, music);

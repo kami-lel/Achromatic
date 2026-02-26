@@ -4,16 +4,35 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Music {
 
-        public Music(AudioSource audioSource) {
-            this.audioSource = audioSource;
-            audioSource.playOnAwake = false;
+        public Music(AudioSource bgm, AudioSource prelude, AudioSource mainSong) {
+            if (bgm == null) {
+                Debug.LogError("must assign BGM audio source");
+            }
+            if (prelude == null) {
+                Debug.LogError("must assign Prelude audio source");
+            }
+            if (mainSong == null) {
+                Debug.LogError("must assign Main Song audio source");
+            }
+
+            this.bgm = bgm;
+            this.prelude = prelude;
+            this.mainSong = mainSong;
+
+            bgm.playOnAwake = false;
+            prelude.playOnAwake = false;
+            mainSong.playOnAwake = false;
         }
 
-        private AudioSource audioSource;
+        private AudioSource bgm;
+
+        private AudioSource prelude;
+
+        private AudioSource mainSong;
 
         public float Time {
             get {
-                return audioSource.time;
+                return bgm.time;
             }
         }
 

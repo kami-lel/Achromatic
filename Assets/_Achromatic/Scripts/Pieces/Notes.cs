@@ -12,9 +12,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
     public class Notes {
 
         public Notes(TextAsset beatmapFile, Music music, BeatmapSetting beatmapSetting) {
-
-            // cache musicManger
             this.music = music;
+            setting = beatmapSetting;
 
             // load data
             if (beatmapFile == null) {
@@ -29,12 +28,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // init vars
-            beatPerSec = beatmapSetting.tempo / 60.0f;
-            preludeOffsetAsBeat = beatmapSetting.preludeBarCount * beatPerSec;
-            beatsPerDivision = 1 / beatmapSetting.subdivisionPerBeat;
+            beatPerSec = setting.tempo / 60.0f;
+            preludeOffsetAsBeat = setting.preludeBarCount * beatPerSec;
+            beatsPerDivision = 1 / setting.subdivisionPerBeat;
         }
 
         public readonly BeatmapData data;
+        public readonly BeatmapSetting setting;  // cached
 
         /// <returns>realtime beat count based on Audio Source time,
         /// start on <c>0.0f</c></returns>
@@ -45,6 +45,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private readonly Music music;  // cached
+
         private readonly float beatPerSec;
         private readonly float preludeOffsetAsBeat;
         private readonly float beatsPerDivision;
