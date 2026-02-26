@@ -27,8 +27,6 @@ using Assets._Achromatic.Scripts.Pieces;
 ///   </description></item>
 /// </list>
 /// </summary>
-[RequireComponent(typeof(AudioSource))]
-[DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
@@ -73,22 +71,22 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
-
-        // TODO TODO better phase management
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
+        // fixme fixed triggering distance
         switch (GameControllerScript.Instance.gameState) {
         case GameState.EXPLORE:
             if (dist <= 20.0f) {
                 Debug.Log("Start Prelude");
-                GameControllerScript.Instance.gameState = GameState.PRELUDE;
+                GameControllerScript.Instance.gameState |= GameState.PRELUDE;
             }
             break;
 
         case GameState.PRELUDE:
             if (playStartHitBox.IsTouching(playerCollider)) {
                 playerManager.StartControlPlayer();
+
             } else if (dist > 20.0f) {
-                GameControllerScript.Instance.gameState = GameState.MUSIC_PLAY;
+                GameControllerScript.Instance.gameState &= ~GameState.PRELUDE;
             }
             break;
 

@@ -14,6 +14,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 Debug.LogWarning("BGM audio source not given");
             } else {
                 bgm.playOnAwake = true;  // auto start BGM
+                bgm.loop = true;
             }
 
             if (prelude == null) {

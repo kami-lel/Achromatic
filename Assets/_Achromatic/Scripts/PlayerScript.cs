@@ -75,7 +75,8 @@ public class PlayerScript: MonoBehaviour {
     private PlayerInput playerInput;
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if (GameControllerScript.Instance.gameState != GameState.EXPLORE) {
+        if ((GameControllerScript.Instance.gameState &
+             GameState.EXPLORE) == 0) {
             return;
         }
 

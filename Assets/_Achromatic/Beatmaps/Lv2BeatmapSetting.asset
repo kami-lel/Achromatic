@@ -19,6 +19,7 @@ MonoBehaviour:
   horizontalSpeedPerBeat: 4
   barlineRenderDistance: 3
   noteRenderDistance: 12
+  silenceSecondBeforeMainSong: 0
   perfectDeltaSecond: 0.05
   greatDeltaSecond: 0.1
   goodDeltaSecond: 0.3
