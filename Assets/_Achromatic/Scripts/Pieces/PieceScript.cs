@@ -60,12 +60,15 @@ public class PieceScript: MonoBehaviour {
 
         music = new(GetComponent<AudioSource>());
         notes = new(beatmapFile, music);
+        prefabs = new();
 
         criteria = new(notes.data, scoreTracker, music);
         scoreTracker = new(notes.data);
 
+        playerManager = new();
+
         // inputs
-        inputs = new(criteria, playerInput);
+        inputs = new(criteria, playerManager.playerInput);
     }
 
     private void Update() {
@@ -104,7 +107,7 @@ public class PieceScript: MonoBehaviour {
 
     void OnDisable() {
         playerManager.OnDisable();
-        inputs.OnDisable(playerInput);
+        inputs.OnDisable(playerManager.playerInput);
     }
 
     // private members  ########################################################
@@ -113,14 +116,11 @@ public class PieceScript: MonoBehaviour {
     // managers
     private Music music;
     private Notes notes;
-    private PlayerManager playerManager;
-    private InputManager inputs;
     private PrefabsManager prefabs;
-
-
-    // scores
     private Criteria criteria;
     private ScoreTracker scoreTracker;
+    private PlayerManager playerManager;
+    private InputManager inputs;
 }
 
 
