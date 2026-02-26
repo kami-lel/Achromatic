@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Fixme organize & factorization
+// FIXME organize & factorization
 
 public class Beatmap {
 
