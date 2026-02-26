@@ -52,8 +52,6 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private Collider2D playStartHitBox;
 
-
-
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
         phase = Phase.INIT;
@@ -72,7 +70,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
-        // Todo better phase management
+        // TODO TODO better phase management
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         switch (phase) {
         case Phase.INIT:
