@@ -28,6 +28,9 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
 
+    [SerializeField]
+    private GameObject tmpPanel;
+
     // Inspector Fields  #######################################################
     [SerializeField]
     private TextAsset beatmapFile;
@@ -163,6 +166,7 @@ public class PieceScript: MonoBehaviour {
             yield return null;  // wait until dspTime reaches target
         }
         _timerRoutine = null;  // clear handle
+
         SceneManager.LoadScene("EndScene");  // perform scene change
     }
 
