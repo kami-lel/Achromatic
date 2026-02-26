@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class SFXManagerScript: MonoBehaviour {
 
     // Todo randomize b/t different samples
-    // Todo rumble control as its own script
+    // TODO rumble control as its own script
     // Todo rumble fine tuning data
     // Todo rumble to reflects both judge result & action type
     // Todo audio cue to reflects both judge result & action type
