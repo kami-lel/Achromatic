@@ -5,7 +5,6 @@
 <!-- Todo implement barline & beat line as environmental element -->
 <!-- Fixme camera better -->
 <!-- FIXME reorganize resource -->
-<!-- TODO set up project name -->
 <!-- Fixme dual control system still confusing -->
 <!-- todo show character origin -->
 <!-- Todo need dramatic shift visually to indicate music has started -->
