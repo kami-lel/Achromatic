@@ -1,4 +1,6 @@
 
+using Assets._Achromatic.Scripts.Pieces;
+
 namespace Assets._Achromatic.Scripts.Scores {
 
     /// <summary>
@@ -21,9 +23,9 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly float rightGreatBound;
         private readonly float rightPerfectBound;
 
-        private readonly InputPressedActions allowedAction;
+        private readonly PressedActions allowedAction;
 
-        public Timing(float centerTiming, InputPressedActions action) {
+        public Timing(float centerTiming, PressedActions action) {
             center = centerTiming;
             allowedAction = action;
 
@@ -37,7 +39,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             startJudgeBound = leftGoodBound - goodDelta;
         }
 
-        public Hit Judge(float time, InputPressedActions action) {
+        public Hit Judge(float time, PressedActions action) {
             if (action != allowedAction) {
                 return Hit.INCORRECT;
             }

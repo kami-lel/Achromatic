@@ -17,6 +17,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
+        public void Update(Phase phase, float dist) {
+            // switch (phase) {
+            // case Phase.PRELUDE:
+            //     audioSource.volume = 1.0f - dist / 20f;
+            //     if (audioSource.time > 8.0f) {
+            //         audioSource.time = 0.0f;
+            //     }
+            //     break;
+
+            // default:
+            //     break;
+            // }
+        }
+
         // private void AudioStart() { // Hack
         //     // start music midpoint, for debug purpose
         //     if (debugMusicStaringBar != 0.0f) {
@@ -29,7 +43,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
         //     audioSource.Play();
         //     audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
         // }
-    }
+        //
 
+        // private void EnterPrelude() {
+        //     Debug.Log("PieceScript: player enters Prelude Play hit box");
+        //     phase = Phase.PRELUDE;
+        //     audioSource.Play();
+        // }
+
+        // private void LeavePrelude() {
+        //     phase = Phase.INIT;
+        //     audioSource.Stop();
+        // }
+
+    }
 
 }
