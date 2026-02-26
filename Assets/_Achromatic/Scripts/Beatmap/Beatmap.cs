@@ -1,7 +1,9 @@
 
 using System.Collections.Generic;
+
 using UnityEngine;
 
+using Assets._Achromatic.Scripts.Beatmap;
 
 // FIXME organize & factorization
 
