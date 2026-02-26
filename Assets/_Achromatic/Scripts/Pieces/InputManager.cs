@@ -1,3 +1,8 @@
+
+using UnityEngine.InputSystem;
+using Assets._Achromatic.Scripts.Scores;
+
+
 namespace Assets._Achromatic.Scripts.Pieces {
 
     /// <summary>
@@ -5,72 +10,73 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class InputManager {
 
-        public InputManager() {
+        public PressedActions pressed;
 
+        public InputManager(Criteria criteria, PlayerInput playerInput) {
+            pressed = PressedActions.NONE;
+            this.criteria = criteria;
+            playerInput.onActionTriggered += OnActionTriggered;
         }
-        // TODO
 
-        //     private InputPressedActions pressedActions;
+        public void OnDisable(PlayerInput playerInput) {
+            playerInput.onActionTriggered -= OnActionTriggered;
+        }
 
-        //     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        //         InputAction a = ctxt.action;
+        private readonly Criteria criteria;
+        private readonly ScoreTracker scoreTracker;
 
-        //         switch (a.phase) {
-        //         case InputActionPhase.Started:
-        //             switch (a.name) {
-        //             case "Jump":
-        //                 pressedActions |= InputPressedActions.JUMP;
-        //                 break;
-        //             case "Dash":
-        //                 pressedActions |= InputPressedActions.DASH;
-        //                 break;
-        //             case "PowerJump":
-        //                 pressedActions |= InputPressedActions.POWER_JUMP;
-        //                 break;
-        //             case "Trigger":
-        //                 InputTrigger();
-        //                 break;
-        //             }
-        //             break;
+        private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+            InputAction a = ctxt.action;
 
-        //         case InputActionPhase.Canceled:
-        //             switch (a.name) {
-        //             case "Jump":
-        //                 pressedActions &= ~InputPressedActions.JUMP;
-        //                 break;
-        //             case "Dash":
-        //                 pressedActions &= ~InputPressedActions.DASH;
-        //                 break;
-        //             case "PowerJump":
-        //                 pressedActions &= ~InputPressedActions.POWER_JUMP;
-        //                 break;
-        //             }
-        //             break;
-        //         }
-        //     }
+            switch (a.phase) {
+            case InputActionPhase.Started:
+                switch (a.name) {
+                case "Jump":
+                    pressed |= PressedActions.JUMP;
+                    break;
+                case "Dash":
+                    pressed |= PressedActions.DASH;
+                    break;
+                case "PowerJump":
+                    pressed |= PressedActions.POWER_JUMP;
+                    break;
+                case "Trigger":
+                    Trigger();
+                    break;
+                }
+                break;
 
-        //     private void InputTrigger() {
-        //         Hit judgeResult = judgeCriteria.Judge(
-        //                 audioSource.time, pressedActions);
-        //         scoreTracker.Record(judgeResult);
+            case InputActionPhase.Canceled:
+                switch (a.name) {
+                case "Jump":
+                    pressed &= ~PressedActions.JUMP;
+                    break;
+                case "Dash":
+                    pressed &= ~PressedActions.DASH;
+                    break;
+                case "PowerJump":
+                    pressed &= ~PressedActions.POWER_JUMP;
+                    break;
+                }
+                break;
+            }
+        }
 
-        //         // control player  -----------------------------------------------------
-        //         if ((pressedActions & InputPressedActions.JUMP) != 0) {
-        //             playerScript.AnimationJump();
-        //         } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-        //             playerScript.AnimationDash();
-        //         }
+        private void Trigger() {
+            Hit judgeResult = criteria.Judge(pressed);
+            scoreTracker.Record(judgeResult);
 
-        //         GameControllerScript.Instance.tmpUpdateText(judgeResult,
-        //                 scoreTracker.combo,
-        //                 scoreTracker.runningScore);
-        //         // Todo add audio for feedback
-        //     }
+            // FIXME  control player
+            // if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            //     playerScript.AnimationJump();
+            // } else if ((pressedActions & InputPressedActions.DASH) != 0) {
+            //     playerScript.AnimationDash();
+            // }
 
-        //     private void InputStart() {
-        //         playerInput.onActionTriggered += OnActionTriggered;
-        //         pressedActions = InputPressedActions.NONE;
-        //     }
+            // Todo add audio for feedback, layered
+        }
+
     }
+
 }
 

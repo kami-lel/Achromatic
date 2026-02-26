@@ -8,8 +8,9 @@ namespace Assets._Achromatic.Scripts.Scores {
 
     public class Criteria {
 
-        public Criteria(BeatmapData beatmapData, ScoreTracker scoreTracker) {
+        public Criteria(BeatmapData beatmapData, ScoreTracker scoreTracker, Music music) {
             this.scoreTracker = scoreTracker;
+            this.music = music;
 
             // pre-calculate all judge timings
             timings = new();
@@ -33,15 +34,15 @@ namespace Assets._Achromatic.Scripts.Scores {
             }
         }
 
-        public Hit Judge(float time, PressedActions actions) {
+        public Hit Judge(PressedActions actions) {
             if (timings.Count <= 0) {
                 return Hit.NO_HIT;
             }
 
             Timing timing = timings.Peek();
-            if (timing.IsInJudgingRange(time)) {
+            if (timing.IsInJudgingRange(music.Time)) {
                 timing = timings.Dequeue();
-                return timing.Judge(time, actions);
+                return timing.Judge(music.Time, actions);
 
             } else {
                 return Hit.NO_HIT;
@@ -51,12 +52,12 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// <summary>
         /// detect miss then player is too far away
         /// </summary>
-        public void Update(float musicTime) {
+        public void Update() {
             if (timings.Count <= 0) {
                 return;
             }
 
-            while (timings.Peek().IsPassByMiss(musicTime)) {
+            while (timings.Peek().IsPassByMiss(music.Time)) {
                 timings.Dequeue();
                 scoreTracker.Record(Hit.LATE_MISS);
                 if (timings.Count <= 0) {
@@ -71,6 +72,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly Queue<Timing> timings;
 
         private readonly ScoreTracker scoreTracker;
+        private readonly Music music;
 
     }
 

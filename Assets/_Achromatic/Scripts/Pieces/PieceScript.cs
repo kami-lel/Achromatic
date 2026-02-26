@@ -61,10 +61,11 @@ public class PieceScript: MonoBehaviour {
         music = new(GetComponent<AudioSource>());
         notes = new(beatmapFile, music);
 
-        criteria = new(notes.data, scoreTracker);
+        criteria = new(notes.data, scoreTracker, music);
         scoreTracker = new(notes.data);
 
-        inputs = new();
+        // inputs
+        inputs = new(criteria, playerInput);
     }
 
     private void Update() {
@@ -95,7 +96,7 @@ public class PieceScript: MonoBehaviour {
 
 
         if (phase == Phase.MAIN_PLAY) {
-            criteria.Update(music.Time);
+            criteria.Update();
             prefabs.Update();
             playerManager.Update();
         }
@@ -103,6 +104,7 @@ public class PieceScript: MonoBehaviour {
 
     void OnDisable() {
         playerManager.OnDisable();
+        inputs.OnDisable(playerInput);
     }
 
     // private members  ########################################################
