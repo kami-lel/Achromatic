@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class GameControllerScript: MonoBehaviour {
 
+    // Fixme create score overlay
+
     // Inspector Fields  #######################################################
 
     [SerializeField]
