@@ -1,4 +1,6 @@
-# usc-ctin532-game-project CHANGELOG
+# Achromatic CHANGELOG
+
+> USC CTIN-532 Project
 
 [^format]
 

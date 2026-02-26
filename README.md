@@ -1,4 +1,4 @@
-# usc-ctin532-music-game
+# Achromatic README
 
 use 2 keys to control:
 
