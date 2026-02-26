@@ -27,6 +27,10 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
+    [SerializeField]
+    private AnimationCurve tmpJumpCurve;
+
+    private float tmpPlayerLastJump;
 
     [SerializeField]
     private GameObject tmpPanel;
@@ -61,6 +65,8 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Start() {
+        tmpPlayerLastJump = Time.time;
+
         PlayerStart();
 
         phase = PiecePhase.NONE;
@@ -180,9 +186,7 @@ public class PieceScript: MonoBehaviour {
     /// handle update of player's control
     /// </summary>
     private void PlayerUpdate() {
-
-        float y = -0.8345073f; // Hack
-        // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
         // update user horizontal position
         Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
@@ -287,6 +291,8 @@ public class PieceScript: MonoBehaviour {
 
         // control player  -----------------------------------------------------
         if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            tmpPlayerLastJump = Time.time;
+
             playerScript.AnimationJump();
         } else if ((pressedActions & InputPressedActions.DASH) != 0) {
             playerScript.AnimationDash();
