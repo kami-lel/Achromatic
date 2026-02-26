@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-guid: d5cab6940ee892c458dfef5bfaaf7074
-AssetOrigin:
-  serializedVersion: 1
-  productId: 202525
-  packageName: 'UX Flat Icons [Free]'
-  packageVersion: 2019.1.1
-  assetPath: Assets/_Heathen Engineering/Assets/UX/Icons/Flat Icons [Free]/Free Flat
-    Chat 2 Question Icon.png
-  uploadId: 451587
+guid: bf77168af7b3bc646b9dfd29348f15d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -56,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -73,7 +65,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
