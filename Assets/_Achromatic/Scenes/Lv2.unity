@@ -148,8 +148,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1769462356}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &275291843
@@ -16135,11 +16134,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!4 &1769462356 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472148273212041701, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
-  m_PrefabInstance: {fileID: 3009946900435002039}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1797996515
 GameObject:
   m_ObjectHideFlags: 0
@@ -16237,7 +16231,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 275291842}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2472148273212041701, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16298,3 +16292,4 @@ SceneRoots:
   - {fileID: 1219244301}
   - {fileID: 915432151}
   - {fileID: 1222018296}
+  - {fileID: 3009946900435002039}
