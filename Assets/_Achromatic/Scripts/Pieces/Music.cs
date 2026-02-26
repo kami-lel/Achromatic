@@ -79,4 +79,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     }
 
+
+
+    // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
+    //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
+    //             + (jsonNote.beat - 1)
+    //             + (jsonNote.subbeat - 1) * beatsPerDivision;
+    // }
 }
