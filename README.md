@@ -16,4 +16,5 @@ use 2 keys to control:
 
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
+<!-- FIXME organize AMs: all with name, use correct type & level -->
 
