@@ -39,13 +39,13 @@ public class PieceScript: MonoBehaviour {
     [Header("Audio Sources")]
 
     [SerializeField]
-    private AudioSource bgm;
+    private AudioSource backgroundMusicSource;
 
     [SerializeField]
-    private AudioSource prelude;
+    private AudioSource vampSource;
 
     [SerializeField]
-    private AudioSource mainSong;
+    private AudioSource mainSongSource;
 
     [Header("Triggers")]
 
@@ -57,7 +57,7 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
-        music = new(bgm, prelude, mainSong);
+        music = new(backgroundMusicSource, vampSource, mainSongSource);
         notes = new(beatmapFile, music, beatmapSetting);
         prefabs = new();
 
