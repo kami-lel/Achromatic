@@ -34,15 +34,14 @@
 ### Removed
 ### Fixed
 
-
 ## 1.0.0 Release
-
 ## 1.0.0-beta Beta Milestone
 ## 1.0.0-alpha Alpha Milestone
-## 0.9.0 Pre-Alpha
-## 0.5.0 Vertical Slice
+## 0.9.2 Pre-Alpha b2
+## 0.9.1 Pre-Alpha b1
 
-## [0.4.0] Vertical Slice - 2026-02-18
+## [0.5.1] - 2026-02-26
+## [0.5.0] Vertical Slice - 2026-02-18
 
 #### Controls
 
@@ -66,6 +65,7 @@ Use `Space` / RightTrigger to trigger
 
 
 
+## [0.5.0-beta] - 2026-02-18
 
 ## [0.3.1] - 2026-02-01
 
@@ -145,11 +145,14 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/kaye/compare/v0.3.1...dev
-[0.3.1]: https://github.com/kami-lel/kaye/compare/v0.3.0...v0.3.1
-[0.3.0]: https://github.com/kami-lel/kaye/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/kami-lel/kaye/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/kami-lel/kaye/compare/v0.1.0
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...dev
+[0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
+[0.5.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0-beta...v0.5.0+vertical_slice
+[0.5.0-beta]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.3.1...v0.5.0-beta
+[0.3.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.1.0
 
 
 
