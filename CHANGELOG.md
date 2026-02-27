@@ -2,6 +2,7 @@
 
 [^format]
 
+<!-- Todo organize todos, each must have some summary -->
 <!-- Todo implement barline & beat line as environmental element -->
 <!-- Fixme camera better -->
 <!-- Fixme reorganize resource -->
@@ -10,7 +11,7 @@
 <!-- Todo need dramatic shift visually to indicate music has started -->
 <!-- Todo more juices: particles efx -->
 <!-- todo use enemy to kill as score point -->
-<!-- Todo catch up write changelogs -->
+<!-- TODO catch up write changelogs -->
 
 
 
@@ -32,6 +33,14 @@
 ### Deprecated
 ### Removed
 ### Fixed
+
+
+## 1.0.0 Release
+
+## 1.0.0-beta Beta Milestone
+## 1.0.0-alpha Alpha Milestone
+## 0.9.0 Pre-Alpha
+## 0.5.0 Vertical Slice
 
 ## [0.4.0] Vertical Slice - 2026-02-18
 
