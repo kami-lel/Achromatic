@@ -1,50 +1,61 @@
 using Assets._Achromatic.Scripts.Beatmap;
 using UnityEngine;
 
-namespace Assets._Achromatic.Scripts.Pieces {
+namespace Assets._Achromatic.Scripts.Pieces
+{
 
-    public class Music {
+    public class Music
+    {
 
-        public Music(AudioSource bgm, AudioSource prelude, AudioSource mainSong) {
+        public Music(AudioSource bgm, AudioSource prelude, AudioSource mainSong)
+        {
             this.bgm = bgm;
             this.prelude = prelude;
             this.mainSong = mainSong;
 
-            if (bgm == null) {
+            if (bgm == null)
+            {
                 Debug.LogWarning("BGM audio source not given");
-            } else {
+            }
+            else
+            {
                 bgm.playOnAwake = true;  // auto start BGM
                 bgm.loop = true;
             }
 
-            if (prelude == null) {
+            if (prelude == null)
+            {
                 Debug.LogWarning("Prelude audio source not given");
-            } else {
+            }
+            else
+            {
 
                 prelude.playOnAwake = false;
             }
 
-            if (mainSong == null) {
+            if (mainSong == null)
+            {
                 Debug.LogError("must assign Main Song audio source");
             }
             mainSong.playOnAwake = false;
         }
 
+
+        // private members  ####################################################
+        // cached references
         private AudioSource bgm;
-
         private AudioSource prelude;
-
         private AudioSource mainSong;
 
-        public float Time {
-            get {
-                return bgm.time;
-            }
+        public float Time
+        {
+            get { return bgm.time; }
         }
 
         // TODO TODO
 
-        public void Update(float dist) {
+        public void Update(float dist)
+        {
             // switch (phase) {
             // case Phase.PRELUDE:
             //     audioSource.volume = 1.0f - dist / 20f;
