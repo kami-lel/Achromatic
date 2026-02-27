@@ -11,7 +11,6 @@
 <!-- Todo need dramatic shift visually to indicate music has started -->
 <!-- Todo more juices: particles efx -->
 <!-- todo use enemy to kill as score point -->
-<!-- TODO catch up write changelogs -->
 <!-- todo local leaderboard -->
 <!-- Todo set up hooks utility -->
 <!-- fixme bold barline when note existed -->
@@ -40,17 +39,25 @@
 
 ### Added
 ### Changed
+
+- code/scripts refactorization: break down `PieceScript.cs` into multiple classes
+
 ### Deprecated
 ### Removed
 ### Fixed
 
 ## 1.0.0 Release
+
 ## 1.0.0-beta Beta Milestone
+
 ## 1.0.0-alpha Alpha Milestone
+
 ## 0.9.2 Pre-Alpha b2
+
 ## 0.9.1 Pre-Alpha b1
 
 ## [0.5.1] - 2026-02-26
+
 ## [0.5.0] Vertical Slice - 2026-02-18
 
 
@@ -105,19 +112,6 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 ## [0.2.0] - 2026-01-25
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## [0.1.0] - 2026-01-22
 
