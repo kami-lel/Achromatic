@@ -11,6 +11,7 @@
 <!-- Todo need dramatic shift visually to indicate music has started -->
 <!-- Todo more juices: particles efx -->
 <!-- todo use enemy to kill as score point -->
+<!-- Todo catch up write changelogs -->
 
 
 
