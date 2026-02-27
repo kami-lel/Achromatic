@@ -56,7 +56,11 @@ public class PlayerScript: MonoBehaviour {
     // public methods  #########################################################
 
     public void SetExplorePlay() {
-        GameControllerScript.Instance.gameState = GameState.EXPLORE;
+        if (GameControllerScript.Instance == null) {
+            Debug.LogError("null GameControllerScript singleton");
+        } else {
+            GameControllerScript.Instance.gameState = GameState.EXPLORE;
+        }
 
         playerRB.bodyType = RigidbodyType2D.Dynamic;
         playerRB.gravityScale = GRAVITY_SCALE;
