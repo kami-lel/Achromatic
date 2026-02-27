@@ -2,7 +2,7 @@
 
 [^format]
 
-<!-- Todo organize todos, each must have some summary -->
+<!-- Todo organize todos, each must have some summary & use correct types -->
 <!-- Todo implement barline & beat line as environmental element -->
 <!-- Fixme camera better -->
 <!-- Fixme reorganize resource -->
