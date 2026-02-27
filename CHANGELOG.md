@@ -1,4 +1,4 @@
-# usc-ctin532-game-project CHANGELOG
+# Achromatic CHANGELOG
 
 [^format]
 
@@ -13,14 +13,13 @@
 <!-- todo use enemy to kill as score point -->
 <!-- TODO catch up write changelogs -->
 <!-- todo local leaderboard -->
-<!-- todo set up hooks utility -->
+<!-- Todo set up hooks utility -->
 <!-- fixme bold barline when note existed -->
 <!-- todo timed vamp music -->
 <!-- fixme move down note & make bigger -->
 <!-- todo implement obstacles during music play  -->
 <!-- fixme better, camera far away -->
 <!-- todo speed multiplier (as setting) -->
-
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
 
