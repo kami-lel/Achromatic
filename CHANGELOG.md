@@ -39,6 +39,9 @@
 ## [Unreleased]
 
 ### Added
+
+- implement `pseudoAudioPlugin.cs`: temporary audio controller before finalize which audio software to use
+
 ### Changed
 
 - code/scripts refactorization: break down `PieceScript.cs` into multiple classes
