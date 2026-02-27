@@ -1,61 +1,31 @@
 using Assets._Achromatic.Scripts.Beatmap;
 using UnityEngine;
 
-namespace Assets._Achromatic.Scripts.Pieces
-{
+namespace Assets._Achromatic.Scripts.Pieces {
 
-    public class Music
-    {
+    public class Music {
 
-        public Music(AudioSource bgm, AudioSource prelude, AudioSource mainSong)
-        {
-            this.bgm = bgm;
-            this.prelude = prelude;
-            this.mainSong = mainSong;
+        // public API  #########################################################
 
-            if (bgm == null)
-            {
-                Debug.LogWarning("BGM audio source not given");
+        public float Time {
+            get {
+                return pseudoAudioPlugin.mainPiece.time;
             }
-            else
-            {
-                bgm.playOnAwake = true;  // auto start BGM
-                bgm.loop = true;
-            }
-
-            if (prelude == null)
-            {
-                Debug.LogWarning("Prelude audio source not given");
-            }
-            else
-            {
-
-                prelude.playOnAwake = false;
-            }
-
-            if (mainSong == null)
-            {
-                Debug.LogError("must assign Main Song audio source");
-            }
-            mainSong.playOnAwake = false;
         }
 
+        public Music(PseudoAudioPlugin pseudoAudioPlugin, BeatmapSetting beatmapSetting) {
+            this.pseudoAudioPlugin = pseudoAudioPlugin;
+            this.beatmapSetting = beatmapSetting;
+        }
 
         // private members  ####################################################
         // cached references
-        private AudioSource bgm;
-        private AudioSource prelude;
-        private AudioSource mainSong;
+        private readonly PseudoAudioPlugin pseudoAudioPlugin;
+        private readonly BeatmapSetting beatmapSetting;
 
-        public float Time
-        {
-            get { return bgm.time; }
-        }
+        // TODO
 
-        // TODO TODO
-
-        public void Update(float dist)
-        {
+        public void Update(float dist) {
             // switch (phase) {
             // case Phase.PRELUDE:
             //     audioSource.volume = 1.0f - dist / 20f;
@@ -69,7 +39,7 @@ namespace Assets._Achromatic.Scripts.Pieces
             // }
         }
 
-        // private void AudioStart() { // Hack
+        // private void AudioStart() {
         //     // start music midpoint, for debug purpose
         //     if (debugMusicStaringBar != 0.0f) {
         //         audioSource.time = (debugMusicStaringBar - 1.0f)

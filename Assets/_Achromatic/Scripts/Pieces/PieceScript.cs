@@ -55,9 +55,14 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private Collider2D playStartHitBox;
 
+    [Header("tmp")]
+
+    [SerializeField]
+    private PseudoAudioPlugin pseudoAudioPlugin;
+
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
-        music = new(backgroundMusicSource, vampSource, mainSongSource);
+        music = new(pseudoAudioPlugin, beatmapSetting);
         notes = new(beatmapFile, music, beatmapSetting);
         prefabs = new();
 

@@ -15187,6 +15187,7 @@ MonoBehaviour:
   mainSongSource: {fileID: 0}
   playerCollider: {fileID: 0}
   playStartHitBox: {fileID: 0}
+  pseudoAudioPlugin: {fileID: 1822651826}
 --- !u!1 &1822651824
 GameObject:
   m_ObjectHideFlags: 0
