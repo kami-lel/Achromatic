@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BeatmapSetting", menuName = "Scriptable Objects/BeatmapSetting")]
 public class BeatmapSetting: ScriptableObject {
 
+    [SerializeField]
+    public TextAsset beatmapFile;
+
     [Header("Music")]
 
     public float tempo;

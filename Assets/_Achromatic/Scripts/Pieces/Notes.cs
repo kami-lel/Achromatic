@@ -13,19 +13,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class Notes {
 
-        public Notes(TextAsset beatmapFile, Music music, BeatmapSetting beatmapSetting) {
+        public Notes(Music music, BeatmapSetting beatmapSetting) {
             this.music = music;
             setting = beatmapSetting;
 
-            // load data
-            if (beatmapFile == null) {
-                Debug.LogError("must provide beatmapFile");
-            }
-
-            data = JsonUtility.FromJson<BeatmapData>(beatmapFile.text);
+            data = JsonUtility.FromJson<BeatmapData>(beatmapSetting.beatmapFile.text);
             if (data.notes.Length == 0) {
                 Debug.LogError("beatmap file contains no notes: "
-                        + beatmapFile.name);
+                        + beatmapSetting.beatmapFile.name);
             }
 
             // fill notesQ

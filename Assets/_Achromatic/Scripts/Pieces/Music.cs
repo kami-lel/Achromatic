@@ -13,6 +13,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
+        public void Start() {
+            this.pseudoAudioPlugin.StartMap();
+        }
+
+
+        // Constructor  ########################################################
         public Music(PseudoAudioPlugin pseudoAudioPlugin, BeatmapSetting beatmapSetting) {
             this.pseudoAudioPlugin = pseudoAudioPlugin;
             this.beatmapSetting = beatmapSetting;
@@ -24,20 +30,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly BeatmapSetting beatmapSetting;
 
         // TODO
-
-        public void Update(float dist) {
-            // switch (phase) {
-            // case Phase.PRELUDE:
-            //     audioSource.volume = 1.0f - dist / 20f;
-            //     if (audioSource.time > 8.0f) {
-            //         audioSource.time = 0.0f;
-            //     }
-            //     break;
-
-            // default:
-            //     break;
-            // }
-        }
 
         // private void AudioStart() {
         //     // start music midpoint, for debug purpose

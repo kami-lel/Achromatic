@@ -30,22 +30,9 @@ using Assets._Achromatic.Scripts.Pieces;
 public class PieceScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
-    [SerializeField]
-    private TextAsset beatmapFile;
 
     [SerializeField]
     private BeatmapSetting beatmapSetting;
-
-    [Header("Audio Sources")]
-
-    [SerializeField]
-    private AudioSource backgroundMusicSource;
-
-    [SerializeField]
-    private AudioSource vampSource;
-
-    [SerializeField]
-    private AudioSource mainSongSource;
 
     [Header("Triggers")]
 
@@ -63,7 +50,7 @@ public class PieceScript: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
         music = new(pseudoAudioPlugin, beatmapSetting);
-        notes = new(beatmapFile, music, beatmapSetting);
+        notes = new(music, beatmapSetting);
         prefabs = new();
 
         scoreTracker = new(notes);
@@ -101,10 +88,7 @@ public class PieceScript: MonoBehaviour {
         }
 
         // update managers  ----------------------------------------------------
-        music.Update(dist);
-
-
-        if (GameControllerScript.Instance.gameState == GameState.MUSIC_PLAY) {
+        if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
             criteria.Update();
             prefabs.Update();
             playerManager.Update();

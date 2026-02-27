@@ -7,6 +7,6 @@ public enum GameState {
 
     EXPLORE = 1 << 0,
     PRELUDE = 1 << 1,
-    MUSIC_PLAY = 1 << 2,
+    MAIN_PIECE = 1 << 2,
 
 }
