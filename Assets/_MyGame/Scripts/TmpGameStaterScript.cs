@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// hack rm this class
+// Hack rm this class
 public class TmpGameStaterScript: MonoBehaviour {
 
     [SerializeField]

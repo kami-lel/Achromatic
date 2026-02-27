@@ -1,7 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Todo 3rd actions
+// Bug fix dash during animations
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -12,9 +13,8 @@ public class PlayerScript: MonoBehaviour {
     [SerializeField]
     private LayerMask groundLayerMask = Physics2D.AllLayers;
 
-
     [SerializeField]
-    private GameObject tmpPlayerSprite;  // hack
+    private GameObject tmpPlayerSprite;  // Hack
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -23,7 +23,7 @@ public class PlayerScript: MonoBehaviour {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
 
-        // hack rm
+        // Hack rm
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
@@ -38,7 +38,7 @@ public class PlayerScript: MonoBehaviour {
     }
 
     private void Update() {
-        // hack rm
+        // Hack rm
         if (!is_squashed)
             return;  // skip when not squashed
         timer -= Time.deltaTime;  // decrement Timer each frame
@@ -107,7 +107,7 @@ public class PlayerScript: MonoBehaviour {
                 break;
 
             case "Interact":
-                Debug.Log("Interact!!!");  // todo
+                Debug.Log("Interact!!!");  // todo implement explore interaction
                 break;
 
             }
@@ -217,7 +217,7 @@ public class PlayerScript: MonoBehaviour {
     // animations  #############################################################
 
     private Animator animator;
-    // hack tmp vars
+    // Hack tmp vars
     private Vector3 tmpOriginalScale;
     private float timer = 0.0f;
     private float squashDuration = 0.5f;  // default Duration seconds
@@ -233,7 +233,7 @@ public class PlayerScript: MonoBehaviour {
     public void AnimationDash() {
         Debug.Log("Dash");
 
-        // hack need animation for dash
+        // Hack need animation for dash
         squashTargetY = 0.35f;  // set Target Y value
         squashDuration = 0.5f;  // set Duration value
         timer = squashDuration;  // reset Timer

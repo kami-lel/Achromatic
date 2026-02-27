@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 // todo allows & give feedback for smashing input during: empty or climax
-// bug piece will have error if Active at beginning of scene
+// todo background music during explore play
+// Bug piece will have error if Active at beginning of scene
 
 
 /// <summary>
@@ -26,6 +27,13 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 [DisallowMultipleComponent]
 public class PieceScript: MonoBehaviour {
+    [SerializeField]
+    private AnimationCurve tmpJumpCurve;
+
+    private float tmpPlayerLastJump;
+
+    [SerializeField]
+    private GameObject tmpPanel;
 
     // Inspector Fields  #######################################################
     [SerializeField]
@@ -57,6 +65,8 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Start() {
+        tmpPlayerLastJump = Time.time;
+
         PlayerStart();
 
         phase = PiecePhase.NONE;
@@ -72,7 +82,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
-        // hack use dist
+        // Hack use dist
         float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
         switch (phase) {
         case PiecePhase.NONE:
@@ -162,6 +172,7 @@ public class PieceScript: MonoBehaviour {
             yield return null;  // wait until dspTime reaches target
         }
         _timerRoutine = null;  // clear handle
+
         SceneManager.LoadScene("EndScene");  // perform scene change
     }
 
@@ -175,9 +186,7 @@ public class PieceScript: MonoBehaviour {
     /// handle update of player's control
     /// </summary>
     private void PlayerUpdate() {
-
-        float y = -0.8345073f; // hack
-        // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+        float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
         // update user horizontal position
         Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
@@ -214,7 +223,7 @@ public class PieceScript: MonoBehaviour {
         audioSource.playOnAwake = false;
     }
 
-    private void AudioStart() { // hack
+    private void AudioStart() { // Hack
         // start music midpoint, for debug purpose
         if (debugMusicStaringBar != 0.0f) {
             audioSource.time = (debugMusicStaringBar - 1.0f)
@@ -282,6 +291,8 @@ public class PieceScript: MonoBehaviour {
 
         // control player  -----------------------------------------------------
         if ((pressedActions & InputPressedActions.JUMP) != 0) {
+            tmpPlayerLastJump = Time.time;
+
             playerScript.AnimationJump();
         } else if ((pressedActions & InputPressedActions.DASH) != 0) {
             playerScript.AnimationDash();
@@ -290,7 +301,7 @@ public class PieceScript: MonoBehaviour {
         GameControllerScript.Instance.tmpUpdateText(judgeResult,
                 scoreTracker.combo,
                 scoreTracker.runningScore);
-        // todo add audio for feedback
+        // Todo add audio for feedback
     }
 
     private void InputStart() {
@@ -302,7 +313,7 @@ public class PieceScript: MonoBehaviour {
 
     private void OnDetectPassByMiss(object sender, EventArgs e) {
         scoreTracker.Record(JudgeResult.LATE_MISS);
-        // todo handle pass by miss
+        // Todo handle pass by miss
     }
 
 
@@ -323,4 +334,5 @@ public enum PiecePhase {
     PLAY = 1 << 1,
 }
 
-// fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
+// Bug audio start is jarring, lose framerate
+// Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
