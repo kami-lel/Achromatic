@@ -12,6 +12,17 @@
 <!-- Todo more juices: particles efx -->
 <!-- todo use enemy to kill as score point -->
 <!-- TODO catch up write changelogs -->
+<!-- todo local leaderboard -->
+<!-- todo set up hooks utility -->
+<!-- fixme bold barline when note existed -->
+<!-- todo timed vamp music -->
+<!-- fixme move down note & make bigger -->
+<!-- todo implement obstacles during music play  -->
+<!-- fixme better, camera far away -->
+<!-- todo speed multiplier (as setting) -->
+
+<!-- Todo frame counter -->
+<!-- Todo full UX: start, reset, etc. -->
 
 
 
@@ -43,15 +54,6 @@
 ## [0.5.1] - 2026-02-26
 ## [0.5.0] Vertical Slice - 2026-02-18
 
-#### Controls
-
-During *Explore*: use WSAD/LeftStick to move around
-
-During *Music*:
-Hold `W` for Up Arrow;
-Hold `S` for Forward Arrow;
-Use `Space` / RightTrigger to trigger
-
 
 
 
@@ -70,15 +72,6 @@ Use `Space` / RightTrigger to trigger
 ## [0.3.1] - 2026-02-01
 
 In this iteration of the game/toy, I am trying to explore the possibility of combining a music game with a 2D platformer RPG-style game. The player is able to explore the world a little bit, then is transported to play the game. In this way, there is the possibility of narrative building that can echo the theme and lyrics of the song. I am also adding more visual and audio feedback to the game to help the player understand if they are playing well.
-
-#### controls
-
-During *Explore*: use WSAD to move around
-
-During *Music*:
-Hold `W` for Up Arrow;
-Hold `D` for Forward Arrow;
-Use `Space` to trigger
 
 
 
