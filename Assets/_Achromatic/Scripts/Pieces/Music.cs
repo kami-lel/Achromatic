@@ -19,7 +19,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // Constructor  ########################################################
-        public Music(PseudoAudioPlugin pseudoAudioPlugin, BeatmapSetting beatmapSetting) {
+        public Music(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
             this.pseudoAudioPlugin = pseudoAudioPlugin;
             this.beatmapSetting = beatmapSetting;
         }
@@ -27,7 +27,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // cached references
         private readonly PseudoAudioPlugin pseudoAudioPlugin;
-        private readonly BeatmapSetting beatmapSetting;
+        private readonly BeatmapMeta beatmapSetting;
 
         // TODO
 

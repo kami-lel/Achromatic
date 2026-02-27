@@ -32,7 +32,7 @@ public class PieceScript: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private BeatmapSetting beatmapSetting;
+    private BeatmapMeta beatmapSetting;
 
     [Header("Triggers")]
 

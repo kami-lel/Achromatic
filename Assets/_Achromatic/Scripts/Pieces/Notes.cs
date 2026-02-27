@@ -13,30 +13,30 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class Notes {
 
-        public Notes(Music music, BeatmapSetting beatmapSetting) {
+        public Notes(Music music, BeatmapMeta beatmapMeta) {
             this.music = music;
-            setting = beatmapSetting;
+            this.beatmapMeta = beatmapMeta;
 
-            data = JsonUtility.FromJson<BeatmapData>(beatmapSetting.beatmapFile.text);
-            if (data.notes.Length == 0) {
+            beatmapData = JsonUtility.FromJson<BeatmapData>(beatmapMeta.file.text);
+            if (beatmapData.notes.Length == 0) {
                 Debug.LogError("beatmap file contains no notes: "
-                        + beatmapSetting.beatmapFile.name);
+                        + beatmapMeta.file.name);
             }
 
             // fill notesQ
             notesQ = new();
             foreach (BeatmapData.JsonDataNote jsonNote
-                    in data.notes) {
+                    in beatmapData.notes) {
                 notesQ.Enqueue(new BeatmapNote(jsonNote));
             }
             // init vars
-            beatPerSec = setting.tempo / 60.0f;
-            preludeOffsetAsBeat = setting.preludeBarCount * beatPerSec;
-            beatsPerDivision = 1 / setting.subdivisionPerBeat;
+            beatPerSec = this.beatmapMeta.tempo / 60.0f;
+            preludeOffsetAsBeat = this.beatmapMeta.preludeBarCount * beatPerSec;
+            beatsPerDivision = 1 / this.beatmapMeta.subdivisionPerBeat;
         }
 
-        public readonly BeatmapData data;
-        public readonly BeatmapSetting setting;  // cached
+        public readonly BeatmapData beatmapData;
+        public readonly BeatmapMeta beatmapMeta;  // cached
         public Queue<BeatmapNote> notesQ;
 
         /// <returns>realtime beat count based on Audio Source time,

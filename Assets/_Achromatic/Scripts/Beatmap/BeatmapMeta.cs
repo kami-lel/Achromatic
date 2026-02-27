@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BeatmapSetting", menuName = "Scriptable Objects/BeatmapSetting")]
-public class BeatmapSetting: ScriptableObject {
+[CreateAssetMenu(fileName = "BeatmapMeta", menuName = "Scriptable Objects/BeatmapMeta")]
+public class BeatmapMeta: ScriptableObject {
 
     [SerializeField]
-    public TextAsset beatmapFile;
+    public TextAsset file;
 
     [Header("Music")]
 

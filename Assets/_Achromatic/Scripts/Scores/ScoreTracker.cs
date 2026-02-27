@@ -55,7 +55,7 @@ public class ScoreTracker {
 
 
         // init perResultScores  -----------------------------------------------
-        perfectScore = TOTAL_SCORES / notes.data.notes.Length;
+        perfectScore = TOTAL_SCORES / notes.beatmapData.notes.Length;
         greatScore = perfectScore * 0.7f;
         goodScore = perfectScore * 0.3f;
 
