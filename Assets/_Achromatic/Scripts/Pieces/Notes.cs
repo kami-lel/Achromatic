@@ -11,9 +11,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// load beatmap data from Beatmap file,
     /// also provide beatmap/notes related helpers
     /// </summary>
-    public class Notes {
+    public class NotesManager {
 
-        public Notes(Music music, BeatmapMeta beatmapMeta) {
+        public NotesManager(MusicManager music, BeatmapMeta beatmapMeta) {
             this.music = music;
             this.beatmapMeta = beatmapMeta;
 
@@ -47,7 +47,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        private readonly Music music;  // cached
+        private readonly MusicManager music;  // cached
 
         private readonly float beatPerSec;
         private readonly float preludeOffsetAsBeat;

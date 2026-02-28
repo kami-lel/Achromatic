@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
-    public class Music {
+    public class MusicManager {
 
         // public API  #########################################################
 
@@ -14,12 +14,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Start() {
-            this.pseudoAudioPlugin.StartMap();
+            pseudoAudioPlugin.StartMap();
         }
 
-
         // Constructor  ########################################################
-        public Music(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
+        public MusicManager(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
             this.pseudoAudioPlugin = pseudoAudioPlugin;
             this.beatmapSetting = beatmapSetting;
         }
@@ -29,40 +28,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly PseudoAudioPlugin pseudoAudioPlugin;
         private readonly BeatmapMeta beatmapSetting;
 
-        // TODO
 
-        // private void AudioStart() {
-        //     // start music midpoint, for debug purpose
-        //     if (debugMusicStaringBar != 0.0f) {
-        //         audioSource.time = (debugMusicStaringBar - 1.0f)
-        //                 * beatmap.beatPerBar
-        //                 * (60.0f / beatmap.beatmapData.Tempo)
-        //                 + beatmap.beatmapData.PreludeLength;
-        //     }
-        //     // start the music
-        //     audioSource.Play();
-        //     audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
+        // Hack CalcBeatCount
+        // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
+        //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
+        //             + (jsonNote.beat - 1)
+        //             + (jsonNote.subbeat - 1) * beatsPerDivision;
         // }
-        //
-
-        // private void EnterPrelude() {
-        //     Debug.Log("PieceScript: player enters Prelude Play hit box");
-        //     phase = Phase.PRELUDE;
-        //     audioSource.Play();
-        // }
-
-        // private void LeavePrelude() {
-        //     phase = Phase.INIT;
-        //     audioSource.Stop();
-        // }
-
     }
-
-
-
-    // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
-    //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
-    //             + (jsonNote.beat - 1)
-    //             + (jsonNote.subbeat - 1) * beatsPerDivision;
-    // }
 }

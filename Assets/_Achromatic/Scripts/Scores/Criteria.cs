@@ -8,7 +8,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
     public class Criteria {
 
-        public Criteria(Music music, Notes notes, ScoreTracker scoreTracker) {
+        public Criteria(MusicManager music, NotesManager notes, ScoreTracker scoreTracker) {
             this.scoreTracker = scoreTracker;
             this.music = music;
 
@@ -73,7 +73,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly Queue<Timing> timings;
 
         private readonly ScoreTracker scoreTracker;
-        private readonly Music music;
+        private readonly MusicManager music;
 
     }
 

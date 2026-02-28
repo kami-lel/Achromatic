@@ -45,7 +45,7 @@ public class ScoreTracker {
     private readonly int goodScoreInt;
 
 
-    public ScoreTracker(Notes notes) {
+    public ScoreTracker(NotesManager notes) {
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<Hit, int>();
         foreach (Hit result

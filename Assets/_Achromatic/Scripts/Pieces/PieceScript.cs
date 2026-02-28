@@ -37,10 +37,10 @@ public class PieceScript: MonoBehaviour {
     [Header("Triggers")]
 
     [SerializeField]
-    private Collider2D playerCollider;
+    private Collider2D startPreludeTrigger;
 
     [SerializeField]
-    private Collider2D playStartHitBox;
+    private Collider2D startMainPieceTrigger;
 
     [Header("tmp")]
 
@@ -48,8 +48,12 @@ public class PieceScript: MonoBehaviour {
     private PseudoAudioPlugin pseudoAudioPlugin;
 
     // MonoBehavior Lifecycle  #################################################
-    private void Start() {
+    void Awake() {
         music = new(pseudoAudioPlugin, beatmapSetting);
+    }
+
+    private void Start() {
+        prelude = new(music, startPreludeTrigger, startMainPieceTrigger);
         notes = new(music, beatmapSetting);
         prefabs = new();
 
@@ -60,33 +64,11 @@ public class PieceScript: MonoBehaviour {
 
         // inputs
         inputs = new(criteria, playerManager.playerInput);
+
+        music.Start();
     }
 
     private void Update() {
-        float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
-        // fixme fixed triggering distance
-        // TODO TODO
-        switch (GameControllerScript.Instance.gameState) {
-        case GameState.EXPLORE:
-            if (dist <= 20.0f) {
-                Debug.Log("Start Prelude");
-                GameControllerScript.Instance.gameState |= GameState.PRELUDE;
-            }
-            break;
-
-        case GameState.PRELUDE:
-            if (playStartHitBox.IsTouching(playerCollider)) {
-                playerManager.StartControlPlayer();
-
-            } else if (dist > 20.0f) {
-                GameControllerScript.Instance.gameState &= ~GameState.PRELUDE;
-            }
-            break;
-
-        default:
-            break;
-        }
-
         // update managers  ----------------------------------------------------
         if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
             criteria.Update();
@@ -102,8 +84,9 @@ public class PieceScript: MonoBehaviour {
 
     // private members  ########################################################
     // managers
-    private Notes notes;
-    private Music music;
+    private NotesManager notes;
+    private PreludeManager prelude;
+    private MusicManager music;
     private PrefabsManager prefabs;
     private Criteria criteria;
     private ScoreTracker scoreTracker;
