@@ -58,6 +58,8 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Start() {
+        prelude.Start();
+
         notes = new(music, beatmapMeta);
         prefabs = new();
 

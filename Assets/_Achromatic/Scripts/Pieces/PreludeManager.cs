@@ -5,7 +5,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
     public class PreludeManager {
         // public API  #########################################################
 
-        public void Update() {
+        public void Start() {
+            var playerColliderNotifier = GameObject.FindWithTag(playerTag)?.GetComponent<PlayerScript>()?.GetComponent<CollisionNotifier>();
 
         }
 
@@ -26,7 +27,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // private members  ####################################################
-        private string playerTag = "Player";
+        private const string playerTag = "Player";
 
         // cached references
         private readonly Collider2D startVampTrigger;
