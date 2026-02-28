@@ -6,6 +6,7 @@ using UnityEngine;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
+using Unity.VisualScripting;
 
 
 // todo allows & give feedback for smashing input during: empty or climax
@@ -27,12 +28,15 @@ using Assets._Achromatic.Scripts.Pieces;
 ///   </description></item>
 /// </list>
 /// </summary>
+
+
+[RequireComponent(typeof(Transform))]
 public class PieceScript: MonoBehaviour {
 
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private BeatmapMeta beatmapSetting;
+    private BeatmapMeta beatmapMeta;
 
     [Header("Triggers")]
 
@@ -49,12 +53,12 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     void Awake() {
-        music = new(pseudoAudioPlugin, beatmapSetting);
+        music = new(pseudoAudioPlugin, beatmapMeta);
+        prelude = new(music, startVampTrigger, startPreludeTrigger, GetComponent<Transform>().position);
     }
 
     private void Start() {
-        prelude = new(music, startVampTrigger, startPreludeTrigger);
-        notes = new(music, beatmapSetting);
+        notes = new(music, beatmapMeta);
         prefabs = new();
 
         scoreTracker = new(notes);
@@ -69,12 +73,16 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
-        // update managers  ----------------------------------------------------
         if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
             criteria.Update();
             prefabs.Update();
             playerManager.Update();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log("hi");  // HACK
+        prelude.OnTriggerEnter2D(collision);
     }
 
     private void OnDisable() {

@@ -9,18 +9,30 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         }
 
+        public void OnTriggerEnter2D(Collider2D collision) {
+            if (!collision.CompareTag(playerTag)) {  // ignore non player
+                return;
+            }
+
+            Debug.Log(collision);  // HACK
+        }
+
         // Constructor  ########################################################
-        public PreludeManager(MusicManager music, Collider2D startVampTrigger, Collider2D startPreludeTrigger) {
+        public PreludeManager(MusicManager music, Collider2D startVampTrigger, Collider2D startPreludeTrigger, Vector2 pieceOrigin) {
             this.music = music;
             this.startVampTrigger = startVampTrigger;
             this.startPreludeTrigger = startPreludeTrigger;
+            this.pieceOrigin = pieceOrigin;
         }
 
         // private members  ####################################################
+        private string playerTag = "Player";
+
         // cached references
         private readonly Collider2D startVampTrigger;
         private readonly Collider2D startPreludeTrigger;
         private readonly MusicManager music;
+        private readonly Vector2 pieceOrigin;
     }
 }
 

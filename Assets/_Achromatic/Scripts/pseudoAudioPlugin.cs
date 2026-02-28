@@ -14,6 +14,10 @@ public class PseudoAudioPlugin: MonoBehaviour {
 
     public void StartMap() {
         Debug.LogWarning("pseudoAudioPlugin: Start Map");
+    }
+
+    public void StartVamp() {
+        Debug.LogWarning("pseudoAudioPlugin: Start Vamp");
 
     }
 

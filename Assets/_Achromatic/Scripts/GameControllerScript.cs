@@ -71,7 +71,8 @@ public class GameControllerScript: MonoBehaviour {
 
     private void Update() {
         float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
-        tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
+        // Hack
+        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
     }
 
     // public methods  #########################################################

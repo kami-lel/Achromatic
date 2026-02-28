@@ -17,6 +17,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             this.music = music;
             this.beatmapMeta = beatmapMeta;
 
+            if (beatmapMeta == null) {
+                Debug.LogError("must assign Beatmap Meta in Piece");
+                return;
+            }
+            if (beatmapMeta.file == null) {
+                Debug.LogError("must assign Beatmap File in Beatmap Meta");
+                return;
+            }
+
             beatmapData = JsonUtility.FromJson<BeatmapData>(beatmapMeta.file.text);
             if (beatmapData.notes.Length == 0) {
                 Debug.LogError("beatmap file contains no notes: "
