@@ -10,16 +10,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Constructor  ########################################################
-        public PreludeManager(MusicManager music, Collider2D startPreludeTrigger, Collider2D startMainPieceTrigger) {
+        public PreludeManager(MusicManager music, Collider2D startVampTrigger, Collider2D startPreludeTrigger) {
             this.music = music;
+            this.startVampTrigger = startVampTrigger;
             this.startPreludeTrigger = startPreludeTrigger;
-            this.startMainPieceTrigger = startMainPieceTrigger;
         }
 
         // private members  ####################################################
         // cached references
+        private readonly Collider2D startVampTrigger;
         private readonly Collider2D startPreludeTrigger;
-        private readonly Collider2D startMainPieceTrigger;
         private readonly MusicManager music;
     }
 }

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 144718229}
   - component: {fileID: 144718230}
   m_Layer: 0
-  m_Name: StartPreludeTrigger
+  m_Name: StartVampTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 153551701}
   m_Layer: 0
-  m_Name: StartMainPieceTrigger
+  m_Name: StartPreludeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

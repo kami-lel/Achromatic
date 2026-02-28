@@ -37,10 +37,10 @@ public class PieceScript: MonoBehaviour {
     [Header("Triggers")]
 
     [SerializeField]
-    private Collider2D startPreludeTrigger;
+    private Collider2D startVampTrigger;
 
     [SerializeField]
-    private Collider2D startMainPieceTrigger;
+    private Collider2D startPreludeTrigger;
 
     [Header("tmp")]
 
@@ -53,7 +53,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Start() {
-        prelude = new(music, startPreludeTrigger, startMainPieceTrigger);
+        prelude = new(music, startVampTrigger, startPreludeTrigger);
         notes = new(music, beatmapSetting);
         prefabs = new();
 
