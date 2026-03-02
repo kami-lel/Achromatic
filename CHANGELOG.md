@@ -5,11 +5,11 @@
 [^format]
 
 <!-- Todo final score window -->
-<!-- Fixme camera better -->
+<!-- Fixme camera better, give more view during music  -->
 <!-- Fixme consider bold barline when note existed -->
 <!-- Fixme move down note & make bigger -->
 <!-- Todo particles efx -->
-<!-- fixme better, camera far away -->
+<!-- Todo pause screen, allow restart/resume -->
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- todo barline & beat line as environmental element -->
