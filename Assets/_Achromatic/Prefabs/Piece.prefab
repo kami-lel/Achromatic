@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 301460058941612596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.460014, y: 9.754872, z: 0}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61,35 +61,35 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 1
-        y: 1
+        x: 0
+        y: 0
         z: 0
       TangentIn:
         x: -0
         y: -0
-        z: -4.9
+        z: -5
       TangentOut:
         x: 0
         y: 0
-        z: 4.9
+        z: 5
       Rotation:
         value:
-          x: -0.5
-          y: 0.5
-          z: -0.5
-          w: 0.5
+          x: 0.50000006
+          y: -0.49999994
+          z: 0.50000006
+          w: -0.49999994
     - Position:
         x: 50
-        y: 1
+        y: 0
         z: 0
       TangentIn:
         x: -0
         y: -0
-        z: -4.9
+        z: -5
       TangentOut:
         x: 0
         y: 0
-        z: 4.9
+        z: 5
       Rotation:
         value:
           x: 0.50000006
@@ -207,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 3557936282070385667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 20, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -335,3 +335,4 @@ MonoBehaviour:
   vampLoudestOrigin: {fileID: 3938205800452466528}
   mainPartPath: {fileID: 675889762508624498}
   pseudoAudioPlugin: {fileID: 0}
+  isControllingPlayer: 0

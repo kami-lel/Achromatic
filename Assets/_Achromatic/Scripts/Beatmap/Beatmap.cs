@@ -37,8 +37,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             var pos3 = piece.mainPartPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
 
-            Debug.Log("origin:" + origin);  // HACK
-
             beatsPerSecond = meta.tempo / 60f;
         }
 

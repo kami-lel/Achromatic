@@ -17,7 +17,7 @@ MonoBehaviour:
   beatPerBar: 4
   subdivisionPerBeat: 4
   preludeBarCount: 8
-  horizontalSpeedPerBeat: 20
+  horizontalSpeedPerBeat: 10
   barlineRenderDistance: 10
   noteRenderDistance: 10
   silenceSecondBeforeMainSong: 1
