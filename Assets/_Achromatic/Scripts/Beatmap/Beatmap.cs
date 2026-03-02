@@ -7,6 +7,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
         // public members ######################################################
 
+        public BeatmapData data;
         public float currentBeatCount;
         public Vector2 origin;
 

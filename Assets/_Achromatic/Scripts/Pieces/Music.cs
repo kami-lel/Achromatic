@@ -59,6 +59,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Constructor  ########################################################
         public MusicManager(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
+            // Fixme save piece as cached reference
+
             this.pseudoAudioPlugin = pseudoAudioPlugin;
             this.beatmapSetting = beatmapSetting;
         }

@@ -9,6 +9,8 @@ namespace Assets._Achromatic.Scripts.Scores {
     public class Criteria {
 
         public Criteria(MusicManager music, NotesManager notes, ScoreTracker scoreTracker) {
+            // Fixme save piece as cached reference
+
             this.scoreTracker = scoreTracker;
             this.music = music;
 

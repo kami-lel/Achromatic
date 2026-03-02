@@ -5,7 +5,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class PrefabsManager {
 
-        // FIXME
+        // Bug implement prefab system
 
         public PrefabsManager() {
 
@@ -20,7 +20,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
 
-/* HACK merge into Prefabs manger of piece
+/*
 public class BeatmapPrefabsPool: IDisposable {
 
     // constants  ==============================================================

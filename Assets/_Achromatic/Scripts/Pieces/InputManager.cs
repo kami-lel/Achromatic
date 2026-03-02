@@ -14,6 +14,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public PressedActions pressed;
 
         public InputManager(Criteria criteria, PlayerInput playerInput) {
+            // Fixme save piece as cached reference
             pressed = PressedActions.NONE;
 
             if (criteria == null) {

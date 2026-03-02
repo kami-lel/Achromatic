@@ -14,6 +14,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
     public class NotesManager {
 
         public NotesManager(MusicManager music, BeatmapMeta beatmapMeta) {
+            // Fixme save piece as cached reference
+
             this.music = music;
             this.beatmapMeta = beatmapMeta;
 
