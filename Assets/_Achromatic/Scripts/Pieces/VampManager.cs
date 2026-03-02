@@ -56,7 +56,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 if (piece.debugMusicStaringBar == 0) {
                     piece.music.StartPreludeThenMainPiece();
-                    // Todo prelude logic
+                    // TODO prelude logic
 
                 } else {
                     // start music mid point for debug purpose
