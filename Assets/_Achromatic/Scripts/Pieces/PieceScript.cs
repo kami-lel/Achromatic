@@ -50,16 +50,13 @@ public class PieceScript: MonoBehaviour {
     private PseudoAudioPlugin pseudoAudioPlugin;
 
     // MonoBehavior Lifecycle  #################################################
-    void Awake() {
-        music = new(pseudoAudioPlugin, beatmapMeta);
-    }
-
     private void Start() {
-
+        music = new(pseudoAudioPlugin, beatmapMeta);
         notes = new(music, beatmapMeta);
         prefabs = new();
 
         scoreTracker = new(notes);
+
         criteria = new(music, notes, scoreTracker);
 
         playerManager = new();

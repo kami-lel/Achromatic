@@ -34,14 +34,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartPreludeThenMainPiece() {
+            pseudoAudioPlugin.bgm.Stop();
             pseudoAudioPlugin.vamp.Stop();
             pseudoAudioPlugin.preludeAndMain.Play();
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
-            // TODO
-
-
+            // Fixme debug start music
             // private void AudioStart() {
             //     // start music midpoint, for debug purpose
             //     if (debugMusicStaringBar != 0.0f) {
