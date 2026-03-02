@@ -2,12 +2,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Assets._Achromatic.Scripts.Pieces {
+namespace Assets._Achromatic.Scripts.Pieces
+{
 
     /// <summary>
     /// take control of player GameObject during music piece
     /// </summary>
-    public class PlayerManager {
+    public class PlayerManager
+    {
 
         // public members  #####################################################
 
@@ -16,46 +18,41 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // public methods  #####################################################
 
-        public void TakeOverPlayerControl() {
+        public void TakeOverPlayerControl()
+        {
             Debug.Log("take over player control");
 
             player.UnsetExplorePlay();
             playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
             // BUG
-            player.playerRB.MovePosition(origin);
+            // player.playerRB.MovePosition(origin);
             player.AnimationStartWalk();
         }
 
-        public void Update() {
-
-
-            float y = -0.8345073f;
+        public void Update()
+        {
+            // BUG
+            // float y = -0.8345073f;
             // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
             // update user horizontal position
-            // BUG
-            Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
-            playerRB.MovePosition(newPosition);
+            // Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
+            // playerRB.MovePosition(newPosition);
         }
 
-        private void PlayerStart() {
-            // link player references
-            GameObject player = GameControllerScript.GetPlayer();
-            playerRB = player.GetComponent<Rigidbody2D>();
-            playerScript = player.GetComponent<PlayerScript>();
-            playerInput = player.GetComponent<PlayerInput>();
-        }
-
-        public void OnDisable() {
+        public void OnDisable()
+        {
 
         }
 
         // constructor  ########################################################
 
-        public PlayerManager() {
+        public PlayerManager()
+        {
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
-            if (playerObject == null) {
+            if (playerObject == null)
+            {
                 Debug.LogError("fail to find GameObject with tag 'player'");
                 return;
             }
