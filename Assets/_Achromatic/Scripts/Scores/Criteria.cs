@@ -14,7 +14,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             this.scoreTracker = scoreTracker;
             this.music = music;
 
-            // TODO
+            // Fixme calculate judge timing from meta
             // // pre-calculate all judge timings
             // timings = new();
 

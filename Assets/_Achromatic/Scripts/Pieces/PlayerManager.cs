@@ -24,9 +24,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Update() {
-            if (!piece.isControllingPlayer) {
-                return;
-            }
             // Todo use Spline path
 
             float y = piece.beatmap.origin.y;

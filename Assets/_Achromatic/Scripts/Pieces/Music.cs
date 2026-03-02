@@ -58,24 +58,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // Constructor  ########################################################
-        public MusicManager(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
+        public MusicManager(PseudoAudioPlugin pseudoAudioPlugin) {
             // Fixme save piece as cached reference
 
             this.pseudoAudioPlugin = pseudoAudioPlugin;
-            this.beatmapSetting = beatmapSetting;
         }
 
         // private members  ####################################################
         // cached references
         private readonly PseudoAudioPlugin pseudoAudioPlugin;
-        private readonly BeatmapMeta beatmapSetting;
 
 
-        // Hack CalcBeatCount
-        // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
-        //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
-        //             + (jsonNote.beat - 1)
-        //             + (jsonNote.subbeat - 1) * beatsPerDivision;
-        // }
     }
 }

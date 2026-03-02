@@ -59,34 +59,26 @@ public class PieceScript: MonoBehaviour {
             Debug.LogError("must assign mainPartPath");
         }
 
-        music = new(pseudoAudioPlugin, beatmapMeta);
+        beatmap = new(this, beatmapMeta):
+        music = new(pseudoAudioPlugin);
         notes = new(music, beatmapMeta);
         prefabs = new();
-
         scoreTracker = new(notes);
-
         criteria = new(music, notes, scoreTracker);
-
         playerManager = new(this);
-
         vampManager = new(this, vampLoudestOrigin);
-        // inputs
         inputs = new(criteria, playerManager.playerInput);
-
-        music.Start();
-
         beatmap = new(this);
 
+        music.Start();
     }
 
     private void Update() {
         vampManager.Update();
-        playerManager.Update();
 
-        if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
-
+        if (isControllingPlayer) {
+            playerManager.Update();
             criteria.Update();
-            prefabs.Update();
         }
     }
 
