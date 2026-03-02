@@ -9,13 +9,35 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public float Time {
             get {
-                return pseudoAudioPlugin.mainPiece.time;
+                return pseudoAudioPlugin.preludeAndMain.time;
             }
         }
 
         public void Start() {
-            pseudoAudioPlugin.StartMap();
+            pseudoAudioPlugin.bgm.loop = true;
+            pseudoAudioPlugin.bgm.Play();
         }
+
+        public void StartVamp() {
+            pseudoAudioPlugin.bgm.Stop();
+            pseudoAudioPlugin.vamp.loop = true;
+            pseudoAudioPlugin.vamp.Play();
+        }
+
+        public void StopVamp() {
+            pseudoAudioPlugin.vamp.Stop();
+            pseudoAudioPlugin.bgm.Play();
+        }
+
+        public void UpdateVampVolume(float vol) {
+            pseudoAudioPlugin.vamp.volume = vol;
+        }
+
+        public void StartPreludeThenMainPiece() {
+            pseudoAudioPlugin.vamp.Stop();
+            pseudoAudioPlugin.preludeAndMain.Play();
+        }
+
 
         // Constructor  ########################################################
         public MusicManager(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {

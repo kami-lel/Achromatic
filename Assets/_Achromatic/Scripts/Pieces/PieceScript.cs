@@ -6,7 +6,6 @@ using UnityEngine;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
-using Unity.VisualScripting;
 
 
 // todo allows & give feedback for smashing input during: empty or climax
@@ -38,6 +37,12 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapMeta beatmapMeta;
 
+    [SerializeField]
+    private AnimationCurve vampDistantVsVolume = AnimationCurve.Linear(0, 1, 30, 0);
+
+    [SerializeField]
+    private Transform vampLoudestOrigin;
+
     [Header("tmp")]
 
     [SerializeField]
@@ -58,7 +63,7 @@ public class PieceScript: MonoBehaviour {
 
         playerManager = new();
 
-        prelude = new(this);
+        prelude = new(this, vampLoudestOrigin, vampDistantVsVolume);
         // inputs
         inputs = new(criteria, playerManager.playerInput);
 
@@ -67,7 +72,10 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
+        prelude.Update();
+
         if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
+
             criteria.Update();
             prefabs.Update();
             playerManager.Update();

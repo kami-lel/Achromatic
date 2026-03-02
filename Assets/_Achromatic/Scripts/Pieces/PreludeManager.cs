@@ -3,9 +3,12 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Pieces {
 
     public class PreludeManager {
-        public PreludeManager(PieceScript piece) {
+
+        public PreludeManager(PieceScript piece, Transform vampLoudestOrigin, AnimationCurve vampDistantVsVolume) {
             this.piece = piece;
-            pieceOrigin = piece.GetComponent<Transform>().position;
+            this.vampLoudestOrigin = vampLoudestOrigin.position;
+            this.vampDistantVsVolume = vampDistantVsVolume;
+
 
             if (piece.playerManager == null || piece.playerManager.player == null) {
                 Debug.LogWarning("playerManager/player is null");
@@ -24,6 +27,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
+        public void Update() {
+            if (isVampPlaying) {
+                // update vamp volume
+                float distance = Vector2.Distance(piece.playerManager.player.transform.position, vampLoudestOrigin);
+                float volume = vampDistantVsVolume.Evaluate(distance);
+                piece.music.UpdateVampVolume(volume);
+            }
+        }
+
 
         // constants  ##########################################################
         private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
@@ -34,27 +46,28 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // cached references
         private readonly PieceScript piece;
-        private readonly Vector2 pieceOrigin;
+        private readonly Vector2 vampLoudestOrigin;
+        private readonly AnimationCurve vampDistantVsVolume;
 
 
         // private methods  ####################################################
         private void HandleOnTriggerEnter(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
                 isVampPlaying = true;
-                // TODO TODO
+                piece.music.StartVamp();
 
-            } else if (triggerTag == PRELUDE_TRIGGER_TAG) {
-                // TODO TODO
-
+            } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
+                isVampPlaying = false;
+                piece.music.StartPreludeThenMainPiece();
+                // TODO TODO prelude logic
             }
         }
 
         private void HandleOnTriggerExit(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
-                // TODO TODO
+                piece.music.StopVamp();
             }
-
         }
     }
 }
@@ -84,29 +97,4 @@ namespace Assets._Achromatic.Scripts.Pieces {
 // private void LeavePrelude() {
 //     phase = Phase.INIT;
 //     audioSource.Stop();
-// }
-
-
-// float dist = Vector2.Distance(playerCollider.transform.position, playStartHitBox.transform.position);
-// // fixme fixed triggering distance
-// // TODO TODO
-// switch (GameControllerScript.Instance.gameState) {
-// case GameState.EXPLORE:
-//     if (dist <= 20.0f) {
-//         Debug.Log("Start Prelude");
-//         GameControllerScript.Instance.gameState |= GameState.PRELUDE;
-//     }
-//     break;
-
-// case GameState.PRELUDE:
-//     if (playStartHitBox.IsTouching(playerCollider)) {
-//         playerManager.StartControlPlayer();
-
-//     } else if (dist > 20.0f) {
-//         GameControllerScript.Instance.gameState &= ~GameState.PRELUDE;
-//     }
-//     break;
-
-// default:
-//     break;
 // }

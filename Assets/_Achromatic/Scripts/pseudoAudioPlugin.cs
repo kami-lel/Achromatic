@@ -1,32 +1,14 @@
 using UnityEngine;
 
-// TODO mpl pseudoAudioPlugin
+// hack use the real audio plugin
 
 public class PseudoAudioPlugin: MonoBehaviour {
     [SerializeField]
-    public AudioSource explore1;
+    public AudioSource bgm;
 
     [SerializeField]
-    public AudioSource explore2;
+    public AudioSource vamp;
 
     [SerializeField]
-    public AudioSource mainPiece;
-
-    public void StartMap() {
-        Debug.LogWarning("pseudoAudioPlugin: Start Map");
-    }
-
-    public void StartVamp() {
-        Debug.LogWarning("pseudoAudioPlugin: Start Vamp");
-
-    }
-
-    public void StartPrelude() {
-        Debug.LogWarning("pseudoAudioPlugin: Start Prelude");
-
-    }
-
-    public void StartMainPiece() {
-        Debug.LogWarning("pseudoAudioPlugin: Start Main Piece");
-    }
+    public AudioSource preludeAndMain;
 }
