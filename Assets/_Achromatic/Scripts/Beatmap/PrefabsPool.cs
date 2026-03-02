@@ -1,19 +1,11 @@
-namespace Assets._Achromatic.Scripts.Pieces {
+namespace Assets._Achromatic.Scripts.Beatmap {
 
     /// <summary>
     /// control prefabs representing notes, barline, etc.
     /// </summary>
-    public class PrefabsManager {
+    public class PrefabsPool {
+        // Todo write prefab pool
 
-        // Bug implement prefab system
-
-        public PrefabsManager() {
-
-        }
-
-        public void Update() {
-
-        }
     }
 
 }

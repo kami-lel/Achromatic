@@ -102,7 +102,7 @@ public class PieceScript: MonoBehaviour {
     public NotesManager notes;
     public VampManager vampManager;
     public MusicManager music;
-    public PrefabsManager prefabs;
+    public PrefabsPool prefabs;
     public Criteria criteria;
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
