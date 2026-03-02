@@ -65,8 +65,18 @@ public class PlayerScript: MonoBehaviour {
         OnTriggerEnter?.Invoke(other.tag);
     }
 
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other == null || !other.isTrigger) {
+            return;
+        }
+
+        Debug.Log("player exit trigger: " + other.tag);
+        OnTriggerExit?.Invoke(other.tag);
+    }
+
     // public members  #########################################################
     public event Action<String> OnTriggerEnter;
+    public event Action<String> OnTriggerExit;
 
     // public methods  #########################################################
 

@@ -31,7 +31,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void OnDisable(PlayerInput playerInput) {
             if (playerInput == null) {
-                Debug.LogWarning("fail to unsubscribe playerInput.onActionTriggered");
+                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
             } else {
                 playerInput.onActionTriggered -= OnActionTriggered;
             }

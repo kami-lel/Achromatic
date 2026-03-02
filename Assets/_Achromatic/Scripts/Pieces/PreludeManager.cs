@@ -7,39 +7,59 @@ namespace Assets._Achromatic.Scripts.Pieces {
             this.piece = piece;
             pieceOrigin = piece.GetComponent<Transform>().position;
 
-            if (piece.playerManager != null && piece.playerManager.player != null) {
-                piece.playerManager.player.OnTriggerEnter += HandleTrigger;
+            if (piece.playerManager == null || piece.playerManager.player == null) {
+                Debug.LogWarning("playerManager/player is null");
             } else {
-                Debug.LogWarning("fail to subscribe player OnTriggerEnter");
+                piece.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
+                piece.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
         }
 
         public void OnDisable() {
-            if (piece.playerManager != null && piece.playerManager.player != null) {
-                piece.playerManager.player.OnTriggerEnter -= HandleTrigger;
+            if (piece.playerManager == null || piece.playerManager.player == null) {
+                Debug.LogWarning("playerManager/player is null");
             } else {
-                Debug.LogWarning("fail to unsubscribe player OnTriggerEnter");
+                piece.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
+                piece.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
             }
         }
 
 
         // constants  ##########################################################
-        private const string PLAYER_TAG = "Player";
+        private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
+        private const string PRELUDE_TRIGGER_TAG = "StartPreludeTrigger";
 
         // private members  ####################################################
+        private bool isVampPlaying = false;
+
         // cached references
         private readonly PieceScript piece;
         private readonly Vector2 pieceOrigin;
 
+
         // private methods  ####################################################
-        private void HandleTrigger(string triggerTag) {
-            Debug.Log(triggerTag);  // HACK HACK
+        private void HandleOnTriggerEnter(string triggerTag) {
+            if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
+                isVampPlaying = true;
+                // TODO TODO
+
+            } else if (triggerTag == PRELUDE_TRIGGER_TAG) {
+                // TODO TODO
+
+            }
+        }
+
+        private void HandleOnTriggerExit(string triggerTag) {
+            if (triggerTag == VAMP_TRIGGER_TAG && isVampPlaying) {
+                isVampPlaying = false;
+                // TODO TODO
+            }
 
         }
     }
 }
 
-// TODO
+// Hack
 
 // private void AudioStart() {
 //     // start music midpoint, for debug purpose

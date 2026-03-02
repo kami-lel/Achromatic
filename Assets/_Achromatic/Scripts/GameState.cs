@@ -1,6 +1,7 @@
 
 using System;
 
+// Hack deprecation
 [Flags]
 public enum GameState {
     NONE = 0,
