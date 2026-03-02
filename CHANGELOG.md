@@ -41,6 +41,7 @@
 ### Added
 
 - implement `pseudoAudioPlugin.cs`: temporary audio controller before finalize which audio software to use
+- using `Spline` package to manage player's path during main piece play
 
 ### Changed
 
