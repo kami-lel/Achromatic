@@ -3,11 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using Assets._Achromatic.Scripts.Beatmap;
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
-
-// Todo show score overlay UI
 
 public class ScoreTracker {
 
