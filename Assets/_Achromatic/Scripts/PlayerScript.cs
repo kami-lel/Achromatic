@@ -75,6 +75,7 @@ public class PlayerScript: MonoBehaviour {
     }
 
     // public members  #########################################################
+    public Rigidbody2D playerRB;
     public event Action<String> OnTriggerEnter;
     public event Action<String> OnTriggerExit;
 
@@ -191,7 +192,6 @@ public class PlayerScript: MonoBehaviour {
 
     // private members  ========================================================
 
-    private Rigidbody2D playerRB;
     bool isFacingRight = true;
     int moveDir = 0;
 
