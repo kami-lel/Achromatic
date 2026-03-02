@@ -11,16 +11,16 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f5e4e527bec39740868a2266bd275e4, type: 3}
   m_Name: Lv1BeatmapMeta
-  m_EditorClassIdentifier: Assembly-CSharp::BeatmapSetting
+  m_EditorClassIdentifier: Assembly-CSharp::BeatmapMeta
   file: {fileID: 4900000, guid: 12b6ee92bd16c0640b069594c81e6ec2, type: 3}
-  tempo: 0
-  beatPerBar: 0
-  subdivisionPerBeat: 0
-  preludeBarCount: 0
-  horizontalSpeedPerBeat: 0
-  barlineRenderDistance: 0
-  noteRenderDistance: 0
-  silenceSecondBeforeMainSong: 0
-  perfectDeltaSecond: 0
-  greatDeltaSecond: 0
-  goodDeltaSecond: 0
+  tempo: 120
+  beatPerBar: 4
+  subdivisionPerBeat: 4
+  preludeBarCount: 8
+  horizontalSpeedPerBeat: 2
+  barlineRenderDistance: 10
+  noteRenderDistance: 10
+  silenceSecondBeforeMainSong: 1
+  perfectDeltaSecond: 0.05
+  greatDeltaSecond: 0.1
+  goodDeltaSecond: 0.3

@@ -8,29 +8,29 @@ public class BeatmapMeta: ScriptableObject {
 
     [Header("Music")]
 
-    public float tempo;
+    public float tempo = 120;
 
-    public int beatPerBar;
+    public int beatPerBar = 4;
 
-    public int subdivisionPerBeat;
+    public int subdivisionPerBeat = 4;
 
-    public int preludeBarCount;
+    public int preludeBarCount = 8;
 
     [Header("Render")]
 
-    public float horizontalSpeedPerBeat;
+    public float horizontalSpeedPerBeat = 2.0f;
 
-    public float barlineRenderDistance;
+    public float barlineRenderDistance = 10.0f;
 
-    public float noteRenderDistance;
+    public float noteRenderDistance = 10.0f;
 
-    public float silenceSecondBeforeMainSong;
+    public float silenceSecondBeforeMainSong = 1.0f;
 
     [Header("Judge")]
 
-    public float perfectDeltaSecond;
+    public float perfectDeltaSecond = 0.05f;
 
-    public float greatDeltaSecond;
+    public float greatDeltaSecond = 0.1f;
 
-    public float goodDeltaSecond;
+    public float goodDeltaSecond = 0.3f;
 }

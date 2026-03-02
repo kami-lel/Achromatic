@@ -6,8 +6,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public API  #########################################################
 
         public void Start() {
-            var playerColliderNotifier = GameObject.FindWithTag(playerTag)?.GetComponent<PlayerScript>()?.GetComponent<CollisionNotifier>();
-
         }
 
         public void OnTriggerEnter2D(Collider2D collision) {

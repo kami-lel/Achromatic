@@ -53,6 +53,16 @@ public class PlayerScript: MonoBehaviour {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
 
+    // Unity Messages  #########################################################
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other == null || !other.isTrigger) {
+            return;
+        }
+
+        Debug.Log(other.tag);  // HACK
+    }
+
     // public methods  #########################################################
 
     public void SetExplorePlay() {
