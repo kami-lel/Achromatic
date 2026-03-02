@@ -2,14 +2,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Assets._Achromatic.Scripts.Pieces
-{
+namespace Assets._Achromatic.Scripts.Pieces {
 
     /// <summary>
     /// take control of player GameObject during music piece
     /// </summary>
-    public class PlayerManager
-    {
+    public class PlayerManager {
 
         // public members  #####################################################
 
@@ -18,20 +16,20 @@ namespace Assets._Achromatic.Scripts.Pieces
 
         // public methods  #####################################################
 
-        public void TakeOverPlayerControl()
-        {
+        public void TakeOverPlayerControl() {
             Debug.Log("take over player control");
 
             player.UnsetExplorePlay();
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-            // BUG
-            // player.playerRB.MovePosition(origin);
             player.AnimationStartWalk();
+            isInControl = true;
         }
 
-        public void Update()
-        {
-            // BUG
+        public void Update() {
+            if (!isInControl) {
+                return;
+            }
+
+            // BUG BUG
             // float y = -0.8345073f;
             // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
@@ -40,19 +38,13 @@ namespace Assets._Achromatic.Scripts.Pieces
             // playerRB.MovePosition(newPosition);
         }
 
-        public void OnDisable()
-        {
-
-        }
 
         // constructor  ########################################################
 
-        public PlayerManager()
-        {
+        public PlayerManager() {
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
-            if (playerObject == null)
-            {
+            if (playerObject == null) {
                 Debug.LogError("fail to find GameObject with tag 'player'");
                 return;
             }
@@ -63,5 +55,10 @@ namespace Assets._Achromatic.Scripts.Pieces
 
         // constants  ##########################################################
         private const string PLAYER_TAG = "Player";
+
+
+        // private members  ####################################################
+        private bool isInControl = false;
+
     }
 }
