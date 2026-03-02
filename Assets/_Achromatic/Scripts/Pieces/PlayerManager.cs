@@ -21,6 +21,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             player.UnsetExplorePlay();
             playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+            // BUG
             player.playerRB.MovePosition(origin);
             player.AnimationStartWalk();
         }
@@ -32,6 +33,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
 
             // update user horizontal position
+            // BUG
             Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
             playerRB.MovePosition(newPosition);
         }
