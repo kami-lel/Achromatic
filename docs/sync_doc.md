@@ -1,5 +1,7 @@
 # Synchronization Doc
 
+<!-- Fixme merge into piece doc -->
+
 basic unit: a **beat**
 beatSpeed * beat = horizontal movement in map
 

@@ -1,11 +1,12 @@
 # Achromatic CHANGELOG
 
+> USC CTIN-532 Project
+
 [^format]
 
 <!-- Todo organize todos, each must have some summary & use correct types -->
 <!-- Todo implement barline & beat line as environmental element -->
 <!-- Fixme camera better -->
-<!-- Fixme reorganize resource -->
 <!-- Fixme dual control system still confusing -->
 <!-- todo show character origin -->
 <!-- Todo need dramatic shift visually to indicate music has started -->
@@ -38,6 +39,10 @@
 ## [Unreleased]
 
 ### Added
+
+- implement `pseudoAudioPlugin.cs`: temporary audio controller before finalize which audio software to use
+- using `Spline` package to manage player's path during main piece play
+
 ### Changed
 
 - code/scripts refactorization: break down `PieceScript.cs` into multiple classes
