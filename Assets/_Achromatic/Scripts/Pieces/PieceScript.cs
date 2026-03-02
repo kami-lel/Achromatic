@@ -1,8 +1,7 @@
 
-using System;
-using System.Collections;
 
 using UnityEngine;
+using UnityEngine.Splines;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
@@ -37,12 +36,16 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapMeta beatmapMeta;
 
+
+    public int debugMusicStaringBar = 0;
+
+    [Header("Internals")]
     public AnimationCurve vampDistantVsVolume = AnimationCurve.Linear(0, 1, 30, 0);
 
     [SerializeField]
     private Transform vampLoudestOrigin;
 
-    public int debugMusicStaringBar = 0;
+    public SplineContainer mainPartPath;
 
     [Header("tmp")]
 
