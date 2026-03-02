@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
-    public class PreludeManager {
+    public class VampManager {
 
-        public PreludeManager(PieceScript piece, Transform vampLoudestOrigin) {
+        public VampManager(PieceScript piece, Transform vampLoudestOrigin) {
             this.piece = piece;
             this.vampLoudestOrigin = vampLoudestOrigin.position;
 

@@ -61,7 +61,7 @@ public class PieceScript: MonoBehaviour {
 
         playerManager = new();
 
-        prelude = new(this, vampLoudestOrigin);
+        vampManager = new(this, vampLoudestOrigin);
         // inputs
         inputs = new(criteria, playerManager.playerInput);
 
@@ -70,7 +70,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void Update() {
-        prelude.Update();
+        vampManager.Update();
 
         if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
 
@@ -81,7 +81,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        prelude.OnDisable();
+        vampManager.OnDisable();
         playerManager.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
     }
@@ -89,7 +89,7 @@ public class PieceScript: MonoBehaviour {
     // private members  ########################################################
     // managers
     public NotesManager notes;
-    public PreludeManager prelude;
+    public VampManager vampManager;
     public MusicManager music;
     public PrefabsManager prefabs;
     public Criteria criteria;
