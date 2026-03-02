@@ -4,11 +4,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class PreludeManager {
 
-        public PreludeManager(PieceScript piece, Transform vampLoudestOrigin, AnimationCurve vampDistantVsVolume) {
+        public PreludeManager(PieceScript piece, Transform vampLoudestOrigin) {
             this.piece = piece;
             this.vampLoudestOrigin = vampLoudestOrigin.position;
-            this.vampDistantVsVolume = vampDistantVsVolume;
-
 
             if (piece.playerManager == null || piece.playerManager.player == null) {
                 Debug.LogWarning("playerManager/player is null");
@@ -31,11 +29,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (isVampPlaying) {
                 // update vamp volume
                 float distance = Vector2.Distance(piece.playerManager.player.transform.position, vampLoudestOrigin);
-                float volume = vampDistantVsVolume.Evaluate(distance);
+                float volume = piece.vampDistantVsVolume.Evaluate(distance);
                 piece.music.UpdateVampVolume(volume);
             }
         }
-
 
         // constants  ##########################################################
         private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
@@ -47,8 +44,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // cached references
         private readonly PieceScript piece;
         private readonly Vector2 vampLoudestOrigin;
-        private readonly AnimationCurve vampDistantVsVolume;
-
 
         // private methods  ####################################################
         private void HandleOnTriggerEnter(string triggerTag) {
@@ -58,8 +53,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
-                piece.music.StartPreludeThenMainPiece();
-                // TODO TODO prelude logic
+
+                StartPreludeThenMainPiece();
             }
         }
 
@@ -69,32 +64,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 piece.music.StopVamp();
             }
         }
+
+        private void StartPreludeThenMainPiece() {
+            if (piece.debugMusicStaringBar == 0) {
+                piece.music.StartPreludeThenMainPiece();
+                // TODO TODO prelude logic
+
+            } else {
+                // start music mid point for debug purpose
+                piece.music.DebugStartMusic(piece.debugMusicStaringBar);
+            }
+
+            piece.playerManager.TakeOverPlayerControl();
+        }
     }
+
 }
-
-// Hack
-
-// private void AudioStart() {
-//     // start music midpoint, for debug purpose
-//     if (debugMusicStaringBar != 0.0f) {
-//         audioSource.time = (debugMusicStaringBar - 1.0f)
-//                 * beatmap.beatPerBar
-//                 * (60.0f / beatmap.beatmapData.Tempo)
-//                 + beatmap.beatmapData.PreludeLength;
-//     }
-//     // start the music
-//     audioSource.Play();
-//     audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
-// }
-//
-
-// private void EnterPrelude() {
-//     Debug.Log("PieceScript: player enters Prelude Play hit box");
-//     phase = Phase.PRELUDE;
-//     audioSource.Play();
-// }
-
-// private void LeavePrelude() {
-//     phase = Phase.INIT;
-//     audioSource.Stop();
-// }

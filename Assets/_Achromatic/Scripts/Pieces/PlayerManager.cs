@@ -26,8 +26,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private const string PLAYER_TAG = "Player";
 
-
-        public void StartControlPlayer() {
+        public void TakeOverPlayerControl() {
+            Debug.LogWarning("take over player control");
 
         }
 

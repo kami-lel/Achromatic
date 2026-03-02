@@ -37,11 +37,12 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapMeta beatmapMeta;
 
-    [SerializeField]
-    private AnimationCurve vampDistantVsVolume = AnimationCurve.Linear(0, 1, 30, 0);
+    public AnimationCurve vampDistantVsVolume = AnimationCurve.Linear(0, 1, 30, 0);
 
     [SerializeField]
     private Transform vampLoudestOrigin;
+
+    public int debugMusicStaringBar = 0;
 
     [Header("tmp")]
 
@@ -63,7 +64,7 @@ public class PieceScript: MonoBehaviour {
 
         playerManager = new();
 
-        prelude = new(this, vampLoudestOrigin, vampDistantVsVolume);
+        prelude = new(this, vampLoudestOrigin);
         // inputs
         inputs = new(criteria, playerManager.playerInput);
 

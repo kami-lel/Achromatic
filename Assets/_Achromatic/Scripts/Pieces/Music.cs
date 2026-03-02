@@ -38,6 +38,25 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pseudoAudioPlugin.preludeAndMain.Play();
         }
 
+        public void DebugStartMusic(int debugMusicStaringBar) {
+            // TODO
+
+
+            // private void AudioStart() {
+            //     // start music midpoint, for debug purpose
+            //     if (debugMusicStaringBar != 0.0f) {
+            //         audioSource.time = (debugMusicStaringBar - 1.0f)
+            //                 * beatmap.beatPerBar
+            //                 * (60.0f / beatmap.beatmapData.Tempo)
+            //                 + beatmap.beatmapData.PreludeLength;
+            //     }
+            //     // start the music
+            //     audioSource.Play();
+            //     audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
+            // }
+            //
+        }
+
 
         // Constructor  ########################################################
         public MusicManager(PseudoAudioPlugin pseudoAudioPlugin, BeatmapMeta beatmapSetting) {
