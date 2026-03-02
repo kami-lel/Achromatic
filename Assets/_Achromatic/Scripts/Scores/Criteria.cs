@@ -56,7 +56,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// detect miss then player is too far away
         /// </summary>
         public void Update() {
-            return;
+            /*
             if (timings.Count <= 0) {
                 return;
             }
@@ -68,6 +68,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                     break;
                 }
             }
+            */
         }
 
         /// <summary>
