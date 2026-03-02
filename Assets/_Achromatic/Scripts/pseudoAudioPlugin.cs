@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// hack use the real audio plugin
+// HACK use the real audio plugin
 
 public class PseudoAudioPlugin: MonoBehaviour {
     [SerializeField]
