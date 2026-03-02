@@ -21,27 +21,27 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             player.UnsetExplorePlay();
             player.AnimationStartWalk();
-            isInControl = true;
         }
 
         public void Update() {
-            if (!isInControl) {
+            if (!piece.isControllingPlayer) {
                 return;
             }
+            // Todo use Spline path
 
-            // BUG BUG
-            // float y = -0.8345073f;
-            // float y = origin.y + tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+            float y = piece.beatmap.origin.y;
+            float x = piece.beatmap.CalcCurrentXFromBeat();
 
-            // update user horizontal position
-            // Vector2 newPosition = new(beatmap.CalcCurrentXFromBeat(), y);
-            // playerRB.MovePosition(newPosition);
+            Vector2 newPosition = new(x, y);
+            player.playerRB.MovePosition(newPosition);
         }
 
 
         // constructor  ########################################################
 
-        public PlayerManager() {
+        public PlayerManager(PieceScript piece) {
+            this.piece = piece;
+
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
             if (playerObject == null) {
@@ -58,7 +58,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // private members  ####################################################
-        private bool isInControl = false;
-
+        // cached references
+        PieceScript piece;
     }
 }

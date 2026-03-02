@@ -54,7 +54,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
 
-                StartPreludeThenMainPiece();
+                if (piece.debugMusicStaringBar == 0) {
+                    piece.music.StartPreludeThenMainPiece();
+                    // Todo prelude logic
+
+                } else {
+                    // start music mid point for debug purpose
+                    piece.music.DebugStartMusic(piece.debugMusicStaringBar);
+                }
+
+                piece.playerManager.TakeOverPlayerControl();
+                piece.isControllingPlayer = true;
             }
         }
 
@@ -63,19 +73,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 isVampPlaying = false;
                 piece.music.StopVamp();
             }
-        }
-
-        private void StartPreludeThenMainPiece() {
-            if (piece.debugMusicStaringBar == 0) {
-                piece.music.StartPreludeThenMainPiece();
-                // TODO TODO prelude logic
-
-            } else {
-                // start music mid point for debug purpose
-                piece.music.DebugStartMusic(piece.debugMusicStaringBar);
-            }
-
-            piece.playerManager.TakeOverPlayerControl();
         }
     }
 

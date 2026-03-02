@@ -5,6 +5,7 @@ using UnityEngine.Splines;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Beatmap;
 
 
 // todo allows & give feedback for smashing input during: empty or climax
@@ -54,6 +55,10 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Start() {
+        if (mainPartPath == null) {
+            Debug.LogError("must assign mainPartPath");
+        }
+
         music = new(pseudoAudioPlugin, beatmapMeta);
         notes = new(music, beatmapMeta);
         prefabs = new();
@@ -62,7 +67,7 @@ public class PieceScript: MonoBehaviour {
 
         criteria = new(music, notes, scoreTracker);
 
-        playerManager = new();
+        playerManager = new(this);
 
         vampManager = new(this, vampLoudestOrigin);
         // inputs
@@ -70,26 +75,29 @@ public class PieceScript: MonoBehaviour {
 
         music.Start();
 
+        beatmap = new(this);
+
     }
 
     private void Update() {
         vampManager.Update();
+        playerManager.Update();
 
         if (GameControllerScript.Instance.gameState == GameState.MAIN_PIECE) {
 
             criteria.Update();
             prefabs.Update();
-            playerManager.Update();
         }
     }
 
     private void OnDisable() {
         vampManager.OnDisable();
-        playerManager.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
     }
 
-    // private members  ########################################################
+    // public members  #########################################################
+    public bool isControllingPlayer = false;
+
     // managers
     public NotesManager notes;
     public VampManager vampManager;
@@ -99,6 +107,7 @@ public class PieceScript: MonoBehaviour {
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
     public InputManager inputs;
+    public Beatmap beatmap;
 }
 
 
