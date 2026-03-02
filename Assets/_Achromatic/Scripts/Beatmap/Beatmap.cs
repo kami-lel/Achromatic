@@ -21,17 +21,11 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             return CalcXFromBeat(currentBeatCount);
         }
 
-        // Hack CalcBeatCount
-        // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
-        //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
-        //             + (jsonNote.beat - 1)
-        //             + (jsonNote.subbeat - 1) * beatsPerDivision;
-        // }
-
 
         // MonoBehavior Lifecycle  #################################################
         public void Update() {
-            // TODO update current beat count
+            // update current beat count
+            currentBeatCount = piece.music.Time * beatsPerSecond;
         }
 
 
@@ -42,12 +36,21 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
             var pos3 = piece.mainPartPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
+
+            Debug.Log("origin:" + origin);  // HACK
+
+            beatsPerSecond = meta.tempo / 60f;
         }
 
 
         // private members  ####################################################
+        private readonly float beatsPerSecond;
+
+
+
         // cached references
         PieceScript piece;
+
 
     }
 }

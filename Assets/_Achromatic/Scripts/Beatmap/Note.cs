@@ -40,6 +40,13 @@ namespace Assets._Achromatic.Scripts.Beatmap {
                     $"BeatmapNote: bad note type: {jsonNote.type}")
             };
         }
+
+        // Hack CalcBeatCount
+        // public float CalcBeatCount(BeatmapSetting beatmapSetting, float beatsPerDivision) {
+        //     return (jsonNote.bar - 1) * beatmapSetting.beatPerBar
+        //             + (jsonNote.beat - 1)
+        //             + (jsonNote.subbeat - 1) * beatsPerDivision;
+        // }
     }
 }
 

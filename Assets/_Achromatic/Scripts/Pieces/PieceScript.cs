@@ -54,12 +54,13 @@ public class PieceScript: MonoBehaviour {
     private PseudoAudioPlugin pseudoAudioPlugin;
 
     // MonoBehavior Lifecycle  #################################################
+
     private void Start() {
         if (mainPartPath == null) {
             Debug.LogError("must assign mainPartPath");
         }
 
-        beatmap = new(this, beatmapMeta):
+        beatmap = new(this, beatmapMeta);
         music = new(pseudoAudioPlugin);
         notes = new(music, beatmapMeta);
         prefabs = new();
@@ -68,7 +69,6 @@ public class PieceScript: MonoBehaviour {
         playerManager = new(this);
         vampManager = new(this, vampLoudestOrigin);
         inputs = new(criteria, playerManager.playerInput);
-        beatmap = new(this);
 
         music.Start();
     }
@@ -77,6 +77,7 @@ public class PieceScript: MonoBehaviour {
         vampManager.Update();
 
         if (isControllingPlayer) {
+            beatmap.Update();
             playerManager.Update();
             criteria.Update();
         }
