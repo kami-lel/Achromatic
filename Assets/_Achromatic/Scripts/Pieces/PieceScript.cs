@@ -38,14 +38,6 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapMeta beatmapMeta;
 
-    [Header("Triggers")]
-
-    [SerializeField]
-    private Collider2D startVampTrigger;
-
-    [SerializeField]
-    private Collider2D startPreludeTrigger;
-
     [Header("tmp")]
 
     [SerializeField]
@@ -54,11 +46,9 @@ public class PieceScript: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
     void Awake() {
         music = new(pseudoAudioPlugin, beatmapMeta);
-        prelude = new(music, startVampTrigger, startPreludeTrigger, GetComponent<Transform>().position);
     }
 
     private void Start() {
-        prelude.Start();
 
         notes = new(music, beatmapMeta);
         prefabs = new();
@@ -68,10 +58,12 @@ public class PieceScript: MonoBehaviour {
 
         playerManager = new();
 
+        prelude = new(this);
         // inputs
         inputs = new(criteria, playerManager.playerInput);
 
         music.Start();
+
     }
 
     private void Update() {
@@ -82,26 +74,22 @@ public class PieceScript: MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("hi");  // HACK
-        prelude.OnTriggerEnter2D(collision);
-    }
-
     private void OnDisable() {
+        prelude.OnDisable();
         playerManager.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
     }
 
     // private members  ########################################################
     // managers
-    private NotesManager notes;
-    private PreludeManager prelude;
-    private MusicManager music;
-    private PrefabsManager prefabs;
-    private Criteria criteria;
-    private ScoreTracker scoreTracker;
-    private PlayerManager playerManager;
-    private InputManager inputs;
+    public NotesManager notes;
+    public PreludeManager prelude;
+    public MusicManager music;
+    public PrefabsManager prefabs;
+    public Criteria criteria;
+    public ScoreTracker scoreTracker;
+    public PlayerManager playerManager;
+    public InputManager inputs;
 }
 
 

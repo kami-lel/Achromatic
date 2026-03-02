@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8727339674062493580}
   m_Layer: 0
   m_Name: StartVampTrigger
-  m_TagString: Untagged
+  m_TagString: StartVampTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 4576653380271316560}
   m_Layer: 0
   m_Name: StartPreludeTrigger
-  m_TagString: Untagged
+  m_TagString: StartPreludeTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f932da7785fbf4da63d149417d4462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
-  beatmapSetting: {fileID: 0}
+  beatmapMeta: {fileID: 0}
   startVampTrigger: {fileID: 8727339674062493580}
   startPreludeTrigger: {fileID: 4576653380271316560}
   pseudoAudioPlugin: {fileID: 0}

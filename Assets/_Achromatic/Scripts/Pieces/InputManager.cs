@@ -1,4 +1,5 @@
 
+using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Scores;
 
@@ -14,12 +15,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public InputManager(Criteria criteria, PlayerInput playerInput) {
             pressed = PressedActions.NONE;
-            this.criteria = criteria;
-            playerInput.onActionTriggered += OnActionTriggered;
+
+            if (criteria == null) {
+                Debug.LogWarning("fail to set criteria");
+            } else {
+                this.criteria = criteria;
+            }
+
+            if (playerInput == null) {
+                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
+            } else {
+                playerInput.onActionTriggered += OnActionTriggered;
+            }
         }
 
         public void OnDisable(PlayerInput playerInput) {
-            playerInput.onActionTriggered -= OnActionTriggered;
+            if (playerInput == null) {
+                Debug.LogWarning("fail to unsubscribe playerInput.onActionTriggered");
+            } else {
+                playerInput.onActionTriggered -= OnActionTriggered;
+            }
         }
 
         private readonly Criteria criteria;

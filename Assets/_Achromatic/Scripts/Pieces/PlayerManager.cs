@@ -9,12 +9,22 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// </summary>
     public class PlayerManager {
 
-        public GameObject player;
+        public PlayerScript player;
         public PlayerInput playerInput;
 
         public PlayerManager() {
+            // find player
+            GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
+            if (playerObject == null) {
+                Debug.LogError("fail to find GameObject with tag 'player'");
+                return;
+            }
 
+            player = playerObject.GetComponent<PlayerScript>();
+            playerInput = playerObject.GetComponent<PlayerInput>();
         }
+
+        private const string PLAYER_TAG = "Player";
 
 
         public void StartControlPlayer() {

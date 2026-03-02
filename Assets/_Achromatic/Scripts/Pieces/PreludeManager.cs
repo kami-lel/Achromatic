@@ -3,35 +3,39 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Pieces {
 
     public class PreludeManager {
-        // public API  #########################################################
+        public PreludeManager(PieceScript piece) {
+            this.piece = piece;
+            pieceOrigin = piece.GetComponent<Transform>().position;
 
-        public void Start() {
-        }
-
-        public void OnTriggerEnter2D(Collider2D collision) {
-            if (!collision.CompareTag(playerTag)) {  // ignore non player
-                return;
+            if (piece.playerManager != null && piece.playerManager.player != null) {
+                piece.playerManager.player.OnTriggerEnter += HandleTrigger;
+            } else {
+                Debug.LogWarning("fail to subscribe player OnTriggerEnter");
             }
-
-            Debug.Log(collision);  // HACK
         }
 
-        // Constructor  ########################################################
-        public PreludeManager(MusicManager music, Collider2D startVampTrigger, Collider2D startPreludeTrigger, Vector2 pieceOrigin) {
-            this.music = music;
-            this.startVampTrigger = startVampTrigger;
-            this.startPreludeTrigger = startPreludeTrigger;
-            this.pieceOrigin = pieceOrigin;
+        public void OnDisable() {
+            if (piece.playerManager != null && piece.playerManager.player != null) {
+                piece.playerManager.player.OnTriggerEnter -= HandleTrigger;
+            } else {
+                Debug.LogWarning("fail to unsubscribe player OnTriggerEnter");
+            }
         }
+
+
+        // constants  ##########################################################
+        private const string PLAYER_TAG = "Player";
 
         // private members  ####################################################
-        private const string playerTag = "Player";
-
         // cached references
-        private readonly Collider2D startVampTrigger;
-        private readonly Collider2D startPreludeTrigger;
-        private readonly MusicManager music;
+        private readonly PieceScript piece;
         private readonly Vector2 pieceOrigin;
+
+        // private methods  ####################################################
+        private void HandleTrigger(string triggerTag) {
+            Debug.Log(triggerTag);  // HACK HACK
+
+        }
     }
 }
 

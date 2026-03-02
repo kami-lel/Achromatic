@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,7 +28,7 @@ public class PlayerScript: MonoBehaviour {
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
-    private void OnEnable() {
+    private void Start() {
         SetExplorePlay();
         playerInput.defaultActionMap = "PlayerExplorePlay";
         playerInput.onActionTriggered += OnActionTriggered;
@@ -60,8 +61,12 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        Debug.Log(other.tag);  // HACK
+        Debug.Log("player enters trigger: " + other.tag);
+        OnTriggerEnter?.Invoke(other.tag);
     }
+
+    // public members  #########################################################
+    public event Action<String> OnTriggerEnter;
 
     // public methods  #########################################################
 
