@@ -4,24 +4,22 @@
 
 [^format]
 
-<!-- Todo organize todos, each must have some summary & use correct types -->
-<!-- Todo implement barline & beat line as environmental element -->
+<!-- Todo final score window -->
 <!-- Fixme camera better -->
-<!-- Fixme dual control system still confusing -->
-<!-- todo show character origin -->
-<!-- Todo need dramatic shift visually to indicate music has started -->
-<!-- Todo more juices: particles efx -->
-<!-- todo use enemy to kill as score point -->
-<!-- todo local leaderboard -->
-<!-- Todo set up hooks utility -->
-<!-- fixme bold barline when note existed -->
-<!-- todo timed vamp music -->
-<!-- fixme move down note & make bigger -->
-<!-- todo implement obstacles during music play  -->
+<!-- Fixme consider bold barline when note existed -->
+<!-- Fixme move down note & make bigger -->
+<!-- Todo particles efx -->
 <!-- fixme better, camera far away -->
-<!-- todo speed multiplier (as setting) -->
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
+<!-- todo barline & beat line as environmental element -->
+<!-- todo show player character origin in world -->
+<!-- todo need dramatic shift visually to indicate music has started -->
+<!-- todo add obstacles & enemy to kills -->
+<!-- todo local leaderboard -->
+<!-- todo set up hooks utility -->
+<!-- todo speed multiplier (as setting) -->
+<!-- todo allows & give feedback for smashing input during: empty or climax -->
 
 
 

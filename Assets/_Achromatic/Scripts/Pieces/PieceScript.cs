@@ -8,10 +8,6 @@ using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Beatmap;
 
 
-// todo allows & give feedback for smashing input during: empty or climax
-// todo background music during explore play
-// Bug piece will have error if Active at beginning of scene
-
 
 /// <summary>
 /// controller during <c>Music Play</c>, enables:
@@ -27,8 +23,6 @@ using Assets._Achromatic.Scripts.Beatmap;
 ///   </description></item>
 /// </list>
 /// </summary>
-
-
 [RequireComponent(typeof(Transform))]
 public class PieceScript: MonoBehaviour {
 
