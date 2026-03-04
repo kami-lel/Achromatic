@@ -7,7 +7,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
     public class Beatmap {
 
         // public members ######################################################
-
         public BeatmapMeta meta;
         public BeatmapData data;
         public Queue<BeatmapNote> notesQ;
@@ -33,18 +32,17 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             }
         }
 
-
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
             // update current beat count
-            currentBeatCount = piece.music.Time * beatsPerSecond;
+            currentBeatCount = p.music.Time * beatsPerSecond;
         }
 
         // constructor  ########################################################
         public Beatmap(PieceScript piece, BeatmapMeta beatmapMeta) {
-            // BUG fix
             p = piece;
+            meta = beatmapMeta;
 
             if (p.beatmap.meta == null) {
                 Debug.LogError("must assign Beatmap Meta in Piece");
@@ -55,26 +53,17 @@ namespace Assets._Achromatic.Scripts.Beatmap {
                 return;
             }
 
-            beatmapData = JsonUtility.FromJson<BeatmapData>(p.beatmap.meta.file.text);
-            if (beatmapData.notes.Length == 0) {
+            // load data  ------------------------------------------------------
+            data = JsonUtility.FromJson<BeatmapData>(p.beatmap.meta.file.text);
+            if (data.notes.Length == 0) {
                 Debug.LogError("beatmap file contains no notes: "
-                        + beatmapMeta.file.name);
+                        + meta.file.name);
             }
 
-            // fill notesQ
-            notesQ = new();
-            foreach (BeatmapData.JsonDataNote jsonNote
-                    in beatmapData.notes) {
-                notesQ.Enqueue(new BeatmapNote(jsonNote));
-            }
-            // init vars
-            beatPerSec = this.beatmapMeta.tempo / 60.0f;
-            preludeOffsetAsBeat = this.beatmapMeta.preludeSeconds * beatPerSec;
-            beatsPerDivision = 1 / this.beatmapMeta.subdivisionPerBeat;
-
-
-            this.piece = piece;
-            meta = beatmapMeta;
+            // init vars  ------------------------------------------------------
+            beatPerSec = meta.tempo / 60.0f;
+            preludeOffsetAsBeat = meta.preludeSeconds * beatPerSec;
+            beatsPerDivision = 1 / meta.subdivisionPerBeat;
 
             var pos3 = piece.mainPartPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
@@ -82,19 +71,24 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             beatsPerSecond = meta.tempo / 60f;
             horizontalSpeedInMainPiece =
                     meta.horizontalUnitsPerBeat * beatsPerSecond;
+
+
+            // fill notesQ  ----------------------------------------------------
+            notesQ = new();
+            foreach (BeatmapData.JsonDataNote jsonNote in data.notes) {
+                notesQ.Enqueue(new BeatmapNote(jsonNote));
+            }
         }
 
 
         // private members  ####################################################
         private readonly float beatsPerSecond;
-
-        // cached references
-        PieceScript piece;
-
         private readonly float beatPerSec;
         private readonly float preludeOffsetAsBeat;
         private readonly float beatsPerDivision;
 
+        // cached references
+        private readonly PieceScript p;
     }
 }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Beatmap;
 
 public class ScoreTracker {
 
@@ -42,7 +43,7 @@ public class ScoreTracker {
     private readonly int goodScoreInt;
 
 
-    public ScoreTracker(NotesManager notes) {
+    public ScoreTracker(Beatmap beatmap) {
         // init resultCnt  -----------------------------------------------------
         resultCnt = new Dictionary<Hit, int>();
         foreach (Hit result
@@ -52,7 +53,7 @@ public class ScoreTracker {
 
 
         // init perResultScores  -----------------------------------------------
-        perfectScore = TOTAL_SCORES / notes.beatmapData.notes.Length;
+        perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
         greatScore = perfectScore * 0.7f;
         goodScore = perfectScore * 0.3f;
 

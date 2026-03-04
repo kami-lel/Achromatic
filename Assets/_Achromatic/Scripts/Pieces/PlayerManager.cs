@@ -28,7 +28,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.TurnRight();
             player.SetInputForMusicPlay();
             player.AnimationStartWalk();
-
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
@@ -47,7 +46,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             isDuringMainPiece = false;
             isDuringPrelude = false;
-
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -78,7 +76,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // constructor  ########################################################
         public PlayerManager(PieceScript piece) {
-
             p = piece;
 
             // find player
@@ -99,7 +96,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 t = Mathf.Epsilon;
             }
 
-            float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
+            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
             float v = p.beatmap.horizontalSpeedInMainPiece;
 
             // calc init velocity
@@ -122,8 +119,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         private bool isDuringPrelude = false;
         private bool isDuringMainPiece = false;
-        private float preludeStartVelocityX;
-        private float preludeAcceleration;
+        private readonly float preludeStartVelocityX;
+        private readonly float preludeAcceleration;
 
         // cached references
         private readonly PieceScript p;

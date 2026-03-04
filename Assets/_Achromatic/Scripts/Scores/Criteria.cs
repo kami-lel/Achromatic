@@ -8,33 +8,30 @@ namespace Assets._Achromatic.Scripts.Scores {
 
     public class Criteria {
 
-        public Criteria(MusicManager music, NotesManager notes, ScoreTracker scoreTracker) {
-            // Fixme save piece as cached reference
+        public Criteria(PieceScript piece) {
+            p = piece;
 
-            this.scoreTracker = scoreTracker;
-            this.music = music;
+            // pre-calculate all judge timings
+            timings = new();
 
-            // Fixme calculate judge timing from meta
-            // // pre-calculate all judge timings
-            // timings = new();
+            float secondPerBeat = 60.0f / p.beatmap.meta.tempo;
 
-            // float beat0time = beatmapData.PreludeBarCount;
-            // float secondPerBeat = 60.0f / beatmapData.Tempo;
+            // BUG
+            // FIXME calculate judge timing from meta
+            foreach (BeatmapNote note in p.beatmap.data.notes) {
+                // per note
+                float centerTiming = secondPerBeat * note.CalcBeatCount()
+                        + p.beatmap.meta.preludeSeconds;
 
-            // foreach (BeatmapNote note in beatmapData.notes) {
-            //     // per note
-            //     float centerTiming = secondPerBeat * note.CalcBeatCount()
-            //             + beat0time;
+                // todo allow different actions for single note type
+                PressedActions action = note.type switch {
+                    BeatmapNoteType.JUMP => PressedActions.JUMP,
+                    BeatmapNoteType.DASH => PressedActions.DASH,
+                    _ => PressedActions.NONE
+                };
 
-            //     // todo allow different actions for single note type
-            //     PressedActions action = note.type switch {
-            //         BeatmapNoteType.JUMP => PressedActions.JUMP,
-            //         BeatmapNoteType.DASH => PressedActions.DASH,
-            //         _ => PressedActions.NONE
-            //     };
-
-            //     timings.Enqueue(new Timing(centerTiming, action));
-            // }
+                timings.Enqueue(new Timing(centerTiming, action));
+            }
         }
 
         public Hit Judge(PressedActions actions) {
@@ -43,9 +40,9 @@ namespace Assets._Achromatic.Scripts.Scores {
             }
 
             Timing timing = timings.Peek();
-            if (timing.IsInJudgingRange(music.Time)) {
+            if (timing.IsInJudgingRange(p.music.Time)) {
                 timing = timings.Dequeue();
-                return timing.Judge(music.Time, actions);
+                return timing.Judge(p.music.Time, actions);
 
             } else {
                 return Hit.NO_HIT;
@@ -56,29 +53,28 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// detect miss then player is too far away
         /// </summary>
         public void Update() {
-            /*
             if (timings.Count <= 0) {
                 return;
             }
 
-            while (timings.Peek().IsPassByMiss(music.Time)) {
+            while (timings.Peek().IsPassByMiss(p.music.Time)) {
                 timings.Dequeue();
-                scoreTracker.Record(Hit.LATE_MISS);
+                p.scoreTracker.Record(Hit.LATE_MISS);
                 if (timings.Count <= 0) {
                     break;
                 }
             }
-            */
         }
+
+        // private members  ####################################################
 
         /// <summary>
         /// pre-calculated all timings during creation
         /// </summary>
         private readonly Queue<Timing> timings;
 
-        private readonly ScoreTracker scoreTracker;
-        private readonly MusicManager music;
-
+        // cached references
+        private readonly PieceScript p;
     }
 
 

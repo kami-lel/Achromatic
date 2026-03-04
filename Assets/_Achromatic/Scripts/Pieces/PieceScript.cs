@@ -36,9 +36,6 @@ public class PieceScript: MonoBehaviour {
     public bool isControllingPlayer = false;
 
     [NonSerialized]
-    public Vector2 mainPieceOrigin;
-
-    [NonSerialized]
     public Vector2 preludeStartOrigin;
 
     // managers
@@ -79,16 +76,13 @@ public class PieceScript: MonoBehaviour {
             Debug.LogError("must assign mainPartPath");
         }
 
-        Vector3 mainPieceOrigin3 = mainPartPath.EvaluatePosition(0f);
-        mainPieceOrigin = new(mainPieceOrigin3.x, mainPieceOrigin3.y);
-
         preludeStartOrigin = startPreludeTransform.position;
 
 
         beatmap = new(this, beatmapMeta);
         music = new(pseudoAudioPlugin);
-        scoreTracker = new(notes);
-        criteria = new(music, notes, scoreTracker);
+        scoreTracker = new(beatmap);
+        criteria = new(this);
         playerManager = new(this);
         starter = new(this);
         inputs = new(criteria, playerManager.playerInput);
