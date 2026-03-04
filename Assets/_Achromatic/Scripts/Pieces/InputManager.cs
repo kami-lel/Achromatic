@@ -14,7 +14,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public PressedActions pressed;
 
         public InputManager(Criteria criteria, PlayerInput playerInput) {
-            // Fixme save piece as cached reference
+            // FIXME save piece as cached reference
             pressed = PressedActions.NONE;
 
             if (criteria == null) {
@@ -82,7 +82,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Hit judgeResult = criteria.Judge(pressed);
             scoreTracker.Record(judgeResult);
 
-            // Fixme  control player
+            // FIXME  control player
             // if ((pressedActions & InputPressedActions.JUMP) != 0) {
             //     playerScript.AnimationJump();
             // } else if ((pressedActions & InputPressedActions.DASH) != 0) {
