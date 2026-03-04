@@ -61,14 +61,14 @@ public class PieceScript: MonoBehaviour {
         scoreTracker = new(notes);
         criteria = new(music, notes, scoreTracker);
         playerManager = new(this);
-        vampManager = new(this, vampLoudestOrigin);
+        starter = new(this, vampLoudestOrigin);
         inputs = new(criteria, playerManager.playerInput);
 
         music.Start();
     }
 
     private void Update() {
-        vampManager.Update();
+        starter.Update();
 
         if (isControllingPlayer) {
             beatmap.Update();
@@ -78,7 +78,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        vampManager.OnDisable();
+        starter.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
     }
 
@@ -87,7 +87,7 @@ public class PieceScript: MonoBehaviour {
 
     // managers
     public NotesManager notes;
-    public VampManager vampManager;
+    public Starter starter;
     public MusicManager music;
     public PrefabsPool prefabs;
     public Criteria criteria;
