@@ -72,10 +72,10 @@ public class PieceScript: MonoBehaviour {
 
     private void Update() {
         starter.Update();
+        playerManager.Update();
 
         if (isControllingPlayer) {
             beatmap.Update();
-            playerManager.Update();
             criteria.Update();
         }
     }
