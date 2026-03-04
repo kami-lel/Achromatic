@@ -24,28 +24,29 @@ namespace Assets._Achromatic.Scripts.Pieces {
             isDuringPrelude = true;
 
             player.TurnRight();
-            player.AnimationStartWalk();
             player.SetInputForMusicPlay();
+            player.AnimationStartWalk();
 
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
+            if (t <= 0f) {
+                Debug.LogError("preludeSeconds must be > 0");  // prevent div by zero
+                t = Mathf.Epsilon;
+            }
             float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
             float v = p.beatmap.horizontalSpeedInMainPiece;
 
             // calc init velocity
-            float u = 2 * s / t - v;
-            if (u < 0.0f) {
-                Debug.LogWarning("initial value u must not be negative");
-                u = 0.0f;
+            float u = 2f * s / t - v;
+            if (u < 0f) {
+                Debug.LogWarning("must be larger distance during prelude");
+                u = 0f;
             }
             playerRB.linearVelocityX = u;
-            Debug.Log(u);  // HACK
 
-            // calc acceleration
-            float acceleration = (1 * v / t) - (2 * s / t / t);
-            forceDuringPrelude = new(acceleration * playerRB.mass, 0.0f);
-
-            Debug.Log(forceDuringPrelude);  // HACK
+            // calc acceleration — use v - u over t to be explicit
+            float acceleration = (v - u) / t;
+            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0f);
         }
 
         public void StartMainPiece() {
@@ -75,6 +76,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
+                Debug.Log(forceDuringPrelude);
                 playerRB.AddForce(forceDuringPrelude);
             }
         }

@@ -90,11 +90,13 @@ public class PlayerScript: MonoBehaviour {
     public void SetInputForExplorePlay() {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
         playerInput.onActionTriggered += OnActionTriggered;
+        isControllingPlayer = true;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         playerInput.onActionTriggered -= OnActionTriggered;
+        isControllingPlayer = false;
     }
 
     // Inspector Fields  #######################################################
@@ -224,6 +226,8 @@ public class PlayerScript: MonoBehaviour {
         if (!isControllingPlayer) {
             return;
         }
+
+        Debug.Log("hi");  // HACK HACK
 
         // apply horizontal force toward target velocity
         float targetVelX = moveDir * MAX_WALKING_SPEED;
