@@ -24,6 +24,12 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             return CalcXFromBeat(currentBeatCount);
         }
 
+        public float CalcBeatCount(BeatmapNote note) {
+            return (note.Bar - 1) * meta.beatPerBar
+                    + (note.Beat - 1)
+                    + (note.Subbeat - 1) * beatsPerDivision;
+        }
+
         /// <returns>realtime beat count based on Audio Source time,
         /// start on <c>0.0f</c></returns>
         public float BeatCount {

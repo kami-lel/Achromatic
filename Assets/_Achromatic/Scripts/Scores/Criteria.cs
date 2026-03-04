@@ -16,12 +16,11 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             float secondPerBeat = 60.0f / p.beatmap.meta.tempo;
 
-            // BUG
-            // FIXME calculate judge timing from meta
-            foreach (BeatmapNote note in p.beatmap.data.notes) {
+            foreach (BeatmapNote note in p.beatmap.notesQ) {
                 // per note
-                float centerTiming = secondPerBeat * note.CalcBeatCount()
-                        + p.beatmap.meta.preludeSeconds;
+                float centerTiming =
+                        secondPerBeat * p.beatmap.CalcBeatCount(note) +
+                        p.beatmap.meta.preludeSeconds;
 
                 // todo allow different actions for single note type
                 PressedActions action = note.type switch {
