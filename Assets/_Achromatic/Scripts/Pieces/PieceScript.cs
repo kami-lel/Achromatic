@@ -80,7 +80,7 @@ public class PieceScript: MonoBehaviour {
 
 
         beatmap = new(this, beatmapMeta);
-        music = new(pseudoAudioPlugin);
+        music = new(this, pseudoAudioPlugin);
         scoreTracker = new(beatmap);
         criteria = new(this);
         playerManager = new(this);

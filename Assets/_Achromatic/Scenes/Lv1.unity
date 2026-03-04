@@ -15794,6 +15794,10 @@ PrefabInstance:
       propertyPath: pseudoAudioPlugin
       value: 
       objectReference: {fileID: 1822651826}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: debugMusicStaringBar
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3938205800452466528, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.085497
