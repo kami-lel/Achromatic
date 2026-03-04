@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets._Achromatic.Scripts.Beatmap {
 
-    // Todo implement prefab manager
+    // TODO implement prefab manager
     public class PrefabManager {
 
         private Queue<BeatmapNote> notesRenderQ;
