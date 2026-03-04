@@ -1,4 +1,5 @@
 
+using System;
 
 using UnityEngine;
 using UnityEngine.Splines;
@@ -26,6 +27,28 @@ using Assets._Achromatic.Scripts.Beatmap;
 [RequireComponent(typeof(Transform))]
 public class PieceScript: MonoBehaviour {
 
+    // public members  #########################################################
+
+    [NonSerialized]
+    public bool isControllingPlayer = false;
+
+    [NonSerialized]
+    public Vector2 mainPieceOrigin;
+
+    [NonSerialized]
+    public Vector2 preludeStartOrigin;
+
+    // managers
+    public NotesManager notes;
+    public Starter starter;
+    public MusicManager music;
+    public PrefabsPool prefabs;
+    public Criteria criteria;
+    public ScoreTracker scoreTracker;
+    public PlayerManager playerManager;
+    public InputManager inputs;
+    public Beatmap beatmap;
+
     // Inspector Fields  #######################################################
 
     [SerializeField]
@@ -38,7 +61,7 @@ public class PieceScript: MonoBehaviour {
             AnimationCurve.Linear(0, 1, 30, 0);
 
     [SerializeField]
-    private Transform vampLoudestOrigin;
+    private Transform startPreludeTransform;
 
     public SplineContainer mainPartPath;
 
@@ -54,6 +77,12 @@ public class PieceScript: MonoBehaviour {
             Debug.LogError("must assign mainPartPath");
         }
 
+        Vector3 mainPieceOrigin3 = mainPartPath.EvaluatePosition(0f);
+        mainPieceOrigin = new(mainPieceOrigin3.x, mainPieceOrigin3.y);
+
+        preludeStartOrigin = startPreludeTransform.position;
+
+
         beatmap = new(this, beatmapMeta);
         music = new(pseudoAudioPlugin);
         notes = new(music, beatmapMeta);
@@ -61,7 +90,7 @@ public class PieceScript: MonoBehaviour {
         scoreTracker = new(notes);
         criteria = new(music, notes, scoreTracker);
         playerManager = new(this);
-        starter = new(this, vampLoudestOrigin);
+        starter = new(this);
         inputs = new(criteria, playerManager.playerInput);
 
         music.Start();
@@ -86,20 +115,6 @@ public class PieceScript: MonoBehaviour {
         playerManager.FixedUpdate();
     }
 
-
-    // public members  #########################################################
-    public bool isControllingPlayer = false;
-
-    // managers
-    public NotesManager notes;
-    public Starter starter;
-    public MusicManager music;
-    public PrefabsPool prefabs;
-    public Criteria criteria;
-    public ScoreTracker scoreTracker;
-    public PlayerManager playerManager;
-    public InputManager inputs;
-    public Beatmap beatmap;
 }
 
 

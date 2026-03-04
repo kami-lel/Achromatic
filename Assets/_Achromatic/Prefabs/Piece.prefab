@@ -332,7 +332,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  vampLoudestOrigin: {fileID: 3938205800452466528}
+  startPreludeTransform: {fileID: 3938205800452466528}
   mainPartPath: {fileID: 675889762508624498}
   pseudoAudioPlugin: {fileID: 0}
-  isControllingPlayer: 0

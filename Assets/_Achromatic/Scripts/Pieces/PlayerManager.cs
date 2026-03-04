@@ -28,14 +28,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.SetInputForMusicPlay();
 
             // calc movement during prelude  -----------------------------------
-            float t = piece.beatmap.meta.preludeSeconds;
-            float s = 5.0f;  // HACK
-            float v = piece.beatmap.horizontalSpeedInMainPiece;
+            float t = p.beatmap.meta.preludeSeconds;
+            float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
+            float v = p.beatmap.horizontalSpeedInMainPiece;
 
             // calc init velocity
             float u = 2 * s / t - v;
             if (u < 0.0f) {
-                Debug.LogWarning("not enough distance b/t StartPreludeTrigger & MathPartPath start");
+                Debug.LogWarning("initial value u must not be negative");
                 u = 0.0f;
             }
             playerRB.linearVelocityX = u;
@@ -44,6 +44,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc acceleration
             float acceleration = (1 * v / t) - (2 * s / t / t);
             forceDuringPrelude = new(acceleration * playerRB.mass, 0.0f);
+
+            Debug.Log(forceDuringPrelude);  // HACK
         }
 
         public void StartMainPiece() {
@@ -63,8 +65,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (isDuringMainPiece) {  // ---------------------------------------
                 // Todo use Spline path
 
-                float y = piece.beatmap.origin.y;
-                float x = piece.beatmap.CalcCurrentXFromBeat();
+                float y = p.beatmap.origin.y;
+                float x = p.beatmap.CalcCurrentXFromBeat();
 
                 Vector2 newPosition = new(x, y);
                 playerRB.MovePosition(newPosition);
@@ -73,14 +75,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
-                Debug.Log(forceDuringPrelude);  // HACK
                 playerRB.AddForce(forceDuringPrelude);
             }
         }
 
         // constructor  ########################################################
         public PlayerManager(PieceScript piece) {
-            this.piece = piece;
+            this.p = piece;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
@@ -104,7 +105,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Vector2 forceDuringPrelude;
 
         // cached references
-        private readonly PieceScript piece;
+        private readonly PieceScript p;
 
     }
 }

@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.Splines;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Starter {
 
         // constructor  ########################################################
-        public Starter(PieceScript piece, Transform vampLoudestOrigin) {
+        public Starter(PieceScript piece) {
             this.piece = piece;
-            this.vampLoudestOrigin = vampLoudestOrigin.position;
 
             if (piece.playerManager == null || piece.playerManager.player == null) {
                 Debug.LogWarning("playerManager/player is null");
@@ -31,7 +31,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Update() {
             if (isVampPlaying) {
                 // update vamp volume
-                float distance = Vector2.Distance(piece.playerManager.player.transform.position, vampLoudestOrigin);
+                float distance = Vector2.Distance(
+                        piece.playerManager.player.transform.position,
+                        piece.preludeStartOrigin);
                 float volume = piece.vampDistantVsVolume.Evaluate(distance);
                 piece.music.UpdateVampVolume(volume);
             }
@@ -46,7 +48,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // cached references
         private readonly PieceScript piece;
-        private readonly Vector2 vampLoudestOrigin;
 
         // private methods  ####################################################
 
