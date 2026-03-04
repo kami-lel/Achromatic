@@ -40,6 +40,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
+
             // FIXME debug start music
             // private void AudioStart() {
             //     // start music midpoint, for debug purpose
@@ -59,8 +60,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Constructor  ########################################################
         public MusicManager(PseudoAudioPlugin pseudoAudioPlugin) {
-            // FIXME save piece as cached reference
-
             this.pseudoAudioPlugin = pseudoAudioPlugin;
         }
 
