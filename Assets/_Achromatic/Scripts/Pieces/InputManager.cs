@@ -35,9 +35,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        private PieceScript p;
+        private readonly PieceScript p;
 
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+            if (!p.isControllingPlayer) {
+                return;
+            }
+
             InputAction a = ctxt.action;
 
             switch (a.phase) {
@@ -78,12 +82,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Hit judgeResult = p.criteria.Judge(pressed);
             p.scoreTracker.Record(judgeResult);
 
-            // FIXME  control player
-            // if ((pressedActions & InputPressedActions.JUMP) != 0) {
-            //     playerScript.AnimationJump();
-            // } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-            //     playerScript.AnimationDash();
-            // }
+            if ((pressed & PressedActions.JUMP) != 0) {
+                p.playerManager.player.AnimationJump();
+            } else if ((pressed & PressedActions.DASH) != 0) {
+                p.playerManager.player.AnimationDash();
+            }
 
             // Todo add audio for feedback, layered
         }

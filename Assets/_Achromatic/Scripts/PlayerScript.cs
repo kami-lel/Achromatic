@@ -89,14 +89,12 @@ public class PlayerScript: MonoBehaviour {
 
     public void SetInputForExplorePlay() {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-        playerInput.onActionTriggered += OnActionTriggered;
         isControllingPlayer = true;
         playerCollider.sharedMaterial = defaultMaterial;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        playerInput.onActionTriggered -= OnActionTriggered;
         isControllingPlayer = false;
         playerCollider.sharedMaterial = noFrictionMaterial;
     }
@@ -135,6 +133,7 @@ public class PlayerScript: MonoBehaviour {
 
         playerInput.defaultActionMap = "PlayerExplorePlay";
         SetInputForExplorePlay();
+        playerInput.onActionTriggered += OnActionTriggered;
     }
 
     void FixedUpdate() {
@@ -160,7 +159,7 @@ public class PlayerScript: MonoBehaviour {
     // Unity Messages  #########################################################
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other == null || !other.isTrigger) {
+        if (!isControllingPlayer || other == null || !other.isTrigger) {
             return;
         }
 
