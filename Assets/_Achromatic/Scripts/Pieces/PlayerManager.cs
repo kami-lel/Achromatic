@@ -26,27 +26,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.TurnRight();
             player.SetInputForMusicPlay();
             player.AnimationStartWalk();
-
-            // calc movement during prelude  -----------------------------------
-            float t = p.beatmap.meta.preludeSeconds;
-            if (t <= 0f) {
-                Debug.LogError("preludeSeconds must be > 0");  // prevent div by zero
-                t = Mathf.Epsilon;
-            }
-            float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
-            float v = p.beatmap.horizontalSpeedInMainPiece;
-
-            // calc init velocity
-            float u = 2f * s / t - v;
-            if (u < 0f) {
-                Debug.LogWarning("must be larger distance during prelude");
-                u = 0f;
-            }
-            playerRB.linearVelocityX = u;
-
-            // calc acceleration — use v - u over t to be explicit
-            float acceleration = (v - u) / t;
-            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0f);
         }
 
         public void StartMainPiece() {
@@ -58,6 +37,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             isDuringMainPiece = true;
             isDuringPrelude = false;
+
+            playerRB.linearVelocityX = preludeStartVelocityX;
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -95,6 +76,27 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerObject.GetComponent<PlayerScript>();
             playerInput = playerObject.GetComponent<PlayerInput>();
             playerRB = player.playerRB;
+
+            // calc movement during prelude  -----------------------------------
+            float t = p.beatmap.meta.preludeSeconds;
+            if (t <= 0f) {
+                Debug.LogError("preludeSeconds must be > 0");  // prevent div by zero
+                t = Mathf.Epsilon;
+            }
+
+            float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
+            float v = p.beatmap.horizontalSpeedInMainPiece;
+
+            // calc init velocity
+            preludeStartVelocityX = 2f * s / t - v;
+            if (preludeStartVelocityX < 0f) {
+                Debug.LogWarning("must be larger distance during prelude");
+                preludeStartVelocityX = 0f;
+            }
+
+            // calc acceleration — use v - u over t to be explicit
+            float acceleration = (v - preludeStartVelocityX) / t;
+            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0f);
         }
 
         // constants  ##########################################################
@@ -104,6 +106,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         private bool isDuringPrelude = false;
         private bool isDuringMainPiece = false;
+        private float preludeStartVelocityX;
         private Vector2 forceDuringPrelude;
 
         // cached references
