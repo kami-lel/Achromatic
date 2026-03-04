@@ -31,11 +31,14 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private BeatmapMeta beatmapMeta;
 
-
     public int debugMusicStaringBar = 0;
 
     [Header("Internals")]
-    public AnimationCurve vampDistantVsVolume = AnimationCurve.Linear(0, 1, 30, 0);
+    public AnimationCurve vampDistantVsVolume =
+            AnimationCurve.Linear(0, 1, 30, 0);
+
+    public AnimationCurve preludeTimeVsSpeed =
+            AnimationCurve.Linear(0f, 0.5f, 1f, 1f);
 
     [SerializeField]
     private Transform vampLoudestOrigin;

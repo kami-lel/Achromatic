@@ -42,7 +42,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
             // init vars
             beatPerSec = this.beatmapMeta.tempo / 60.0f;
-            preludeOffsetAsBeat = this.beatmapMeta.preludeBarCount * beatPerSec;
+            preludeOffsetAsBeat = this.beatmapMeta.preludeSeconds * beatPerSec;
             beatsPerDivision = 1 / this.beatmapMeta.subdivisionPerBeat;
         }
 

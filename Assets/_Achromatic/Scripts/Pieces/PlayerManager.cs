@@ -25,6 +25,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // TODO
         }
 
+        public void StartMainPiece() {
+
+        }
+
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
@@ -37,9 +41,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.playerRB.MovePosition(newPosition);
         }
 
-
         // constructor  ########################################################
-
         public PlayerManager(PieceScript piece) {
             this.piece = piece;
 
@@ -55,11 +57,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // constants  ##########################################################
+
         private const string PLAYER_TAG = "Player";
 
-
         // private members  ####################################################
+
         // cached references
-        PieceScript piece;
+        private readonly PieceScript piece;
     }
 }

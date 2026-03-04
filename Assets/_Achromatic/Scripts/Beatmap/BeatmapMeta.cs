@@ -14,11 +14,11 @@ public class BeatmapMeta: ScriptableObject {
 
     public int subdivisionPerBeat = 4;
 
-    public int preludeBarCount = 8;
+    public float preludeSeconds = 1.0f;
 
     [Header("Render")]
 
-    public float horizontalSpeedPerBeat = 2.0f;
+    public float horizontalUnitsPerBeat = 2.0f;
 
     public float barlineRenderDistance = 10.0f;
 
