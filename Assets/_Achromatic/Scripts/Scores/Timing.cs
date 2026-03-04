@@ -23,21 +23,19 @@ namespace Assets._Achromatic.Scripts.Scores {
         public Timing(
                 float centerTiming,
                 PressedActions action,
-                float perfectDelta,
-                float greatDelta,
-                float goodDelta
+                BeatmapMeta meta
             ) {
             center = centerTiming;
             allowedAction = action;
 
-            leftGoodBound = centerTiming - goodDelta;
-            leftGreatBound = centerTiming - greatDelta;
-            leftPerfectBound = centerTiming - perfectDelta;
-            rightGoodBound = centerTiming + goodDelta;
-            rightGreatBound = centerTiming + greatDelta;
-            rightPerfectBound = centerTiming + perfectDelta;
+            leftGoodBound = centerTiming - meta.goodDeltaSecond;
+            leftGreatBound = centerTiming - meta.greatDeltaSecond;
+            leftPerfectBound = centerTiming - meta.perfectDeltaSecond;
+            rightGoodBound = centerTiming + meta.goodDeltaSecond;
+            rightGreatBound = centerTiming + meta.greatDeltaSecond;
+            rightPerfectBound = centerTiming + meta.perfectDeltaSecond;
 
-            startJudgeBound = leftGoodBound - goodDelta;
+            startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
         }
 
         public Hit Judge(float time, PressedActions action) {

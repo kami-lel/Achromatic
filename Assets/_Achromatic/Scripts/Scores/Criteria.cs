@@ -30,7 +30,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                     _ => PressedActions.NONE
                 };
 
-                timings.Enqueue(new Timing(centerTiming, action));
+                timings.Enqueue(new Timing(centerTiming, action, p.beatmap.meta));
             }
         }
 
