@@ -57,14 +57,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
-                Debug.Log(forceDuringPrelude);
                 playerRB.AddForce(forceDuringPrelude);
             }
         }
 
         // constructor  ########################################################
         public PlayerManager(PieceScript piece) {
-            this.p = piece;
+            p = piece;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
@@ -90,13 +89,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
             if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("must be larger distance during prelude");
+                Debug.LogWarning("for prelude: must be larger distance or lower final speed");
                 preludeStartVelocityX = 0f;
             }
 
             // calc acceleration — use v - u over t to be explicit
             float acceleration = (v - preludeStartVelocityX) / t;
-            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0f);
+            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0.1f);
+            Debug.Log($"prelude initial speed={preludeStartVelocityX}\taccleration={acceleration}");
         }
 
         // constants  ##########################################################

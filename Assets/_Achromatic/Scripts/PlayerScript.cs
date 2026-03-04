@@ -227,8 +227,6 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        Debug.Log("hi");  // HACK HACK
-
         // apply horizontal force toward target velocity
         float targetVelX = moveDir * MAX_WALKING_SPEED;
         float velDiff = targetVelX - playerRB.linearVelocityX;

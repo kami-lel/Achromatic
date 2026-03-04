@@ -107,8 +107,8 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        starter.OnDisable();
         inputs.OnDisable(playerManager.playerInput);
+        starter.OnDisable();
     }
 
     private void FixedUpdate() {
