@@ -31,7 +31,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         }
 
-        public void StartMainPiece() {
+        public void StartMainPiece(int debugMusicStaringBar) {
             // BUG no one is calling this
             Debug.Log("PlayerManager: StartMainPiece");
 

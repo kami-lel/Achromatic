@@ -57,14 +57,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void StartPiece() {
             if (piece.debugMusicStaringBar == 0) {
                 piece.music.StartPreludeThenMainPiece();
-                // TODO prelude logic
+                piece.playerManager.StartPrelude();
 
             } else {
                 // start music mid point for debug purpose
                 piece.music.DebugStartMusic(piece.debugMusicStaringBar);
+                piece.playerManager.StartMainPiece(piece.debugMusicStaringBar);
             }
 
-            piece.playerManager.StartPrelude();
             piece.isControllingPlayer = true;
             isVampPlaying = false;
         }
