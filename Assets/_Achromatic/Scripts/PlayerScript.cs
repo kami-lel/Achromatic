@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D.IK;
 
 // Todo 3rd actions
 // Bug fix dash during animations
@@ -9,10 +10,107 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class PlayerScript: MonoBehaviour {
+
+    // public members  #########################################################
+
+    public Rigidbody2D playerRB;
+    public event Action<String> OnTriggerEnter;
+    public event Action<String> OnTriggerExit;
+
+    // public methods  #########################################################
+
+    // movements public methods  ===============================================
+
+    public void TurnLeft() {
+        moveDir = -1;
+        MovementEnsureFacing(-1);
+        AnimationStartWalk();
+    }
+
+    public void TurnRight() {
+        moveDir = 1;
+        MovementEnsureFacing(1);
+        AnimationStartWalk();
+    }
+
+    public void MovementDash() {
+        if (!IsOnGround()) {
+            return;
+        }
+
+        AnimationDash();
+    }
+
+    public void StopMovement() {
+        moveDir = 0;
+        animator.SetBool(IN_MOVEMENT_ID, false);
+    }
+
+    public void MovementJump() {
+        if (!isControllingPlayer || !IsOnGround())
+            return;
+
+        playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
+
+        AnimationJump();
+    }
+
+    public bool IsOnGround() {
+        return playerRB.IsTouchingLayers(groundLayerMask);
+    }
+
+    // animation public methods  ===============================================
+
+    public void AnimationDash() {
+        Debug.Log("Dash");
+
+        // Hack need animation for dash
+        squashTargetY = 0.35f;  // set Target Y value
+        squashDuration = 0.5f;  // set Duration value
+        timer = squashDuration;  // reset Timer
+        is_squashed = true;  // enable restore logic
+        Vector3 s = tmpPlayerSprite.transform.localScale;  // read current scale
+        s.y = squashTargetY;  // assign squashed Y
+        tmpPlayerSprite.transform.localScale = s;  // apply immediate squash
+
+        SFXManagerScript.Instance.PlayDashSFX();
+    }
+
+    public void AnimationJump() {
+        SFXManagerScript.Instance.PlayJumpSFX();
+        animator.SetTrigger(JUMP_ID);
+    }
+
+    public void AnimationStartWalk() {
+        animator.SetBool(IN_MOVEMENT_ID, true);
+    }
+
+    // input public methods  ===================================================
+
+    public void SetInputForExplorePlay() {
+        playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
+        playerInput.onActionTriggered += OnActionTriggered;
+        isControllingPlayer = true;
+        playerCollider.sharedMaterial = defaultMaterial;
+    }
+
+    public void SetInputForMusicPlay() {
+        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+        playerInput.onActionTriggered -= OnActionTriggered;
+        isControllingPlayer = false;
+        playerCollider.sharedMaterial = noFrictionMaterial;
+    }
+
     // Inspector Fields  #######################################################
 
     [SerializeField]
     private LayerMask groundLayerMask = Physics2D.AllLayers;
+
+    [SerializeField]
+    private PhysicsMaterial2D defaultMaterial;
+
+    [SerializeField]
+    private PhysicsMaterial2D noFrictionMaterial;
 
     [SerializeField]
     private GameObject tmpPlayerSprite;  // Hack
@@ -23,15 +121,20 @@ public class PlayerScript: MonoBehaviour {
         playerRB = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
+        playerCollider = GetComponent<Collider2D>();
 
         // Hack rm
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
     private void Start() {
-        SetExplorePlay();
+        playerRB.bodyType = RigidbodyType2D.Dynamic;
+        playerRB.gravityScale = GRAVITY_SCALE;
+        playerRB.freezeRotation = true;
+        playerRB.linearDamping = 0.0f;
+
         playerInput.defaultActionMap = "PlayerExplorePlay";
-        playerInput.onActionTriggered += OnActionTriggered;
+        SetInputForExplorePlay();
     }
 
     void FixedUpdate() {
@@ -74,39 +177,13 @@ public class PlayerScript: MonoBehaviour {
         OnTriggerExit?.Invoke(other.tag);
     }
 
-    // public members  #########################################################
-    public Rigidbody2D playerRB;
-    public event Action<String> OnTriggerEnter;
-    public event Action<String> OnTriggerExit;
-
-    // public methods  #########################################################
-
-    public void SetExplorePlay() {
-        if (GameControllerScript.Instance == null) {
-            Debug.LogError("null GameControllerScript singleton");
-        } else {
-            GameControllerScript.Instance.gameState = GameState.EXPLORE;
-        }
-
-        playerRB.bodyType = RigidbodyType2D.Dynamic;
-        playerRB.gravityScale = GRAVITY_SCALE;
-        playerRB.freezeRotation = true;
-
-        playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-    }
-
-    public void UnsetExplorePlay() {
-        playerRB.bodyType = RigidbodyType2D.Kinematic;
-        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-    }
-
-    // inputs  #################################################################
+    // input  ##################################################################
 
     private PlayerInput playerInput;
+    private bool isControllingPlayer = true;
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if ((GameControllerScript.Instance.gameState &
-             GameState.EXPLORE) == 0) {
+        if (!isControllingPlayer) {
             return;
         }
 
@@ -149,58 +226,20 @@ public class PlayerScript: MonoBehaviour {
 
     // movements  ##############################################################
 
-    // public methods  =========================================================
-
-    public void TurnLeft() {
-        moveDir = -1;
-        MovementEnsureFacing(-1);
-        AnimationStartWalk();
-    }
-
-    public void TurnRight() {
-        moveDir = 1;
-        MovementEnsureFacing(1);
-        AnimationStartWalk();
-    }
-
-    public void MovementDash() {
-        if (!IsOnGround()) {
-            return;
-        }
-
-        AnimationDash();
-    }
-
-    public void StopMovement() {
-        moveDir = 0;
-        animator.SetBool(IN_MOVEMENT_ID, false);
-    }
-
-    public void MovementJump() {
-        if (!IsOnGround())
-            return;
-
-        playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
-
-        AnimationJump();
-    }
-
-    public bool IsOnGround() {
-        return playerRB.IsTouchingLayers(groundLayerMask);
-    }
-
-
-    // private members  ========================================================
-
-    bool isFacingRight = true;
-    int moveDir = 0;
-
-    // constants  --------------------------------------------------------------
     readonly private float GRAVITY_SCALE = 1.0f;
     readonly private float JUMP_FORCE = 8.0f;
     readonly private float MAX_WALKING_SPEED = 15.0f;
 
+    private bool isFacingRight = true;
+    private int moveDir = 0;
+
+    private Collider2D playerCollider;
+
     private void MovementFixedUpdate() {
+        if (!isControllingPlayer) {
+            return;
+        }
+
         // apply horizontal force toward target velocity
         float targetVelX = moveDir * MAX_WALKING_SPEED;
         float velDiff = targetVelX - playerRB.linearVelocityX;
@@ -235,10 +274,12 @@ public class PlayerScript: MonoBehaviour {
         transform.localScale = s;
     }
 
-
     // animations  #############################################################
 
-    private Animator animator;
+    // constants  ==============================================================
+    private readonly int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
+    private readonly int JUMP_ID = Animator.StringToHash("Jump");
+
     // Hack tmp vars
     private Vector3 tmpOriginalScale;
     private float timer = 0.0f;
@@ -246,33 +287,6 @@ public class PlayerScript: MonoBehaviour {
     private float squashTargetY = 0.1f;  // default Target Y scale
     private bool is_squashed = false;  // flag Squash Active
 
-    // constants  ==============================================================
-    readonly private int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
-    readonly private int JUMP_ID = Animator.StringToHash("Jump");
+    private Animator animator;
 
-    // public methods  =========================================================
-
-    public void AnimationDash() {
-        Debug.Log("Dash");
-
-        // Hack need animation for dash
-        squashTargetY = 0.35f;  // set Target Y value
-        squashDuration = 0.5f;  // set Duration value
-        timer = squashDuration;  // reset Timer
-        is_squashed = true;  // enable restore logic
-        Vector3 s = tmpPlayerSprite.transform.localScale;  // read current scale
-        s.y = squashTargetY;  // assign squashed Y
-        tmpPlayerSprite.transform.localScale = s;  // apply immediate squash
-
-        SFXManagerScript.Instance.PlayDashSFX();
-    }
-
-    public void AnimationJump() {
-        SFXManagerScript.Instance.PlayJumpSFX();
-        animator.SetTrigger(JUMP_ID);
-    }
-
-    public void AnimationStartWalk() {
-        animator.SetBool(IN_MOVEMENT_ID, true);
-    }
 }

@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Splines;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
-    public class VampManager {
+    public class Starter {
 
-        public VampManager(PieceScript piece, Transform vampLoudestOrigin) {
+        // constructor  ########################################################
+        public Starter(PieceScript piece) {
             this.piece = piece;
-            this.vampLoudestOrigin = vampLoudestOrigin.position;
 
             if (piece.playerManager == null || piece.playerManager.player == null) {
                 Debug.LogWarning("playerManager/player is null");
@@ -15,6 +16,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 piece.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
         }
+
+        // MonoBehavior Lifecycle  #############################################
 
         public void OnDisable() {
             if (piece.playerManager == null || piece.playerManager.player == null) {
@@ -28,7 +31,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Update() {
             if (isVampPlaying) {
                 // update vamp volume
-                float distance = Vector2.Distance(piece.playerManager.player.transform.position, vampLoudestOrigin);
+                float distance = Vector2.Distance(
+                        piece.playerManager.player.transform.position,
+                        piece.preludeStartOrigin);
                 float volume = piece.vampDistantVsVolume.Evaluate(distance);
                 piece.music.UpdateVampVolume(volume);
             }
@@ -43,9 +48,28 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // cached references
         private readonly PieceScript piece;
-        private readonly Vector2 vampLoudestOrigin;
 
         // private methods  ####################################################
+
+        /// <summary>
+        /// start the prelude routine, then main music part
+        /// </summary>
+        private void StartPiece() {
+            if (piece.debugMusicStaringBar == 0) {
+                piece.music.StartPreludeThenMainPiece();
+                piece.playerManager.StartPrelude();
+
+            } else {
+                // start music mid point for debug purpose
+                piece.music.DebugStartMusic(piece.debugMusicStaringBar);
+                piece.playerManager.StartMainPiece(piece.debugMusicStaringBar);
+            }
+
+            piece.isControllingPlayer = true;
+            isVampPlaying = false;
+        }
+
+        // event handlers  =====================================================
         private void HandleOnTriggerEnter(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
                 isVampPlaying = true;
@@ -54,17 +78,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
 
-                if (piece.debugMusicStaringBar == 0) {
-                    piece.music.StartPreludeThenMainPiece();
-                    // Todo prelude logic
-
-                } else {
-                    // start music mid point for debug purpose
-                    piece.music.DebugStartMusic(piece.debugMusicStaringBar);
-                }
-
-                piece.playerManager.TakeOverPlayerControl();
-                piece.isControllingPlayer = true;
+                StartPiece();
             }
         }
 

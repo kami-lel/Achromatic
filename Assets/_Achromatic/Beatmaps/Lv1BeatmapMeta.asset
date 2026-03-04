@@ -16,8 +16,8 @@ MonoBehaviour:
   tempo: 120
   beatPerBar: 4
   subdivisionPerBeat: 4
-  preludeBarCount: 8
-  horizontalSpeedPerBeat: 10
+  preludeSeconds: 8
+  horizontalUnitsPerBeat: 5
   barlineRenderDistance: 10
   noteRenderDistance: 10
   silenceSecondBeforeMainSong: 1
