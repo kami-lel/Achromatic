@@ -4,6 +4,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Starter {
 
+        // public methods  #####################################################
+
+        /// <summary>
+        /// restart the rhythmic part from pause screen
+        /// </summary>
+        public void Restart() {
+            // TODO
+        }
+
+        // constructor  ########################################################
         public Starter(PieceScript piece, Transform vampLoudestOrigin) {
             this.piece = piece;
             this.vampLoudestOrigin = vampLoudestOrigin.position;
@@ -15,6 +25,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 piece.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
         }
+
+        // MonoBehavior Lifecycle  #############################################
 
         public void OnDisable() {
             if (piece.playerManager == null || piece.playerManager.player == null) {
@@ -46,6 +58,25 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly Vector2 vampLoudestOrigin;
 
         // private methods  ####################################################
+
+        /// <summary>
+        /// start the prelude routine, then main music part
+        /// </summary>
+        private void StartPiece() {
+            if (piece.debugMusicStaringBar == 0) {
+                piece.music.StartPreludeThenMainPiece();
+                // TODO prelude logic
+
+            } else {
+                // start music mid point for debug purpose
+                piece.music.DebugStartMusic(piece.debugMusicStaringBar);
+            }
+
+            piece.playerManager.TakeOverPlayerControl();
+            piece.isControllingPlayer = true;
+        }
+
+        // event handlers  =====================================================
         private void HandleOnTriggerEnter(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
                 isVampPlaying = true;
@@ -54,17 +85,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
 
-                if (piece.debugMusicStaringBar == 0) {
-                    piece.music.StartPreludeThenMainPiece();
-                    // TODO prelude logic
-
-                } else {
-                    // start music mid point for debug purpose
-                    piece.music.DebugStartMusic(piece.debugMusicStaringBar);
-                }
-
-                piece.playerManager.TakeOverPlayerControl();
-                piece.isControllingPlayer = true;
+                StartPiece();
             }
         }
 
