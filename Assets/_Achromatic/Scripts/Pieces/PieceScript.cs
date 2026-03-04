@@ -85,7 +85,7 @@ public class PieceScript: MonoBehaviour {
         criteria = new(this);
         playerManager = new(this);
         starter = new(this);
-        inputs = new(criteria, playerManager.playerInput);
+        inputs = new(this);
 
         music.Start();
     }
@@ -101,7 +101,7 @@ public class PieceScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        inputs.OnDisable(playerManager.playerInput);
+        inputs.OnDisable();
         starter.OnDisable();
     }
 

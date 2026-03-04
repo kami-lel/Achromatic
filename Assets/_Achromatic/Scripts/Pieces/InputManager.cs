@@ -13,16 +13,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public PressedActions pressed;
 
-        public InputManager(Criteria criteria, PlayerInput playerInput) {
-            // FIXME save piece as cached reference
+        public InputManager(PieceScript pieceScript) {
+            p = pieceScript;
+
             pressed = PressedActions.NONE;
 
-            if (criteria == null) {
-                Debug.LogWarning("Input:\tfail to set criteria");
-            } else {
-                this.criteria = criteria;
-            }
-
+            PlayerInput playerInput = p.playerManager.playerInput;
             if (playerInput == null) {
                 Debug.LogWarning("fInput:\tail to subscribe playerInput.onActionTriggered");
             } else {
@@ -30,7 +26,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        public void OnDisable(PlayerInput playerInput) {
+        public void OnDisable() {
+            PlayerInput playerInput = p.playerManager.playerInput;
             if (playerInput == null) {
                 Debug.LogWarning("Input:\tfail to subscribe playerInput.onActionTriggered");
             } else {
@@ -38,8 +35,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        private readonly Criteria criteria;
-        private readonly ScoreTracker scoreTracker;
+        private PieceScript p;
 
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
             InputAction a = ctxt.action;
@@ -79,8 +75,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void Trigger() {
-            Hit judgeResult = criteria.Judge(pressed);
-            scoreTracker.Record(judgeResult);
+            Hit judgeResult = p.criteria.Judge(pressed);
+            p.scoreTracker.Record(judgeResult);
 
             // FIXME  control player
             // if ((pressedActions & InputPressedActions.JUMP) != 0) {
@@ -91,6 +87,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             // Todo add audio for feedback, layered
         }
+
 
     }
 
