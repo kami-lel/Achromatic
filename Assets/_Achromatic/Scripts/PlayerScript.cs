@@ -62,8 +62,6 @@ public class PlayerScript: MonoBehaviour {
     // animation public methods  ===============================================
 
     public void AnimationDash() {
-        Debug.Log("Player:\tDash");
-
         // Hack need animation for dash
         squashTargetY = 0.35f;  // set Target Y value
         squashDuration = 0.5f;  // set Duration value
