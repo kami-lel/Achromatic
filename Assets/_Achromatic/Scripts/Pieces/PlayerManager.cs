@@ -16,12 +16,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // public methods  #####################################################
 
-        public void TakeOverPlayerControl() {
-            Debug.Log("take over player control");
+        public void StartPrelude() {
+            Debug.Log("PlayerManager: StartPrelude");
 
             player.UnsetExplorePlay();
             player.AnimationStartWalk();
+
+            // TODO
         }
+
+        // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
             // Todo use Spline path

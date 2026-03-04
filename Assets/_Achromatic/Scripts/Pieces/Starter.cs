@@ -72,8 +72,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 piece.music.DebugStartMusic(piece.debugMusicStaringBar);
             }
 
-            piece.playerManager.TakeOverPlayerControl();
+            piece.playerManager.StartPrelude();
             piece.isControllingPlayer = true;
+            isVampPlaying = false;
         }
 
         // event handlers  =====================================================
