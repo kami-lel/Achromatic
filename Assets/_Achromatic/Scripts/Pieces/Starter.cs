@@ -4,15 +4,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Starter {
 
-        // public methods  #####################################################
-
-        /// <summary>
-        /// restart the rhythmic part from pause screen
-        /// </summary>
-        public void Restart() {
-            // TODO
-        }
-
         // constructor  ########################################################
         public Starter(PieceScript piece, Transform vampLoudestOrigin) {
             this.piece = piece;
