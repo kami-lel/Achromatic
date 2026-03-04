@@ -42,7 +42,6 @@ public class PieceScript: MonoBehaviour {
     public Vector2 preludeStartOrigin;
 
     // managers
-    public NotesManager notes;
     public Starter starter;
     public MusicManager music;
     public PrefabsPool prefabs;
@@ -88,8 +87,6 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new(this, beatmapMeta);
         music = new(pseudoAudioPlugin);
-        notes = new(music, beatmapMeta);
-        prefabs = new();
         scoreTracker = new(notes);
         criteria = new(music, notes, scoreTracker);
         playerManager = new(this);
