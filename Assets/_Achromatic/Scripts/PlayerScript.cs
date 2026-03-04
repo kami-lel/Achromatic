@@ -91,14 +91,14 @@ public class PlayerScript: MonoBehaviour {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
         playerInput.onActionTriggered += OnActionTriggered;
         isControllingPlayer = true;
-        collider.sharedMaterial = defaultMaterial;
+        playerCollider.sharedMaterial = defaultMaterial;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         playerInput.onActionTriggered -= OnActionTriggered;
         isControllingPlayer = false;
-        collider.sharedMaterial = noFrictionMaterial;
+        playerCollider.sharedMaterial = noFrictionMaterial;
     }
 
     // Inspector Fields  #######################################################
@@ -121,7 +121,7 @@ public class PlayerScript: MonoBehaviour {
         playerRB = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
-        collider = GetComponent<Collider2D>();
+        playerCollider = GetComponent<Collider2D>();
 
         // Hack rm
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
@@ -233,7 +233,7 @@ public class PlayerScript: MonoBehaviour {
     private bool isFacingRight = true;
     private int moveDir = 0;
 
-    private Collider2D collider;
+    private Collider2D playerCollider;
 
     private void MovementFixedUpdate() {
         if (!isControllingPlayer) {

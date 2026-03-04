@@ -31,8 +31,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         }
 
-        public void StartMainPiece(int debugMusicStaringBar) {
-            // BUG no one is calling this
+        public void StartMainPiece(int debugMusicStaringBar = 0) {
             Debug.Log("PlayerManager: StartMainPiece");
 
             isDuringMainPiece = true;
@@ -67,6 +66,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
+                // fixme using music to control triggering
+                if (p.music.Time >= p.beatmap.meta.preludeSeconds) {
+                    StartMainPiece();
+                    return;
+                }
+
                 playerRB.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             }
         }
