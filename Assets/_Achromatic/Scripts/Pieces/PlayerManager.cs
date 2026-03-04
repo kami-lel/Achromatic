@@ -23,22 +23,32 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             isDuringPrelude = true;
 
+            playerRB.linearVelocityX = preludeStartVelocityX;
+
             player.TurnRight();
             player.SetInputForMusicPlay();
             player.AnimationStartWalk();
+
         }
 
         public void StartMainPiece() {
             // BUG no one is calling this
             Debug.Log("PlayerManager: StartMainPiece");
 
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-
             isDuringMainPiece = true;
             isDuringPrelude = false;
 
-            playerRB.linearVelocityX = preludeStartVelocityX;
+            playerRB.bodyType = RigidbodyType2D.Kinematic;
+            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+        }
+
+        public void FinishPiece() {
+            Debug.Log("PlayerManager: FinishPiece");
+
+
+            isDuringMainPiece = false;
+            isDuringPrelude = false;
+
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -57,12 +67,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
-                playerRB.AddForceX(preludeForceForAcceleration);
+                playerRB.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             }
         }
 
         // constructor  ########################################################
         public PlayerManager(PieceScript piece) {
+
             p = piece;
 
             // find player
@@ -94,10 +105,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc acceleration — use v - u over t to be explicit
-            float acceleration = (v - preludeStartVelocityX) / t;
-            preludeForceForAcceleration = acceleration * playerRB.mass;
+            preludeAcceleration = (v - preludeStartVelocityX) / t;
 
-            Debug.Log($"prelude start speed={preludeStartVelocityX}\tacceleration={acceleration}");
+            Debug.Log($"prelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         // constants  ##########################################################
@@ -108,7 +118,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private bool isDuringPrelude = false;
         private bool isDuringMainPiece = false;
         private float preludeStartVelocityX;
-        private float preludeForceForAcceleration;
+        private float preludeAcceleration;
 
         // cached references
         private readonly PieceScript p;

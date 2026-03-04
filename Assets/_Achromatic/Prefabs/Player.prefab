@@ -221,7 +221,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 86d5166df87b660428dfde1de571da59, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -244,9 +244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b19486b4b4af014eb53e5a4f98d2e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
+  playerRB: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1024
+  defaultMaterial: {fileID: 6200000, guid: 86d5166df87b660428dfde1de571da59, type: 2}
+  noFrictionMaterial: {fileID: 6200000, guid: 792bed60f11f30b4eab9e2fa0af053c6, type: 2}
   tmpPlayerSprite: {fileID: 5373102086045384597}
 --- !u!95 &3086159920649639274
 Animator:

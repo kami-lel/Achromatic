@@ -91,18 +91,26 @@ public class PlayerScript: MonoBehaviour {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
         playerInput.onActionTriggered += OnActionTriggered;
         isControllingPlayer = true;
+        collider.sharedMaterial = defaultMaterial;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
         playerInput.onActionTriggered -= OnActionTriggered;
         isControllingPlayer = false;
+        collider.sharedMaterial = noFrictionMaterial;
     }
 
     // Inspector Fields  #######################################################
 
     [SerializeField]
     private LayerMask groundLayerMask = Physics2D.AllLayers;
+
+    [SerializeField]
+    private PhysicsMaterial2D defaultMaterial;
+
+    [SerializeField]
+    private PhysicsMaterial2D noFrictionMaterial;
 
     [SerializeField]
     private GameObject tmpPlayerSprite;  // Hack
@@ -113,6 +121,7 @@ public class PlayerScript: MonoBehaviour {
         playerRB = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
 
         // Hack rm
         tmpOriginalScale = tmpPlayerSprite.transform.localScale;
@@ -122,6 +131,7 @@ public class PlayerScript: MonoBehaviour {
         playerRB.bodyType = RigidbodyType2D.Dynamic;
         playerRB.gravityScale = GRAVITY_SCALE;
         playerRB.freezeRotation = true;
+        playerRB.linearDamping = 0.0f;
 
         playerInput.defaultActionMap = "PlayerExplorePlay";
         SetInputForExplorePlay();
@@ -219,8 +229,11 @@ public class PlayerScript: MonoBehaviour {
     readonly private float GRAVITY_SCALE = 1.0f;
     readonly private float JUMP_FORCE = 8.0f;
     readonly private float MAX_WALKING_SPEED = 15.0f;
+
     private bool isFacingRight = true;
     private int moveDir = 0;
+
+    private Collider2D collider;
 
     private void MovementFixedUpdate() {
         if (!isControllingPlayer) {
@@ -267,12 +280,13 @@ public class PlayerScript: MonoBehaviour {
     private readonly int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
     private readonly int JUMP_ID = Animator.StringToHash("Jump");
 
-    private Animator animator;
     // Hack tmp vars
     private Vector3 tmpOriginalScale;
     private float timer = 0.0f;
     private float squashDuration = 0.5f;  // default Duration seconds
     private float squashTargetY = 0.1f;  // default Target Y scale
     private bool is_squashed = false;  // flag Squash Active
+
+    private Animator animator;
 
 }
