@@ -22,7 +22,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
         public void Update() {
             /*
-
             // todo make note disappear / animation when hit
             // place beatLine  -----------------------------------------------------
             float renderBoundaryOnBeat = currentBeatCount
@@ -76,7 +75,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             */
 
         }
-
 
         // constants  ##########################################################
         private const float NOTES_HEIGHT = 1.5f; // Fixme more dynamic?
