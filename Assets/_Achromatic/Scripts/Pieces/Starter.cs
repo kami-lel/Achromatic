@@ -9,7 +9,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             p = piece;
 
             if (p.playerManager == null || p.playerManager.player == null) {
-                Debug.LogWarning("playerManager/player is null");
+                Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
                 p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
                 p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
@@ -20,7 +20,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void OnDisable() {
             if (p.playerManager == null || p.playerManager.player == null) {
-                Debug.LogWarning("playerManager/player is null");
+                Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
                 p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
                 p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;

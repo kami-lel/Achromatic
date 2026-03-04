@@ -19,7 +19,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public methods  #####################################################
 
         public void StartPrelude() {
-            Debug.Log("PlayerManager: StartPrelude");
+            Debug.Log("PlayerManager:\tStartPrelude");
 
             isDuringPrelude = true;
 
@@ -31,7 +31,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            Debug.Log("PlayerManager: StartMainPiece");
+            Debug.Log("PlayerManager:\tStartMainPiece");
 
             isDuringMainPiece = true;
             isDuringPrelude = false;
@@ -41,7 +41,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void FinishPiece() {
-            Debug.Log("PlayerManager: FinishPiece");
+            Debug.Log("PlayerManager:\tFinishPiece");
 
 
             isDuringMainPiece = false;
@@ -81,7 +81,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
             if (playerObject == null) {
-                Debug.LogError("fail to find GameObject with tag 'player'");
+                Debug.LogError("PlayerManager:\tfail to find GameObject with tag 'player'");
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
             if (t <= 0f) {
-                Debug.LogError("preludeSeconds must be > 0");  // prevent div by zero
+                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
                 t = Mathf.Epsilon;
             }
 
@@ -102,14 +102,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
             if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("for prelude: must be larger distance or lower final speed");
+                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed");
                 preludeStartVelocityX = 0f;
             }
 
             // calc acceleration — use v - u over t to be explicit
             preludeAcceleration = (v - preludeStartVelocityX) / t;
 
-            Debug.Log($"prelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
+            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         // constants  ##########################################################

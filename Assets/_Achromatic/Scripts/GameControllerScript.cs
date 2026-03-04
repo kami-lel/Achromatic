@@ -20,7 +20,7 @@ public class GameControllerScript: MonoBehaviour {
             return;
         }
         if (Instance != this) {  // guard against duplicate
-            Debug.LogError("place GameController Prefab only in 1st scene");
+            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
         }
 
@@ -63,7 +63,7 @@ public class GameControllerScript: MonoBehaviour {
     /// <returns>singleton player</returns>
     public static GameObject GetPlayer() {
         if (Instance == null) {
-            Debug.LogError("GameControllerScript: Instance is null");
+            Debug.LogError("GameController:\tInstance is null");
         }
 
         return Instance.player;

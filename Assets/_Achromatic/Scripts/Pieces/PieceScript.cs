@@ -73,7 +73,7 @@ public class PieceScript: MonoBehaviour {
 
     private void Start() {
         if (mainPartPath == null) {
-            Debug.LogError("must assign mainPartPath");
+            Debug.LogError("Piece:\tmust assign mainPartPath");
         }
 
         preludeStartOrigin = startPreludeTransform.position;

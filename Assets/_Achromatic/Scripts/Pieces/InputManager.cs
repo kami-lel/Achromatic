@@ -18,13 +18,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pressed = PressedActions.NONE;
 
             if (criteria == null) {
-                Debug.LogWarning("fail to set criteria");
+                Debug.LogWarning("Input:\tfail to set criteria");
             } else {
                 this.criteria = criteria;
             }
 
             if (playerInput == null) {
-                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
+                Debug.LogWarning("fInput:\tail to subscribe playerInput.onActionTriggered");
             } else {
                 playerInput.onActionTriggered += OnActionTriggered;
             }
@@ -32,7 +32,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void OnDisable(PlayerInput playerInput) {
             if (playerInput == null) {
-                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
+                Debug.LogWarning("Input:\tfail to subscribe playerInput.onActionTriggered");
             } else {
                 playerInput.onActionTriggered -= OnActionTriggered;
             }

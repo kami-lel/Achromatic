@@ -91,7 +91,7 @@ public class ScoreTracker {
             }
         }
 
-        Debug.Log("ScoreTracker:Record:"
+        Debug.Log("ScoreTracker:\tRecord:"
                 + $"\tjudge: {judgeResult}"
                 + $"\tscore: {runningScore}"
                 + $"\tcombo: {combo}"

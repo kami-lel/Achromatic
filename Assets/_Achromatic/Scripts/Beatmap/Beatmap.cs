@@ -51,18 +51,18 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             meta = beatmapMeta;
 
             if (meta == null) {
-                Debug.LogError("must assign Beatmap Meta in Piece");
+                Debug.LogError("Beatmap:\tmust assign Beatmap Meta in Piece");
                 return;
             }
             if (meta.file == null) {
-                Debug.LogError("must assign Beatmap File in Beatmap Meta");
+                Debug.LogError("Beatmap:\tmust assign Beatmap File in Beatmap Meta");
                 return;
             }
 
             // load data  ------------------------------------------------------
             data = JsonUtility.FromJson<BeatmapData>(meta.file.text);
             if (data.notes.Length == 0) {
-                Debug.LogError("beatmap file contains no notes: "
+                Debug.LogError("Beatmap:\tbeatmap file contains no notes: "
                         + meta.file.name);
             }
 
