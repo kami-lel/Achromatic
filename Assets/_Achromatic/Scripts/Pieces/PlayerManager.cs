@@ -27,9 +27,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.AnimationStartWalk();
             player.SetInputForMusicPlay();
 
-            // calc acceleration during prelude
-            // during prelude, accelerate the player such that
-            forceDuringPrelude = new(100.0f, 50.0f); // TODO calc acceleration!
+            // calc movement during prelude  -----------------------------------
+            float t = piece.beatmap.meta.preludeSeconds;
+            float s = 5.0f;  // HACK
+            float v = piece.beatmap.horizontalSpeedInMainPiece;
+
+            // calc init velocity
+            float u = 2 * s / t - v;
+            if (u < 0.0f) {
+                Debug.LogWarning("not enough distance b/t StartPreludeTrigger & MathPartPath start");
+                u = 0.0f;
+            }
+            playerRB.linearVelocityX = u;
+            Debug.Log(u);  // HACK
+
+            // calc acceleration
+            float acceleration = (1 * v / t) - (2 * s / t / t);
+            forceDuringPrelude = new(acceleration * playerRB.mass, 0.0f);
         }
 
         public void StartMainPiece() {
@@ -59,6 +73,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
+                Debug.Log(forceDuringPrelude);  // HACK
                 playerRB.AddForce(forceDuringPrelude);
             }
         }

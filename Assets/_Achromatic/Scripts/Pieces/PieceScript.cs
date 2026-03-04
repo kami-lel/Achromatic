@@ -37,9 +37,6 @@ public class PieceScript: MonoBehaviour {
     public AnimationCurve vampDistantVsVolume =
             AnimationCurve.Linear(0, 1, 30, 0);
 
-    public AnimationCurve preludeTimeVsSpeed =
-            AnimationCurve.Linear(0f, 0.5f, 1f, 1f);
-
     [SerializeField]
     private Transform vampLoudestOrigin;
 
