@@ -85,6 +85,11 @@ public class PieceScript: MonoBehaviour {
         inputs.OnDisable(playerManager.playerInput);
     }
 
+    private void FixedUpdate() {
+        playerManager.FixedUpdate();
+    }
+
+
     // public members  #########################################################
     public bool isControllingPlayer = false;
 

@@ -26,29 +26,27 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.TurnRight();
             player.AnimationStartWalk();
             player.SetInputForMusicPlay();
+
+            // calc acceleration during prelude
+            // during prelude, accelerate the player such that
+            forceDuringPrelude = new(100.0f, 50.0f); // TODO calc acceleration!
+        }
+
+        public void StartMainPiece() {
+            // BUG no one is calling this
+            Debug.Log("PlayerManager: StartMainPiece");
+
+            playerRB.bodyType = RigidbodyType2D.Kinematic;
+            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+
+            isDuringMainPiece = true;
+            isDuringPrelude = false;
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
-            if (isDuringPrelude) {  // -----------------------------------------
-                float timeFactor =
-                        piece.music.Time / piece.beatmap.meta.preludeSeconds;
-
-                if (timeFactor >= 1.0f) {
-                    StartMainPiece();
-                    return;
-                }
-
-                float speed =
-                        piece.preludeTimeVsSpeed.Evaluate(timeFactor) *
-                        piece.beatmap.horizontalSpeedInMainPiece;
-
-                Debug.Log(speed);  // HACK HACK
-
-                playerRB.linearVelocityX = speed;
-
-            } else if (isDuringMainPiece) {  // --------------------------------
+            if (isDuringMainPiece) {  // ---------------------------------------
                 // Todo use Spline path
 
                 float y = piece.beatmap.origin.y;
@@ -56,6 +54,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 Vector2 newPosition = new(x, y);
                 playerRB.MovePosition(newPosition);
+            }
+        }
+
+        public void FixedUpdate() {
+            if (isDuringPrelude) {
+                playerRB.AddForce(forceDuringPrelude);
             }
         }
 
@@ -82,20 +86,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         private bool isDuringPrelude = false;
         private bool isDuringMainPiece = false;
+        private Vector2 forceDuringPrelude;
 
         // cached references
         private readonly PieceScript piece;
 
-        // private methods  ####################################################
-
-        private void StartMainPiece() {
-            Debug.Log("PlayerManager: StartMainPiece");
-
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-
-            isDuringMainPiece = true;
-            isDuringPrelude = false;
-        }
     }
 }
