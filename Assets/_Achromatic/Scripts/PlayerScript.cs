@@ -47,7 +47,7 @@ public class PlayerScript: MonoBehaviour {
     }
 
     public void MovementJump() {
-        if (!IsOnGround())
+        if (!isControllingPlayer || !IsOnGround())
             return;
 
         playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);

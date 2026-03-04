@@ -57,7 +57,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FixedUpdate() {
             if (isDuringPrelude) {
-                playerRB.AddForce(forceDuringPrelude);
+                playerRB.AddForceX(preludeForceForAcceleration);
             }
         }
 
@@ -95,8 +95,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             // calc acceleration — use v - u over t to be explicit
             float acceleration = (v - preludeStartVelocityX) / t;
-            forceDuringPrelude = new Vector2(acceleration * playerRB.mass, 0.1f);
-            Debug.Log($"prelude initial speed={preludeStartVelocityX}\taccleration={acceleration}");
+            preludeForceForAcceleration = acceleration * playerRB.mass;
+
+            Debug.Log($"prelude start speed={preludeStartVelocityX}\tacceleration={acceleration}");
         }
 
         // constants  ##########################################################
@@ -107,7 +108,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private bool isDuringPrelude = false;
         private bool isDuringMainPiece = false;
         private float preludeStartVelocityX;
-        private Vector2 forceDuringPrelude;
+        private float preludeForceForAcceleration;
 
         // cached references
         private readonly PieceScript p;
