@@ -1,5 +1,6 @@
 
 using Assets._Achromatic.Scripts.Pieces;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
 
@@ -39,7 +40,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
 
         public Hit Judge(float time, PressedActions action) {
-            if (action != allowedAction) {
+            if ((action & allowedAction) == 0) {
                 return Hit.INCORRECT;
             }
 

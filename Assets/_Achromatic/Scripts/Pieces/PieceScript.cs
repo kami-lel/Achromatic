@@ -74,6 +74,8 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
+    public AnimationCurve tmpJumpCurve;
+
 
     // MonoBehavior Lifecycle  #################################################
 

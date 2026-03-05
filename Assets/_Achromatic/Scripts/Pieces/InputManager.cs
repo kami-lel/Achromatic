@@ -83,6 +83,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             p.scoreTracker.Record(judgeResult);
 
             if ((pressed & PressedActions.JUMP) != 0) {
+                p.playerManager.tmpJump();
                 p.playerManager.player.AnimationJump();
             } else if ((pressed & PressedActions.DASH) != 0) {
                 p.playerManager.player.AnimationDash();

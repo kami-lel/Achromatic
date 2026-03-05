@@ -21,6 +21,6 @@ MonoBehaviour:
   horizontalUnitsPerBeat: 5
   barlineRenderDistance: 10
   noteRenderDistance: 10
-  perfectDeltaSecond: 0.05
-  greatDeltaSecond: 0.08
-  goodDeltaSecond: 0.1
+  perfectDeltaSecond: 0.08
+  greatDeltaSecond: 0.15
+  goodDeltaSecond: 0.3

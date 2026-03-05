@@ -22,6 +22,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public methods  #####################################################
 
         public void StartPrelude() {
+            tmpPlayerLastJump = Time.time;
+
             Debug.Log("PlayerManager:\tStartPrelude");
 
             GCS.I.states = GameState.PRELUDE;
@@ -48,14 +50,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
+        public void tmpJump() {
+            tmpPlayerLastJump = Time.time;
+        }
+
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
+
                 // todo use Spline path
 
-                float y = p.beatmap.origin.y;  // TODO player jump
+                float y = p.beatmap.origin.y +
+                        p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
                 float x = p.beatmap.CalcCurrentXFromBeat();
 
                 Vector2 newPosition = new(x, y);
@@ -120,7 +128,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private members  ####################################################
         private readonly float preludeStartVelocityX;
+
         private readonly float preludeAcceleration;
+        private float tmpPlayerLastJump;
+
 
         // cached references
         private readonly PieceScript p;
