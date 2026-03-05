@@ -5,8 +5,7 @@
 [^format]
 
 <!-- todo camera fine tunning -->
-<!-- FIXME consider bold barline when note existed -->
-<!-- FIXME move down note & make bigger -->
+<!-- fixme better looking notes elements -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->

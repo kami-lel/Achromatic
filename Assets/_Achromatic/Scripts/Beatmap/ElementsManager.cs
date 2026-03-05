@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // fixme code refactorization
+// bug missing beat lines
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     public class ElementsManager {
@@ -9,24 +10,36 @@ namespace Assets._Achromatic.Scripts.Beatmap {
         private const string PREFAB_FOLDER_PATH = "Prefabs/BeatmapElements/";
         private const float NOTES_HEIGHT = 1.5f;
 
-        // constructor  ======================================================
+        // constructor  ==========================================================
         public ElementsManager(PieceScript pieceScript, Transform rootTransform) {
             p = pieceScript;
             root = rootTransform;
 
-            // create per-type pools  ----------------------------------------
-            beatLinePool = new PrefabPool(30,
+            // create per-type pools  --------------------------------------------
+            beatLinePool = new PrefabPool(16,
                     PREFAB_FOLDER_PATH + "BeatLine", root);
-            barlinePool = new PrefabPool(10,
+            barlinePool = new PrefabPool(8,
                     PREFAB_FOLDER_PATH + "Barline", root);
-            jumpNotePool = new PrefabPool(10,
+            jumpNotePool = new PrefabPool(8,
                     PREFAB_FOLDER_PATH + "JumpNote", root);
-            dashNotePool = new PrefabPool(10,
+            dashNotePool = new PrefabPool(8,
                     PREFAB_FOLDER_PATH + "DashNote", root);
 
-            lastBeatLineOnBeat = 0.0f;
-            lastBarlineOnBeat = 0.0f;
-            notesRenderQ = new Queue<BeatmapNote>(p.beatmap.notesQ);
+            // initialize last placed positions to current playback state
+            float currentBeat = p.beatmap.currentBeatCount;
+            lastBeatLineOnBeat = Mathf.Floor(currentBeat);  // start at current beat
+                                                            // align to the most recent bar boundary
+            int beatsPerBar = p.beatmap.meta.beatPerBar;
+            lastBarlineOnBeat = Mathf.Floor(currentBeat / beatsPerBar)
+                                * beatsPerBar;
+
+            // prepare notes queue starting from currentBeat  ---------------------
+            notesRenderQ = new Queue<BeatmapNote>();
+            foreach (var n in p.beatmap.notesQ) {
+                float noteBeat = p.beatmap.CalcBeatCount(n);
+                if (noteBeat >= currentBeat)
+                    notesRenderQ.Enqueue(n);
+            }
         }
 
         // public methods  ===================================================
