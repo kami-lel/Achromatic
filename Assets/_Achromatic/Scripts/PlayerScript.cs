@@ -47,7 +47,7 @@ public class PlayerScript: MonoBehaviour {
     }
 
     public void MovementJump() {
-        if (!isControllingPlayer || !IsOnGround())
+        if (!IsOnGround())
             return;
 
         playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
@@ -87,13 +87,11 @@ public class PlayerScript: MonoBehaviour {
 
     public void SetInputForExplorePlay() {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-        isControllingPlayer = true;
         playerCollider.sharedMaterial = defaultMaterial;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        isControllingPlayer = false;
         playerCollider.sharedMaterial = noFrictionMaterial;
     }
 
@@ -132,9 +130,15 @@ public class PlayerScript: MonoBehaviour {
         playerInput.defaultActionMap = "PlayerExplorePlay";
         SetInputForExplorePlay();
         playerInput.onActionTriggered += OnActionTriggered;
+
+        GCS.I.states = GameState.EXPLORE;
     }
 
     void FixedUpdate() {
+        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
+            return;
+        }
+
         MovementFixedUpdate();
     }
 
@@ -157,7 +161,8 @@ public class PlayerScript: MonoBehaviour {
     // Unity Messages  #########################################################
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (!isControllingPlayer || other == null || !other.isTrigger) {
+        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0 ||
+                other == null || !other.isTrigger) {
             return;
         }
 
@@ -177,10 +182,9 @@ public class PlayerScript: MonoBehaviour {
     // input  ##################################################################
 
     private PlayerInput playerInput;
-    private bool isControllingPlayer = true; // HACK replaced with game state
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if (!isControllingPlayer) {
+        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
             return;
         }
 
@@ -233,9 +237,6 @@ public class PlayerScript: MonoBehaviour {
     private Collider2D playerCollider;
 
     private void MovementFixedUpdate() {
-        if (!isControllingPlayer) {
-            return;
-        }
 
         // apply horizontal force toward target velocity
         float targetVelX = moveDir * MAX_WALKING_SPEED;

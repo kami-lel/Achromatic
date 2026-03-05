@@ -18,7 +18,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
             // load element prefabs
             prefabsPool = new PrefabsPool(
-                    GameControllerScript.I.transform);
+                    GCS.I.transform);
 
             lastBeatLineOnBeat = 0.0f;
             lastBarlineOnBeat = 0.0f;

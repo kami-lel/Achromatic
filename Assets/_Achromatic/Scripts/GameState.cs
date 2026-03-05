@@ -9,4 +9,6 @@ public enum GameState {
     VAMP = 1 << 1,
     PRELUDE = 1 << 2,
     MAIN_PIECE = 1 << 3,
+
+    EXPLORE_CONTROL = EXPLORE | VAMP
 }

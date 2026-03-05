@@ -2,14 +2,14 @@ using System;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
-public class GameControllerScript: MonoBehaviour {
+public class GCS: MonoBehaviour {
 
     // singleton
-    public static GameControllerScript I {
+    public static GCS I {
         get; private set;
     }
 
-    public GameState gameState;
+    public GameState states;
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
