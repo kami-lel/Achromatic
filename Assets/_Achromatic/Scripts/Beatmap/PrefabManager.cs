@@ -26,7 +26,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
         }
 
         public void Update() {
-            if (!p.isDuringMainPiece) {
+            if (GCS.I.states != GameState.MAIN_PIECE) {
                 return;
             }
 

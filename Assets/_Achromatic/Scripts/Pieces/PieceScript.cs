@@ -32,11 +32,6 @@ public class PieceScript: MonoBehaviour {
 
     // public members  #########################################################
 
-    // HACK replace w/ game state
-    [NonSerialized]
-    public bool isControllingPlayer = false;
-    public bool isDuringMainPiece = false;
-
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
@@ -101,10 +96,7 @@ public class PieceScript: MonoBehaviour {
         playerManager.Update();
         beatmap.Update();
         prefabs.Update();
-
-        if (isDuringMainPiece) {
-            criteria.Update();
-        }
+        criteria.Update();
     }
 
     private void OnDisable() {

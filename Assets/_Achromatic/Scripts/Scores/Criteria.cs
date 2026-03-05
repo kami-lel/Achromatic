@@ -9,6 +9,10 @@ namespace Assets._Achromatic.Scripts.Scores {
     public class Criteria {
 
         public Criteria(PieceScript piece) {
+            if (GCS.I.states != GameState.MAIN_PIECE) {
+                return;
+            }
+
             p = piece;
 
             // pre-calculate all judge timings
@@ -52,6 +56,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// detect miss then player is too far away
         /// </summary>
         public void Update() {
+            // Bug
             if (timings.Count <= 0) {
                 return;
             }

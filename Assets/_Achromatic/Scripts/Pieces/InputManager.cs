@@ -38,7 +38,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly PieceScript p;
 
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-            if (!p.isControllingPlayer) {
+            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
 

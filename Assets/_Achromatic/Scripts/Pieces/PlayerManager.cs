@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void StartPrelude() {
             Debug.Log("PlayerManager:\tStartPrelude");
 
-            isDuringPrelude = true;
+            GCS.I.states = GameState.PRELUDE;
 
             playerRB.linearVelocityX = preludeStartVelocityX;
 
@@ -33,8 +34,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void StartMainPiece(int debugMusicStaringBar = 0) {
             Debug.Log("PlayerManager:\tStartMainPiece");
 
-            p.isDuringMainPiece = true;
-            isDuringPrelude = false;
+            GCS.I.states = GameState.MAIN_PIECE;
 
             playerRB.bodyType = RigidbodyType2D.Kinematic;
             playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
@@ -43,14 +43,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void FinishPiece() {
             Debug.Log("PlayerManager:\tFinishPiece");
 
-            p.isDuringMainPiece = false;
-            isDuringPrelude = false;
+            GCS.I.states = GameState.PIECE_FINISHED;
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
-            if (p.isDuringMainPiece) {  // ---------------------------------------
+            // main piece  -----------------------------------------------------
+            if (GCS.I.states == GameState.MAIN_PIECE) {
                 // Todo use Spline path
 
                 float y = p.beatmap.origin.y;
@@ -62,7 +62,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void FixedUpdate() {
-            if (isDuringPrelude) {
+            // prelude  --------------------------------------------------------
+            if (GCS.I.states == GameState.PRELUDE) {
                 // fixme using music to control triggering
                 if (p.music.Time >= p.beatmap.meta.preludeSeconds) {
                     StartMainPiece();
@@ -116,7 +117,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string PLAYER_TAG = "Player";
 
         // private members  ####################################################
-        private bool isDuringPrelude = false; // HACK use game state
         private readonly float preludeStartVelocityX;
         private readonly float preludeAcceleration;
 

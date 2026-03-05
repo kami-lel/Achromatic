@@ -28,7 +28,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Update() {
-            if (isVampPlaying) {
+            if (GCS.I.states == GameState.VAMP) {
                 // update vamp volume
                 float distance = Vector2.Distance(
                         p.playerManager.player.transform.position,
@@ -43,8 +43,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string PRELUDE_TRIGGER_TAG = "StartPreludeTrigger";
 
         // private members  ####################################################
-        private bool isVampPlaying = false;
-
         // cached references
         private readonly PieceScript p;
 
@@ -64,26 +62,29 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 p.playerManager.StartMainPiece(p.debugMusicStaringBar);
             }
 
-            p.isControllingPlayer = true;
-            isVampPlaying = false;
+            GCS.I.states = GameState.PRELUDE;
         }
 
         // event handlers  =====================================================
         private void HandleOnTriggerEnter(string triggerTag) {
-            if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
-                isVampPlaying = true;
+            if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
+                    triggerTag == VAMP_TRIGGER_TAG) {
+
+                GCS.I.states = GameState.VAMP;
                 p.music.StartVamp();
 
-            } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
-                isVampPlaying = false;
+            } else if (GCS.I.states == GameState.VAMP &&
+                    triggerTag == PRELUDE_TRIGGER_TAG) {
 
                 StartPiece();
             }
         }
 
         private void HandleOnTriggerExit(string triggerTag) {
-            if (triggerTag == VAMP_TRIGGER_TAG && isVampPlaying) {
-                isVampPlaying = false;
+            if (GCS.I.states == GameState.VAMP &&
+                    triggerTag == VAMP_TRIGGER_TAG) {
+
+                GCS.I.states = GameState.EXPLORE;
                 p.music.StopVamp();
             }
         }
