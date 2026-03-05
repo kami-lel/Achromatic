@@ -64,7 +64,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.PRELUDE;
             p.virtualCamera.Priority = 20;
-            Debug.Log(p.virtualCamera.Priority);  // HACK HACK
         }
 
         // event handlers  =====================================================
