@@ -53,8 +53,8 @@ public class PrefabPool {
     }
 
     // private members  =======================================================
-    private readonly GameObject prefab;
     private readonly int maxCount;
+    private readonly GameObject prefab;
     private readonly Queue<GameObject> availableQ;
     private readonly Queue<GameObject> activeQ;
 }
