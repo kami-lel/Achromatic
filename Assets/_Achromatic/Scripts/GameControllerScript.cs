@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class GameControllerScript: MonoBehaviour {
 
     // singleton
-    public static GameControllerScript Instance {
+    public static GameControllerScript I {
         get; private set;
     }
 
@@ -14,12 +14,12 @@ public class GameControllerScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() {
-        if (Instance == null) {  // create Singleton
-            Instance = this;
+        if (I == null) {  // create Singleton
+            I = this;
             DontDestroyOnLoad(gameObject);
             return;
         }
-        if (Instance != this) {  // guard against duplicate
+        if (I != this) {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
         }
@@ -62,11 +62,11 @@ public class GameControllerScript: MonoBehaviour {
     // class method  ###########################################################
     /// <returns>singleton player</returns>
     public static GameObject GetPlayer() {
-        if (Instance == null) {
+        if (I == null) {
             Debug.LogError("GameController:\tInstance is null");
         }
 
-        return Instance.player;
+        return I.player;
     }
 
     private void Update() {

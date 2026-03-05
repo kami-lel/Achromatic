@@ -1,7 +1,7 @@
 
 using System;
 
-// Hack deprecation
+// TODO apply to all
 [Flags]
 public enum GameState {
     NONE = 0,
