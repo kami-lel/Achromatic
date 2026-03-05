@@ -4,7 +4,7 @@
 
 [^format]
 
-<!-- Fixme camera better, give more view during music  -->
+<!-- todo camera fine tunning -->
 <!-- Fixme consider bold barline when note existed -->
 <!-- Fixme move down note & make bigger -->
 <!-- Todo final score window -->
@@ -12,7 +12,6 @@
 <!-- Todo pause screen, allow restart/resume -->
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
-<!-- Todo title riser -->
 <!-- fixme walk vs run -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
@@ -42,6 +41,9 @@
 
 - implement `pseudoAudioPlugin.cs`: temporary audio controller before finalize which audio software to use
 - using `Spline` package to manage player's path during main piece play
+- using Cinemachien to control the camera:
+
+  - implement zoom out during music play
 
 ### Changed
 

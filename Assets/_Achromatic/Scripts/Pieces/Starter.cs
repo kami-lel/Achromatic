@@ -51,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         /// <summary>
         /// start the prelude routine, then main music part
         /// </summary>
-        private void StartPiece() {
+        private void StartPreludeThenMainPiece() {
             if (p.debugMusicStaringBar == 0) {
                 p.music.StartPreludeThenMainPiece();
                 p.playerManager.StartPrelude();
@@ -63,6 +63,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             GCS.I.states = GameState.PRELUDE;
+            p.virtualCamera.Priority = 20;
         }
 
         // event handlers  =====================================================
@@ -76,7 +77,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if (GCS.I.states == GameState.VAMP &&
                     triggerTag == PRELUDE_TRIGGER_TAG) {
 
-                StartPiece();
+                StartPreludeThenMainPiece();
             }
         }
 

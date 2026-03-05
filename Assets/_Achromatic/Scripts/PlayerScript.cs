@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.IK;
@@ -108,6 +109,7 @@ public class PlayerScript: MonoBehaviour {
 
     [SerializeField]
     private GameObject tmpPlayerSprite;  // Hack
+
 
     // MonoBehavior Lifecycle  #################################################
 
