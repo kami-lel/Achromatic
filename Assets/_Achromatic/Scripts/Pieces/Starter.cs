@@ -4,6 +4,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Starter {
 
+        // TODO camera zoom out
+
         // constructor  ########################################################
         public Starter(PieceScript piece) {
             p = piece;
