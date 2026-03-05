@@ -66,6 +66,9 @@ public class PieceScript: MonoBehaviour {
 
     public CinemachineVirtualCamera virtualCamera;
 
+    [SerializeField]
+    private Transform prefabs;
+
     [Header("tmp")]
 
     [SerializeField]
@@ -90,7 +93,7 @@ public class PieceScript: MonoBehaviour {
         starter = new(this);
         inputs = new(this);
 
-        elements = new(this);
+        elements = new(this, prefabs);
 
         music.Start();
 
@@ -102,6 +105,7 @@ public class PieceScript: MonoBehaviour {
         playerManager.Update();
         beatmap.Update();
         criteria.Update();
+        elements.Update();
     }
 
     private void OnDisable() {

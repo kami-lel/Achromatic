@@ -293,6 +293,7 @@ Transform:
   - {fileID: 3938205800452466528}
   - {fileID: 4437127786304406869}
   - {fileID: 7396950107847252968}
+  - {fileID: 5487930671339377596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3880381500431647160
@@ -336,6 +337,7 @@ MonoBehaviour:
   startPreludeTransform: {fileID: 3938205800452466528}
   mainPartPath: {fileID: 675889762508624498}
   virtualCamera: {fileID: 1095902738690897300}
+  prefabs: {fileID: 5487930671339377596}
   pseudoAudioPlugin: {fileID: 0}
 --- !u!1 &6306000680563290550
 GameObject:
@@ -497,3 +499,34 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8260848891775092057}
+--- !u!1 &7306978256721336866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5487930671339377596}
+  m_Layer: 0
+  m_Name: prefabs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5487930671339377596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7306978256721336866}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.86107, y: -0.48588, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2687839753507349163}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
