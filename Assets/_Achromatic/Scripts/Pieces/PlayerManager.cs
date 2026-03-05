@@ -33,7 +33,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void StartMainPiece(int debugMusicStaringBar = 0) {
             Debug.Log("PlayerManager:\tStartMainPiece");
 
-            isDuringMainPiece = true;
+            p.isDuringMainPiece = true;
             isDuringPrelude = false;
 
             playerRB.bodyType = RigidbodyType2D.Kinematic;
@@ -43,15 +43,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void FinishPiece() {
             Debug.Log("PlayerManager:\tFinishPiece");
 
-
-            isDuringMainPiece = false;
+            p.isDuringMainPiece = false;
             isDuringPrelude = false;
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
-            if (isDuringMainPiece) {  // ---------------------------------------
+            if (p.isDuringMainPiece) {  // ---------------------------------------
                 // Todo use Spline path
 
                 float y = p.beatmap.origin.y;
@@ -118,7 +117,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private members  ####################################################
         private bool isDuringPrelude = false;
-        private bool isDuringMainPiece = false;
         private readonly float preludeStartVelocityX;
         private readonly float preludeAcceleration;
 

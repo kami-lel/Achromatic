@@ -34,6 +34,7 @@ public class PieceScript: MonoBehaviour {
 
     [NonSerialized]
     public bool isControllingPlayer = false;
+    public bool isDuringMainPiece = false;
 
     [NonSerialized]
     public Vector2 preludeStartOrigin;
@@ -41,7 +42,9 @@ public class PieceScript: MonoBehaviour {
     // managers
     public Starter starter;
     public MusicManager music;
-    public PrefabsPool prefabs;
+
+    public PrefabManager prefabs;
+
     public Criteria criteria;
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
@@ -87,15 +90,19 @@ public class PieceScript: MonoBehaviour {
         starter = new(this);
         inputs = new(this);
 
+        prefabs = new(this);
+
         music.Start();
     }
 
     private void Update() {
         starter.Update();
         playerManager.Update();
+        beatmap.Update();
+        prefabs.Update();
 
-        if (isControllingPlayer) {
-            beatmap.Update();
+        // HACK
+        if (isDuringMainPiece) {
             criteria.Update();
         }
     }
