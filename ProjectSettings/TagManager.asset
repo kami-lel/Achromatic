@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: GameTitle
+    uniqueID: 907839197
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
