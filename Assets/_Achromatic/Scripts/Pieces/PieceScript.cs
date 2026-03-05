@@ -32,6 +32,7 @@ public class PieceScript: MonoBehaviour {
 
     // public members  #########################################################
 
+    // HACK replace w/ game state
     [NonSerialized]
     public bool isControllingPlayer = false;
     public bool isDuringMainPiece = false;

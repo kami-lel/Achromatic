@@ -66,7 +66,7 @@ public class PlayerScript: MonoBehaviour {
         squashTargetY = 0.35f;  // set Target Y value
         squashDuration = 0.5f;  // set Duration value
         timer = squashDuration;  // reset Timer
-        is_squashed = true;  // enable restore logic
+        isSquashed = true;  // enable restore logic
         Vector3 s = tmpPlayerSprite.transform.localScale;  // read current scale
         s.y = squashTargetY;  // assign squashed Y
         tmpPlayerSprite.transform.localScale = s;  // apply immediate squash
@@ -140,12 +140,12 @@ public class PlayerScript: MonoBehaviour {
 
     private void Update() {
         // Hack rm
-        if (!is_squashed)
+        if (!isSquashed)
             return;  // skip when not squashed
         timer -= Time.deltaTime;  // decrement Timer each frame
         if (timer <= 0f) {
             tmpPlayerSprite.transform.localScale = tmpOriginalScale;  // restore Original Scale
-            is_squashed = false;  // clear flag
+            isSquashed = false;  // clear flag
             timer = 0f;  // clear timer
         }
     }
@@ -177,7 +177,7 @@ public class PlayerScript: MonoBehaviour {
     // input  ##################################################################
 
     private PlayerInput playerInput;
-    private bool isControllingPlayer = true;
+    private bool isControllingPlayer = true; // HACK replaced with game state
 
     private void OnActionTriggered(InputAction.CallbackContext ctxt) {
         if (!isControllingPlayer) {
@@ -282,7 +282,7 @@ public class PlayerScript: MonoBehaviour {
     private float timer = 0.0f;
     private float squashDuration = 0.5f;  // default Duration seconds
     private float squashTargetY = 0.1f;  // default Target Y scale
-    private bool is_squashed = false;  // flag Squash Active
+    private bool isSquashed = false;  // flag Squash Active
 
     private Animator animator;
 

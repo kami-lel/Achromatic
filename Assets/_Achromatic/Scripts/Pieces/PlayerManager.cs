@@ -116,7 +116,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string PLAYER_TAG = "Player";
 
         // private members  ####################################################
-        private bool isDuringPrelude = false;
+        private bool isDuringPrelude = false; // HACK use game state
         private readonly float preludeStartVelocityX;
         private readonly float preludeAcceleration;
 

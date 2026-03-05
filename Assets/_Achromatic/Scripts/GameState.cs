@@ -1,7 +1,6 @@
 
 using System;
 
-// TODO apply to all
 [Flags]
 public enum GameState {
     NONE = 0,
