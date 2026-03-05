@@ -14,7 +14,9 @@ public class PlayerScript: MonoBehaviour {
 
     // public members  #########################################################
 
+    [NonSerialized]
     public Rigidbody2D playerRB;
+
     public event Action<String> OnTriggerEnter;
     public event Action<String> OnTriggerExit;
 

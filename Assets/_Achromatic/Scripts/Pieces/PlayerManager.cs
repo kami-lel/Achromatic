@@ -15,6 +15,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // cached references
         public PlayerScript player;
         public PlayerInput playerInput;
+
+        [NonSerialized]
         public Rigidbody2D playerRB;
 
         // public methods  #####################################################

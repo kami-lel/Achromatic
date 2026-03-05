@@ -15267,29 +15267,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1998202008919027763, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.8646501
-      objectReference: {fileID: 0}
-    - target: {fileID: 2970994497880058528, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_DefaultBlend.m_Time
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3743320143481646306, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3967378544829968314, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: orthographic size
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.8646501
-      objectReference: {fileID: 0}
-    - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.9000002
       objectReference: {fileID: 0}
     - target: {fileID: 5085497498859166764, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
