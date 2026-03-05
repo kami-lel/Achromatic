@@ -1,11 +1,35 @@
-# usc-ctin532-music-game
+# Achromatic README
 
-use 2 keys to control:
+## Controls
 
-- Space Key to Jump
-- D key to dash
+#### Exploration Play
 
-<!-- todo local leaderboard -->
-<!-- todo set up hooks utility -->
+Keyboard:
 
+- `W`: Jump
+- `S`: Crouch
+- `A/D`: Movement
+- `Space`: Item Interaction
 
+Controller:
+
+- Left Stick **Up**: Jump
+- Left Stick **Down**: Crouch
+- Left Stick **Left/Right**: Movement
+- Right Trigger: Item Interaction
+
+#### Rhythmic Play
+
+Keyboard:
+
+- holding `W`: Jump
+- holding `S`: Crouch
+- holding `D`: Dash
+- `Space`: Trigger Note
+
+Controller:
+
+- Left Stick **Up**: Jump
+- Left Stick **Down**: Crouch
+- Left Stick **Right**: Dash
+- Right Trigger: Trigger Note
