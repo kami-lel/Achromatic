@@ -12,7 +12,6 @@
 <!-- Todo pause screen, allow restart/resume -->
 <!-- Todo frame counter -->
 <!-- Todo full UX: start, reset, etc. -->
-<!-- TODO title riser -->
 <!-- fixme walk vs run -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
