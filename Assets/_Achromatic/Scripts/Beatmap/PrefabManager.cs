@@ -29,7 +29,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             if (!p.isDuringMainPiece) {
                 return;
             }
-            Debug.Log("hi");  // HACK HACK
 
             // todo make note disappear / animation when hit
             // place beatLine  -----------------------------------------------------

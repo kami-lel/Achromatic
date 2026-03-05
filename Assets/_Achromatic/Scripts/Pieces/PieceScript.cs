@@ -101,7 +101,6 @@ public class PieceScript: MonoBehaviour {
         beatmap.Update();
         prefabs.Update();
 
-        // HACK
         if (isDuringMainPiece) {
             criteria.Update();
         }
