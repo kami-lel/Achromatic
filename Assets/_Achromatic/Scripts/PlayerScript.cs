@@ -14,7 +14,9 @@ public class PlayerScript: MonoBehaviour {
 
     // public members  #########################################################
 
+    [NonSerialized]
     public Rigidbody2D playerRB;
+
     public event Action<String> OnTriggerEnter;
     public event Action<String> OnTriggerExit;
 
@@ -231,7 +233,7 @@ public class PlayerScript: MonoBehaviour {
 
     readonly private float GRAVITY_SCALE = 1.0f;
     readonly private float JUMP_FORCE = 8.0f;
-    readonly private float MAX_WALKING_SPEED = 15.0f;
+    readonly private float MAX_WALKING_SPEED = 10.0f;
 
     private bool isFacingRight = true;
     private int moveDir = 0;

@@ -5,8 +5,7 @@
 [^format]
 
 <!-- todo camera fine tunning -->
-<!-- Fixme consider bold barline when note existed -->
-<!-- Fixme move down note & make bigger -->
+<!-- fixme better looking notes elements -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
@@ -72,6 +71,7 @@
   - implement zoom out during music play
 
 - in-map Game Title
+- a generic `PrefabPool` that can be used during Piece, etc.
 
 ### Changed
 

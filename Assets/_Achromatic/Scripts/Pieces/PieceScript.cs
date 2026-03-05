@@ -40,13 +40,13 @@ public class PieceScript: MonoBehaviour {
     public Starter starter;
     public MusicManager music;
 
-    public PrefabManager prefabs;
-
     public Criteria criteria;
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
+
+    public ElementsManager elements;
 
     // Inspector Fields  #######################################################
 
@@ -66,10 +66,15 @@ public class PieceScript: MonoBehaviour {
 
     public CinemachineVirtualCamera virtualCamera;
 
+    [SerializeField]
+    private Transform prefabs;
+
     [Header("tmp")]
 
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
+
+    public AnimationCurve tmpJumpCurve;
 
 
     // MonoBehavior Lifecycle  #################################################
@@ -90,7 +95,7 @@ public class PieceScript: MonoBehaviour {
         starter = new(this);
         inputs = new(this);
 
-        prefabs = new(this);
+        elements = new(this, prefabs);
 
         music.Start();
 
@@ -101,7 +106,7 @@ public class PieceScript: MonoBehaviour {
         starter.Update();
         playerManager.Update();
         beatmap.Update();
-        prefabs.Update();
+        elements.Update();
         criteria.Update();
     }
 

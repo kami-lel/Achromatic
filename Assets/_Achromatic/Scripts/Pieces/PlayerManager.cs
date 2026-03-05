@@ -15,11 +15,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // cached references
         public PlayerScript player;
         public PlayerInput playerInput;
+
+        [NonSerialized]
         public Rigidbody2D playerRB;
 
         // public methods  #####################################################
 
         public void StartPrelude() {
+            tmpPlayerLastJump = Time.time;
+
             Debug.Log("PlayerManager:\tStartPrelude");
 
             GCS.I.states = GameState.PRELUDE;
@@ -46,14 +50,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
+        public void tmpJump() {
+            tmpPlayerLastJump = Time.time;
+        }
+
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
-                // Todo use Spline path
 
-                float y = p.beatmap.origin.y;
+                // todo use Spline path
+
+                float y = p.beatmap.origin.y +
+                        p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
                 float x = p.beatmap.CalcCurrentXFromBeat();
 
                 Vector2 newPosition = new(x, y);
@@ -107,7 +117,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc acceleration — use v - u over t to be explicit
-            preludeAcceleration = (v - preludeStartVelocityX) / t;
+            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
@@ -118,7 +128,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private members  ####################################################
         private readonly float preludeStartVelocityX;
+
         private readonly float preludeAcceleration;
+        private float tmpPlayerLastJump;
+
 
         // cached references
         private readonly PieceScript p;

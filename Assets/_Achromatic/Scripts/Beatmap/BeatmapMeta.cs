@@ -17,14 +17,13 @@ public class BeatmapMeta: ScriptableObject {
     public float preludeSeconds = 1.0f;
 
     [Header("Render")]
+    public float elementsSpeedMultiplier = 0.0f;  // todo speed mux
 
     public float horizontalUnitsPerBeat = 2.0f;
 
     public float barlineRenderDistance = 10.0f;
 
     public float noteRenderDistance = 10.0f;
-
-    public float silenceSecondBeforeMainSong = 1.0f;
 
     [Header("Judge")]
 

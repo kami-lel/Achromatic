@@ -96,6 +96,8 @@ public class ScoreTracker {
                 + $"\tscore: {runningScore}"
                 + $"\tcombo: {combo}"
                 );
+
+        GCS.I.tmpUpdateText(judgeResult, combo, runningScore);
     }
 
     /// <returns>final correct/precise score</returns>
