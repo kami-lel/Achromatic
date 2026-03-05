@@ -79,10 +79,6 @@
 - allows setting judge timing as Scriptable Object
 - use a single GameController singleton for manage game states across scripts
 
-### Deprecated
-### Removed
-### Fixed
-
 
 
 
