@@ -7,6 +7,7 @@ using UnityEngine.Splines;
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Beatmap;
+using Cinemachine;
 
 
 // Bug audio start is jarring, lose framerate
@@ -63,10 +64,13 @@ public class PieceScript: MonoBehaviour {
 
     public SplineContainer mainPartPath;
 
+    public CinemachineVirtualCamera virtualCamera;
+
     [Header("tmp")]
 
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
+
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -89,6 +93,8 @@ public class PieceScript: MonoBehaviour {
         prefabs = new(this);
 
         music.Start();
+
+        virtualCamera.Priority = 0;
     }
 
     private void Update() {
