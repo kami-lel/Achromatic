@@ -269,9 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0dfda61384be2479501be7941b177e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTitleScript
-  title: {fileID: 0}
-  start: {x: 0, y: 0}
-  finish: {x: 0, y: 0}
+  playerTransform: {fileID: 1882001273}
+  playerDeltaX: 15
+  titleDeltaY: 40
 --- !u!1 &649648134
 GameObject:
   m_ObjectHideFlags: 0
