@@ -38,6 +38,32 @@
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+
+## 1.0.0 Release
+
+## 1.0.0-beta Beta Milestone
+
+## 1.0.0-alpha Alpha Milestone
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [0.9.0] Pre-Alpha - 2026-03-05
+
+### Added
 
 - implement `pseudoAudioPlugin.cs`: temporary audio controller before finalize which audio software to use
 - using `Spline` package to manage player's path during main piece play
@@ -57,17 +83,31 @@
 ### Removed
 ### Fixed
 
-## 1.0.0 Release
 
-## 1.0.0-beta Beta Milestone
 
-## 1.0.0-alpha Alpha Milestone
 
-## 0.9.2 Pre-Alpha b2
 
-## 0.9.1 Pre-Alpha b1
+
+
+
+
+
+
+
 
 ## [0.5.1] - 2026-02-26
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [0.5.0] Vertical Slice - 2026-02-18
 
@@ -142,7 +182,8 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...dev
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...dev
+[0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
 [0.5.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0-beta...v0.5.0+vertical_slice
 [0.5.0-beta]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.3.1...v0.5.0-beta
