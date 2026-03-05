@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// HACK deprecation
+
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     /// <summary>
