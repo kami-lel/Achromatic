@@ -46,6 +46,7 @@
   - implement zoom out during music play
 
 - in-map Game Title
+- a generic `PrefabPool` that can be used during Piece, etc.
 
 ### Changed
 

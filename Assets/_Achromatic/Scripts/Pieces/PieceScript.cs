@@ -40,13 +40,13 @@ public class PieceScript: MonoBehaviour {
     public Starter starter;
     public MusicManager music;
 
-    public PrefabManager prefabs;
-
     public Criteria criteria;
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
+
+    public ElementsManager elements;
 
     // Inspector Fields  #######################################################
 
@@ -90,7 +90,7 @@ public class PieceScript: MonoBehaviour {
         starter = new(this);
         inputs = new(this);
 
-        prefabs = new(this);
+        elements = new(this);
 
         music.Start();
 
@@ -101,7 +101,6 @@ public class PieceScript: MonoBehaviour {
         starter.Update();
         playerManager.Update();
         beatmap.Update();
-        prefabs.Update();
         criteria.Update();
     }
 
