@@ -9,7 +9,6 @@ namespace Assets._Achromatic.Scripts.Beatmap {
     /// </summary>
     public class PrefabsPool {
 
-
         // constants  ==============================================================
         private const string ROOT_OBJECT_NAME = "BeatmapPrefabsPool";
 

@@ -1,27 +1,30 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     // TODO implement prefab manager
+
     public class PrefabManager {
 
         private Queue<BeatmapNote> notesRenderQ;
+        private PrefabsPool prefabsPool;
+        private float lastBeatLineOnBeat;
+        private float lastBarlineOnBeat;
 
-        public PrefabManager() {
-            /*
+        public PrefabManager(PieceScript piece) {
             // load element prefabs
-            prefabPool = new BeatmapPrefabsPool(
+            prefabsPool = new PrefabsPool(
                     GameControllerScript.Instance.transform);
 
             lastBeatLineOnBeat = 0.0f;
             lastBarlineOnBeat = 0.0f;
             notesRenderQ = new(beatmapData.notes);
-            */
+            // BUG fixing
         }
 
         public void Update() {
-            /*
             // todo make note disappear / animation when hit
             // place beatLine  -----------------------------------------------------
             float renderBoundaryOnBeat = currentBeatCount
@@ -68,16 +71,15 @@ namespace Assets._Achromatic.Scripts.Beatmap {
                     _ => null
                 };
 
-                prefabPool.Spawn(prefabName,
+                prefabsPool.Spawn(prefabName,
                         new Vector2(CalcXFromBeat(noteOnBeat), NOTES_HEIGHT));
 
             }
-            */
 
         }
 
         // constants  ##########################################################
-        private const float NOTES_HEIGHT = 1.5f; // Fixme more dynamic?
+        private const float NOTES_HEIGHT = 1.5f; // fixme more dynamic?
 
     }
 }
