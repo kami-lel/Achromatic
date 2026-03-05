@@ -2,16 +2,13 @@ using System.Collections.Generic;
 
 using Assets._Achromatic.Scripts.Beatmap;
 using Assets._Achromatic.Scripts.Pieces;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
 
     public class Criteria {
 
         public Criteria(PieceScript piece) {
-            if (GCS.I.states != GameState.MAIN_PIECE) {
-                return;
-            }
-
             p = piece;
 
             // pre-calculate all judge timings
@@ -37,6 +34,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
 
         public Hit Judge(PressedActions actions) {
+            // BUG not lined up w/ prefabs
             if (timings.Count <= 0) {
                 return Hit.NO_HIT;
             }

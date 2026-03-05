@@ -105,8 +105,7 @@ public class PieceScript: MonoBehaviour {
         playerManager.Update();
         beatmap.Update();
         elements.Update();
-        // HACK
-        // criteria.Update();
+        criteria.Update();
     }
 
     private void OnDisable() {

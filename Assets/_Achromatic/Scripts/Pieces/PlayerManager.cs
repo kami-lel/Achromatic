@@ -55,7 +55,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (GCS.I.states == GameState.MAIN_PIECE) {
                 // todo use Spline path
 
-                float y = p.beatmap.origin.y;
+                float y = p.beatmap.origin.y;  // TODO player jump
                 float x = p.beatmap.CalcCurrentXFromBeat();
 
                 Vector2 newPosition = new(x, y);

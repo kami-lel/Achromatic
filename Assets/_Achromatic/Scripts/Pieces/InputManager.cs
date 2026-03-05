@@ -10,7 +10,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
     /// manage input during music piece
     /// </summary>
     public class InputManager {
-        // BUG didn't trigger
 
         public PressedActions pressed;
 

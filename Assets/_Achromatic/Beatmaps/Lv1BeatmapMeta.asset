@@ -22,5 +22,5 @@ MonoBehaviour:
   barlineRenderDistance: 10
   noteRenderDistance: 10
   perfectDeltaSecond: 0.05
-  greatDeltaSecond: 0.1
-  goodDeltaSecond: 0.3
+  greatDeltaSecond: 0.08
+  goodDeltaSecond: 0.1
