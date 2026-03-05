@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Splines;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
@@ -7,24 +6,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // constructor  ########################################################
         public Starter(PieceScript piece) {
-            this.piece = piece;
+            p = piece;
 
-            if (piece.playerManager == null || piece.playerManager.player == null) {
-                Debug.LogWarning("playerManager/player is null");
+            if (p.playerManager == null || p.playerManager.player == null) {
+                Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                piece.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
-                piece.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
+                p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
+                p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void OnDisable() {
-            if (piece.playerManager == null || piece.playerManager.player == null) {
-                Debug.LogWarning("playerManager/player is null");
+            if (p.playerManager == null || p.playerManager.player == null) {
+                Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                piece.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
-                piece.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
+                p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
+                p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
             }
         }
 
@@ -32,10 +31,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (isVampPlaying) {
                 // update vamp volume
                 float distance = Vector2.Distance(
-                        piece.playerManager.player.transform.position,
-                        piece.preludeStartOrigin);
-                float volume = piece.vampDistantVsVolume.Evaluate(distance);
-                piece.music.UpdateVampVolume(volume);
+                        p.playerManager.player.transform.position,
+                        p.preludeStartOrigin);
+                float volume = p.vampDistantVsVolume.Evaluate(distance);
+                p.music.UpdateVampVolume(volume);
             }
         }
 
@@ -47,7 +46,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private bool isVampPlaying = false;
 
         // cached references
-        private readonly PieceScript piece;
+        private readonly PieceScript p;
 
         // private methods  ####################################################
 
@@ -55,17 +54,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
         /// start the prelude routine, then main music part
         /// </summary>
         private void StartPiece() {
-            if (piece.debugMusicStaringBar == 0) {
-                piece.music.StartPreludeThenMainPiece();
-                piece.playerManager.StartPrelude();
+            if (p.debugMusicStaringBar == 0) {
+                p.music.StartPreludeThenMainPiece();
+                p.playerManager.StartPrelude();
 
             } else {
                 // start music mid point for debug purpose
-                piece.music.DebugStartMusic(piece.debugMusicStaringBar);
-                piece.playerManager.StartMainPiece(piece.debugMusicStaringBar);
+                p.music.DebugStartMusic(p.debugMusicStaringBar);
+                p.playerManager.StartMainPiece(p.debugMusicStaringBar);
             }
 
-            piece.isControllingPlayer = true;
+            p.isControllingPlayer = true;
             isVampPlaying = false;
         }
 
@@ -73,7 +72,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void HandleOnTriggerEnter(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && !isVampPlaying) {
                 isVampPlaying = true;
-                piece.music.StartVamp();
+                p.music.StartVamp();
 
             } else if (triggerTag == PRELUDE_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
@@ -85,7 +84,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void HandleOnTriggerExit(string triggerTag) {
             if (triggerTag == VAMP_TRIGGER_TAG && isVampPlaying) {
                 isVampPlaying = false;
-                piece.music.StopVamp();
+                p.music.StopVamp();
             }
         }
     }

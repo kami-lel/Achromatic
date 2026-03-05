@@ -9,6 +9,9 @@ using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Beatmap;
 
 
+// Bug audio start is jarring, lose framerate
+// Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
+
 
 /// <summary>
 /// controller during <c>Music Play</c>, enables:
@@ -31,18 +34,17 @@ public class PieceScript: MonoBehaviour {
 
     [NonSerialized]
     public bool isControllingPlayer = false;
-
-    [NonSerialized]
-    public Vector2 mainPieceOrigin;
+    public bool isDuringMainPiece = false;
 
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
     // managers
-    public NotesManager notes;
     public Starter starter;
     public MusicManager music;
-    public PrefabsPool prefabs;
+
+    public PrefabManager prefabs;
+
     public Criteria criteria;
     public ScoreTracker scoreTracker;
     public PlayerManager playerManager;
@@ -74,24 +76,21 @@ public class PieceScript: MonoBehaviour {
 
     private void Start() {
         if (mainPartPath == null) {
-            Debug.LogError("must assign mainPartPath");
+            Debug.LogError("Piece:\tmust assign mainPartPath");
         }
-
-        Vector3 mainPieceOrigin3 = mainPartPath.EvaluatePosition(0f);
-        mainPieceOrigin = new(mainPieceOrigin3.x, mainPieceOrigin3.y);
 
         preludeStartOrigin = startPreludeTransform.position;
 
 
         beatmap = new(this, beatmapMeta);
-        music = new(pseudoAudioPlugin);
-        notes = new(music, beatmapMeta);
-        prefabs = new();
-        scoreTracker = new(notes);
-        criteria = new(music, notes, scoreTracker);
+        music = new(this, pseudoAudioPlugin);
+        scoreTracker = new(beatmap);
+        criteria = new(this);
         playerManager = new(this);
         starter = new(this);
-        inputs = new(criteria, playerManager.playerInput);
+        inputs = new(this);
+
+        prefabs = new(this);
 
         music.Start();
     }
@@ -99,15 +98,16 @@ public class PieceScript: MonoBehaviour {
     private void Update() {
         starter.Update();
         playerManager.Update();
+        beatmap.Update();
+        prefabs.Update();
 
-        if (isControllingPlayer) {
-            beatmap.Update();
+        if (isDuringMainPiece) {
             criteria.Update();
         }
     }
 
     private void OnDisable() {
-        inputs.OnDisable(playerManager.playerInput);
+        inputs.OnDisable();
         starter.OnDisable();
     }
 
@@ -116,7 +116,3 @@ public class PieceScript: MonoBehaviour {
     }
 
 }
-
-
-// Bug audio start is jarring, lose framerate
-// Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action

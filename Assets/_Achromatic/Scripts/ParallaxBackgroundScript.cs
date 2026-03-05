@@ -32,7 +32,7 @@ public class ParallaxBackgroundSingleLayer: MonoBehaviour {
     void Start() {
         // validate inputs  -------------------------------------------------------
         if (mainCamera == null || layerSprite == null) {
-            Debug.LogError("Parallax: assign mainCamera and layerSprite");
+            Debug.LogError("Parallax:\tassign mainCamera and layerSprite");
             enabled = false;  // disable script on bad config
             return;
         }
@@ -73,7 +73,7 @@ public class ParallaxBackgroundSingleLayer: MonoBehaviour {
         // compute tile width in world units  ----------------------------------
         tileWidth = getSpriteWidth(layerSprite);
         if (tileWidth <= 0f) {
-            Debug.LogError("Parallax: sprite has zero width");
+            Debug.LogError("Parallax:\tsprite has zero width");
             enabled = false;
             return;
         }

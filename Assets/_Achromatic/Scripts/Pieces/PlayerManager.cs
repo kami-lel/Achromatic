@@ -19,7 +19,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public methods  #####################################################
 
         public void StartPrelude() {
-            Debug.Log("PlayerManager: StartPrelude");
+            Debug.Log("PlayerManager:\tStartPrelude");
 
             isDuringPrelude = true;
 
@@ -28,13 +28,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player.TurnRight();
             player.SetInputForMusicPlay();
             player.AnimationStartWalk();
-
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            Debug.Log("PlayerManager: StartMainPiece");
+            Debug.Log("PlayerManager:\tStartMainPiece");
 
-            isDuringMainPiece = true;
+            p.isDuringMainPiece = true;
             isDuringPrelude = false;
 
             playerRB.bodyType = RigidbodyType2D.Kinematic;
@@ -42,18 +41,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void FinishPiece() {
-            Debug.Log("PlayerManager: FinishPiece");
+            Debug.Log("PlayerManager:\tFinishPiece");
 
-
-            isDuringMainPiece = false;
+            p.isDuringMainPiece = false;
             isDuringPrelude = false;
-
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void Update() {
-            if (isDuringMainPiece) {  // ---------------------------------------
+            if (p.isDuringMainPiece) {  // ---------------------------------------
                 // Todo use Spline path
 
                 float y = p.beatmap.origin.y;
@@ -78,13 +75,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // constructor  ########################################################
         public PlayerManager(PieceScript piece) {
-
             p = piece;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
             if (playerObject == null) {
-                Debug.LogError("fail to find GameObject with tag 'player'");
+                Debug.LogError("PlayerManager:\tfail to find GameObject with tag 'player'");
                 return;
             }
 
@@ -95,24 +91,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
             if (t <= 0f) {
-                Debug.LogError("preludeSeconds must be > 0");  // prevent div by zero
+                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
                 t = Mathf.Epsilon;
             }
 
-            float s = p.mainPieceOrigin.x - p.preludeStartOrigin.x;
+            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
             float v = p.beatmap.horizontalSpeedInMainPiece;
 
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
             if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("for prelude: must be larger distance or lower final speed");
+                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed");
                 preludeStartVelocityX = 0f;
             }
 
             // calc acceleration — use v - u over t to be explicit
             preludeAcceleration = (v - preludeStartVelocityX) / t;
 
-            Debug.Log($"prelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
+            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         // constants  ##########################################################
@@ -121,9 +117,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private members  ####################################################
         private bool isDuringPrelude = false;
-        private bool isDuringMainPiece = false;
-        private float preludeStartVelocityX;
-        private float preludeAcceleration;
+        private readonly float preludeStartVelocityX;
+        private readonly float preludeAcceleration;
 
         // cached references
         private readonly PieceScript p;

@@ -62,8 +62,6 @@ public class PlayerScript: MonoBehaviour {
     // animation public methods  ===============================================
 
     public void AnimationDash() {
-        Debug.Log("Dash");
-
         // Hack need animation for dash
         squashTargetY = 0.35f;  // set Target Y value
         squashDuration = 0.5f;  // set Duration value
@@ -89,14 +87,12 @@ public class PlayerScript: MonoBehaviour {
 
     public void SetInputForExplorePlay() {
         playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-        playerInput.onActionTriggered += OnActionTriggered;
         isControllingPlayer = true;
         playerCollider.sharedMaterial = defaultMaterial;
     }
 
     public void SetInputForMusicPlay() {
         playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        playerInput.onActionTriggered -= OnActionTriggered;
         isControllingPlayer = false;
         playerCollider.sharedMaterial = noFrictionMaterial;
     }
@@ -135,6 +131,7 @@ public class PlayerScript: MonoBehaviour {
 
         playerInput.defaultActionMap = "PlayerExplorePlay";
         SetInputForExplorePlay();
+        playerInput.onActionTriggered += OnActionTriggered;
     }
 
     void FixedUpdate() {
@@ -160,11 +157,11 @@ public class PlayerScript: MonoBehaviour {
     // Unity Messages  #########################################################
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other == null || !other.isTrigger) {
+        if (!isControllingPlayer || other == null || !other.isTrigger) {
             return;
         }
 
-        Debug.Log("player enters trigger: " + other.tag);
+        Debug.Log("Player:\tenters trigger: " + other.tag);
         OnTriggerEnter?.Invoke(other.tag);
     }
 
@@ -173,7 +170,7 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        Debug.Log("player exit trigger: " + other.tag);
+        Debug.Log("Player:\texit trigger: " + other.tag);
         OnTriggerExit?.Invoke(other.tag);
     }
 
@@ -207,7 +204,7 @@ public class PlayerScript: MonoBehaviour {
                 break;
 
             case "Interact":
-                Debug.Log("Interact!!!");  // todo implement explore interaction
+                Debug.Log("Player:\tInteract!!!");  // todo implement explore interaction
                 break;
 
             }

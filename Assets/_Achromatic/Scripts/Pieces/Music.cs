@@ -40,26 +40,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
-            // Fixme debug start music
-            // private void AudioStart() {
-            //     // start music midpoint, for debug purpose
-            //     if (debugMusicStaringBar != 0.0f) {
-            //         audioSource.time = (debugMusicStaringBar - 1.0f)
-            //                 * beatmap.beatPerBar
-            //                 * (60.0f / beatmap.beatmapData.Tempo)
-            //                 + beatmap.beatmapData.PreludeLength;
-            //     }
-            //     // start the music
-            //     audioSource.Play();
-            //     audioSource.SetScheduledEndTime(AudioSettings.dspTime + 140f);
-            // }
-            //
+            float startTime = (debugMusicStaringBar - 1.0f)
+                    * p.beatmap.meta.beatPerBar
+                    * (60.0f / p.beatmap.meta.tempo)
+                    + p.beatmap.meta.preludeSeconds;
+
+            pseudoAudioPlugin.preludeAndMain.time = startTime;
+
+            // start the music
+            pseudoAudioPlugin.preludeAndMain.Play();
         }
 
 
         // Constructor  ########################################################
-        public MusicManager(PseudoAudioPlugin pseudoAudioPlugin) {
-            // Fixme save piece as cached reference
+        public MusicManager(PieceScript piece, PseudoAudioPlugin pseudoAudioPlugin) {
+            p = piece;
 
             this.pseudoAudioPlugin = pseudoAudioPlugin;
         }
@@ -67,6 +62,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // cached references
         private readonly PseudoAudioPlugin pseudoAudioPlugin;
+        private readonly PieceScript p;
 
 
     }

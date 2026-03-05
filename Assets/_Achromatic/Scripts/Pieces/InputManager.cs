@@ -13,35 +13,35 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public PressedActions pressed;
 
-        public InputManager(Criteria criteria, PlayerInput playerInput) {
-            // Fixme save piece as cached reference
+        public InputManager(PieceScript pieceScript) {
+            p = pieceScript;
+
             pressed = PressedActions.NONE;
 
-            if (criteria == null) {
-                Debug.LogWarning("fail to set criteria");
-            } else {
-                this.criteria = criteria;
-            }
-
+            PlayerInput playerInput = p.playerManager.playerInput;
             if (playerInput == null) {
-                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
+                Debug.LogWarning("fInput:\tail to subscribe playerInput.onActionTriggered");
             } else {
                 playerInput.onActionTriggered += OnActionTriggered;
             }
         }
 
-        public void OnDisable(PlayerInput playerInput) {
+        public void OnDisable() {
+            PlayerInput playerInput = p.playerManager.playerInput;
             if (playerInput == null) {
-                Debug.LogWarning("fail to subscribe playerInput.onActionTriggered");
+                Debug.LogWarning("Input:\tfail to subscribe playerInput.onActionTriggered");
             } else {
                 playerInput.onActionTriggered -= OnActionTriggered;
             }
         }
 
-        private readonly Criteria criteria;
-        private readonly ScoreTracker scoreTracker;
+        private readonly PieceScript p;
 
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
+            if (!p.isControllingPlayer) {
+                return;
+            }
+
             InputAction a = ctxt.action;
 
             switch (a.phase) {
@@ -79,18 +79,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void Trigger() {
-            Hit judgeResult = criteria.Judge(pressed);
-            scoreTracker.Record(judgeResult);
+            Hit judgeResult = p.criteria.Judge(pressed);
+            p.scoreTracker.Record(judgeResult);
 
-            // Fixme  control player
-            // if ((pressedActions & InputPressedActions.JUMP) != 0) {
-            //     playerScript.AnimationJump();
-            // } else if ((pressedActions & InputPressedActions.DASH) != 0) {
-            //     playerScript.AnimationDash();
-            // }
+            if ((pressed & PressedActions.JUMP) != 0) {
+                p.playerManager.player.AnimationJump();
+            } else if ((pressed & PressedActions.DASH) != 0) {
+                p.playerManager.player.AnimationDash();
+            }
 
             // Todo add audio for feedback, layered
         }
+
 
     }
 

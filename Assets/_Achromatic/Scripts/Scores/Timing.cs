@@ -8,11 +8,6 @@ namespace Assets._Achromatic.Scripts.Scores {
     /// </summary>
     public class Timing {
 
-        // Todo dynamic time deltas
-        private const float perfectDelta = 0.05f;
-        private const float greatDelta = 0.10f;
-        private const float goodDelta = 0.30f;
-
         private readonly float startJudgeBound;
         private readonly float center;
 
@@ -25,18 +20,22 @@ namespace Assets._Achromatic.Scripts.Scores {
 
         private readonly PressedActions allowedAction;
 
-        public Timing(float centerTiming, PressedActions action) {
+        public Timing(
+                float centerTiming,
+                PressedActions action,
+                BeatmapMeta meta
+            ) {
             center = centerTiming;
             allowedAction = action;
 
-            leftGoodBound = centerTiming - goodDelta;
-            leftGreatBound = centerTiming - greatDelta;
-            leftPerfectBound = centerTiming - perfectDelta;
-            rightGoodBound = centerTiming + goodDelta;
-            rightGreatBound = centerTiming + greatDelta;
-            rightPerfectBound = centerTiming + perfectDelta;
+            leftGoodBound = centerTiming - meta.goodDeltaSecond;
+            leftGreatBound = centerTiming - meta.greatDeltaSecond;
+            leftPerfectBound = centerTiming - meta.perfectDeltaSecond;
+            rightGoodBound = centerTiming + meta.goodDeltaSecond;
+            rightGreatBound = centerTiming + meta.greatDeltaSecond;
+            rightPerfectBound = centerTiming + meta.perfectDeltaSecond;
 
-            startJudgeBound = leftGoodBound - goodDelta;
+            startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
         }
 
         public Hit Judge(float time, PressedActions action) {
