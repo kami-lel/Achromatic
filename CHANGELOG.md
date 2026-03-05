@@ -45,6 +45,8 @@
 
   - implement zoom out during music play
 
+- in-map Game Title
+
 ### Changed
 
 - code/scripts refactorization: break down `PieceScript.cs` into multiple classes
