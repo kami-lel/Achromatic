@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using Assets._Achromatic.Scripts.Beatmap;
@@ -56,8 +55,8 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// detect miss then player is too far away
         /// </summary>
         public void Update() {
-            return;  // BUG
-            if (timings.Count <= 0) {
+            if (GCS.I.states != GameState.MAIN_PIECE ||
+                    timings.Count <= 0) {
                 return;
             }
 

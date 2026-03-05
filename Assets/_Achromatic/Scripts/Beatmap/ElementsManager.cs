@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// fixme code refactorization
+// FIXME code refactorization
+// BUG render beat lines etc wrong
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     public class ElementsManager {
