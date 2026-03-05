@@ -60,8 +60,8 @@ namespace Assets._Achromatic.Scripts.Beatmap {
                 lastBarlineOnBeat = placeOnBeat;
             }
 
-            // Fixme barline placement overlaps beat lines
-            // Bug 1st barline missing
+            // FIXME barline placement overlaps beat lines
+            // BUG 1st barline missing
 
             // render notes  -------------------------------------------------------
             renderBoundaryOnBeat =

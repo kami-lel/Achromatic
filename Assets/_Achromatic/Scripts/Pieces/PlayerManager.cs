@@ -51,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Update() {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
-                // Todo use Spline path
+                // TODO use Spline path
 
                 float y = p.beatmap.origin.y;
                 float x = p.beatmap.CalcCurrentXFromBeat();

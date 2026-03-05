@@ -56,7 +56,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// detect miss then player is too far away
         /// </summary>
         public void Update() {
-            return;  // Bug
+            return;  // BUG
             if (timings.Count <= 0) {
                 return;
             }
