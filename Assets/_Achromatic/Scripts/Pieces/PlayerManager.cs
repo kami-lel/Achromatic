@@ -53,7 +53,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Update() {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
-                // TODO use Spline path
+                // todo use Spline path
 
                 float y = p.beatmap.origin.y;
                 float x = p.beatmap.CalcCurrentXFromBeat();
@@ -109,7 +109,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc acceleration — use v - u over t to be explicit
-            preludeAcceleration = (v - preludeStartVelocityX) / t;
+            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }

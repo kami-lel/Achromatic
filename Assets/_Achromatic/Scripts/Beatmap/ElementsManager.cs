@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// FIXME code refactorization
-// BUG render beat lines etc wrong
+// fixme code refactorization
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     public class ElementsManager {
@@ -35,6 +34,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
+
 
             // place beatLine  -----------------------------------------------
             float renderBoundaryOnBeat = p.beatmap.currentBeatCount
