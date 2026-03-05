@@ -46,6 +46,7 @@
 ### Changed
 
 - code/scripts refactorization: break down `PieceScript.cs` into multiple classes
+- allows setting judge timing as Scriptable Object
 
 ### Deprecated
 ### Removed
