@@ -11,7 +11,10 @@
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
 <!-- Todo frame counter -->
+<!-- Todo Perfect indication placed close to player  -->
 <!-- Todo full UX: start, reset, etc. -->
+<!-- Bug floating rocks are distracting -->
+<!-- Todo make prefabs disappearing as feed back -->
 <!-- fixme walk vs run -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
