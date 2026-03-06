@@ -4,8 +4,9 @@
 
 [^format]
 
-<!-- todo camera fine tunning -->
-<!-- fixme better looking notes elements -->
+<!-- Todo camera fine tunning -->
+<!-- Fixme better looking notes elements -->
+<!-- Todo metrics! -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
