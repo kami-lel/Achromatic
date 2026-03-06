@@ -60,7 +60,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
 
-                // todo use Spline path
+                // Todo use Spline path
 
                 float y = p.beatmap.origin.y +
                         p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);

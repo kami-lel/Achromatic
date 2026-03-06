@@ -19,11 +19,11 @@
 <!-- fixme walk vs run -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
-<!-- todo need dramatic shift visually to indicate music has started -->
+<!-- Todo need dramatic shift visually to indicate music has started -->
 <!-- todo add obstacles & enemy to kills -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
-<!-- todo speed multiplier (as setting) -->
+<!-- Todo speed multiplier (as setting) -->
 <!-- todo allows & give feedback for smashing input during: empty or climax -->
 
 
