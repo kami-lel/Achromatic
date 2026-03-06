@@ -8,15 +8,15 @@
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
 <!-- TODO metrics: fps -->
-<!-- TODO metrics: deltas -->
+<!-- Todo metrics: deltas -->
 <!-- TODO metrics: total time & portion of time -->
-<!-- TODO metrics: hit/miss ratio per part -->
+<!-- Todo metrics: hit/miss ratio per part -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
 <!-- TODO frame counter -->
 <!-- Todo Perfect indication placed close to player  -->
-<!-- TODO full UX: start, reset, etc. -->
+<!-- Todo full UX: start, reset, etc. -->
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->
 <!-- fixme walk vs run -->
