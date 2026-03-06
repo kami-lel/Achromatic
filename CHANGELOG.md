@@ -4,6 +4,7 @@
 
 [^format]
 
+<!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
 <!-- Todo metrics! -->
