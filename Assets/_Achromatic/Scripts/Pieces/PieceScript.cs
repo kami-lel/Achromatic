@@ -97,7 +97,6 @@ public class PieceScript: MonoBehaviour {
 
 
         beatmap = new(this, beatmapMeta);
-        music = new(this, pseudoAudioPlugin);
         score = new(beatmap);
         criteria = new(this);
         playerManager = new(this, jumpHeightVsTime, attackOffsetVsTime, squatOffsetVsTime);

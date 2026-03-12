@@ -1,11 +1,10 @@
-using Assets._Achromatic.Scripts.Beatmap;
+
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    public class MusicManager: MonoBehaviour {
 
-    public class MusicManager {
-
-        // public API  #########################################################
+        // Public API  #########################################################
 
         public float Time {
             get {
@@ -51,19 +50,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pseudoAudioPlugin.preludeAndMain.Play();
         }
 
+        // Inspector Fields  #######################################################
 
-        // Constructor  ########################################################
-        public MusicManager(PieceScript piece, PseudoAudioPlugin pseudoAudioPlugin) {
-            p = piece;
-
-            this.pseudoAudioPlugin = pseudoAudioPlugin;
-        }
-
-        // private members  ####################################################
-        // cached references
-        private readonly PseudoAudioPlugin pseudoAudioPlugin;
-        private readonly PieceScript p;
-
-
+        [SerializeField]
+        private PseudoAudioPlugin pseudoAudioPlugin;
     }
 }
