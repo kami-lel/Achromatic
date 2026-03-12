@@ -4,13 +4,15 @@
 
 [^format]
 
+<!-- TODO hit indicator, close to user
+<!-- TODO total score indicator -->
+<!-- TODO combo indicator -->
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
-<!-- TODO Perfect indication placed close to player  -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->
