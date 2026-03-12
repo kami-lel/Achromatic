@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.IK;
 
-// Todo 3rd actions
-// Bug fix dash during animations
+// TODO 3rd actions
+// BUG fix dash during animations
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -65,7 +65,7 @@ public class PlayerScript: MonoBehaviour {
     // animation public methods  ===============================================
 
     public void AnimationDash() {
-        // Hack need animation for dash
+        // HACK need animation for dash
         squashDuration = 0.5f;  // set Duration value
         timer = squashDuration;  // reset Timer
 

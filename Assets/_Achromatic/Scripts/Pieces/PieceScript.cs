@@ -11,7 +11,6 @@ using Cinemachine;
 
 
 // Bug audio start is jarring, lose framerate
-// Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
 
 
 /// <summary>

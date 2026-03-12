@@ -14,6 +14,7 @@
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->
 <!-- fixme walk vs run -->
+<!-- fixme allow different actions for the same action -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
 <!-- Todo need dramatic shift visually to indicate music has started -->
