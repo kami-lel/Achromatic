@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class SFXManager: MonoBehaviour {
+public class SFX: MonoBehaviour {
 
     // todo randomize b/t different samples
     // todo audio cue to reflects both judge result & action type
@@ -12,7 +12,7 @@ public class SFXManager: MonoBehaviour {
     // public members  =========================================================
 
     // singleton
-    public static SFXManager I {
+    public static SFX I {
         get; private set;
     }
 
