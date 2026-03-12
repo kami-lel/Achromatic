@@ -2,25 +2,25 @@ using UnityEngine;
 
 
 namespace Assets._Achromatic.Scripts.Player {
-
+    [RequireComponent(typeof(AnimationManager))]
     class Movement: MonoBehaviour {
 
         // Public API  #########################################################
         public void TurnLeft() {
             moveDir = -1;
             EnsureFacing(-1);
-            p.StartRun();
+            anim.StartRun();
         }
 
         public void TurnRight() {
             moveDir = 1;
             EnsureFacing(1);
-            p.StartRun();
+            anim.StartRun();
         }
 
         public void Stop() {
             moveDir = 0;
-            p.StopRun();
+            anim.StopRun();
         }
 
         public void Jump() {
@@ -30,18 +30,26 @@ namespace Assets._Achromatic.Scripts.Player {
             p.playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
             SFX.I.Jump();
-            p.Jump();
+            anim.Jump();
         }
 
         public void Squat() {
             if (!IsOnGround())
                 return;
 
-            p.Squat();
+            anim.Squat();
             SFX.I.Squat();
         }
 
         // MonoBehavior Lifecycle  #############################################
+        private void Awake() {
+            anim = GetComponent<AnimationManager>();
+            if (anim == null) {
+                Debug.LogError("Movement:\tfail to get: AnimationManager");
+            }
+
+        }
+
         private void Start() {
             p.playerRB.bodyType = RigidbodyType2D.Dynamic;
             p.playerRB.gravityScale = GRAVITY_SCALE;
@@ -68,7 +76,6 @@ namespace Assets._Achromatic.Scripts.Player {
         }
 
 
-
         // constants  ##########################################################
         private static readonly float GRAVITY_SCALE = 1.0f;
         private static readonly float JUMP_FORCE = 8.0f;
@@ -77,6 +84,9 @@ namespace Assets._Achromatic.Scripts.Player {
         // private members  ####################################################
         private bool isFacingRight = true;
         private int moveDir = 0;
+
+        // Cached References
+        private AnimationManager anim;
 
         // private methods  ########################################################
 
