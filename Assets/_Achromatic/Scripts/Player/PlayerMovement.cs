@@ -44,17 +44,17 @@ public class PlayerMovement {
 
         // apply horizontal force toward target velocity
         float targetVelX = moveDir * MAX_WALKING_SPEED;
-        float velDiff = targetVelX - playerRB.linearVelocityX;
+        float velDiff = targetVelX - p.playerRB.linearVelocityX;
         float requiredAccel = velDiff / Time.fixedDeltaTime;
-        float maxForce = Mathf.Abs(requiredAccel * playerRB.mass);
+        float maxForce = Mathf.Abs(requiredAccel * p.playerRB.mass);
         // clamp force to avoid extreme impulses
-        float forceX = Mathf.Clamp(requiredAccel * playerRB.mass,
+        float forceX = Mathf.Clamp(requiredAccel * p.playerRB.mass,
             -maxForce, maxForce);
-        playerRB.AddForce(new Vector2(forceX, 0f));
+        p.playerRB.AddForce(new Vector2(forceX, 0f));
 
         // light damping when idle to reduce sliding
-        if (moveDir == 0 && Mathf.Abs(playerRB.linearVelocityX) < 0.01f) {
-            playerRB.linearVelocity = new Vector2(0f, playerRB.linearVelocityY);
+        if (moveDir == 0 && Mathf.Abs(p.playerRB.linearVelocityX) < 0.01f) {
+            p.playerRB.linearVelocity = new Vector2(0f, p.playerRB.linearVelocityY);
         }
     }
 
@@ -97,8 +97,8 @@ public class PlayerMovement {
 
     private void Flip() {
         isFacingRight = !isFacingRight;
-        Vector3 s = transform.localScale;
+        Vector3 s = p.transform.localScale;
         s.x = -s.x;
-        transform.localScale = s;
+        p.transform.localScale = s;
     }
 }

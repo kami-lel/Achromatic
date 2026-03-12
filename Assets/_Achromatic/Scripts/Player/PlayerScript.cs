@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // todo implements walking (vs running)
-// TODO refactorization using player movement
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]

@@ -24,8 +24,6 @@ public class PlayerInputManager {
         playerCollider = p.GetComponent<Collider2D>();
     }
 
-
-
     // MonoBehavior Lifecycle  =================================================
 
     public void Start() {
@@ -38,7 +36,6 @@ public class PlayerInputManager {
     public void OnDisable() {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
-
 
     // private members  ========================================================
     // cached references
