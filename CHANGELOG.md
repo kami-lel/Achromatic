@@ -4,15 +4,17 @@
 
 [^format]
 
-<!-- bug floating rocks are distracting -->
-<!-- bug must properly merge assets -->
+<!-- Bug floating rocks are distracting -->
+<!-- Bug must properly merge assets -->
+<!-- Todo camera fine tunning: smooth follow during main piece -->
+<!-- Todo final score window -->
+<!-- Todo particles efx -->
+<!-- Todo full UX: start, reset, etc. -->
+<!-- Todo scene transition -->
+<!-- Todo make prefabs disappearing as feed back -->
+<!-- Todo Wwise Unity Integration -->
 <!-- fixme better looking notes elements -->
-<!-- todo camera fine tunning: smooth follow during main piece -->
-<!-- todo final score window -->
-<!-- todo particles efx -->
 <!-- todo pause screen, allow restart/resume -->
-<!-- todo full UX: start, reset, etc. -->
-<!-- todo make prefabs disappearing as feed back -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
 <!-- todo need dramatic shift visually to indicate music has started -->
@@ -20,7 +22,6 @@
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 <!-- todo allows & give feedback for smashing input during: empty or climax -->
-<!-- todo Wwise Unity Integration -->
 
 
 

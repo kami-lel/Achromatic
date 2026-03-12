@@ -7,16 +7,18 @@ using TMPro;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
 
-// todo metrics: fps
-// todo metrics: total time &portion of time
-// todo metrics: deltas
-// todo metrics: hit / miss ratio per part
-// todo merge game stat
+// Todo metrics: fps
+// Todo metrics: total time &portion of time
+// Todo metrics: deltas
+// Todo metrics: hit / miss ratio per part
+// Todo merge game stat
 
-public class GCS: MonoBehaviour {
+public class GCS : MonoBehaviour
+{
 
     // singleton
-    public static GCS I {
+    public static GCS I
+    {
         get; private set;
     }
 
@@ -27,12 +29,16 @@ public class GCS: MonoBehaviour {
 
     // MonoBehavior Lifecycle  =================================================
 
-    private void Awake() { // ==================================================
+    private void Awake()
+    { // ==================================================
         // ensure Singleton  ---------------------------------------------------
-        if (I == null) {
+        if (I == null)
+        {
             I = this;
             DontDestroyOnLoad(gameObject);
-        } else if (I != this) {  // guard against duplicate
+        }
+        else if (I != this)
+        {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
             return;
@@ -43,7 +49,8 @@ public class GCS: MonoBehaviour {
 #endif
     }
 
-    private void Update() {  // ================================================
+    private void Update()
+    {  // ================================================
 
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

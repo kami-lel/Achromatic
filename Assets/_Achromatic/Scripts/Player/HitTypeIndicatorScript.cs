@@ -1,12 +1,14 @@
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
-public class HitTypeIndicatorScript: MonoBehaviour {
-    // todo animation for hit type indicator
+public class HitTypeIndicatorScript : MonoBehaviour
+{
+    // Todo animation for hit type indicator
 
     // public methods  =========================================================
 
-    public void Show(Hit hit) {
+    public void Show(Hit hit)
+    {
         // set which symbol is active
         miss.SetActive((hit & Hit.NO_SCORE) != 0);
         earlyGood.SetActive(hit == Hit.EARLY_GOOD);
@@ -38,7 +40,8 @@ public class HitTypeIndicatorScript: MonoBehaviour {
 
     // Inspector Fields  =======================================================
 
-    void Start() {
+    void Start()
+    {
         Show(Hit.NONE);
     }
 }

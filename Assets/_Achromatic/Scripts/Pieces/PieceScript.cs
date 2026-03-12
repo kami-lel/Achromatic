@@ -10,7 +10,7 @@ using Assets._Achromatic.Scripts.Beatmap;
 using Cinemachine;
 
 
-// bug audio start is jarring, lose framerate
+// Bug audio start is jarring, lose framerate
 
 
 /// <summary>
@@ -35,7 +35,7 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
-    // fixme try to use partial class
+    // Fixme use multiple component approach
     // managers
     public Starter starter;
     public MusicManager music;
@@ -83,7 +83,7 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
-    // hack
+    // Hack
     public Transform playerSprite;
 
 

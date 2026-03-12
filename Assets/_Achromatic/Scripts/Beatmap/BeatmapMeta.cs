@@ -17,7 +17,7 @@ public class BeatmapMeta: ScriptableObject {
     public float preludeSeconds = 1.0f;
 
     [Header("Render")]
-    public float elementsSpeedMultiplier = 0.0f;  // todo speed mux
+    public float elementsSpeedMultiplier = 0.0f;  // Todo utilize speed mux
 
     public float horizontalUnitsPerBeat = 2.0f;
 

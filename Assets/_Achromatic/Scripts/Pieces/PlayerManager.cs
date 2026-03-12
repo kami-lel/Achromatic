@@ -77,7 +77,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
 
-                // todo use Spline path
+                // Todo use Spline path
 
                 // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
@@ -111,7 +111,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void FixedUpdate() {
             // prelude  --------------------------------------------------------
             if (GCS.I.states == GameState.PRELUDE) {
-                // fixme using music to control triggering
+                // Fixme using music to control triggering
                 if (p.music.Time >= p.beatmap.meta.preludeSeconds) {
                     StartMainPiece();
                     return;
@@ -172,12 +172,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private readonly float preludeAcceleration;
 
-        // fixme animation curve fine tuning
+        // Fixme animation curve fine tuning
         private readonly AnimationCurve jumpHeightVsTime;
         private readonly AnimationCurve attackOffsetVsTime;
         private readonly AnimationCurve squatOffsetVsTime;
         private float playerLastActionTime;
-        private int actionType = 0;  // hack better way to do this
+        private int actionType = 0;  // Hack better way to do this
 
 
         // cached references
