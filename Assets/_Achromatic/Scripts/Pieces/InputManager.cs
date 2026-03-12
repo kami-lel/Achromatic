@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Scores;
+using Assets._Achromatic.Scripts.Players;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -9,12 +10,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
     public class InputManager: MonoBehaviour {
         // FIXME FIXME make it mono behavior
 
-        public PressedActions pressed;
+
+        // MonoBehavior Lifecycle  #################################################
+        private void Awake() {
+            pressed = Actions.NONE;
+        }
+
+        // private members  ########################################################
+        private Actions pressed;
+
+        // olds  ###############################################################
+
+
 
         public InputManager(PieceScript pieceScript) {
             p = pieceScript;
-
-            pressed = PressedActions.NONE;
 
             PlayerInput playerInput = p.playerManager.playerInput;
             if (playerInput == null) {

@@ -6,6 +6,7 @@ using TMPro;
 
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
+using Assets._Achromatic.Scripts.Players;
 
 // Todo metrics: fps
 // Todo metrics: total time &portion of time
@@ -13,32 +14,40 @@ using UnityEngine.Profiling;
 // Todo metrics: hit / miss ratio per part
 // Todo merge game stat
 
-public class GCS : MonoBehaviour
-{
+public class GCS: MonoBehaviour {
+    // Public API  #############################################################
 
     // singleton
-    public static GCS I
-    {
+    public static GCS I {
         get; private set;
     }
 
-    // public member  ==========================================================
+    public GameObject FindPlayer {
+        get {
+            GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
+
+            if (playerObject == null) {
+                Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
+            }
+
+            return playerObject;
+        }
+    }
+
+
+    // Public Members  #########################################################
+
     [NonSerialized]
     public GameState states = GameState.NONE;
 
+    // MonoBehavior Lifecycle  #################################################
 
-    // MonoBehavior Lifecycle  =================================================
-
-    private void Awake()
-    { // ==================================================
+    private void Awake() {
         // ensure Singleton  ---------------------------------------------------
-        if (I == null)
-        {
+        if (I == null) {
             I = this;
             DontDestroyOnLoad(gameObject);
-        }
-        else if (I != this)
-        {  // guard against duplicate
+        } else if (I != this) {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
             return;
@@ -49,9 +58,7 @@ public class GCS : MonoBehaviour
 #endif
     }
 
-    private void Update()
-    {  // ================================================
-
+    private void Update() {
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         fpsFrameCounter++;
@@ -66,18 +73,19 @@ public class GCS : MonoBehaviour
             fpsCounterAccumulateTime = 0.0f;
         }
 #endif
-
     }
 
-    // private members  ========================================================
+    // constants  ##############################################################
+    private const string PLAYER_TAG = "Player";
+
+    // private members  ########################################################
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private TextMeshProUGUI fpsCounter;
     private int fpsFrameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
 #endif
 
-    // private methods  ========================================================
-
+    // private methods  ########################################################
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
         GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
