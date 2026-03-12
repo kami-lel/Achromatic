@@ -10,17 +10,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class PlayerManager: MonoBehaviour {
 
-        // FIXME FIXME make mono  ##############################################
-        // public members  #####################################################
-
-        // cached references
-        public Player player;
-        public PlayerInput playerInput;
-
-        [NonSerialized]
-        public Rigidbody2D playerRB;
-
-        // public methods  #####################################################
+        // Public API  #########################################################
 
         public void StartPrelude() {
             playerLastActionTime = Time.time;
@@ -38,6 +28,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
+            // TODO TODO consider game state when scene transition
             Debug.Log("PlayerManager:\tStartMainPiece");
 
             GCS.I.states = GameState.MAIN_PIECE;
@@ -51,6 +42,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.PIECE_FINISHED;
         }
+
+        // FIXME FIXME make mono  ##############################################
+
+        // cached references
+        public Player player;
+        public PlayerInput playerInput;
+
+        [NonSerialized]
+        public Rigidbody2D playerRB;
+
+        // public methods  #####################################################
+
 
         public void Jump(Hit hit) {
             // HACK
