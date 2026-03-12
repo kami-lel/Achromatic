@@ -141,9 +141,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 return;
             }
 
-            player = playerObject.GetComponent<PlayerScript>();
+            player = playerObject.GetComponent<Player>();
             playerInput = playerObject.GetComponent<PlayerInput>();
-            playerRB = player.playerRB;
+            playerRB = playerObject.GetComponent<Rigidbody2D>();
             playerSprite = p.playerSprite;
 
             // calc movement during prelude  -----------------------------------

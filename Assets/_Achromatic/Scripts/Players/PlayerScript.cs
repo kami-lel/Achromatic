@@ -44,13 +44,15 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  =================================================
 
     void Awake() {
+        // HACK
         // mvmt = new(this);
-        im = new(this);
+        // im = new(this);
     }
 
     private void Start() {
+        // HACK
         // mvmt.Start();
-        im.Start();
+        // im.Start();
 
         GCS.I.states = GameState.EXPLORE;
     }
@@ -64,7 +66,8 @@ public class PlayerScript: MonoBehaviour {
     }
 
     private void OnDisable() {
-        im.OnDisable();
+        // HACK
+        // im.OnDisable();
     }
 
     // Unity Messages  #########################################################

@@ -11,8 +11,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (p.playerManager == null || p.playerManager.player == null) {
                 Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
-                p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
+                // HACK
+                // p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
+                // p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
         }
 
@@ -22,8 +23,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (p.playerManager == null || p.playerManager.player == null) {
                 Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
-                p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
+                // HACK
+                // p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
+                // p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
             }
         }
 
