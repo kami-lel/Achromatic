@@ -73,36 +73,33 @@ public class SFXManager: MonoBehaviour {
             switch (action) {
             case "Jump":
             default:
-                low = 0.20f;
-                high = 0.85f;
-                duration = 0.07f;
+                low = 0.35f;
+                high = 1.00f;
+                duration = 0.22f;
                 break;
-
             case "Attack":
-                low = 0.75f;
-                high = 0.55f;
-                duration = 0.09f;
+                low = 1.00f;
+                high = 0.80f;
+                duration = 0.24f;
                 break;
-
             case "Squat":
-                low = 0.45f;
-                high = 0.20f;
-                duration = 0.08f;
+                low = 0.70f;
+                high = 0.30f;
+                duration = 0.22f;
                 break;
             }
-
         } else if ((hit & Hit.GREAT) != 0) {
-            low = 0.35f;
-            high = 0.45f;
-            duration = 0.06f;
+            low = 0.55f;
+            high = 0.65f;
+            duration = 0.18f;
         } else if ((hit & Hit.GOOD) != 0) {
-            low = 0.20f;
-            high = 0.25f;
-            duration = 0.05f;
+            low = 0.35f;
+            high = 0.40f;
+            duration = 0.16f;
         } else {  // miss
-            low = 0.70f;
-            high = 0.10f;
-            duration = 0.12f;
+            low = 0.90f;
+            high = 0.20f;
+            duration = 0.28f;
         }
 
         // perform rumble  -----------------------------------------------------
