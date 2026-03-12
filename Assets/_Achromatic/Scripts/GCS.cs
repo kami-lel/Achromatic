@@ -1,9 +1,10 @@
 using System;
-using Assets._Achromatic.Scripts.Scores;
-using TMPro;
-using Unity.VectorGraphics;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
+using Assets._Achromatic.Scripts.Scores;
 
 // TODO metrics: fps
 // TODO metrics: total time &portion of time
@@ -62,6 +63,17 @@ public class GCS: MonoBehaviour {
 
     private void Update() {  // ================================================
 
+        // FPS Counter  --------------------------------------------------------
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        fpsFrameCounter++;
+        fpsCounterAccumulateTime += Time.unscaledDeltaTime;
+        if (fpsCounterAccumulateTime > 1.0f) {
+            fpsCounter.text = fpsFrameCounter + "fps";
+            fpsFrameCounter = 0;
+            fpsCounterAccumulateTime = 0.0f;
+        }
+#endif
+
     }
 
     // Fixme create score overlay
@@ -104,8 +116,11 @@ public class GCS: MonoBehaviour {
 
 
     // private members  ########################################################
-    // cached references
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     private TextMeshProUGUI fpsCounter;
+    private int fpsFrameCounter = 0;
+    private float fpsCounterAccumulateTime = 0.0f;
+#endif
 
     // private methods  ########################################################
 
