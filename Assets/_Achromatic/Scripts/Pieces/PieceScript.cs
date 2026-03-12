@@ -69,12 +69,19 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private Transform prefabs;
 
+    [SerializeField]
+    private AnimationCurve jumpHeightVsTime;
+
+    [SerializeField]
+    private AnimationCurve attackOffsetVsTime;
+
+    [SerializeField]
+    private AnimationCurve squatOffsetVsTime;
+
     [Header("tmp")]
 
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
-
-    public AnimationCurve tmpJumpCurve;
 
 
     // MonoBehavior Lifecycle  #################################################

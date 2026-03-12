@@ -23,7 +23,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void StartPrelude() {
             // TODO mpv player animation in this
-            tmpPlayerLastJump = Time.time;
+            playerLastAction = Time.time;
 
             Debug.Log("PlayerManager:\tStartPrelude");
 
@@ -54,17 +54,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Jump(Hit hit) {
             p.playerManager.player.Jump();
             SFX.I.Jump(hit);
-            tmpPlayerLastJump = Time.time;
+            playerLastAction = Time.time;
         }
 
         public void Squat(Hit hit) {
             p.playerManager.player.Squat();
             SFX.I.Squat(hit);
+            playerLastAction = Time.time;
         }
 
         public void Attack(Hit hit) {
             p.playerManager.player.Attack();
             SFX.I.Attack(hit);
+            playerLastAction = Time.time;
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -144,6 +146,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private readonly float preludeAcceleration;
         private float tmpPlayerLastJump;
+
+        private readonly AnimationCurve jumpHeightVsTime;
+        private readonly AnimationCurve attackOffsetVsTime;
+        private readonly AnimationCurve squatOffsetVsTime;
+        private float playerLastAction;
 
 
         // cached references
