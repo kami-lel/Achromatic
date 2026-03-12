@@ -27,26 +27,6 @@ public class PlayerScript: MonoBehaviour {
 
     // public methods  =========================================================
 
-    public void StartRun() {
-        animator.SetBool(RUN_ANIM_ID, true);
-    }
-
-    public void StopRun() {
-        animator.SetBool(RUN_ANIM_ID, false);
-    }
-
-    public void Jump() {
-        animator.SetTrigger(JUMP_ANIM_ID);
-    }
-
-    public void Squat() {
-        animator.SetTrigger(SQUAT_ANIM_ID);
-    }
-
-    public void Attack() {
-        animator.SetTrigger(ATTACK_ANIM_ID);
-    }
-
     public void EnsureFacingRight() {
         mvmt.EnsureFacing(1);
     }
@@ -63,8 +43,6 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  =================================================
 
     void Awake() {
-        animator = GetComponent<Animator>();
-
         mvmt = new(this);
         im = new(this);
     }
@@ -107,14 +85,4 @@ public class PlayerScript: MonoBehaviour {
 
         OnTriggerExit?.Invoke(other.tag);
     }
-
-    // constants  ==============================================================
-    private readonly int RUN_ANIM_ID = Animator.StringToHash("Run");
-    private readonly int ATTACK_ANIM_ID = Animator.StringToHash("Attack");
-    private readonly int SQUAT_ANIM_ID = Animator.StringToHash("Squat");
-    private readonly int JUMP_ANIM_ID = Animator.StringToHash("Jump");
-
-    // cached references
-    [NonSerialized]
-    public Animator animator;
 }
