@@ -9,6 +9,8 @@ using Assets._Achromatic.Scripts.Beatmap;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+// todo improve looking of indicators
+
 public class Score {
 
     // public members  =========================================================
@@ -71,7 +73,7 @@ public class Score {
         }
         // running score
         if (runningScoreIndicator != null) {
-            runningScoreIndicator.text = $"{runningScore}";
+            runningScoreIndicator.text = $"{(int)runningScore}";
         }
     }
 
@@ -127,7 +129,7 @@ public class Score {
             Debug.LogError("Score: fail to find Combo Indicator");
         }
         // running score indicator
-        GameObject runningGO = GameObject.FindWithTag("ComboIndicator");
+        GameObject runningGO = GameObject.FindWithTag("RunningScoreIndicator");
         if (comboGO != null) {
             runningScoreIndicator = runningGO.GetComponent<TextMeshProUGUI>();
         }
