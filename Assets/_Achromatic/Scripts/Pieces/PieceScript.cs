@@ -98,7 +98,7 @@ public class PieceScript: MonoBehaviour {
         music = new(this, pseudoAudioPlugin);
         score = new(beatmap);
         criteria = new(this);
-        playerManager = new(this);
+        playerManager = new(this, jumpHeightVsTime, attackOffsetVsTime, squatOffsetVsTime);
         starter = new(this);
         inputs = new(this);
 

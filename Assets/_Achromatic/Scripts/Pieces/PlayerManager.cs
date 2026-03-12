@@ -100,8 +100,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // constructor  ########################################################
-        public PlayerManager(PieceScript piece) {
+        public PlayerManager(PieceScript piece, AnimationCurve jumpHeightVsTime, AnimationCurve attackOffsetVsTime, AnimationCurve squatOffsetVsTime) {
             p = piece;
+            this.jumpHeightVsTime = jumpHeightVsTime;
+            this.attackOffsetVsTime = attackOffsetVsTime;
+            this.squatOffsetVsTime = squatOffsetVsTime;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
