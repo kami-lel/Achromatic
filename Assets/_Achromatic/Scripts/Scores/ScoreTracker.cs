@@ -37,21 +37,21 @@ public class Score {
 
     // public methods  =========================================================
 
-    public void Record(Hit judgeResult) {
+    public void Record(Hit hit) {
         // save results
-        hitCnt[judgeResult] += 1;
+        hitCnt[hit] += 1;
 
         // update running score
-        if ((judgeResult & Hit.PERFECT) != 0) {
+        if ((hit & Hit.PERFECT) != 0) {
             runningScore += perfectScore;
-        } else if ((judgeResult & Hit.GREAT) != 0) {
+        } else if ((hit & Hit.GREAT) != 0) {
             runningScore += greatScore;
-        } else if ((judgeResult & Hit.GOOD) != 0) {
+        } else if ((hit & Hit.GOOD) != 0) {
             runningScore += goodScore;
         }
 
         // record combo
-        if ((judgeResult & Hit.NO_SCORE) != 0) {
+        if ((hit & Hit.NO_SCORE) != 0) {
             combo = 0;  // miss, reset combo
         } else {
             combo += 1;
@@ -61,7 +61,7 @@ public class Score {
         }
 
         Debug.Log("Score.Record:"
-                + $"\tjudge: {judgeResult}"
+                + $"\tjudge: {hit}"
                 + $"\tscore: {runningScore}"
                 + $"\tcombo: {combo}"
                 );
@@ -74,6 +74,10 @@ public class Score {
         // running score
         if (runningScoreIndicator != null) {
             runningScoreIndicator.text = $"{(int)runningScore}";
+        }
+        // hit type indicator
+        if (hitTypeIndicator != null) {
+            hitTypeIndicator.Show(hit);
         }
     }
 
@@ -108,6 +112,7 @@ public class Score {
     // cached references
     private TextMeshProUGUI comboIndicator;
     private TextMeshProUGUI runningScoreIndicator;
+    private HitTypeIndicatorScript hitTypeIndicator;
 
     /// <summary>
     /// total score possible for a piece
@@ -139,6 +144,13 @@ public class Score {
         }
 
         // hit type indicator
+        GameObject hitTypeGO = GameObject.FindWithTag("HitIndicator");
+        if (hitTypeGO != null) {
+            hitTypeIndicator = hitTypeGO.GetComponent<HitTypeIndicatorScript>();
+        }
+        if (hitTypeIndicator == null) {
+            Debug.LogError("Score: fail to find Hit Type Indicator");
+        }
     }
 
     private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {

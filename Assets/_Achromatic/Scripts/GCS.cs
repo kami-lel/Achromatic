@@ -80,8 +80,6 @@ public class GCS: MonoBehaviour {
 
     }
 
-    // FIXME create score overlay
-
     // public methods  #########################################################
 
     // HACK tmp method
