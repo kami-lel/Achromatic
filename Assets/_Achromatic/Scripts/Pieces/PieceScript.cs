@@ -35,6 +35,7 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
+    // fixme try to use partial class
     // managers
     public Starter starter;
     public MusicManager music;

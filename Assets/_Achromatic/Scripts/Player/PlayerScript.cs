@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 public class PlayerScript: MonoBehaviour {
 
-    // public members  #########################################################
+    // public members  =========================================================
 
     [NonSerialized]
     public Rigidbody2D playerRB;
@@ -18,108 +18,59 @@ public class PlayerScript: MonoBehaviour {
     public event Action<String> OnTriggerEnter;
     public event Action<String> OnTriggerExit;
 
-    // public methods  #########################################################
+    // public methods  =========================================================
 
-    // movements public methods  ===============================================
-
-    public void TurnLeft() {
-        moveDir = -1;
-        MovementEnsureFacing(-1);
-        AnimationStartWalk();
+    public void StartRun() {
+        animator.SetBool(RUN_ANIM_ID, true);
     }
 
-    public void TurnRight() {
-        moveDir = 1;
-        MovementEnsureFacing(1);
-        AnimationStartWalk();
+    public void StopRun() {
+        animator.SetBool(RUN_ANIM_ID, false);
     }
 
-    public void MovementDash() {
-        if (!IsOnGround()) {
-            return;
-        }
-
-        AnimationDash();
+    public void Jump() {
+        animator.SetTrigger(JUMP_ANIM_ID);
+        SFXManagerScript.Instance.PlayJumpSFX();
     }
 
-    public void StopMovement() {
-        moveDir = 0;
-        animator.SetBool(IN_MOVEMENT_ID, false);
-    }
-
-    public void MovementJump() {
-        if (!IsOnGround())
-            return;
-
-        playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
-
-        AnimationJump();
-    }
-
-    public bool IsOnGround() {
-        return playerRB.IsTouchingLayers(groundLayerMask);
-    }
-
-    // animation public methods  ===============================================
-
-    public void AnimationDash() {
-        // HACK need animation for dash
-        squashDuration = 0.5f;  // set Duration value
-        timer = squashDuration;  // reset Timer
-
+    public void Squat() {
+        animator.SetTrigger(SQUAT_ANIM_ID);
         SFXManagerScript.Instance.PlayDashSFX();
     }
 
-    public void AnimationJump() {
-        SFXManagerScript.Instance.PlayJumpSFX();
-        animator.SetTrigger(JUMP_ID);
+    public void Attack() {
+        animator.SetTrigger(ATTACK_ANIM_ID);
+        SFXManagerScript.Instance.PlayDashSFX();
     }
-
-    public void AnimationStartWalk() {
-        animator.SetBool(IN_MOVEMENT_ID, true);
-    }
-
-    // input public methods  ===================================================
 
     public void SetInputForExplorePlay() {
-        playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-        playerCollider.sharedMaterial = defaultMaterial;
+        im.SetInputForExplorePlay();
     }
 
     public void SetInputForMusicPlay() {
-        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        playerCollider.sharedMaterial = noFrictionMaterial;
+        im.SetInputForMusicPlay();
     }
 
-    // Inspector Fields  #######################################################
+    // Inspector Fields  =======================================================
 
-    [SerializeField]
-    private LayerMask groundLayerMask = Physics2D.AllLayers;
+    public LayerMask groundLayerMask = Physics2D.AllLayers;
 
-    [SerializeField]
-    private PhysicsMaterial2D defaultMaterial;
+    public PhysicsMaterial2D defaultMaterial;
 
-    [SerializeField]
-    private PhysicsMaterial2D noFrictionMaterial;
+    public PhysicsMaterial2D noFrictionMaterial;
 
-    // MonoBehavior Lifecycle  #################################################
+    // MonoBehavior Lifecycle  =================================================
 
     void Awake() {
-        playerRB = GetComponent<Rigidbody2D>();
-        playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
-        playerCollider = GetComponent<Collider2D>();
+
+        mvmt = new(this);
+        im = new(this);
     }
 
     private void Start() {
-        playerRB.bodyType = RigidbodyType2D.Dynamic;
-        playerRB.gravityScale = GRAVITY_SCALE;
-        playerRB.freezeRotation = true;
-        playerRB.linearDamping = 0.0f;
-
-        playerInput.defaultActionMap = "PlayerExplorePlay";
-        SetInputForExplorePlay();
-        playerInput.onActionTriggered += OnActionTriggered;
+        mvmt.Start();
+        im.Start();
 
         GCS.I.states = GameState.EXPLORE;
     }
@@ -129,11 +80,11 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        MovementFixedUpdate();
+        mvmt.FixedUpdate();
     }
 
     private void OnDisable() {
-        playerInput.onActionTriggered -= OnActionTriggered;
+        im.OnDisable();
     }
 
     // Unity Messages  #########################################################
@@ -157,110 +108,17 @@ public class PlayerScript: MonoBehaviour {
         OnTriggerExit?.Invoke(other.tag);
     }
 
-    // input  ##################################################################
-
-    private PlayerInput playerInput;
-
-    private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
-            return;
-        }
-
-        switch (ctxt.action.phase) {
-        case InputActionPhase.Started:  // -------------------------------------
-            switch (ctxt.action.name) {
-            case "Jump":
-                MovementJump();
-                break;
-
-            case "Left":
-                TurnLeft();
-                break;
-
-            case "Right":
-                TurnRight();
-                break;
-
-            case "Squat":
-                MovementDash();
-                break;
-
-            case "Interact":
-                Debug.Log("Player:\tInteract!!!");  // todo implement explore interaction
-                break;
-
-            }
-            break;
-
-        case InputActionPhase.Canceled:  // ------------------------------------
-            switch (ctxt.action.name) {
-            case "Left":
-            case "Right":
-                StopMovement();
-                break;
-            }
-            break;
-        }
-    }
-
-    // movements  ##############################################################
-
-    readonly private float GRAVITY_SCALE = 1.0f;
-    readonly private float JUMP_FORCE = 8.0f;
-    readonly private float MAX_WALKING_SPEED = 10.0f;
-
-    private bool isFacingRight = true;
-    private int moveDir = 0;
-
-    private Collider2D playerCollider;
-
-    private void MovementFixedUpdate() {
-
-        // apply horizontal force toward target velocity
-        float targetVelX = moveDir * MAX_WALKING_SPEED;
-        float velDiff = targetVelX - playerRB.linearVelocityX;
-        float requiredAccel = velDiff / Time.fixedDeltaTime;
-        float maxForce = Mathf.Abs(requiredAccel * playerRB.mass);
-        // clamp force to avoid extreme impulses
-        float forceX = Mathf.Clamp(requiredAccel * playerRB.mass,
-            -maxForce, maxForce);
-        playerRB.AddForce(new Vector2(forceX, 0f));
-
-        // light damping when idle to reduce sliding
-        if (moveDir == 0 && Mathf.Abs(playerRB.linearVelocityX) < 0.01f) {
-            playerRB.linearVelocity = new Vector2(0f, playerRB.linearVelocityY);
-        }
-
-    }
-
-    // helpers  ================================================================
-
-    private void MovementEnsureFacing(int dir) {
-        if (dir == 0)
-            return;
-        bool shouldFaceRight = dir > 0;
-        if (shouldFaceRight != isFacingRight)
-            MovementFlip();
-    }
-
-    private void MovementFlip() {
-        isFacingRight = !isFacingRight;
-        Vector3 s = transform.localScale;
-        s.x = -s.x;
-        transform.localScale = s;
-    }
-
-    // animations  #############################################################
-
     // constants  ==============================================================
-    private readonly int IN_MOVEMENT_ID = Animator.StringToHash("InMovement");
-    private readonly int JUMP_ID = Animator.StringToHash("Jump");
+    private readonly int RUN_ANIM_ID = Animator.StringToHash("Run");
+    private readonly int ATTACK_ANIM_ID = Animator.StringToHash("Attack");
+    private readonly int SQUAT_ANIM_ID = Animator.StringToHash("Squat");
+    private readonly int JUMP_ANIM_ID = Animator.StringToHash("Jump");
 
-    // Hack tmp vars
-    private Vector3 tmpOriginalScale;
-    private float timer = 0.0f;
-    private float squashDuration = 0.5f;  // default Duration seconds
-
+    // cached references
     private Animator animator;
 
+    // fixme try to use partial class
+    // managers
+    private PlayerMovement mvmt;
+    private PlayerInputManager im;
 }
