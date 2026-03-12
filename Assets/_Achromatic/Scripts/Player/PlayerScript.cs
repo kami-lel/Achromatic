@@ -66,13 +66,8 @@ public class PlayerScript: MonoBehaviour {
 
     public void AnimationDash() {
         // Hack need animation for dash
-        squashTargetY = 0.35f;  // set Target Y value
         squashDuration = 0.5f;  // set Duration value
         timer = squashDuration;  // reset Timer
-        isSquashed = true;  // enable restore logic
-        Vector3 s = tmpPlayerSprite.transform.localScale;  // read current scale
-        s.y = squashTargetY;  // assign squashed Y
-        tmpPlayerSprite.transform.localScale = s;  // apply immediate squash
 
         SFXManagerScript.Instance.PlayDashSFX();
     }
@@ -109,10 +104,6 @@ public class PlayerScript: MonoBehaviour {
     [SerializeField]
     private PhysicsMaterial2D noFrictionMaterial;
 
-    [SerializeField]
-    private GameObject tmpPlayerSprite;  // HACK
-
-
     // MonoBehavior Lifecycle  #################################################
 
     void Awake() {
@@ -120,9 +111,6 @@ public class PlayerScript: MonoBehaviour {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-
-        // Hack rm
-        tmpOriginalScale = tmpPlayerSprite.transform.localScale;
     }
 
     private void Start() {
@@ -144,18 +132,6 @@ public class PlayerScript: MonoBehaviour {
         }
 
         MovementFixedUpdate();
-    }
-
-    private void Update() {
-        // Hack rm
-        if (!isSquashed)
-            return;  // skip when not squashed
-        timer -= Time.deltaTime;  // decrement Timer each frame
-        if (timer <= 0f) {
-            tmpPlayerSprite.transform.localScale = tmpOriginalScale;  // restore Original Scale
-            isSquashed = false;  // clear flag
-            timer = 0f;  // clear timer
-        }
     }
 
     private void OnDisable() {
@@ -286,8 +262,6 @@ public class PlayerScript: MonoBehaviour {
     private Vector3 tmpOriginalScale;
     private float timer = 0.0f;
     private float squashDuration = 0.5f;  // default Duration seconds
-    private float squashTargetY = 0.1f;  // default Target Y scale
-    private bool isSquashed = false;  // flag Squash Active
 
     private Animator animator;
 
