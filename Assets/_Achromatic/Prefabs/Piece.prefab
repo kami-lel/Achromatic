@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 5956879129964327650}
   - component: {fileID: 158509688283701863}
   - component: {fileID: 3919188863656031373}
+  - component: {fileID: 1231703176888338262}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -311,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f932da7785fbf4da63d149417d4462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
+  starter: {fileID: 0}
   music: {fileID: 0}
   playerManager: {fileID: 0}
   beatmapMeta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
@@ -472,7 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcae3bb044e33ef499c26a2f75482c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.PlayerManager
-  playerSprite: {fileID: 0}
   jumpHeightVsTime:
     serializedVersion: 2
     m_Curve:
@@ -559,6 +560,42 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.05305618
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1231703176888338262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fdaf7c218f43542b62ee9a3dce31e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.Starter
+  vampDistantVsVolume:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -0.033333335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 30
+      value: 0
+      inSlope: -0.033333335
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

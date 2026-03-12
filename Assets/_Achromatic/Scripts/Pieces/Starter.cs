@@ -1,15 +1,21 @@
-using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
+using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
     public class Starter: MonoBehaviour {
 
         // Inspector Fields  ###################################################
-
+        [SerializeField]
+        private AnimationCurve vampDistantVsVolume;
 
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
+            // test inspector fields  ------------------------------------------
+            if (vampDistantVsVolume == null) {
+                Debug.LogError("must assign: Vamp Distance Vs Volume");
+            }
+
             // caching reference of piece  -------------------------------------
             music = GetComponent<MusicManager>();
             if (music == null) {
