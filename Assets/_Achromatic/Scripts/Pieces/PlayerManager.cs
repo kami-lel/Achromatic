@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    // Bug player bad location
 
     /// <summary>
     /// take control of player GameObject during music piece
