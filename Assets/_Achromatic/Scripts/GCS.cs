@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 using Assets._Achromatic.Scripts.Scores;
+using UnityEngine.Profiling;
 
 // TODO metrics: fps
 // TODO metrics: total time &portion of time
@@ -67,7 +68,11 @@ public class GCS: MonoBehaviour {
         fpsFrameCounter++;
         fpsCounterAccumulateTime += Time.unscaledDeltaTime;
         if (fpsCounterAccumulateTime > 1.0f) {
-            fpsCounter.text = fpsFrameCounter + "fps";
+            fpsCounter.text = fpsFrameCounter + " fps";
+
+            Profiler.BeginSample($"{fpsFrameCounter}");
+            Profiler.EndSample();
+
             fpsFrameCounter = 0;
             fpsCounterAccumulateTime = 0.0f;
         }
