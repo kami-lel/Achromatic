@@ -35,7 +35,7 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
-    // FIXME use multiple component approach
+    // FIXME FIXME, even rm use multiple component approach
     // managers
     public Starter starter;
     public MusicManager music;
@@ -99,7 +99,6 @@ public class PieceScript: MonoBehaviour {
         beatmap = new(this, beatmapMeta);
         score = new(beatmap);
         criteria = new(this);
-        starter = new(this);
 
         elements = new(this, prefabs);
 
@@ -113,10 +112,6 @@ public class PieceScript: MonoBehaviour {
         beatmap.Update();
         elements.Update();
         criteria.Update();
-    }
-
-    private void OnDisable() {
-        starter.OnDisable();
     }
 
 }

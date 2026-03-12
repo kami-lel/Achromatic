@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Pieces {
-
+    [RequireComponent(typeof(MusicManager))]
     public class PlayerManager: MonoBehaviour {
 
         // Public API  #########################################################
@@ -42,7 +42,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Public Methods  #####################################################
-
         public void Jump(Hit hit) {
             anim.Jump();
             SFX.I.Jump(hit);
@@ -80,25 +79,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
-            // caching references  ---------------------------------------------
-            GameObject go = GCS.FindPlayer();
-
-            rb = go.GetComponent<Rigidbody2D>();
-            if (rb == null) {
-                Debug.LogError("fail to find: Rigidbody2D");
-            }
-
-            anim = go.GetComponent<AnimationManager>();
-            if (anim == null) {
-                Debug.LogError("fail to get: AnimationManager");
-            }
-
-            music = go.GetComponent<MusicManager>();
+            // caching reference of piece  -------------------------------------
+            music = GetComponent<MusicManager>();
             if (music == null) {
                 Debug.LogError("fail to get: MusicManager");
             }
 
-            pi = go.GetComponent<PlayerInput>();
+            // caching references of player  -----------------------------------
+            GameObject playerGO = GCS.FindPlayer();
+
+            rb = playerGO.GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("fail to find: Rigidbody2D");
+            }
+
+            anim = playerGO.GetComponent<AnimationManager>();
+            if (anim == null) {
+                Debug.LogError("fail to get: AnimationManager");
+            }
+
+            pi = playerGO.GetComponent<PlayerInput>();
             if (pi == null) {
                 Debug.LogError("fail to get: PlayerInput");
             }

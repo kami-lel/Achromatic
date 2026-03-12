@@ -1,34 +1,34 @@
+using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    [RequireComponent(typeof(MusicManager))]
+    public class Starter: MonoBehaviour {
 
-    public class Starter {
+        // Inspector Fields  ###################################################
 
-        // constructor  ########################################################
-        public Starter(PieceScript piece) {
-            p = piece;
-
-            /* HACK
-            if (p.playerManager == null || p.playerManager.player == null) {
-                Debug.LogWarning("Starter:\tplayerManager/player is null");
-            } else {
-                // p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
-                // p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
-            }
-            */
-        }
 
         // MonoBehavior Lifecycle  #############################################
-
-        public void OnDisable() {
-            /* HACK
-            if (p.playerManager == null || p.playerManager.player == null) {
-                Debug.LogWarning("Starter:\tplayerManager/player is null");
-            } else {
-                // p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
-                // p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
+        private void Awake() {
+            // caching reference of piece  -------------------------------------
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
             }
-            */
+
+            // caching references of player  -----------------------------------
+            GameObject playerGO = GCS.FindPlayer();
+
+            player = playerGO.GetComponent<Player>();
+        }
+
+        private void Start() {
+            if (player != null) {
+                player.OnTriggerEnter += HandleOnTriggerEnter;
+                player.OnTriggerExit += HandleOnTriggerExit;
+            } else {
+                Debug.LogError("fail to subscribe");
+            }
         }
 
         public void Update() {
@@ -44,42 +44,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
             */
         }
 
-        // constants  ##########################################################
-        private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
-        private const string PRELUDE_TRIGGER_TAG = "StartPreludeTrigger";
 
-        // private members  ####################################################
-        // cached references
-        private readonly PieceScript p;
-
-        // private methods  ####################################################
-
-        /// <summary>
-        /// start the prelude routine, then main music part
-        /// </summary>
-        private void StartPreludeThenMainPiece() {
-            if (p.debugMusicStaringBar == 0) {
-                p.music.StartPreludeThenMainPiece();
-                p.playerManager.StartPrelude();
-                GCS.I.states = GameState.PRELUDE;
-
+        private void OnDisable() {
+            if (player != null) {
+                player.OnTriggerEnter -= HandleOnTriggerEnter;
+                player.OnTriggerExit -= HandleOnTriggerExit;
             } else {
-                // start music mid point for debug purpose
-                p.music.DebugStartMusic(p.debugMusicStaringBar);
-                p.playerManager.StartMainPiece(p.debugMusicStaringBar);
+                Debug.LogError("fail to unsubscribe");
             }
-
-            GCS.I.states = GameState.PRELUDE;
-            p.virtualCamera.Priority = 20;
         }
 
-        // event handlers  =====================================================
+        // event handler  ######################################################
+
         private void HandleOnTriggerEnter(string triggerTag) {
             if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
                     triggerTag == VAMP_TRIGGER_TAG) {
 
                 GCS.I.states = GameState.VAMP;
-                p.music.StartVamp();
+                music.StartVamp();
 
             } else if (GCS.I.states == GameState.VAMP &&
                     triggerTag == PRELUDE_TRIGGER_TAG) {
@@ -93,9 +75,38 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     triggerTag == VAMP_TRIGGER_TAG) {
 
                 GCS.I.states = GameState.EXPLORE;
-                p.music.StopVamp();
+                music.StopVamp();
             }
         }
-    }
 
+        // constants  ##########################################################
+        private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
+        private const string PRELUDE_TRIGGER_TAG = "StartPreludeTrigger";
+
+
+        // private members  ####################################################
+        // Cached References
+        private Player player;
+        private MusicManager music;
+
+        // private methods  ####################################################
+
+        private void StartPreludeThenMainPiece() {
+            /* HACK
+            if (p.debugMusicStaringBar == 0) {
+                p.music.StartPreludeThenMainPiece();
+                p.playerManager.StartPrelude();
+                GCS.I.states = GameState.PRELUDE;
+
+            } else {
+                // start music mid point for debug purpose
+                p.music.DebugStartMusic(p.debugMusicStaringBar);
+                p.playerManager.StartMainPiece(p.debugMusicStaringBar);
+            }
+
+            GCS.I.states = GameState.PRELUDE;
+            p.virtualCamera.Priority = 20;
+            */
+        }
+    }
 }

@@ -1,7 +1,6 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Players;
 
 
@@ -17,6 +16,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GameObject go = GCS.FindPlayer();
             pi = go.GetComponent<PlayerInput>();
 
+            if (pi == null) {
+                Debug.LogError("fail to find: Player Input");
+            }
+        }
+
+        private void Start() {
             if (pi != null) {
                 pi.onActionTriggered += OnActionTriggered;
             } else {
@@ -31,7 +36,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 Debug.LogError("fail to unsubscribe");
             }
         }
-
 
         // event handlers  #####################################################
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
