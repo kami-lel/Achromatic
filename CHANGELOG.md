@@ -10,7 +10,6 @@
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
-<!-- Todo Perfect indication placed close to player  -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->
@@ -43,6 +42,12 @@
 ### Added
 
 - FPS Counter
+- various gameplay indicators:
+
+  - Running Score Indicator
+  - Score Addition Indicator
+  - Combo Indicator
+  - Hit Type Indicator
 
 ### Changed
 ### Deprecated

@@ -41,7 +41,7 @@ public class PieceScript: MonoBehaviour {
     public MusicManager music;
 
     public Criteria criteria;
-    public ScoreTracker scoreTracker;
+    public Score score;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
@@ -89,7 +89,7 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new(this, beatmapMeta);
         music = new(this, pseudoAudioPlugin);
-        scoreTracker = new(beatmap);
+        score = new(beatmap);
         criteria = new(this);
         playerManager = new(this);
         starter = new(this);

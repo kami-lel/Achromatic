@@ -80,7 +80,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void Trigger() {
             Hit judgeResult = p.criteria.Judge(pressed);
-            p.scoreTracker.Record(judgeResult);
+            p.score.Record(judgeResult);
 
             if ((pressed & PressedActions.JUMP) != 0) {
                 p.playerManager.tmpJump();

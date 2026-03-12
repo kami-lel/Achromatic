@@ -20,25 +20,12 @@ public class GCS: MonoBehaviour {
         get; private set;
     }
 
-
-    // public member  ##########################################################
+    // public member  ==========================================================
     [NonSerialized]
     public GameState states = GameState.NONE;
 
 
-    // Inspector Fields  #######################################################
-
-    // Hack rm these
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpJudgeResult;
-
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpCombo;
-
-    [SerializeField]
-    private AnimationCurve tmpTextboxCurve;
-
-    // MonoBehavior Lifecycle  #################################################
+    // MonoBehavior Lifecycle  =================================================
 
     private void Awake() { // ==================================================
         // ensure Singleton  ---------------------------------------------------
@@ -54,11 +41,6 @@ public class GCS: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         SceneManager.sceneLoaded += HandleInitFPSCounter;
 #endif
-
-        // disable textbox
-        tmpCombo.gameObject.SetActive(false);
-        tmpJudgeResult.gameObject.SetActive(false);
-
     }
 
     private void Update() {  // ================================================
@@ -80,69 +62,25 @@ public class GCS: MonoBehaviour {
 
     }
 
-    // Fixme create score overlay
-
-    // public methods  #########################################################
-
-    // Hack tmp method
-    public void tmpUpdateText(
-            Hit judgeResult, int combo, int runningScore) {
-        if (!tmpCombo.gameObject.activeSelf) {
-            tmpCombo.gameObject.SetActive(true);
-        }
-        if (!tmpJudgeResult.gameObject.activeSelf) {
-            tmpJudgeResult.gameObject.SetActive(true);
-        }
-
-
-        tmpCombo.text = $"{combo} hits\nscore:{runningScore}";
-
-        string judgeText;
-
-        if ((judgeResult & Hit.PERFECT) != 0) {
-            judgeText = "Perfect!";
-        } else {
-            judgeText = judgeResult switch {
-                Hit.NO_HIT => "No Hit!",
-                Hit.INCORRECT => "Wrong!",
-                Hit.EARLY_MISS => "Miss! Too Early",
-                Hit.EARLY_GREAT => "Great! Too Early",
-                Hit.EARLY_GOOD => "Good! Too Early",
-                Hit.LATE_MISS => "Miss! Too Late",
-                Hit.LATE_GREAT => "Great! Too Late",
-                Hit.LATE_GOOD => "Good! Too Late",
-                _ => null
-            };
-        }
-
-        tmpJudgeResult.text = judgeText;
-    }
-
-
-    // private members  ########################################################
+    // private members  ========================================================
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private TextMeshProUGUI fpsCounter;
     private int fpsFrameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
 #endif
 
-    // private methods  ########################################################
+    // private methods  ========================================================
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-
     private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
         GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
         if (fpsCounterGameObject != null) {
             fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
         }
-
-        if (fpsCounter != null) {
-            fpsCounterGameObject.SetActive(true);
-        } else {
+        if (fpsCounter == null) {
             Debug.LogWarning("GCS: fail to find FPS Counter text field");
         }
     }
-
 #endif
 
 }

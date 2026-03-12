@@ -64,7 +64,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             // auto-miss notes you fully passed
             while (timings.Count > 0 && timings.Peek().IsPassByMiss(p.music.Time)) {
                 timings.Dequeue();
-                p.scoreTracker.Record(Hit.LATE_MISS);
+                p.score.Record(Hit.LATE_MISS);
             }
         }
     }
