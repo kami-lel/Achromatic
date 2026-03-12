@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class HitTypeIndicatorScript: MonoBehaviour {
     // todo animation for hit type indicator
-    // Bug not showing properly in canvas
 
     // public methods  =========================================================
 

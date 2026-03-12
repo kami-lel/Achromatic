@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d60256955d63a4ebef0516527d4573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackgroundSingleLayer
-  mainCamera: {fileID: 1176853363}
+  mainCamera: {fileID: 0}
   layerSprite: {fileID: -855298285791758126, guid: d435386ccfc2fa444bb695901e9d38af, type: 3}
   parallaxFactor: 0.2
   tileCount: 3
@@ -16841,6 +16841,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.9000002
       objectReference: {fileID: 0}
+    - target: {fileID: 2105379203806069407, guid: d062543937ba88e44b72d78bde74614c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105379203806069407, guid: d062543937ba88e44b72d78bde74614c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 513730351
+      objectReference: {fileID: 0}
     - target: {fileID: 3743320143481646306, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -16905,11 +16913,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1882001279}
   m_SourcePrefab: {fileID: 100100000, guid: d062543937ba88e44b72d78bde74614c, type: 3}
---- !u!1 &1176853363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2662436027331640132, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-  m_PrefabInstance: {fileID: 1176853362}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1259368993
 GameObject:
   m_ObjectHideFlags: 0
@@ -17715,7 +17718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d60256955d63a4ebef0516527d4573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackgroundSingleLayer
-  mainCamera: {fileID: 1176853363}
+  mainCamera: {fileID: 0}
   layerSprite: {fileID: 6937817954938267909, guid: 32524b8ed78ffab45a90e5efc068c80d, type: 3}
   parallaxFactor: 0.2
   tileCount: 3

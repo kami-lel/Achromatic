@@ -54,8 +54,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: OverEfx
+  - name: ScoreIndicators
     uniqueID: 3339278749
+    locked: 0
+  - name: Player
+    uniqueID: 513730351
     locked: 0
   m_RenderingLayers:
   - Default
