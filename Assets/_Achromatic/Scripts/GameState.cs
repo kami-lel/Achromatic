@@ -14,5 +14,4 @@ public enum GameState {
 
     EXPLORE_CONTROL = EXPLORE | VAMP,
     PIECE_CONTROl = PRELUDE | MAIN_PIECE
-
 }
