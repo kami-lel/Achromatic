@@ -78,13 +78,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // todo use Spline path
 
                 // TODO attack & etc.
-                // BUG only change the sprite transform
-                float y = p.beatmap.origin.y +
-                        jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
+                // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
-
-                Vector2 newPosition = new(x, y);
+                Vector2 newPosition = new(x, p.beatmap.origin.y);
                 playerRB.MovePosition(newPosition);
+
+                // make player movement by animation curve
+                //
+                float y = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
+                Vector2 animPosition = new(0f, y);
+                playerSprite.position = animPosition;
             }
         }
 
@@ -118,6 +121,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerObject.GetComponent<PlayerScript>();
             playerInput = playerObject.GetComponent<PlayerInput>();
             playerRB = player.playerRB;
+            playerSprite = playerObject.GetComponentInChildren<SpriteRenderer>().transform;
 
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
@@ -160,6 +164,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // cached references
         private readonly PieceScript p;
+        private readonly Transform playerSprite;
 
     }
 }
