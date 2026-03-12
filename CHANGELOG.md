@@ -38,6 +38,32 @@
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+
+## 1.0.0 Release
+
+## 1.0.0-beta Beta Milestone
+
+## 1.0.0-alpha Alpha Milestone
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [0.9.1] Pre-Alpha - 2026-03-12
+
+### Added
 
 - FPS Counter
 - various gameplay indicators:
@@ -57,18 +83,11 @@
 - using Controller Rumble to provide feedback information
   of both hit type and action type during music play
 
-### Deprecated
 ### Removed
 
 - unused sprites from last build
 
-### Fixed
 
-## 1.0.0 Release
-
-## 1.0.0-beta Beta Milestone
-
-## 1.0.0-alpha Alpha Milestone
 
 
 
