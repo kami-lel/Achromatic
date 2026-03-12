@@ -8,7 +8,6 @@ using Assets._Achromatic.Scripts.Scores;
 
 // TODO metrics: fps
 // TODO metrics: total time &portion of time
-// TODO frame counter
 // Todo metrics: deltas
 // Todo metrics: hit / miss ratio per part
 // Todo merge game stat
