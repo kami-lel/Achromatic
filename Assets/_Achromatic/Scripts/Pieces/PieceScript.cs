@@ -79,10 +79,6 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
 
-    private void Awake() {
-        score.Awake();
-    }
-
     private void Start() {
         if (mainPartPath == null) {
             Debug.LogError("Piece:\tmust assign mainPartPath");
