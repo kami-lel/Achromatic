@@ -2,6 +2,12 @@ using System;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
+// TODO metrics: fps
+// TODO metrics: total time &portion of time
+// TODO frame counter
+// Todo metrics: deltas
+// Todo metrics: hit / miss ratio per part
+
 public class GCS: MonoBehaviour {
 
     // singleton
