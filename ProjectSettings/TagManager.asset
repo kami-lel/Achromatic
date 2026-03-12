@@ -6,6 +6,7 @@ TagManager:
   tags:
   - StartVampTrigger
   - StartPreludeTrigger
+  - FPSCounter
   layers:
   - Default
   - TransparentFX

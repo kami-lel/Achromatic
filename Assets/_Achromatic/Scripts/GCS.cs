@@ -1,6 +1,17 @@
 using System;
-using Assets._Achromatic.Scripts.Scores;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+using Assets._Achromatic.Scripts.Scores;
+using UnityEngine.Profiling;
+
+// Todo metrics: fps
+// Todo metrics: total time &portion of time
+// Todo metrics: deltas
+// Todo metrics: hit / miss ratio per part
+// Todo merge game stat
 
 public class GCS: MonoBehaviour {
 
@@ -9,38 +20,15 @@ public class GCS: MonoBehaviour {
         get; private set;
     }
 
-    public GameState states;
 
-    // MonoBehavior Lifecycle  #################################################
-    private void Awake() {
-        if (I == null) {  // create Singleton
-            I = this;
-            DontDestroyOnLoad(gameObject);
-            return;
-        }
-        if (I != this) {  // guard against duplicate
-            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
-            Destroy(gameObject);
-        }
+    // public member  ##########################################################
+    [NonSerialized]
+    public GameState states = GameState.NONE;
 
-
-        // Hack rm these
-        // reference to playerScript
-        playerScript = player.GetComponent<PlayerScript>();
-
-        // disable textbox
-        tmpCombo.gameObject.SetActive(false);
-        tmpJudgeResult.gameObject.SetActive(false);
-    }
-
-
-    // Fixme create score overlay
 
     // Inspector Fields  #######################################################
 
-    [SerializeField]
-    private GameObject player;
-
+    // Hack rm these
     [SerializeField]
     private TMPro.TextMeshProUGUI tmpJudgeResult;
 
@@ -50,31 +38,52 @@ public class GCS: MonoBehaviour {
     [SerializeField]
     private AnimationCurve tmpTextboxCurve;
 
-    // public members  #########################################################
+    // MonoBehavior Lifecycle  #################################################
 
-
-    [NonSerialized]
-    public PlayerScript playerScript;
-
-    private float lastTriggerTime;
-
-    // class method  ###########################################################
-    /// <returns>singleton player</returns>
-    public static GameObject GetPlayer() {
+    private void Awake() { // ==================================================
+        // ensure Singleton  ---------------------------------------------------
         if (I == null) {
-            Debug.LogError("GameController:\tInstance is null");
+            I = this;
+            DontDestroyOnLoad(gameObject);
+        } else if (I != this) {  // guard against duplicate
+            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
+            Destroy(gameObject);
+            return;
         }
 
-        return I.player;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        SceneManager.sceneLoaded += HandleInitFPSCounter;
+#endif
+
+        // disable textbox
+        tmpCombo.gameObject.SetActive(false);
+        tmpJudgeResult.gameObject.SetActive(false);
+
     }
 
-    private void Update() {
-        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
-        // Hack
-        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
+    private void Update() {  // ================================================
+
+        // FPS Counter  --------------------------------------------------------
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        fpsFrameCounter++;
+        fpsCounterAccumulateTime += Time.unscaledDeltaTime;
+        if (fpsCounterAccumulateTime > 1.0f) {
+            fpsCounter.text = fpsFrameCounter + " fps";
+
+            Profiler.BeginSample($"{fpsFrameCounter}");
+            Profiler.EndSample();
+
+            fpsFrameCounter = 0;
+            fpsCounterAccumulateTime = 0.0f;
+        }
+#endif
+
     }
+
+    // Fixme create score overlay
 
     // public methods  #########################################################
+
     // Hack tmp method
     public void tmpUpdateText(
             Hit judgeResult, int combo, int runningScore) {
@@ -107,8 +116,33 @@ public class GCS: MonoBehaviour {
         }
 
         tmpJudgeResult.text = judgeText;
-
-        lastTriggerTime = Time.time;
     }
+
+
+    // private members  ########################################################
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private TextMeshProUGUI fpsCounter;
+    private int fpsFrameCounter = 0;
+    private float fpsCounterAccumulateTime = 0.0f;
+#endif
+
+    // private methods  ########################################################
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+
+    private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
+        GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
+        if (fpsCounterGameObject != null) {
+            fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
+        }
+
+        if (fpsCounter != null) {
+            fpsCounterGameObject.SetActive(true);
+        } else {
+            Debug.LogWarning("GCS: fail to find FPS Counter text field");
+        }
+    }
+
+#endif
 
 }
