@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 2662436027331640132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.590485, y: 1.0654565, z: -10}
+  m_LocalPosition: {x: 2.1064239, y: 0.9000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -540,7 +540,6 @@ MonoBehaviour:
     m_Bits: 1024
   defaultMaterial: {fileID: 6200000, guid: 86d5166df87b660428dfde1de571da59, type: 2}
   noFrictionMaterial: {fileID: 6200000, guid: 792bed60f11f30b4eab9e2fa0af053c6, type: 2}
-  tmpPlayerSprite: {fileID: 5373102086045384597}
 --- !u!95 &3086159920649639274
 Animator:
   serializedVersion: 7
@@ -704,7 +703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4566079534959480950
 Transform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    // Bug player bad location
 
     /// <summary>
     /// take control of player GameObject during music piece
@@ -30,9 +31,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             playerRB.linearVelocityX = preludeStartVelocityX;
 
-            player.TurnRight();
-            player.SetInputForMusicPlay();
-            player.AnimationStartWalk();
+            player.EnsureFacingRight();
+            player.im.SetInputForMusicPlay();
+            player.StartRun();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
@@ -50,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void tmpJump() {
+        public void tmpJump() { // hack tmp jump
             tmpPlayerLastJump = Time.time;
         }
 

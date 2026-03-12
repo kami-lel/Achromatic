@@ -16,9 +16,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "10c958e7-2358-45df-b93c-c32085d289e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Squat",
+                    "type": "Button",
+                    "id": "fe2aead8-311d-4053-aeb1-41a5f74916b6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -42,7 +51,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -53,7 +62,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93c0c1e0-fa25-4a06-8264-7934f3ef0589",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Squat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64e70504-07f6-42c5-91b1-50bc75c40297",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Squat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -135,7 +166,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
+                    "name": "Squat",
                     "type": "Button",
                     "id": "dee5743d-1793-403c-8e74-3cb978ddac04",
                     "expectedControlType": "",
@@ -227,7 +258,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Squat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -238,7 +269,7 @@
                     "interactions": "",
                     "processors": "AxisDeadzone",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Squat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

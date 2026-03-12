@@ -14,6 +14,7 @@
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->
 <!-- fixme walk vs run -->
+<!-- fixme allow different actions for the same action -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
 <!-- Todo need dramatic shift visually to indicate music has started -->
@@ -49,9 +50,17 @@
   - Combo Indicator
   - Hit Type Indicator
 
+- 2 new player actions: Squat & Attack
+
 ### Changed
+
+- `PlayerScript.cs` code refactorization, utilize various managers
+
 ### Deprecated
 ### Removed
+
+- unused sprites from last build
+
 ### Fixed
 
 ## 1.0.0 Release
