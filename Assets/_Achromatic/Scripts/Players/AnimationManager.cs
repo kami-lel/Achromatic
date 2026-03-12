@@ -41,7 +41,8 @@ namespace Assets._Achromatic.Scripts.Players {
         private readonly int SQUAT_ANIM_ID = Animator.StringToHash("Squat");
         private readonly int JUMP_ANIM_ID = Animator.StringToHash("Jump");
 
-        // private members  ########################################################
+        // private members  ####################################################
+        // cached references
         private Animator animator;
     }
 }

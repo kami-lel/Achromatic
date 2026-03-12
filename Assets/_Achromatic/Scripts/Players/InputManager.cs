@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(Collider2D))]
     class InputManager: MonoBehaviour {
         // Public API  #########################################################
         public void SetInputForExplorePlay() {
@@ -41,6 +42,11 @@ namespace Assets._Achromatic.Scripts.Players {
             if (col == null) {
                 Debug.LogError("InputManger:\tfail to get: Collider2D");
             }
+
+            mvmt = GetComponent<Movement>();
+            if (mvmt == null) {
+                Debug.LogError("InputManger:\tfail to get: Movement");
+            }
         }
 
         private void Start() {
@@ -59,24 +65,23 @@ namespace Assets._Achromatic.Scripts.Players {
                 return;
             }
 
-            // HACK
             switch (ctxt.action.phase) {
             case InputActionPhase.Started:  // ---------------------------------
                 switch (ctxt.action.name) {
                 case "Jump":
-                    // p.mvmt.Jump();
+                    mvmt.Jump();
                     break;
 
                 case "Left":
-                    // p.mvmt.TurnLeft();
+                    mvmt.TurnLeft();
                     break;
 
                 case "Right":
-                    // p.mvmt.TurnRight();
+                    mvmt.TurnRight();
                     break;
 
                 case "Squat":
-                    // p.mvmt.Squat();
+                    mvmt.Squat();
                     break;
 
                 case "Interact":
@@ -90,8 +95,7 @@ namespace Assets._Achromatic.Scripts.Players {
                 switch (ctxt.action.name) {
                 case "Left":
                 case "Right":
-                    // HACK
-                    // p.mvmt.Stop();
+                    mvmt.Stop();
                     break;
                 }
                 break;
@@ -104,6 +108,7 @@ namespace Assets._Achromatic.Scripts.Players {
         // cached references
         private PlayerInput pi;
         private Collider2D col;
+        private Movement mvmt;
 
 
 
