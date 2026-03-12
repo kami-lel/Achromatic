@@ -19,8 +19,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             rb.linearVelocityX = preludeStartVelocityX;
 
+            anim.EnsureFacing(true);
             // HACK
-            // player.EnsureFacingRight();
             // player.im.SetInputForMusicPlay();
             // player.StartRun();
         }

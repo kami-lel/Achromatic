@@ -3,10 +3,10 @@
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Players {
-
+    [RequireComponent(typeof(Animator))]
     class AnimationManager: MonoBehaviour {
 
-        // Public API  #############################################################
+        // Public API  #########################################################
 
         public void StartRun() {
             animator.SetBool(RUN_ANIM_ID, true);
@@ -28,6 +28,16 @@ namespace Assets._Achromatic.Scripts.Players {
             animator.SetTrigger(ATTACK_ANIM_ID);
         }
 
+        public void EnsureFacing(bool right = true) {
+            if (right != isFacingRight) {
+                // flip
+                isFacingRight = !isFacingRight;
+                Vector3 s = transform.localScale;
+                s.x = -s.x;
+                transform.localScale = s;
+            }
+        }
+
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
             animator = GetComponent<Animator>();
@@ -43,5 +53,8 @@ namespace Assets._Achromatic.Scripts.Players {
         // private members  ####################################################
         // cached references
         private Animator animator;
+
+        // private methods  ####################################################
+        private bool isFacingRight = true;
     }
 }

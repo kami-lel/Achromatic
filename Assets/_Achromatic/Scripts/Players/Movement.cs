@@ -10,13 +10,13 @@ namespace Assets._Achromatic.Scripts.Players {
         // Public API  #########################################################
         public void TurnLeft() {
             moveDir = -1;
-            EnsureFacing(-1);
+            anim.EnsureFacing(false);
             anim.StartRun();
         }
 
         public void TurnRight() {
             moveDir = 1;
-            EnsureFacing(1);
+            anim.EnsureFacing(true);
             anim.StartRun();
         }
 
@@ -41,10 +41,6 @@ namespace Assets._Achromatic.Scripts.Players {
 
             anim.Squat();
             SFX.I.Squat();
-        }
-
-        public void EnsureFacingRight() {
-            EnsureFacing(1);
         }
 
         // Inspector Fields  ###################################################
@@ -100,7 +96,6 @@ namespace Assets._Achromatic.Scripts.Players {
         private static readonly float MAX_WALKING_SPEED = 10.0f;
 
         // private members  ####################################################
-        private bool isFacingRight = true;
         private int moveDir = 0;
 
         // Cached References
@@ -113,19 +108,5 @@ namespace Assets._Achromatic.Scripts.Players {
             return rb.IsTouchingLayers(groundLayerMask);
         }
 
-        private void EnsureFacing(int dir) {
-            if (dir == 0)
-                return;
-            bool shouldFaceRight = dir > 0;
-            if (shouldFaceRight != isFacingRight)
-                Flip();
-        }
-
-        private void Flip() {
-            isFacingRight = !isFacingRight;
-            Vector3 s = transform.localScale;
-            s.x = -s.x;
-            transform.localScale = s;
-        }
     }
 }
