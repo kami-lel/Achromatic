@@ -26,7 +26,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            // TODO TODO consider game state when scene transition
+            // TODO consider game state when scene transition
             Debug.Log("PlayerManager:\tStartMainPiece");
 
             GCS.I.states = GameState.MAIN_PIECE;
@@ -106,6 +106,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc movement during prelude  -----------------------------------
+            /* HACK
             float t = p.beatmap.meta.preludeSeconds;
             if (t <= 0f) {
                 Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
@@ -126,6 +127,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
+            */
         }
 
         private void Update() {
@@ -134,6 +136,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 // Todo use Spline path
 
+                /* HACK
                 // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
                 Vector2 newPosition = new(x, p.beatmap.origin.y);
@@ -160,6 +163,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 }
 
                 playerSprite.localPosition = new Vector2(localX, localY);
+                */
             }
         }
 
@@ -189,6 +193,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private AnimationManager anim;
         private MusicManager music;
         private PlayerInput pi;
+        private Transform playerSprite;
 
     }
 }
