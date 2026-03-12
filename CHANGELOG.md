@@ -7,6 +7,7 @@
 <!-- TODO hit indicator, close to user
 <!-- TODO total score indicator -->
 <!-- TODO combo indicator -->
+<!-- TODO score addition indicator -->
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
