@@ -183,7 +183,7 @@ public class PlayerScript: MonoBehaviour {
                 TurnRight();
                 break;
 
-            case "Dash":
+            case "Squat":
                 MovementDash();
                 break;
 
