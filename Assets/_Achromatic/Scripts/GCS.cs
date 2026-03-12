@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
-using Assets._Achromatic.Scripts.Players;
 
 // Todo metrics: fps
 // Todo metrics: total time &portion of time

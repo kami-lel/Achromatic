@@ -13,16 +13,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Public API  #########################################################
 
         public void StartPrelude() {
-            playerLastActionTime = Time.time;
+            currentActionStartTime = Time.time;
 
             Debug.Log("PlayerManager:\tStartPrelude");
 
             rb.linearVelocityX = preludeStartVelocityX;
 
             anim.EnsureFacing(true);
+            anim.StartRun();
             // HACK
             // player.im.SetInputForMusicPlay();
-            // player.StartRun();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
@@ -46,25 +46,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Jump(Hit hit) {
             anim.Jump();
             SFX.I.Jump(hit);
-            // HACK
-            // playerLastActionTime = Time.time;
-            // actionType = 1;
+            currentAction = Actions.JUMP;
+            currentActionStartTime = Time.time;
         }
 
         public void Squat(Hit hit) {
             anim.Squat();
             SFX.I.Squat(hit);
-            // HACK
-            // playerLastActionTime = Time.time;
-            // actionType = 2;
+
+            currentAction = Actions.SQUAT;
+            currentActionStartTime = Time.time;
         }
 
         public void Attack(Hit hit) {
             anim.Attack();
             SFX.I.Attack(hit);
-            // HACK
-            // playerLastActionTime = Time.time;
-            // actionType = 3;
+
+            currentAction = Actions.ATTACK;
+            currentActionStartTime = Time.time;
         }
 
         // Inspector Fields  ###################################################
@@ -163,21 +162,22 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 float x = p.beatmap.CalcCurrentXFromBeat();
                 Vector2 newPosition = new(x, p.beatmap.origin.y);
                 rb.MovePosition(newPosition);
+                */
 
                 // make player movement by animation curve
                 float localX = 0;
                 float localY = 0;
-                switch (actionType) {
-                case 1:
-                    localY = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
+                switch (currentAction) {
+                case Actions.JUMP:
+                    localY = jumpHeightVsTime.Evaluate(Time.time - currentActionStartTime);
                     break;
 
-                case 2:
-                    localX = -squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                case Actions.SQUAT:
+                    localX = -squatOffsetVsTime.Evaluate(Time.time - currentActionStartTime);
                     break;
 
-                case 3:
-                    localX = attackOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                case Actions.ATTACK:
+                    localX = attackOffsetVsTime.Evaluate(Time.time - currentActionStartTime);
                     break;
 
                 default:
@@ -185,7 +185,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 }
 
                 playerSprite.localPosition = new Vector2(localX, localY);
-                */
             }
         }
 
@@ -210,8 +209,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         private float preludeStartVelocityX;
         private float preludeAcceleration;
-        private float playerLastActionTime;
-        private int actionType = 0;  // HACK better way to do this
+        private float currentActionStartTime;
+        private Actions currentAction;
 
         // cached references
         private Rigidbody2D rb;
