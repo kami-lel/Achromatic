@@ -6,8 +6,11 @@ using UnityEngine;
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Beatmap;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScoreTracker {
+    // FIXME refactorization
 
     /// <summary>
     /// total score possible for a piece
@@ -65,6 +68,9 @@ public class ScoreTracker {
         // init combo  ---------------------------------------------------------
         combo = 0;
         maxCombo = 0;
+
+        // init indicators
+        SceneManager.sceneLoaded += InitIndicators;
     }
 
     public void Record(Hit judgeResult) {
@@ -97,7 +103,14 @@ public class ScoreTracker {
                 + $"\tcombo: {combo}"
                 );
 
+        // HACK rm
         GCS.I.tmpUpdateText(judgeResult, combo, runningScore);
+
+        // update indicators  --------------------------------------------------
+        // combo indicator
+        if (comboIndicator != null) {
+            comboIndicator.text = $"{runningScore}";  // FIXME
+        }
     }
 
     /// <returns>final correct/precise score</returns>
@@ -122,5 +135,22 @@ public class ScoreTracker {
 
         return Mathf.RoundToInt(finalScore);
     }
+
+    // private methods  ========================================================
+    private void InitIndicators(Scene scene, LoadSceneMode mode) {
+        // combo indicator
+        GameObject comboGO = GameObject.FindWithTag("ComboIndicator");
+        if (comboGO != null) {
+            comboIndicator = comboGO.GetComponent<TextMeshProUGUI>();
+        }
+        if (comboIndicator == null) {
+            Debug.LogWarning("ScoreTracker: fail to find Combo Indicator");
+        }
+    }
+
+    // private members  ========================================================
+    // cached references
+    private TextMeshProUGUI comboIndicator;
+
 }
 

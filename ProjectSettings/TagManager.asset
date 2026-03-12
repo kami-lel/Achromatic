@@ -7,6 +7,9 @@ TagManager:
   - StartVampTrigger
   - StartPreludeTrigger
   - FPSCounter
+  - HitIndicator
+  - TotalScoreIndicator
+  - ComboIndicator
   layers:
   - Default
   - TransparentFX

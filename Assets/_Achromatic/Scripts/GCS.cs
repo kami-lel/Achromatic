@@ -135,10 +135,7 @@ public class GCS: MonoBehaviour {
         if (fpsCounterGameObject != null) {
             fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
         }
-
-        if (fpsCounter != null) {
-            fpsCounterGameObject.SetActive(true);
-        } else {
+        if (fpsCounter == null) {
             Debug.LogWarning("GCS: fail to find FPS Counter text field");
         }
     }
