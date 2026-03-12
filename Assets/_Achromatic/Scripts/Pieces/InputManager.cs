@@ -79,15 +79,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void Trigger() {
-            Hit judgeResult = p.criteria.Judge(pressed);
-            p.score.Record(judgeResult);
+            Hit hit = p.criteria.Judge(pressed);
+            p.score.Record(hit);
 
             if ((pressed & PressedActions.JUMP) != 0) {
-                p.playerManager.Jump();
+                p.playerManager.Jump(hit);
             } else if ((pressed & PressedActions.SQUAT) != 0) {
-                p.playerManager.Squat();
+                p.playerManager.Squat(hit);
             } else if ((pressed & PressedActions.ATTACK) != 0) {
-                p.playerManager.Attack();
+                p.playerManager.Attack(hit);
             }
 
             // todo add audio for feedback, layered

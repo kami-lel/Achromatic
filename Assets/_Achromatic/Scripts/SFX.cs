@@ -18,24 +18,22 @@ public class SFX: MonoBehaviour {
 
     // public methods  =========================================================
 
-    // TODO utilize the hit based actions
-
     public void Jump(Hit hit = Hit.NONE) {
         jumpSFX.Play();
         jumpSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Jump");
+        PlayRumble("Jump", hit);
     }
 
     public void Squat(Hit hit = Hit.NONE) {
         dashSFX.Play();
         dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Squat");
+        PlayRumble("Squat", hit);
     }
 
     public void Attack(Hit hit = Hit.NONE) {
         dashSFX.Play();
         dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Attack");
+        PlayRumble("Attack", hit);
     }
 
 
@@ -75,31 +73,31 @@ public class SFX: MonoBehaviour {
             default:
                 low = 0.35f;
                 high = 1.00f;
-                duration = 0.22f;
+                duration = 0.14f;
                 break;
             case "Attack":
                 low = 1.00f;
                 high = 0.80f;
-                duration = 0.24f;
+                duration = 0.16f;
                 break;
             case "Squat":
                 low = 0.70f;
                 high = 0.30f;
-                duration = 0.22f;
+                duration = 0.15f;
                 break;
             }
         } else if ((hit & Hit.GREAT) != 0) {
             low = 0.55f;
             high = 0.65f;
-            duration = 0.18f;
+            duration = 0.12f;
         } else if ((hit & Hit.GOOD) != 0) {
             low = 0.35f;
             high = 0.40f;
-            duration = 0.16f;
+            duration = 0.10f;
         } else {  // miss
             low = 0.90f;
             high = 0.20f;
-            duration = 0.28f;
+            duration = 0.18f;
         }
 
         // perform rumble  -----------------------------------------------------

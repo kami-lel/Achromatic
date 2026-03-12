@@ -28,6 +28,7 @@ public class PlayerMovement {
 
         p.playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
+        SFX.I.Jump();
         p.Jump();
     }
 
@@ -36,8 +37,8 @@ public class PlayerMovement {
             return;
 
         p.Squat();
+        SFX.I.Squat();
     }
-
 
     // MonoBehavior Lifecycle  =================================================
 

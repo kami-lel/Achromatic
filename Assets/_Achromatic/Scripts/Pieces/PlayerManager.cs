@@ -1,5 +1,6 @@
 
 using System;
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,19 +50,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void Jump() {
+        public void Jump(Hit hit) {
             p.playerManager.player.Jump();
+            SFX.I.Jump(hit);
             tmpPlayerLastJump = Time.time;
         }
 
-        public void Squat() {
+        public void Squat(Hit hit) {
             p.playerManager.player.Squat();
-
+            SFX.I.Squat(hit);
         }
 
-        public void Attack() {
+        public void Attack(Hit hit) {
             p.playerManager.player.Attack();
-
+            SFX.I.Attack(hit);
         }
 
         // MonoBehavior Lifecycle  #############################################

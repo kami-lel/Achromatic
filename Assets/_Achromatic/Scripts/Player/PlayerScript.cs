@@ -37,17 +37,14 @@ public class PlayerScript: MonoBehaviour {
 
     public void Jump() {
         animator.SetTrigger(JUMP_ANIM_ID);
-        SFX.I.Jump();
     }
 
     public void Squat() {
         animator.SetTrigger(SQUAT_ANIM_ID);
-        SFX.I.Squat();
     }
 
     public void Attack() {
         animator.SetTrigger(ATTACK_ANIM_ID);
-        SFX.I.Attack();
     }
 
     public void EnsureFacingRight() {
@@ -118,5 +115,6 @@ public class PlayerScript: MonoBehaviour {
     private readonly int JUMP_ANIM_ID = Animator.StringToHash("Jump");
 
     // cached references
-    private Animator animator;
+    [NonSerialized]
+    public Animator animator;
 }
