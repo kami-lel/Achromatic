@@ -6,6 +6,7 @@ namespace Assets._Achromatic.Scripts.Scores {
     public enum Hit {
 
         // results  ----------------------------------------------------------------
+        NONE = 0,
 
         NO_HIT = 1 << 0,
         EARLY_MISS = 1 << 1,

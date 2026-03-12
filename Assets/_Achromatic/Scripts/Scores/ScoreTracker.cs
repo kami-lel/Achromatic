@@ -128,6 +128,7 @@ public class Score {
         if (comboIndicator == null) {
             Debug.LogError("Score: fail to find Combo Indicator");
         }
+
         // running score indicator
         GameObject runningGO = GameObject.FindWithTag("RunningScoreIndicator");
         if (comboGO != null) {
@@ -136,6 +137,8 @@ public class Score {
         if (runningScoreIndicator == null) {
             Debug.LogError("Score: fail to find Running Score Indicator");
         }
+
+        // hit type indicator
     }
 
     private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {
