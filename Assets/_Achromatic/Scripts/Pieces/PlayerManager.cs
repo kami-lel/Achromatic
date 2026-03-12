@@ -106,7 +106,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     break;
                 }
 
-                // BUG
                 playerSprite.localPosition = new Vector2(localX, localY);
             }
         }
