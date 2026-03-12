@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 // BUG fix dash during animations
 
 // todo implements walking (vs running)
+// TODO refactorization using player movement
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
