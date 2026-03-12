@@ -67,7 +67,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // actionType = 3;
         }
 
-        // Inspector Fields  #######################################################
+        // Inspector Fields  ###################################################
 
         // Fixme animation curve fine tuning
         [SerializeField]
@@ -81,6 +81,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
+            // caching references  ---------------------------------------------
+
             GameObject go = GCS.FindPlayer();
 
             rb = go.GetComponent<Rigidbody2D>();
@@ -102,6 +104,28 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (pi == null) {
                 Debug.LogError("fail to get: PlayerInput");
             }
+
+            // calc movement during prelude  -----------------------------------
+            float t = p.beatmap.meta.preludeSeconds;
+            if (t <= 0f) {
+                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
+                t = Mathf.Epsilon;
+            }
+
+            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
+            float v = p.beatmap.horizontalSpeedInMainPiece;
+
+            // calc init velocity
+            preludeStartVelocityX = 2f * s / t - v;
+            if (preludeStartVelocityX < 0f) {
+                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed");
+                preludeStartVelocityX = 0f;
+            }
+
+            // calc acceleration — use v - u over t to be explicit
+            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
+
+            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         private void Update() {
@@ -155,67 +179,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // private members  ####################################################
+        private float preludeStartVelocityX;
+        private float preludeAcceleration;
+        private float playerLastActionTime;
+        private int actionType = 0;  // HACK better way to do this
+
         // cached references
         private Rigidbody2D rb;
         private AnimationManager anim;
         private MusicManager music;
         private PlayerInput pi;
-
-        // FIXME FIXME make mono  ##############################################
-        // constructor  ########################################################
-        public PlayerManager(PieceScript piece, AnimationCurve jumpHeightVsTime, AnimationCurve attackOffsetVsTime, AnimationCurve squatOffsetVsTime) {
-            p = piece;
-
-            // find player
-            GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
-            if (playerObject == null) {
-                Debug.LogError("PlayerManager:\tfail to find GameObject with tag 'player'");
-                return;
-            }
-
-            player = playerObject.GetComponent<Player>();
-            playerInput = playerObject.GetComponent<PlayerInput>();
-            playerSprite = p.playerSprite;
-
-            // calc movement during prelude  -----------------------------------
-            float t = p.beatmap.meta.preludeSeconds;
-            if (t <= 0f) {
-                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
-                t = Mathf.Epsilon;
-            }
-
-            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
-            float v = p.beatmap.horizontalSpeedInMainPiece;
-
-            // calc init velocity
-            preludeStartVelocityX = 2f * s / t - v;
-            if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed");
-                preludeStartVelocityX = 0f;
-            }
-
-            // calc acceleration — use v - u over t to be explicit
-            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
-
-            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
-        }
-
-        // constants  ##########################################################
-
-        private const string PLAYER_TAG = "Player";
-
-        // private members  ####################################################
-        private readonly float preludeStartVelocityX;
-
-        private readonly float preludeAcceleration;
-
-        private float playerLastActionTime;
-        private int actionType = 0;  // HACK better way to do this
-
-
-        // cached references
-        private readonly PieceScript p;
-        private readonly Transform playerSprite;
 
     }
 }
