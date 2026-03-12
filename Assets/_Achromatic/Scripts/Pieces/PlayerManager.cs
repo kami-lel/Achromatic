@@ -17,9 +17,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             Debug.Log("PlayerManager:\tStartPrelude");
 
-            GCS.I.states = GameState.PRELUDE;
-
-            playerRB.linearVelocityX = preludeStartVelocityX;
+            rb.linearVelocityX = preludeStartVelocityX;
 
             // HACK
             // player.EnsureFacingRight();
@@ -33,8 +31,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.MAIN_PIECE;
 
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            pi.SwitchCurrentActionMap("PlayerMusicPlay");
         }
 
         public void FinishPiece() {
@@ -43,45 +41,70 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        // FIXME FIXME make mono  ##############################################
-
-        // cached references
-        public Player player;
-        public PlayerInput playerInput;
-
-        [NonSerialized]
-        public Rigidbody2D playerRB;
-
-        // public methods  #####################################################
-
+        // Public Methods  #####################################################
 
         public void Jump(Hit hit) {
-            // HACK
-            // p.playerManager.player.Jump();
+            anim.Jump();
             SFX.I.Jump(hit);
-            playerLastActionTime = Time.time;
-            actionType = 1;
+            // HACK
+            // playerLastActionTime = Time.time;
+            // actionType = 1;
         }
 
         public void Squat(Hit hit) {
-            // HACK
-            // p.playerManager.player.Squat();
+            anim.Squat();
             SFX.I.Squat(hit);
-            playerLastActionTime = Time.time;
-            actionType = 2;
+            // HACK
+            // playerLastActionTime = Time.time;
+            // actionType = 2;
         }
 
         public void Attack(Hit hit) {
-            // HACK
-            // p.playerManager.player.Attack();
+            anim.Attack();
             SFX.I.Attack(hit);
-            playerLastActionTime = Time.time;
-            actionType = 3;
+            // HACK
+            // playerLastActionTime = Time.time;
+            // actionType = 3;
         }
 
-        // MonoBehavior Lifecycle  #############################################
+        // Inspector Fields  #######################################################
 
-        public void Update() {
+        // Fixme animation curve fine tuning
+        [SerializeField]
+        private AnimationCurve jumpHeightVsTime;
+
+        [SerializeField]
+        private AnimationCurve attackOffsetVsTime;
+
+        [SerializeField]
+        private AnimationCurve squatOffsetVsTime;
+
+        // MonoBehavior Lifecycle  #############################################
+        private void Awake() {
+            GameObject go = GCS.FindPlayer();
+
+            rb = go.GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("fail to find: Rigidbody2D");
+            }
+
+            anim = go.GetComponent<AnimationManager>();
+            if (anim == null) {
+                Debug.LogError("fail to get: AnimationManager");
+            }
+
+            music = go.GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
+            }
+
+            pi = go.GetComponent<PlayerInput>();
+            if (pi == null) {
+                Debug.LogError("fail to get: PlayerInput");
+            }
+        }
+
+        private void Update() {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
 
@@ -90,7 +113,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
                 Vector2 newPosition = new(x, p.beatmap.origin.y);
-                playerRB.MovePosition(newPosition);
+                rb.MovePosition(newPosition);
 
                 // make player movement by animation curve
                 float localX = 0;
@@ -116,25 +139,32 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        public void FixedUpdate() {
+        private void FixedUpdate() {
             // prelude  --------------------------------------------------------
             if (GCS.I.states == GameState.PRELUDE) {
                 // Fixme using music to control triggering
-                if (p.music.Time >= p.beatmap.meta.preludeSeconds) {
-                    StartMainPiece();
-                    return;
-                }
+                // HACK
+                // if (music.Time >= p.beatmap.meta.preludeSeconds) {
+                //     StartMainPiece();
+                //     return;
+                // }
 
-                playerRB.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
+                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             }
         }
 
+
+        // private members  ####################################################
+        // cached references
+        private Rigidbody2D rb;
+        private AnimationManager anim;
+        private MusicManager music;
+        private PlayerInput pi;
+
+        // FIXME FIXME make mono  ##############################################
         // constructor  ########################################################
         public PlayerManager(PieceScript piece, AnimationCurve jumpHeightVsTime, AnimationCurve attackOffsetVsTime, AnimationCurve squatOffsetVsTime) {
             p = piece;
-            this.jumpHeightVsTime = jumpHeightVsTime;
-            this.attackOffsetVsTime = attackOffsetVsTime;
-            this.squatOffsetVsTime = squatOffsetVsTime;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
@@ -145,7 +175,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             player = playerObject.GetComponent<Player>();
             playerInput = playerObject.GetComponent<PlayerInput>();
-            playerRB = playerObject.GetComponent<Rigidbody2D>();
             playerSprite = p.playerSprite;
 
             // calc movement during prelude  -----------------------------------
@@ -180,10 +209,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private readonly float preludeAcceleration;
 
-        // Fixme animation curve fine tuning
-        private readonly AnimationCurve jumpHeightVsTime;
-        private readonly AnimationCurve attackOffsetVsTime;
-        private readonly AnimationCurve squatOffsetVsTime;
         private float playerLastActionTime;
         private int actionType = 0;  // HACK better way to do this
 

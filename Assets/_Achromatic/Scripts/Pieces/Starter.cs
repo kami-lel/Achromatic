@@ -57,6 +57,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (p.debugMusicStaringBar == 0) {
                 p.music.StartPreludeThenMainPiece();
                 p.playerManager.StartPrelude();
+                GCS.I.states = GameState.PRELUDE;
 
             } else {
                 // start music mid point for debug purpose
