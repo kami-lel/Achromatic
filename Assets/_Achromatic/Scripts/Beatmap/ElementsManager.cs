@@ -16,14 +16,10 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             root = rootTransform;
 
             // create per-type pools  --------------------------------------------
-            beatLinePool = new PrefabPool(16,
-                    PREFAB_FOLDER_PATH + "BeatLine", root);
-            barlinePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "Barline", root);
-            jumpNotePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "JumpNote", root);
-            dashNotePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "DashNote", root);
+            beatLinePool = new PrefabPool(16, PREFAB_FOLDER_PATH + "BeatLine", root);
+            barlinePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "Barline", root);
+            jumpNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "JumpNote", root);
+            dashNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "DashNote", root);
 
             // initialize last placed positions to current playback state
             float currentBeat = p.beatmap.currentBeatCount;

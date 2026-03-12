@@ -7,11 +7,10 @@ using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Pieces {
-    /// <summary>
-    /// take control of player GameObject during music piece
-    /// </summary>
-    public class PlayerManager {
 
+    public class PlayerManager: MonoBehaviour {
+
+        // FIXME FIXME make mono  ##############################################
         // public members  #####################################################
 
         // cached references
