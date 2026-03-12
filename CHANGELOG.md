@@ -7,14 +7,9 @@
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
-<!-- TODO metrics: fps -->
-<!-- Todo metrics: deltas -->
-<!-- TODO metrics: total time & portion of time -->
-<!-- Todo metrics: hit/miss ratio per part -->
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
-<!-- TODO frame counter -->
 <!-- Todo Perfect indication placed close to player  -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- Bug floating rocks are distracting -->
