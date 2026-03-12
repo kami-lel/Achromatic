@@ -4,14 +4,14 @@
 
 [^format]
 
+<!-- bug floating rocks are distracting -->
 <!-- bug must properly merge assets -->
-<!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- fixme better looking notes elements -->
+<!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo final score window -->
 <!-- todo particles efx -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo full UX: start, reset, etc. -->
-<!-- bug floating rocks are distracting -->
 <!-- todo make prefabs disappearing as feed back -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
