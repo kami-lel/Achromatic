@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Assets._Achromatic.Scripts.Player {
+namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(PlayerInput))]
     class InputManager: MonoBehaviour {
         // Public API  #########################################################

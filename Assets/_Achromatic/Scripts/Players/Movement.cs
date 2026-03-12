@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-namespace Assets._Achromatic.Scripts.Player {
+namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(AnimationManager))]
     [RequireComponent(typeof(Rigidbody2D))]
     class Movement: MonoBehaviour {

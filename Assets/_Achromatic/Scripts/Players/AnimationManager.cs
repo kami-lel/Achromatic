@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets._Achromatic.Scripts.Player {
+namespace Assets._Achromatic.Scripts.Players {
 
     class AnimationManager: MonoBehaviour {
 

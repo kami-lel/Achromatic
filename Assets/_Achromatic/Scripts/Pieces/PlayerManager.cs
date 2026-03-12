@@ -4,6 +4,8 @@ using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Assets._Achromatic.Scripts.Players;
+
 namespace Assets._Achromatic.Scripts.Pieces {
     /// <summary>
     /// take control of player GameObject during music piece
@@ -13,7 +15,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public members  #####################################################
 
         // cached references
-        public PlayerScript player;
+        public Player player;
         public PlayerInput playerInput;
 
         [NonSerialized]
@@ -30,8 +32,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             playerRB.linearVelocityX = preludeStartVelocityX;
 
-            player.EnsureFacingRight();
             // HACK
+            // player.EnsureFacingRight();
             // player.im.SetInputForMusicPlay();
             // player.StartRun();
         }

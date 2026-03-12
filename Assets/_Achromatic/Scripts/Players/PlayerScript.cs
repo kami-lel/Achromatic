@@ -1,7 +1,7 @@
 using System;
-using Assets._Achromatic.Scripts.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Assets._Achromatic.Scripts.Players;
 
 // todo implements walking (vs running)
 
