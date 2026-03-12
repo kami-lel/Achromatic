@@ -23,7 +23,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void StartPrelude() {
             // TODO mpv player animation in this
-            playerLastAction = Time.time;
+            playerLastActionTime = Time.time;
 
             Debug.Log("PlayerManager:\tStartPrelude");
 
@@ -54,19 +54,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void Jump(Hit hit) {
             p.playerManager.player.Jump();
             SFX.I.Jump(hit);
-            playerLastAction = Time.time;
+            playerLastActionTime = Time.time;
         }
 
         public void Squat(Hit hit) {
             p.playerManager.player.Squat();
             SFX.I.Squat(hit);
-            playerLastAction = Time.time;
+            playerLastActionTime = Time.time;
         }
 
         public void Attack(Hit hit) {
             p.playerManager.player.Attack();
             SFX.I.Attack(hit);
-            playerLastAction = Time.time;
+            playerLastActionTime = Time.time;
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -78,7 +78,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // todo use Spline path
 
                 float y = p.beatmap.origin.y +
-                        p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+                        jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
                 float x = p.beatmap.CalcCurrentXFromBeat();
 
                 Vector2 newPosition = new(x, y);
@@ -148,12 +148,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly float preludeStartVelocityX;
 
         private readonly float preludeAcceleration;
-        private float tmpPlayerLastJump;
 
         private readonly AnimationCurve jumpHeightVsTime;
         private readonly AnimationCurve attackOffsetVsTime;
         private readonly AnimationCurve squatOffsetVsTime;
-        private float playerLastAction;
+        private float playerLastActionTime;
 
 
         // cached references
