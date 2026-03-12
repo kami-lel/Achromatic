@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- TODO score addition indicator -->
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
 <!-- Fixme better looking notes elements -->
@@ -43,6 +42,12 @@
 ### Added
 
 - FPS Counter
+- various gameplay indicators:
+
+  - Running Score Indicator
+  - Score Addition Indicator
+  - Combo Indicator
+  - Hit Type Indicator
 
 ### Changed
 ### Deprecated
