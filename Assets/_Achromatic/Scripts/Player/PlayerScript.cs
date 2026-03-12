@@ -103,7 +103,6 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        Debug.Log("Player:\texit trigger: " + other.tag);
         OnTriggerExit?.Invoke(other.tag);
     }
 
