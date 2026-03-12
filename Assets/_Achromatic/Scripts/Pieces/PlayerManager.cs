@@ -26,7 +26,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            // TODO consider game state when scene transition
             Debug.Log("PlayerManager:\tStartMainPiece");
 
 
