@@ -55,18 +55,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
             p.playerManager.player.Jump();
             SFX.I.Jump(hit);
             playerLastActionTime = Time.time;
+            actionType = 1;
         }
 
         public void Squat(Hit hit) {
             p.playerManager.player.Squat();
             SFX.I.Squat(hit);
             playerLastActionTime = Time.time;
+            actionType = 2;
         }
 
         public void Attack(Hit hit) {
             p.playerManager.player.Attack();
             SFX.I.Attack(hit);
             playerLastActionTime = Time.time;
+            actionType = 3;
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -84,10 +87,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 playerRB.MovePosition(newPosition);
 
                 // make player movement by animation curve
-                //
-                float y = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
-                Vector2 animPosition = new(0f, y);
-                playerSprite.position = animPosition;
+                float localX = 0;
+                float localY = 0;
+                switch (actionType) {
+                case 1:
+                    localY = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                case 2:
+                    localX = squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                case 3:
+                    localX = attackOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                default:
+                    break;
+                }
+
+                playerSprite.localPosition = new Vector2(localX, localY);
             }
         }
 
@@ -160,6 +179,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly AnimationCurve attackOffsetVsTime;
         private readonly AnimationCurve squatOffsetVsTime;
         private float playerLastActionTime;
+        private int actionType = 0;  // hack better way to do this
 
 
         // cached references
