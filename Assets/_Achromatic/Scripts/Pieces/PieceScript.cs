@@ -10,7 +10,7 @@ using Assets._Achromatic.Scripts.Beatmap;
 using Cinemachine;
 
 
-// Bug audio start is jarring, lose framerate
+// bug audio start is jarring, lose framerate
 
 
 /// <summary>

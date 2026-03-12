@@ -51,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void tmpJump() { // hack tmp jump
+        public void tmpJump() { // Hack tmp jump
             tmpPlayerLastJump = Time.time;
         }
 
@@ -61,7 +61,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // main piece  -----------------------------------------------------
             if (GCS.I.states == GameState.MAIN_PIECE) {
 
-                // Todo use Spline path
+                // todo use Spline path
 
                 float y = p.beatmap.origin.y +
                         p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);

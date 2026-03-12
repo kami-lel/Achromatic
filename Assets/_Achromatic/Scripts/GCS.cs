@@ -7,11 +7,11 @@ using TMPro;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
 
-// Todo metrics: fps
-// Todo metrics: total time &portion of time
-// Todo metrics: deltas
-// Todo metrics: hit / miss ratio per part
-// Todo merge game stat
+// todo metrics: fps
+// todo metrics: total time &portion of time
+// todo metrics: deltas
+// todo metrics: hit / miss ratio per part
+// todo merge game stat
 
 public class GCS: MonoBehaviour {
 

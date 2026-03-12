@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // fixme code refactorization
-// Bug missing beat lines
+// bug missing beat lines
 namespace Assets._Achromatic.Scripts.Beatmap {
 
     public class ElementsManager {

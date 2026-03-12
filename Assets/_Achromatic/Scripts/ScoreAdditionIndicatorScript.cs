@@ -10,7 +10,7 @@ public class ScoreAdditionIndicatorScript: MonoBehaviour {
 
     public void Show(int scoreAddition) {
         textField.text = $"+{scoreAddition}";
-        // Todo animation for score addition
+        // todo animation for score addition
     }
 
     // MonoBehavior Lifecycle  =================================================
