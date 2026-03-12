@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 2088707974650760597}
   - component: {fileID: 2596056634301086646}
   - component: {fileID: 690277133571386127}
+  - component: {fileID: 9052415178535514728}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -698,6 +699,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e585b2dc1ed3ca41b41f227c4fb7864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Player.InputManager
+--- !u!114 &9052415178535514728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743320143481646306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce22a4406ee18994b982f9373490462c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Player.AnimationManager
 --- !u!1 &3885278114047312203
 GameObject:
   m_ObjectHideFlags: 0

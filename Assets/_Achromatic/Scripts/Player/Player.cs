@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Player {
 
     class Player: MonoBehaviour {
-        // TODO
 
+        // Public Members  #####################################################
+        [NonSerialized]
+        public Rigidbody2D playerRB;
+
+        // TODO
     }
 }
