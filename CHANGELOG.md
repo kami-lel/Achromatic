@@ -53,6 +53,9 @@
 ### Changed
 ### Deprecated
 ### Removed
+
+- unused sprites from last build
+
 ### Fixed
 
 ## 1.0.0 Release
