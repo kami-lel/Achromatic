@@ -23,12 +23,10 @@ public class GCS: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() { // ==================================================
-
         // ensure Singleton  ---------------------------------------------------
         if (I == null) {
             I = this;
             DontDestroyOnLoad(gameObject);
-            return;
         }
         if (I != this) {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
@@ -36,13 +34,8 @@ public class GCS: MonoBehaviour {
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        InitFPSCounter();
         SceneManager.sceneLoaded += HandleInitFPSCounter;
 #endif
-
-        // Hack rm these
-        // reference to playerScript
-        playerScript = player.GetComponent<PlayerScript>();
 
 
         // disable textbox
@@ -64,12 +57,6 @@ public class GCS: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
-    private bool enablesFPSCounter = true;
-
-    [SerializeField]
     private TMPro.TextMeshProUGUI tmpJudgeResult;
 
     [SerializeField]
@@ -88,11 +75,7 @@ public class GCS: MonoBehaviour {
     // class method  ###########################################################
     /// <returns>singleton player</returns>
     public static GameObject GetPlayer() { // Hack rm
-        if (I == null) {
-            Debug.LogError("GameController:\tInstance is null");
-        }
-
-        return I.player;
+        return null;
     }
 
     // public methods  #########################################################
@@ -135,29 +118,24 @@ public class GCS: MonoBehaviour {
 
     // private members  ########################################################
     // cached references
-    private TMP_Text fpsCounter;
+    private TextMeshProUGUI fpsCounter;
 
 
     // private methods  ########################################################
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
-    private void InitFPSCounter() {
-        var fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
+    private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
+        GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
         if (fpsCounterGameObject != null) {
-            fpsCounter = fpsCounterGameObject.GetComponent<TMP_Text>();
+            fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
         }
 
         if (fpsCounter != null) {
             fpsCounterGameObject.SetActive(true);
-            fpsCounter.text = "???";  // HACK
         } else {
             Debug.LogWarning("GCS: fail to find FPS Counter text field");
         }
-    }
-
-    private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
-        InitFPSCounter();
     }
 
 #endif
