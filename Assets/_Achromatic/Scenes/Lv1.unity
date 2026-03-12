@@ -18248,6 +18248,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[1].time
       value: 0.3136487
       objectReference: {fileID: 0}
@@ -18266,6 +18274,38 @@ PrefabInstance:
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[2].value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].time
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].time
+      value: 0.35336637
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].time
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[0].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].value
+      value: 1.3919784
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[0].inSlope
@@ -18300,12 +18340,76 @@ PrefabInstance:
       value: -3.6722374
       objectReference: {fileID: 0}
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[0].inSlope
+      value: -0.07817593
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].inSlope
+      value: -2.9291887
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[0].inSlope
+      value: 2.694585
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].inSlope
+      value: -3.6880257
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].inSlope
+      value: -0.38021782
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[0].outWeight
       value: 0.05836652
       objectReference: {fileID: 0}
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[1].outWeight
       value: 0.10448146
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[0].outSlope
+      value: -0.07817593
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].inWeight
+      value: 0.05305618
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].outSlope
+      value: -2.9291887
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[0].outSlope
+      value: 2.694585
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].outSlope
+      value: -3.6880257
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].inWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].outSlope
+      value: -0.38021782
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[0].outWeight
+      value: 0.5657597
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[0].outWeight
+      value: 0.16507891
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].outWeight
+      value: 0.067006454
       objectReference: {fileID: 0}
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[0].tangentMode
@@ -18318,6 +18422,14 @@ PrefabInstance:
     - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: jumpHeightVsTime.m_Curve.Array.data[2].tangentMode
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: squatOffsetVsTime.m_Curve.Array.data[1].tangentMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4287971021022977273, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Name

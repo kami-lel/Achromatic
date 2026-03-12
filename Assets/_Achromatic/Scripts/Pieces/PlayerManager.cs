@@ -95,7 +95,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     break;
 
                 case 2:
-                    localX = squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                    localX = -squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
                     break;
 
                 case 3:
@@ -106,7 +106,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     break;
                 }
 
-                playerSprite.localPosition = new Vector2(localX, localY);
+                // HACK
+                // playerSprite.localPosition = new Vector2(localX, localY);
             }
         }
 
