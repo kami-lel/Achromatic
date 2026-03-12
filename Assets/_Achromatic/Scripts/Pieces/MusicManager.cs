@@ -39,20 +39,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
+            /* HACK
             float startTime = (debugMusicStaringBar - 1.0f)
-                    * p.beatmap.meta.beatPerBar
-                    * (60.0f / p.beatmap.meta.tempo)
-                    + p.beatmap.meta.preludeSeconds;
+                                * p.beatmap.meta.beatPerBar
+                                * (60.0f / p.beatmap.meta.tempo)
+                                + p.beatmap.meta.preludeSeconds;
 
             pseudoAudioPlugin.preludeAndMain.time = startTime;
 
             // start the music
             pseudoAudioPlugin.preludeAndMain.Play();
+            */
         }
 
         // Inspector Fields  #######################################################
 
         [SerializeField]
         private PseudoAudioPlugin pseudoAudioPlugin;
+
     }
 }
