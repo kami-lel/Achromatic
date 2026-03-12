@@ -1,16 +1,25 @@
 using UnityEngine;
+using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(PlayerManager))]
     public class Starter: MonoBehaviour {
 
         // Inspector Fields  ###################################################
+
+        [SerializeField]
+        private int debugMusicStartingBar = 0;
+
         [SerializeField]
         private AnimationCurve vampDistantVsVolume;
 
         [SerializeField]
         private Transform startPreludeTransform;
+
+        [SerializeField]
+        private CinemachineVirtualCamera virtualCamera;
 
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
@@ -21,11 +30,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (startPreludeTransform == null) {
                 Debug.LogError("must assign: Start Prelude Transform");
             }
+            if (virtualCamera == null) {
+                Debug.LogError("must assign: Virtual Camera");
+            }
 
             // caching reference of piece  -------------------------------------
             music = GetComponent<MusicManager>();
             if (music == null) {
                 Debug.LogError("fail to get: MusicManager");
+            }
+            playerManager = GetComponent<PlayerManager>();
+            if (playerManager == null) {
+                Debug.LogError("fail to get: Player Manager");
             }
 
             // caching references of player  -----------------------------------
@@ -106,27 +122,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Cached References
         private Player player;
+        private PlayerManager playerManager;
         private MusicManager music;
         private Transform playerTransform;
 
         // private methods  ####################################################
 
         private void StartPreludeThenMainPiece() {
-            /* HACK
-            if (p.debugMusicStaringBar == 0) {
-                p.music.StartPreludeThenMainPiece();
-                p.playerManager.StartPrelude();
+            if (debugMusicStartingBar == 0) {
+                music.StartPreludeThenMainPiece();
+                playerManager.StartPrelude();
                 GCS.I.states = GameState.PRELUDE;
 
             } else {
                 // start music mid point for debug purpose
-                p.music.DebugStartMusic(p.debugMusicStaringBar);
-                p.playerManager.StartMainPiece(p.debugMusicStaringBar);
+                music.DebugStartMusic(debugMusicStartingBar);
+                playerManager.StartMainPiece(debugMusicStartingBar);
+                GCS.I.states = GameState.MAIN_PIECE;
             }
 
-            GCS.I.states = GameState.PRELUDE;
-            p.virtualCamera.Priority = 20;
-            */
+            virtualCamera.Priority = 20;
         }
     }
 }

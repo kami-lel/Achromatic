@@ -29,7 +29,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // TODO consider game state when scene transition
             Debug.Log("PlayerManager:\tStartMainPiece");
 
-            GCS.I.states = GameState.MAIN_PIECE;
 
             rb.bodyType = RigidbodyType2D.Kinematic;
             pi.SwitchCurrentActionMap("PlayerMusicPlay");
