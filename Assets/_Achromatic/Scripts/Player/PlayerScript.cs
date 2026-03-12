@@ -1,8 +1,6 @@
 using System;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.U2D.IK;
 
 // TODO 3rd actions
 // BUG fix dash during animations
