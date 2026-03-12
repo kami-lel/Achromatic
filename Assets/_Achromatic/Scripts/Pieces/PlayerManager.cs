@@ -22,7 +22,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public methods  #####################################################
 
         public void StartPrelude() {
-            // TODO mpv player animation in this
             playerLastActionTime = Time.time;
 
             Debug.Log("PlayerManager:\tStartPrelude");
@@ -80,7 +79,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 // todo use Spline path
 
-                // TODO attack & etc.
                 // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
                 Vector2 newPosition = new(x, p.beatmap.origin.y);
