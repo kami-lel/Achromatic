@@ -37,17 +37,17 @@ public class PlayerScript: MonoBehaviour {
 
     public void Jump() {
         animator.SetTrigger(JUMP_ANIM_ID);
-        SFXManagerScript.Instance.PlayJumpSFX();
+        SFXManagerScript.i.Jump();
     }
 
     public void Squat() {
         animator.SetTrigger(SQUAT_ANIM_ID);
-        SFXManagerScript.Instance.PlayDashSFX();
+        SFXManagerScript.i.Squat();
     }
 
     public void Attack() {
         animator.SetTrigger(ATTACK_ANIM_ID);
-        SFXManagerScript.Instance.PlayDashSFX();
+        SFXManagerScript.i.Attack();
     }
 
     public void EnsureFacingRight() {

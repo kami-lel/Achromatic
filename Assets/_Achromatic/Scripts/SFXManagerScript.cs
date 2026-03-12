@@ -1,3 +1,4 @@
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,23 +13,30 @@ public class SFXManagerScript: MonoBehaviour {
     // public members  =========================================================
 
     // singleton
-    public static SFXManagerScript Instance {
+    public static SFXManagerScript I {
         get; private set;
     }
 
     // public methods  =========================================================
 
-    public void PlayJumpSFX() {
+    public void Jump(Hit hit = Hit.NONE) {
         jumpSFX.Play();
         jumpSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
         PlayRumble(0.1f, 0.8f, 0.1f);
     }
 
-    public void PlayDashSFX() {
+    public void Squat(Hit hit = Hit.NONE) {
         dashSFX.Play();
         dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
         PlayRumble(0.7f, 0.1f, 0.2f);
     }
+
+    public void Attack(Hit hit = Hit.NONE) {
+        dashSFX.Play();
+        dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        PlayRumble(0.7f, 0.1f, 0.2f);
+    }
+
 
     // Inspector Fields  =======================================================
     [SerializeField]
@@ -39,12 +47,12 @@ public class SFXManagerScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  =================================================
     private void Awake() {
-        if (Instance == null) {  // create Singleton
-            Instance = this;
+        if (I == null) {  // create Singleton
+            I = this;
             DontDestroyOnLoad(gameObject);
             return;
         }
-        if (Instance != this) {  // guard against duplicate
+        if (I != this) {  // guard against duplicate
             Debug.LogError("SFX:\tplace SFXManager Prefab only in 1st scene");
             Destroy(gameObject);
         }
