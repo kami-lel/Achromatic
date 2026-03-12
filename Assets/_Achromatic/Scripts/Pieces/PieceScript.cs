@@ -83,6 +83,8 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
+    public Transform playerSprite;
+
 
     // MonoBehavior Lifecycle  #################################################
 

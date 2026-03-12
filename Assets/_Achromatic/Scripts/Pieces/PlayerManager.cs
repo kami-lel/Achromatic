@@ -106,8 +106,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     break;
                 }
 
-                // HACK
-                // playerSprite.localPosition = new Vector2(localX, localY);
+                // BUG
+                playerSprite.localPosition = new Vector2(localX, localY);
             }
         }
 
@@ -141,7 +141,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerObject.GetComponent<PlayerScript>();
             playerInput = playerObject.GetComponent<PlayerInput>();
             playerRB = player.playerRB;
-            playerSprite = playerObject.GetComponentInChildren<SpriteRenderer>().transform;
+            playerSprite = p.playerSprite;
 
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
