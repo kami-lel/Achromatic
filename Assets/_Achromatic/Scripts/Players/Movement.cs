@@ -74,6 +74,10 @@ namespace Assets._Achromatic.Scripts.Players {
             rb.linearDamping = 0.0f;
         }
         private void FixedUpdate() {
+            if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
+                return;
+            }
+
             // apply horizontal force toward target velocity
             float targetVelX = moveDir * MAX_WALKING_SPEED;
             float velDiff = targetVelX - rb.linearVelocityX;

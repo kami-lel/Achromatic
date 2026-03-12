@@ -18,11 +18,6 @@ namespace Assets._Achromatic.Scripts.Players {
             col.sharedMaterial = noFrictionMaterial;
         }
 
-        // Public Members  #####################################################
-
-        public event Action<string> OnTriggerEnter;
-        public event Action<string> OnTriggerExit;
-
         // Inspector Fields  ###################################################
 
         [SerializeField]
