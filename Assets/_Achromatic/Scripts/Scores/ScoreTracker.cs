@@ -67,9 +67,11 @@ public class Score {
         // update indicators  --------------------------------------------------
         // combo indicator
         if (comboIndicator != null) {
-            comboIndicator.text = "111222";  // HACK
-        } else {
-            Debug.LogError("aaaa");  // HACK
+            comboIndicator.text = $"{combo}";
+        }
+        // running score
+        if (runningScoreIndicator != null) {
+            runningScoreIndicator.text = $"{runningScore}";
         }
     }
 
@@ -103,6 +105,7 @@ public class Score {
 
     // cached references
     private TextMeshProUGUI comboIndicator;
+    private TextMeshProUGUI runningScoreIndicator;
 
     /// <summary>
     /// total score possible for a piece
@@ -122,6 +125,14 @@ public class Score {
         }
         if (comboIndicator == null) {
             Debug.LogError("Score: fail to find Combo Indicator");
+        }
+        // running score indicator
+        GameObject runningGO = GameObject.FindWithTag("ComboIndicator");
+        if (comboGO != null) {
+            runningScoreIndicator = runningGO.GetComponent<TextMeshProUGUI>();
+        }
+        if (runningScoreIndicator == null) {
+            Debug.LogError("Score: fail to find Running Score Indicator");
         }
     }
 

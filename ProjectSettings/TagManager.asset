@@ -8,8 +8,8 @@ TagManager:
   - StartPreludeTrigger
   - FPSCounter
   - HitIndicator
-  - TotalScoreIndicator
   - ComboIndicator
+  - RunningScoreIndicator
   layers:
   - Default
   - TransparentFX
