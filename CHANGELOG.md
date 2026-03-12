@@ -53,6 +53,8 @@
 
 - `PlayerScript.cs` code refactorization, utilize various managers
 - fine tunning camera for better play experience
+- using Controller Rumble to provide feedback information
+  of both hit type and action type during music play
 
 ### Deprecated
 ### Removed
