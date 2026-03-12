@@ -1,12 +1,16 @@
 using System;
 using Assets._Achromatic.Scripts.Scores;
+using TMPro;
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // TODO metrics: fps
 // TODO metrics: total time &portion of time
 // TODO frame counter
 // Todo metrics: deltas
 // Todo metrics: hit / miss ratio per part
+// Todo merge game stat
 
 public class GCS: MonoBehaviour {
 
@@ -18,8 +22,10 @@ public class GCS: MonoBehaviour {
     public GameState states;
 
     // MonoBehavior Lifecycle  #################################################
-    private void Awake() {
-        if (I == null) {  // create Singleton
+    private void Awake() { // ==================================================
+
+        // ensure Singleton  ---------------------------------------------------
+        if (I == null) {
             I = this;
             DontDestroyOnLoad(gameObject);
             return;
@@ -29,14 +35,27 @@ public class GCS: MonoBehaviour {
             Destroy(gameObject);
         }
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        InitFPSCounter();
+        SceneManager.sceneLoaded += HandleInitFPSCounter;
+#endif
 
         // Hack rm these
         // reference to playerScript
         playerScript = player.GetComponent<PlayerScript>();
 
+
         // disable textbox
         tmpCombo.gameObject.SetActive(false);
         tmpJudgeResult.gameObject.SetActive(false);
+
+    }
+
+    private void Update() {  // ================================================
+        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
+        // Hack
+        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
+
     }
 
 
@@ -46,6 +65,9 @@ public class GCS: MonoBehaviour {
 
     [SerializeField]
     private GameObject player;
+
+    [SerializeField]
+    private bool enablesFPSCounter = true;
 
     [SerializeField]
     private TMPro.TextMeshProUGUI tmpJudgeResult;
@@ -58,7 +80,6 @@ public class GCS: MonoBehaviour {
 
     // public members  #########################################################
 
-
     [NonSerialized]
     public PlayerScript playerScript;
 
@@ -66,18 +87,12 @@ public class GCS: MonoBehaviour {
 
     // class method  ###########################################################
     /// <returns>singleton player</returns>
-    public static GameObject GetPlayer() {
+    public static GameObject GetPlayer() { // Hack rm
         if (I == null) {
             Debug.LogError("GameController:\tInstance is null");
         }
 
         return I.player;
-    }
-
-    private void Update() {
-        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
-        // Hack
-        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
     }
 
     // public methods  #########################################################
@@ -116,5 +131,35 @@ public class GCS: MonoBehaviour {
 
         lastTriggerTime = Time.time;
     }
+
+
+    // private members  ########################################################
+    // cached references
+    private TMP_Text fpsCounter;
+
+
+    // private methods  ########################################################
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+
+    private void InitFPSCounter() {
+        var fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
+        if (fpsCounterGameObject != null) {
+            fpsCounter = fpsCounterGameObject.GetComponent<TMP_Text>();
+        }
+
+        if (fpsCounter != null) {
+            fpsCounterGameObject.SetActive(true);
+            fpsCounter.text = "???";  // HACK
+        } else {
+            Debug.LogWarning("GCS: fail to find FPS Counter text field");
+        }
+    }
+
+    private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
+        InitFPSCounter();
+    }
+
+#endif
 
 }
