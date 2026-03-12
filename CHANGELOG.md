@@ -41,6 +41,9 @@
 ## [Unreleased]
 
 ### Added
+
+- FPS Counter
+
 ### Changed
 ### Deprecated
 ### Removed
