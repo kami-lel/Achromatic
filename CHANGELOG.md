@@ -40,6 +40,9 @@
 
 ### Added
 ### Changed
+
+- refactorization of Piece and Player, using multiple components approach
+
 ### Deprecated
 ### Removed
 ### Fixed
