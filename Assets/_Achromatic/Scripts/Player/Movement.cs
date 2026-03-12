@@ -48,7 +48,7 @@ namespace Assets._Achromatic.Scripts.Player {
         }
 
         // Inspector Fields  #######################################################
-        [NonSerialized]
+        [SerializeField]
         private LayerMask groundLayerMask = Physics2D.AllLayers;
 
         // MonoBehavior Lifecycle  #############################################
