@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2687839753507349163}
   - component: {fileID: 3880381500431647160}
   - component: {fileID: 5956879129964327650}
+  - component: {fileID: 158509688283701863}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f932da7785fbf4da63d149417d4462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
+  music: {fileID: 0}
   beatmapMeta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
   debugMusicStaringBar: 0
   vampDistantVsVolume:
@@ -443,6 +445,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb5dde0ac1bce24fb73070a3e022567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.InputManager
+--- !u!114 &158509688283701863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac30f74560b8074caf32d662be57e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.MusicManager
+  pseudoAudioPlugin: {fileID: 0}
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
