@@ -5,9 +5,10 @@
 [^format]
 
 <!-- bug must properly merge assets -->
-<!-- todo camera fine tunning -->
+<!-- todo camera fine tunning: smooth follow during main piece -->
+<!-- Todo camera fine tunning: up view -->
 <!-- fixme better looking notes elements -->
-<!-- Todo final score window -->
+<!-- todo final score window -->
 <!-- todo particles efx -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo full UX: start, reset, etc. -->
