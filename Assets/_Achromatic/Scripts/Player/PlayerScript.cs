@@ -7,6 +7,8 @@ using UnityEngine.U2D.IK;
 // TODO 3rd actions
 // BUG fix dash during animations
 
+// todo implements walking (vs running)
+
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
