@@ -1,4 +1,5 @@
 using System;
+using Assets._Achromatic.Scripts.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,8 +17,8 @@ public class PlayerScript: MonoBehaviour {
 
     // FIXME use multiple component approach
     // managers
-    [NonSerialized]
-    public PlayerMovement mvmt;
+    // [NonSerialized]
+    // public Movement mvmt;
 
     [NonSerialized]
     public PlayerInputManager im;
@@ -28,7 +29,7 @@ public class PlayerScript: MonoBehaviour {
     // public methods  =========================================================
 
     public void EnsureFacingRight() {
-        mvmt.EnsureFacing(1);
+        // mvmt.EnsureFacing(1);
     }
 
 
@@ -43,12 +44,12 @@ public class PlayerScript: MonoBehaviour {
     // MonoBehavior Lifecycle  =================================================
 
     void Awake() {
-        mvmt = new(this);
+        // mvmt = new(this);
         im = new(this);
     }
 
     private void Start() {
-        mvmt.Start();
+        // mvmt.Start();
         im.Start();
 
         GCS.I.states = GameState.EXPLORE;
@@ -59,7 +60,7 @@ public class PlayerScript: MonoBehaviour {
             return;
         }
 
-        mvmt.FixedUpdate();
+        // mvmt.FixedUpdate();
     }
 
     private void OnDisable() {

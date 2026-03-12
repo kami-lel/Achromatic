@@ -52,21 +52,22 @@ public class PlayerInputManager {
 
         switch (ctxt.action.phase) {
         case InputActionPhase.Started:  // -------------------------------------
+            // HACK
             switch (ctxt.action.name) {
             case "Jump":
-                p.mvmt.Jump();
+                // p.mvmt.Jump();
                 break;
 
             case "Left":
-                p.mvmt.TurnLeft();
+                // p.mvmt.TurnLeft();
                 break;
 
             case "Right":
-                p.mvmt.TurnRight();
+                // p.mvmt.TurnRight();
                 break;
 
             case "Squat":
-                p.mvmt.Squat();
+                // p.mvmt.Squat();
                 break;
 
             case "Interact":
@@ -80,7 +81,8 @@ public class PlayerInputManager {
             switch (ctxt.action.name) {
             case "Left":
             case "Right":
-                p.mvmt.Stop();
+                // HACK
+                // p.mvmt.Stop();  
                 break;
             }
             break;

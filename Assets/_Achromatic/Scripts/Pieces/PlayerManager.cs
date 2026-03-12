@@ -32,7 +32,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             player.EnsureFacingRight();
             player.im.SetInputForMusicPlay();
-            player.StartRun();
+            // HACK
+            // player.StartRun();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
@@ -51,21 +52,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Jump(Hit hit) {
-            p.playerManager.player.Jump();
+            // HACK
+            // p.playerManager.player.Jump();
             SFX.I.Jump(hit);
             playerLastActionTime = Time.time;
             actionType = 1;
         }
 
         public void Squat(Hit hit) {
-            p.playerManager.player.Squat();
+            // HACK
+            // p.playerManager.player.Squat();
             SFX.I.Squat(hit);
             playerLastActionTime = Time.time;
             actionType = 2;
         }
 
         public void Attack(Hit hit) {
-            p.playerManager.player.Attack();
+            // HACK
+            // p.playerManager.player.Attack();
             SFX.I.Attack(hit);
             playerLastActionTime = Time.time;
             actionType = 3;

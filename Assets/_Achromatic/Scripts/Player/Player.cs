@@ -7,7 +7,7 @@ namespace Assets._Achromatic.Scripts.Player {
 
         // Public Members  #####################################################
         [NonSerialized]
-        public Rigidbody2D playerRB;
+        public Rigidbody2D rb;
 
         // TODO
     }

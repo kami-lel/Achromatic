@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 
 namespace Assets._Achromatic.Scripts.Player {
     [RequireComponent(typeof(AnimationManager))]
+    [RequireComponent(typeof(Rigidbody2D))]
     class Movement: MonoBehaviour {
 
         // Public API  #########################################################
@@ -27,7 +29,7 @@ namespace Assets._Achromatic.Scripts.Player {
             if (!IsOnGround())
                 return;
 
-            p.playerRB.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
             SFX.I.Jump();
             anim.Jump();
@@ -41,6 +43,14 @@ namespace Assets._Achromatic.Scripts.Player {
             SFX.I.Squat();
         }
 
+        public void EnsureFacingRight() {
+            EnsureFacing(1);
+        }
+
+        // Inspector Fields  #######################################################
+        [NonSerialized]
+        private LayerMask groundLayerMask = Physics2D.AllLayers;
+
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
             anim = GetComponent<AnimationManager>();
@@ -48,30 +58,34 @@ namespace Assets._Achromatic.Scripts.Player {
                 Debug.LogError("Movement:\tfail to get: AnimationManager");
             }
 
+            rb = GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("Movement:\tfail to get: Rigidbody2D");
+            }
+
         }
 
         private void Start() {
-            p.playerRB.bodyType = RigidbodyType2D.Dynamic;
-            p.playerRB.gravityScale = GRAVITY_SCALE;
-            p.playerRB.freezeRotation = true;
-            p.playerRB.linearDamping = 0.0f;
-
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.gravityScale = GRAVITY_SCALE;
+            rb.freezeRotation = true;
+            rb.linearDamping = 0.0f;
         }
 
         private void FixedUpdate() {
             // apply horizontal force toward target velocity
             float targetVelX = moveDir * MAX_WALKING_SPEED;
-            float velDiff = targetVelX - p.playerRB.linearVelocityX;
+            float velDiff = targetVelX - rb.linearVelocityX;
             float requiredAccel = velDiff / Time.fixedDeltaTime;
-            float maxForce = Mathf.Abs(requiredAccel * p.playerRB.mass);
+            float maxForce = Mathf.Abs(requiredAccel * rb.mass);
             // clamp force to avoid extreme impulses
-            float forceX = Mathf.Clamp(requiredAccel * p.playerRB.mass,
+            float forceX = Mathf.Clamp(requiredAccel * rb.mass,
                 -maxForce, maxForce);
-            p.playerRB.AddForce(new Vector2(forceX, 0f));
+            rb.AddForce(new Vector2(forceX, 0f));
 
             // light damping when idle to reduce sliding
-            if (moveDir == 0 && Mathf.Abs(p.playerRB.linearVelocityX) < 0.01f) {
-                p.playerRB.linearVelocity = new Vector2(0f, p.playerRB.linearVelocityY);
+            if (moveDir == 0 && Mathf.Abs(rb.linearVelocityX) < 0.01f) {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocityY);
             }
         }
 
@@ -87,11 +101,12 @@ namespace Assets._Achromatic.Scripts.Player {
 
         // Cached References
         private AnimationManager anim;
+        private Rigidbody2D rb;
 
         // private methods  ########################################################
 
         private bool IsOnGround() {
-            return p.playerRB.IsTouchingLayers(p.groundLayerMask);
+            return rb.IsTouchingLayers(groundLayerMask);
         }
 
         private void EnsureFacing(int dir) {
@@ -104,9 +119,9 @@ namespace Assets._Achromatic.Scripts.Player {
 
         private void Flip() {
             isFacingRight = !isFacingRight;
-            Vector3 s = p.transform.localScale;
+            Vector3 s = transform.localScale;
             s.x = -s.x;
-            p.transform.localScale = s;
+            transform.localScale = s;
         }
         // TODO
 
