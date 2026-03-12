@@ -69,6 +69,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Inspector Fields  ###################################################
 
+        [SerializeField]
+        private Transform playerSprite;
+
         // Fixme animation curve fine tuning
         [SerializeField]
         private AnimationCurve jumpHeightVsTime;
@@ -103,6 +106,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pi = go.GetComponent<PlayerInput>();
             if (pi == null) {
                 Debug.LogError("fail to get: PlayerInput");
+            }
+
+            // test inspector fields  ------------------------------------------
+            if (playerSprite == null) {
+                Debug.LogError("must assign: Player Sprite");
+            }
+            if (jumpHeightVsTime == null) {
+                Debug.LogError("must assign: Jump Height Vs Time");
+            }
+            if (attackOffsetVsTime == null) {
+                Debug.LogError("must assign: Attack Offset Vs Time");
+            }
+            if (squatOffsetVsTime == null) {
+                Debug.LogError("must assign: Squat Offset Vs Time");
             }
 
             // calc movement during prelude  -----------------------------------
@@ -193,7 +210,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private AnimationManager anim;
         private MusicManager music;
         private PlayerInput pi;
-        private Transform playerSprite;
 
     }
 }
