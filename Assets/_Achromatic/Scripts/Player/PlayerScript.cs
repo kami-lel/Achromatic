@@ -2,9 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO 3rd actions
-// BUG fix dash during animations
-
 // todo implements walking (vs running)
 // TODO refactorization using player movement
 
