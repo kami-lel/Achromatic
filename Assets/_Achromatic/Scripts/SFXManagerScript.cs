@@ -9,12 +9,14 @@ public class SFXManagerScript: MonoBehaviour {
     // Todo rumble to reflects both judge result & action type
     // todo audio cue to reflects both judge result & action type
 
-    // API  ####################################################################
+    // public members  =========================================================
 
     // singleton
     public static SFXManagerScript Instance {
         get; private set;
     }
+
+    // public methods  =========================================================
 
     public void PlayJumpSFX() {
         jumpSFX.Play();
@@ -28,14 +30,14 @@ public class SFXManagerScript: MonoBehaviour {
         PlayRumble(0.7f, 0.1f, 0.2f);
     }
 
-    // Inspector Fields  #######################################################
+    // Inspector Fields  =======================================================
     [SerializeField]
     private AudioSource jumpSFX;
 
     [SerializeField]
     private AudioSource dashSFX;
 
-    // MonoBehavior Lifecycle  #################################################
+    // MonoBehavior Lifecycle  =================================================
     private void Awake() {
         if (Instance == null) {  // create Singleton
             Instance = this;
@@ -48,7 +50,7 @@ public class SFXManagerScript: MonoBehaviour {
         }
     }
 
-    // controller rumbling  ####################################################
+    // controller rumbling  ====================================================
 
     private void PlayRumble(float low, float high, float duration) {
         var pad = Gamepad.current;
