@@ -31,8 +31,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             playerRB.linearVelocityX = preludeStartVelocityX;
 
             player.EnsureFacingRight();
-            player.im.SetInputForMusicPlay();
             // HACK
+            // player.im.SetInputForMusicPlay();
             // player.StartRun();
         }
 

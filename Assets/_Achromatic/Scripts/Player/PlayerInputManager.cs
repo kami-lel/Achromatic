@@ -5,17 +5,6 @@ using Unity.VisualScripting;
 
 public class PlayerInputManager {
     // public methods  =========================================================
-
-    public void SetInputForExplorePlay() {
-        playerInput.SwitchCurrentActionMap("PlayerExplorePlay");
-        playerCollider.sharedMaterial = p.defaultMaterial;
-    }
-
-    public void SetInputForMusicPlay() {
-        playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
-        playerCollider.sharedMaterial = p.noFrictionMaterial;
-    }
-
     // constructor  ============================================================
     public PlayerInputManager(PlayerScript parent) {
         p = parent;
@@ -28,7 +17,8 @@ public class PlayerInputManager {
 
     public void Start() {
         playerInput.defaultActionMap = "PlayerExplorePlay";
-        SetInputForExplorePlay();
+        // HACK
+        // SetInputForExplorePlay();
         playerInput.onActionTriggered += OnActionTriggered;
     }
 
