@@ -97,7 +97,7 @@ public class SFX: MonoBehaviour {
         } else {  // miss
             low = 0.90f;
             high = 0.20f;
-            duration = 0.18f;
+            duration = 0.20f;
         }
 
         // perform rumble  -----------------------------------------------------
