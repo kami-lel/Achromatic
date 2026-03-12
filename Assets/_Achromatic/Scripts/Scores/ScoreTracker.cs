@@ -9,19 +9,14 @@ using Assets._Achromatic.Scripts.Beatmap;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class ScoreTracker {
-    // FIXME refactorization
+public class Score {
+
+    // public members  =========================================================
 
     /// <summary>
-    /// total score possible for a piece
+    /// running score, maybe lower than actual points
     /// </summary>
-    private const int TOTAL_SCORES = 10000;
-
-    /// <summary>
-    /// running score,
-    /// maybe lower than actual due to integer
-    /// </summary>
-    public int runningScore;
+    public float runningScore;
 
     /// <summary>
     /// number of current combos
@@ -36,56 +31,22 @@ public class ScoreTracker {
     /// <summary>
     /// count each type of result
     /// </summary>
-    private readonly Dictionary<Hit, int> resultCnt;
+    public readonly Dictionary<Hit, int> hitCnt;
 
-    private readonly float perfectScore;
-    private readonly float greatScore;
-    private readonly float goodScore;
-    private readonly int perfectScoreInt;
-    private readonly int greatScoreInt;
-    private readonly int goodScoreInt;
-
-
-    public ScoreTracker(Beatmap beatmap) {
-        // init resultCnt  -----------------------------------------------------
-        resultCnt = new Dictionary<Hit, int>();
-        foreach (Hit result
-                in Enum.GetValues(typeof(Hit))) {
-            resultCnt[result] = 0;  // filled w/ 0
-        }
-
-
-        // init perResultScores  -----------------------------------------------
-        perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
-        greatScore = perfectScore * 0.7f;
-        goodScore = perfectScore * 0.3f;
-
-        perfectScoreInt = (int)perfectScore;
-        greatScoreInt = (int)greatScore;
-        goodScoreInt = (int)goodScore;
-
-
-        // init combo  ---------------------------------------------------------
-        combo = 0;
-        maxCombo = 0;
-
-        // init indicators
-        SceneManager.sceneLoaded += InitIndicators;
-    }
+    // public methods  =========================================================
 
     public void Record(Hit judgeResult) {
-        // record the result as count
-        resultCnt[judgeResult] += 1;
+        // save results
+        hitCnt[judgeResult] += 1;
 
         // update running score
         if ((judgeResult & Hit.PERFECT) != 0) {
-            runningScore += perfectScoreInt;
+            runningScore += perfectScore;
         } else if ((judgeResult & Hit.GREAT) != 0) {
-            runningScore += greatScoreInt;
+            runningScore += greatScore;
         } else if ((judgeResult & Hit.GOOD) != 0) {
-            runningScore += goodScoreInt;
+            runningScore += goodScore;
         }
-
 
         // record combo
         if ((judgeResult & Hit.NO_SCORE) != 0) {
@@ -97,14 +58,11 @@ public class ScoreTracker {
             }
         }
 
-        Debug.Log("ScoreTracker:\tRecord:"
+        Debug.Log("Score:\tRecord:"
                 + $"\tjudge: {judgeResult}"
                 + $"\tscore: {runningScore}"
                 + $"\tcombo: {combo}"
                 );
-
-        // HACK rm
-        GCS.I.tmpUpdateText(judgeResult, combo, runningScore);
 
         // update indicators  --------------------------------------------------
         // combo indicator
@@ -113,28 +71,44 @@ public class ScoreTracker {
         }
     }
 
-    /// <returns>final correct/precise score</returns>
-    public int CalcFinalScore() {
-        float finalScore = 0.0f;
 
+    // constructor  ============================================================
+    public Score(Beatmap beatmap) {
+        // init resultCnt  -----------------------------------------------------
+        hitCnt = new Dictionary<Hit, int>();
         foreach (Hit result
                 in Enum.GetValues(typeof(Hit))) {
-
-            if ((result & Hit.NO_SCORE) != 0) {
-                continue;
-            }
-
-            if ((result & Hit.PERFECT) != 0) {
-                finalScore += perfectScore;
-            } else if ((result & Hit.GREAT) != 0) {
-                finalScore += greatScore;
-            } else {
-                finalScore += goodScore;
-            }
+            hitCnt[result] = 0;  // filled w/ 0
         }
 
-        return Mathf.RoundToInt(finalScore);
+
+        // init perResultScores  -----------------------------------------------
+        perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
+        greatScore = perfectScore * 0.7f;
+        goodScore = perfectScore * 0.3f;
+
+
+        // init combo  ---------------------------------------------------------
+        combo = 0;
+        maxCombo = 0;
+
+        // init indicators
+        SceneManager.sceneLoaded += InitIndicators;
     }
+
+    // private members  ========================================================
+
+    // cached references
+    private TextMeshProUGUI comboIndicator;
+
+    /// <summary>
+    /// total score possible for a piece
+    /// </summary>
+    private const int TOTAL_SCORES = 10000;
+
+    private readonly float perfectScore;
+    private readonly float greatScore;
+    private readonly float goodScore;
 
     // private methods  ========================================================
     private void InitIndicators(Scene scene, LoadSceneMode mode) {
@@ -144,13 +118,8 @@ public class ScoreTracker {
             comboIndicator = comboGO.GetComponent<TextMeshProUGUI>();
         }
         if (comboIndicator == null) {
-            Debug.LogWarning("ScoreTracker: fail to find Combo Indicator");
+            Debug.LogWarning("Score: fail to find Combo Indicator");
         }
     }
-
-    // private members  ========================================================
-    // cached references
-    private TextMeshProUGUI comboIndicator;
-
 }
 

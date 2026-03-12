@@ -41,7 +41,7 @@ public class PieceScript: MonoBehaviour {
     public MusicManager music;
 
     public Criteria criteria;
-    public ScoreTracker scoreTracker;
+    public Score scoreTracker;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
