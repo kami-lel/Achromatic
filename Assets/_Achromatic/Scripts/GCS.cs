@@ -24,7 +24,21 @@ public class GCS: MonoBehaviour {
     [NonSerialized]
     public GameState states = GameState.NONE;
 
+
+    // Inspector Fields  #######################################################
+
+    // Hack rm these
+    [SerializeField]
+    private TMPro.TextMeshProUGUI tmpJudgeResult;
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI tmpCombo;
+
+    [SerializeField]
+    private AnimationCurve tmpTextboxCurve;
+
     // MonoBehavior Lifecycle  #################################################
+
     private void Awake() { // ==================================================
         // ensure Singleton  ---------------------------------------------------
         if (I == null) {
@@ -47,31 +61,13 @@ public class GCS: MonoBehaviour {
     }
 
     private void Update() {  // ================================================
-        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
-        // Hack
-        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
 
     }
 
-
     // Fixme create score overlay
 
-    // Inspector Fields  #######################################################
-
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpJudgeResult;
-
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpCombo;
-
-    [SerializeField]
-    private AnimationCurve tmpTextboxCurve;
-
-    // public members  #########################################################
-
-    private float lastTriggerTime;
-
     // public methods  #########################################################
+
     // Hack tmp method
     public void tmpUpdateText(
             Hit judgeResult, int combo, int runningScore) {
@@ -104,8 +100,6 @@ public class GCS: MonoBehaviour {
         }
 
         tmpJudgeResult.text = judgeText;
-
-        lastTriggerTime = Time.time;
     }
 
 
