@@ -48,6 +48,7 @@
   - Hit Type Indicator
 
 - 2 new player actions: Squat & Attack
+- improve player animation/actions during main script
 
 ### Changed
 
