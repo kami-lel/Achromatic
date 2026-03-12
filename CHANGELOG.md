@@ -50,6 +50,8 @@
   - Combo Indicator
   - Hit Type Indicator
 
+- 2 new player actions: Squat & Attack
+
 ### Changed
 
 - `PlayerScript.cs` code refactorization, utilize various managers

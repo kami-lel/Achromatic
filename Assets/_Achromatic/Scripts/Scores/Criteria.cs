@@ -19,6 +19,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                 float beat = p.beatmap.CalcBeatCount(note);
                 float center = p.beatmap.meta.preludeSeconds + beat * spb;
 
+                // todo detach note type from action type
                 PressedActions action = note.type switch {
                     BeatmapNoteType.JUMP => PressedActions.JUMP,
                     BeatmapNoteType.DASH => PressedActions.SQUAT,
