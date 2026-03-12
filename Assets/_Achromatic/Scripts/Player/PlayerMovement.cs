@@ -31,6 +31,14 @@ public class PlayerMovement {
         p.Jump();
     }
 
+    public void Squat() {
+        if (!IsOnGround())
+            return;
+
+        p.Squat();
+    }
+
+
     // MonoBehavior Lifecycle  =================================================
 
     public void Start() {
@@ -63,7 +71,6 @@ public class PlayerMovement {
         p = parent;
 
         p.playerRB = p.GetComponent<Rigidbody2D>();
-        // TODO support all movements
     }
 
     // constants  ==============================================================

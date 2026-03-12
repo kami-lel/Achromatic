@@ -21,7 +21,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
                 PressedActions action = note.type switch {
                     BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.DASH,
+                    BeatmapNoteType.DASH => PressedActions.SQUAT,
                     _ => PressedActions.NONE
                 };
 

@@ -50,7 +50,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void tmpJump() {
+        public void tmpJump() { // hack tmp jump
             tmpPlayerLastJump = Time.time;
         }
 

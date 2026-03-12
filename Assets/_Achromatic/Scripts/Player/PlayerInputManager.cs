@@ -32,7 +32,6 @@ public class PlayerInputManager {
         playerInput.onActionTriggered += OnActionTriggered;
     }
 
-
     public void OnDisable() {
         playerInput.onActionTriggered -= OnActionTriggered;
     }
@@ -67,7 +66,7 @@ public class PlayerInputManager {
                 break;
 
             case "Squat":
-                p.Squat();
+                p.mvmt.Squat();
                 break;
 
             case "Interact":
