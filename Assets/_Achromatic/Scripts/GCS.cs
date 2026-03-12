@@ -7,8 +7,8 @@ using TMPro;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
 
-// TODO metrics: fps
-// TODO metrics: total time &portion of time
+// Todo metrics: fps
+// Todo metrics: total time &portion of time
 // Todo metrics: deltas
 // Todo metrics: hit / miss ratio per part
 // Todo merge game stat
