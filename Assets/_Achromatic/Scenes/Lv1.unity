@@ -18235,65 +18235,9 @@ PrefabInstance:
       propertyPath: pseudoAudioPlugin
       value: 
       objectReference: {fileID: 1822651826}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[0].time
-      value: -0.0041656494
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[1].time
-      value: 0.6041565
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[1].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[0].inSlope
-      value: 18.858295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[1].inSlope
-      value: -0.22079146
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[0].outSlope
-      value: 18.858295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[1].inWeight
-      value: 0.30343658
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[1].outSlope
-      value: -0.22079146
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: tmpJumpCurve.m_Curve.Array.data[0].outWeight
-      value: 0.02739609
-      objectReference: {fileID: 0}
     - target: {fileID: 4287971021022977273, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Name
       value: Piece
-      objectReference: {fileID: 0}
-    - target: {fileID: 4287971021022977273, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4437127786304406869, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.3809805
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
