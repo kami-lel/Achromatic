@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 public class SFXManager: MonoBehaviour {
 
     // todo randomize b/t different samples
-    // TODO rumble fine tuning data
-    // TODO rumble to reflects both judge result & action type
     // todo audio cue to reflects both judge result & action type
 
     // public members  =========================================================
@@ -19,6 +17,8 @@ public class SFXManager: MonoBehaviour {
     }
 
     // public methods  =========================================================
+
+    // TODO utilize the hit based actions
 
     public void Jump(Hit hit = Hit.NONE) {
         jumpSFX.Play();
