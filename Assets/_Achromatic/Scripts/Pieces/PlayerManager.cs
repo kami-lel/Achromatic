@@ -69,9 +69,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Inspector Fields  ###################################################
 
-        [SerializeField]
-        private Transform playerSprite;
-
         // Fixme animation curve fine tuning
         [SerializeField]
         private AnimationCurve jumpHeightVsTime;
@@ -85,7 +82,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
             // caching references  ---------------------------------------------
-
             GameObject go = GCS.FindPlayer();
 
             rb = go.GetComponent<Rigidbody2D>();
@@ -106,6 +102,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pi = go.GetComponent<PlayerInput>();
             if (pi == null) {
                 Debug.LogError("fail to get: PlayerInput");
+            }
+
+            // find player sprite  ---------------------------------------------
+            GameObject spriteGO = GameObject.FindWithTag(PLAYER_SPRITE_TAG);
+            if (spriteGO != null) {
+                playerSprite = spriteGO.GetComponent<Transform>();
+            }
+            if (playerSprite == null) {
+                Debug.LogError("fail to find: Player Sprite by Tag");
             }
 
             // test inspector fields  ------------------------------------------
@@ -199,6 +204,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
 
+        // constants  ##########################################################
+        private const string PLAYER_SPRITE_TAG = "PlayerSprite";
+
         // private members  ####################################################
         private float preludeStartVelocityX;
         private float preludeAcceleration;
@@ -210,6 +218,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private AnimationManager anim;
         private MusicManager music;
         private PlayerInput pi;
-
+        private Transform playerSprite;
     }
 }

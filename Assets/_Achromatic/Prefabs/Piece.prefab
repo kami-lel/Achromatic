@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 3880381500431647160}
   - component: {fileID: 5956879129964327650}
   - component: {fileID: 158509688283701863}
+  - component: {fileID: 3919188863656031373}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -311,6 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PieceScript
   music: {fileID: 0}
+  playerManager: {fileID: 0}
   beatmapMeta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
   debugMusicStaringBar: 0
   vampDistantVsVolume:
@@ -458,6 +460,109 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.MusicManager
   pseudoAudioPlugin: {fileID: 0}
+--- !u!114 &3919188863656031373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcae3bb044e33ef499c26a2f75482c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.PlayerManager
+  playerSprite: {fileID: 0}
+  jumpHeightVsTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 45.220787
+      outSlope: 45.220787
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.05836652
+    - serializedVersion: 3
+      time: 0.3136487
+      value: 0.68432623
+      inSlope: -4.1947894
+      outSlope: -4.1947894
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16289885
+      outWeight: 0.10448146
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: -3.6722374
+      outSlope: -3.6722374
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackOffsetVsTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 2.694585
+      outSlope: 2.694585
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.16507891
+    - serializedVersion: 3
+      time: 0.2506442
+      value: 1.3735152
+      inSlope: -3.6880257
+      outSlope: -3.6880257
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.067006454
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: -0.38021782
+      outSlope: -0.38021782
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  squatOffsetVsTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.07817593
+      outSlope: -0.07817593
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.5657597
+    - serializedVersion: 3
+      time: 0.3
+      value: 0
+      inSlope: -2.9291887
+      outSlope: -2.9291887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05305618
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 6937807419582017513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.909139, y: 0.49999988, z: -10}
+  m_LocalPosition: {x: 6.1432176, y: 0.49999988, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
