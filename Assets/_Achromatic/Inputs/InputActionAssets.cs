@@ -102,9 +102,18 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""10c958e7-2358-45df-b93c-c32085d289e4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Squat"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe2aead8-311d-4053-aeb1-41a5f74916b6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -128,7 +137,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -139,7 +148,29 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93c0c1e0-fa25-4a06-8264-7934f3ef0589"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Squat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64e70504-07f6-42c5-91b1-50bc75c40297"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Squat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -221,7 +252,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Squat"",
                     ""type"": ""Button"",
                     ""id"": ""dee5743d-1793-403c-8e74-3cb978ddac04"",
                     ""expectedControlType"": """",
@@ -313,7 +344,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""Squat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -324,7 +355,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""Squat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -358,14 +389,15 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         // PlayerMusicPlay
         m_PlayerMusicPlay = asset.FindActionMap("PlayerMusicPlay", throwIfNotFound: true);
         m_PlayerMusicPlay_Jump = m_PlayerMusicPlay.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerMusicPlay_Dash = m_PlayerMusicPlay.FindAction("Dash", throwIfNotFound: true);
+        m_PlayerMusicPlay_Attack = m_PlayerMusicPlay.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerMusicPlay_Squat = m_PlayerMusicPlay.FindAction("Squat", throwIfNotFound: true);
         m_PlayerMusicPlay_Trigger = m_PlayerMusicPlay.FindAction("Trigger", throwIfNotFound: true);
         // PlayerExplorePlay
         m_PlayerExplorePlay = asset.FindActionMap("PlayerExplorePlay", throwIfNotFound: true);
         m_PlayerExplorePlay_Jump = m_PlayerExplorePlay.FindAction("Jump", throwIfNotFound: true);
         m_PlayerExplorePlay_Left = m_PlayerExplorePlay.FindAction("Left", throwIfNotFound: true);
         m_PlayerExplorePlay_Right = m_PlayerExplorePlay.FindAction("Right", throwIfNotFound: true);
-        m_PlayerExplorePlay_Dash = m_PlayerExplorePlay.FindAction("Dash", throwIfNotFound: true);
+        m_PlayerExplorePlay_Squat = m_PlayerExplorePlay.FindAction("Squat", throwIfNotFound: true);
         m_PlayerExplorePlay_Interact = m_PlayerExplorePlay.FindAction("Interact", throwIfNotFound: true);
     }
 
@@ -449,7 +481,8 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerMusicPlay;
     private List<IPlayerMusicPlayActions> m_PlayerMusicPlayActionsCallbackInterfaces = new List<IPlayerMusicPlayActions>();
     private readonly InputAction m_PlayerMusicPlay_Jump;
-    private readonly InputAction m_PlayerMusicPlay_Dash;
+    private readonly InputAction m_PlayerMusicPlay_Attack;
+    private readonly InputAction m_PlayerMusicPlay_Squat;
     private readonly InputAction m_PlayerMusicPlay_Trigger;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerMusicPlay".
@@ -467,9 +500,13 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_PlayerMusicPlay_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerMusicPlay/Dash".
+        /// Provides access to the underlying input action "PlayerMusicPlay/Attack".
         /// </summary>
-        public InputAction @Dash => m_Wrapper.m_PlayerMusicPlay_Dash;
+        public InputAction @Attack => m_Wrapper.m_PlayerMusicPlay_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerMusicPlay/Squat".
+        /// </summary>
+        public InputAction @Squat => m_Wrapper.m_PlayerMusicPlay_Squat;
         /// <summary>
         /// Provides access to the underlying input action "PlayerMusicPlay/Trigger".
         /// </summary>
@@ -503,9 +540,12 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Dash.started += instance.OnDash;
-            @Dash.performed += instance.OnDash;
-            @Dash.canceled += instance.OnDash;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Squat.started += instance.OnSquat;
+            @Squat.performed += instance.OnSquat;
+            @Squat.canceled += instance.OnSquat;
             @Trigger.started += instance.OnTrigger;
             @Trigger.performed += instance.OnTrigger;
             @Trigger.canceled += instance.OnTrigger;
@@ -523,9 +563,12 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Dash.started -= instance.OnDash;
-            @Dash.performed -= instance.OnDash;
-            @Dash.canceled -= instance.OnDash;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Squat.started -= instance.OnSquat;
+            @Squat.performed -= instance.OnSquat;
+            @Squat.canceled -= instance.OnSquat;
             @Trigger.started -= instance.OnTrigger;
             @Trigger.performed -= instance.OnTrigger;
             @Trigger.canceled -= instance.OnTrigger;
@@ -569,7 +612,7 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerExplorePlay_Jump;
     private readonly InputAction m_PlayerExplorePlay_Left;
     private readonly InputAction m_PlayerExplorePlay_Right;
-    private readonly InputAction m_PlayerExplorePlay_Dash;
+    private readonly InputAction m_PlayerExplorePlay_Squat;
     private readonly InputAction m_PlayerExplorePlay_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerExplorePlay".
@@ -595,9 +638,9 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Right => m_Wrapper.m_PlayerExplorePlay_Right;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerExplorePlay/Dash".
+        /// Provides access to the underlying input action "PlayerExplorePlay/Squat".
         /// </summary>
-        public InputAction @Dash => m_Wrapper.m_PlayerExplorePlay_Dash;
+        public InputAction @Squat => m_Wrapper.m_PlayerExplorePlay_Squat;
         /// <summary>
         /// Provides access to the underlying input action "PlayerExplorePlay/Interact".
         /// </summary>
@@ -637,9 +680,9 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Right.started += instance.OnRight;
             @Right.performed += instance.OnRight;
             @Right.canceled += instance.OnRight;
-            @Dash.started += instance.OnDash;
-            @Dash.performed += instance.OnDash;
-            @Dash.canceled += instance.OnDash;
+            @Squat.started += instance.OnSquat;
+            @Squat.performed += instance.OnSquat;
+            @Squat.canceled += instance.OnSquat;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -663,9 +706,9 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
             @Right.started -= instance.OnRight;
             @Right.performed -= instance.OnRight;
             @Right.canceled -= instance.OnRight;
-            @Dash.started -= instance.OnDash;
-            @Dash.performed -= instance.OnDash;
-            @Dash.canceled -= instance.OnDash;
+            @Squat.started -= instance.OnSquat;
+            @Squat.performed -= instance.OnSquat;
+            @Squat.canceled -= instance.OnSquat;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -717,12 +760,19 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDash(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Squat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSquat(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Trigger" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -760,12 +810,12 @@ public partial class @InputActionAssets: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRight(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Squat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDash(InputAction.CallbackContext context);
+        void OnSquat(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

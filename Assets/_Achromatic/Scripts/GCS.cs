@@ -1,6 +1,17 @@
 using System;
-using Assets._Achromatic.Scripts.Scores;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+using Assets._Achromatic.Scripts.Scores;
+using UnityEngine.Profiling;
+
+// todo metrics: fps
+// todo metrics: total time &portion of time
+// todo metrics: deltas
+// todo metrics: hit / miss ratio per part
+// todo merge game stat
 
 public class GCS: MonoBehaviour {
 
@@ -9,106 +20,67 @@ public class GCS: MonoBehaviour {
         get; private set;
     }
 
-    public GameState states;
+    // public member  ==========================================================
+    [NonSerialized]
+    public GameState states = GameState.NONE;
 
-    // MonoBehavior Lifecycle  #################################################
-    private void Awake() {
-        if (I == null) {  // create Singleton
+
+    // MonoBehavior Lifecycle  =================================================
+
+    private void Awake() { // ==================================================
+        // ensure Singleton  ---------------------------------------------------
+        if (I == null) {
             I = this;
             DontDestroyOnLoad(gameObject);
-            return;
-        }
-        if (I != this) {  // guard against duplicate
+        } else if (I != this) {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
+            return;
         }
 
-
-        // Hack rm these
-        // reference to playerScript
-        playerScript = player.GetComponent<PlayerScript>();
-
-        // disable textbox
-        tmpCombo.gameObject.SetActive(false);
-        tmpJudgeResult.gameObject.SetActive(false);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        SceneManager.sceneLoaded += HandleInitFPSCounter;
+#endif
     }
 
+    private void Update() {  // ================================================
 
-    // Fixme create score overlay
+        // FPS Counter  --------------------------------------------------------
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        fpsFrameCounter++;
+        fpsCounterAccumulateTime += Time.unscaledDeltaTime;
+        if (fpsCounterAccumulateTime > 1.0f) {
+            fpsCounter.text = fpsFrameCounter + " fps";
 
-    // Inspector Fields  #######################################################
+            Profiler.BeginSample($"{fpsFrameCounter}");
+            Profiler.EndSample();
 
-    [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpJudgeResult;
-
-    [SerializeField]
-    private TMPro.TextMeshProUGUI tmpCombo;
-
-    [SerializeField]
-    private AnimationCurve tmpTextboxCurve;
-
-    // public members  #########################################################
-
-
-    [NonSerialized]
-    public PlayerScript playerScript;
-
-    private float lastTriggerTime;
-
-    // class method  ###########################################################
-    /// <returns>singleton player</returns>
-    public static GameObject GetPlayer() {
-        if (I == null) {
-            Debug.LogError("GameController:\tInstance is null");
+            fpsFrameCounter = 0;
+            fpsCounterAccumulateTime = 0.0f;
         }
+#endif
 
-        return I.player;
     }
 
-    private void Update() {
-        float scale = tmpTextboxCurve.Evaluate(Time.time - lastTriggerTime);
-        // Hack
-        // tmpJudgeResult.transform.localScale = new Vector3(scale, scale);
+    // private members  ========================================================
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private TextMeshProUGUI fpsCounter;
+    private int fpsFrameCounter = 0;
+    private float fpsCounterAccumulateTime = 0.0f;
+#endif
+
+    // private methods  ========================================================
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
+        GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");
+        if (fpsCounterGameObject != null) {
+            fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
+        }
+        if (fpsCounter == null) {
+            Debug.LogWarning("GCS: fail to find FPS Counter text field");
+        }
     }
-
-    // public methods  #########################################################
-    // Hack tmp method
-    public void tmpUpdateText(
-            Hit judgeResult, int combo, int runningScore) {
-        if (!tmpCombo.gameObject.activeSelf) {
-            tmpCombo.gameObject.SetActive(true);
-        }
-        if (!tmpJudgeResult.gameObject.activeSelf) {
-            tmpJudgeResult.gameObject.SetActive(true);
-        }
-
-
-        tmpCombo.text = $"{combo} hits\nscore:{runningScore}";
-
-        string judgeText;
-
-        if ((judgeResult & Hit.PERFECT) != 0) {
-            judgeText = "Perfect!";
-        } else {
-            judgeText = judgeResult switch {
-                Hit.NO_HIT => "No Hit!",
-                Hit.INCORRECT => "Wrong!",
-                Hit.EARLY_MISS => "Miss! Too Early",
-                Hit.EARLY_GREAT => "Great! Too Early",
-                Hit.EARLY_GOOD => "Good! Too Early",
-                Hit.LATE_MISS => "Miss! Too Late",
-                Hit.LATE_GREAT => "Great! Too Late",
-                Hit.LATE_GOOD => "Good! Too Late",
-                _ => null
-            };
-        }
-
-        tmpJudgeResult.text = judgeText;
-
-        lastTriggerTime = Time.time;
-    }
+#endif
 
 }

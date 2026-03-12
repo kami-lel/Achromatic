@@ -1,10 +1,10 @@
 
 using System;
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Pieces {
-
     /// <summary>
     /// take control of player GameObject during music piece
     /// </summary>
@@ -22,7 +22,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // public methods  #####################################################
 
         public void StartPrelude() {
-            tmpPlayerLastJump = Time.time;
+            playerLastActionTime = Time.time;
 
             Debug.Log("PlayerManager:\tStartPrelude");
 
@@ -30,9 +30,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             playerRB.linearVelocityX = preludeStartVelocityX;
 
-            player.TurnRight();
-            player.SetInputForMusicPlay();
-            player.AnimationStartWalk();
+            player.EnsureFacingRight();
+            player.im.SetInputForMusicPlay();
+            player.StartRun();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
@@ -50,8 +50,25 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void tmpJump() {
-            tmpPlayerLastJump = Time.time;
+        public void Jump(Hit hit) {
+            p.playerManager.player.Jump();
+            SFX.I.Jump(hit);
+            playerLastActionTime = Time.time;
+            actionType = 1;
+        }
+
+        public void Squat(Hit hit) {
+            p.playerManager.player.Squat();
+            SFX.I.Squat(hit);
+            playerLastActionTime = Time.time;
+            actionType = 2;
+        }
+
+        public void Attack(Hit hit) {
+            p.playerManager.player.Attack();
+            SFX.I.Attack(hit);
+            playerLastActionTime = Time.time;
+            actionType = 3;
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -62,12 +79,32 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 // todo use Spline path
 
-                float y = p.beatmap.origin.y +
-                        p.tmpJumpCurve.Evaluate(Time.time - tmpPlayerLastJump);
+                // move player in world map
                 float x = p.beatmap.CalcCurrentXFromBeat();
-
-                Vector2 newPosition = new(x, y);
+                Vector2 newPosition = new(x, p.beatmap.origin.y);
                 playerRB.MovePosition(newPosition);
+
+                // make player movement by animation curve
+                float localX = 0;
+                float localY = 0;
+                switch (actionType) {
+                case 1:
+                    localY = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                case 2:
+                    localX = -squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                case 3:
+                    localX = attackOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
+                    break;
+
+                default:
+                    break;
+                }
+
+                playerSprite.localPosition = new Vector2(localX, localY);
             }
         }
 
@@ -85,8 +122,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // constructor  ########################################################
-        public PlayerManager(PieceScript piece) {
+        public PlayerManager(PieceScript piece, AnimationCurve jumpHeightVsTime, AnimationCurve attackOffsetVsTime, AnimationCurve squatOffsetVsTime) {
             p = piece;
+            this.jumpHeightVsTime = jumpHeightVsTime;
+            this.attackOffsetVsTime = attackOffsetVsTime;
+            this.squatOffsetVsTime = squatOffsetVsTime;
 
             // find player
             GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
@@ -98,6 +138,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerObject.GetComponent<PlayerScript>();
             playerInput = playerObject.GetComponent<PlayerInput>();
             playerRB = player.playerRB;
+            playerSprite = p.playerSprite;
 
             // calc movement during prelude  -----------------------------------
             float t = p.beatmap.meta.preludeSeconds;
@@ -130,11 +171,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly float preludeStartVelocityX;
 
         private readonly float preludeAcceleration;
-        private float tmpPlayerLastJump;
+
+        // fixme animation curve fine tuning
+        private readonly AnimationCurve jumpHeightVsTime;
+        private readonly AnimationCurve attackOffsetVsTime;
+        private readonly AnimationCurve squatOffsetVsTime;
+        private float playerLastActionTime;
+        private int actionType = 0;  // hack better way to do this
 
 
         // cached references
         private readonly PieceScript p;
+        private readonly Transform playerSprite;
 
     }
 }

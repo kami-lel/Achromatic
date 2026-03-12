@@ -10,8 +10,7 @@ using Assets._Achromatic.Scripts.Beatmap;
 using Cinemachine;
 
 
-// Bug audio start is jarring, lose framerate
-// Fixme map need to distinguish b/t purposes of dash vs jump, also allow different actions for the same action
+// bug audio start is jarring, lose framerate
 
 
 /// <summary>
@@ -36,12 +35,13 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
+    // fixme try to use partial class
     // managers
     public Starter starter;
     public MusicManager music;
 
     public Criteria criteria;
-    public ScoreTracker scoreTracker;
+    public Score score;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
@@ -69,12 +69,22 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private Transform prefabs;
 
+    [SerializeField]
+    private AnimationCurve jumpHeightVsTime;
+
+    [SerializeField]
+    private AnimationCurve attackOffsetVsTime;
+
+    [SerializeField]
+    private AnimationCurve squatOffsetVsTime;
+
     [Header("tmp")]
 
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
-    public AnimationCurve tmpJumpCurve;
+    // hack
+    public Transform playerSprite;
 
 
     // MonoBehavior Lifecycle  #################################################
@@ -89,9 +99,9 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new(this, beatmapMeta);
         music = new(this, pseudoAudioPlugin);
-        scoreTracker = new(beatmap);
+        score = new(beatmap);
         criteria = new(this);
-        playerManager = new(this);
+        playerManager = new(this, jumpHeightVsTime, attackOffsetVsTime, squatOffsetVsTime);
         starter = new(this);
         inputs = new(this);
 

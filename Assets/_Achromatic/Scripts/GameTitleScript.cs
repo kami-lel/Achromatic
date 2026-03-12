@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 
+// todo smooth movement w/ inertia
+
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class GameTitleScript: MonoBehaviour {
     // inspector fields #######################################################

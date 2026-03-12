@@ -19,9 +19,10 @@ namespace Assets._Achromatic.Scripts.Scores {
                 float beat = p.beatmap.CalcBeatCount(note);
                 float center = p.beatmap.meta.preludeSeconds + beat * spb;
 
+                // todo detach note type from action type
                 PressedActions action = note.type switch {
                     BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.DASH,
+                    BeatmapNoteType.DASH => PressedActions.SQUAT,
                     _ => PressedActions.NONE
                 };
 
@@ -64,7 +65,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             // auto-miss notes you fully passed
             while (timings.Count > 0 && timings.Peek().IsPassByMiss(p.music.Time)) {
                 timings.Dequeue();
-                p.scoreTracker.Record(Hit.LATE_MISS);
+                p.score.Record(Hit.LATE_MISS);
             }
         }
     }

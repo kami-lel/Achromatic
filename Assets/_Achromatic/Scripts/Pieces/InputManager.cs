@@ -50,11 +50,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 case "Jump":
                     pressed |= PressedActions.JUMP;
                     break;
-                case "Dash":
-                    pressed |= PressedActions.DASH;
+                case "Squat":
+                    pressed |= PressedActions.SQUAT;
                     break;
-                case "PowerJump":
-                    pressed |= PressedActions.POWER_JUMP;
+                case "Attack":
+                    pressed |= PressedActions.ATTACK;
                     break;
                 case "Trigger":
                     Trigger();
@@ -67,11 +67,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 case "Jump":
                     pressed &= ~PressedActions.JUMP;
                     break;
-                case "Dash":
-                    pressed &= ~PressedActions.DASH;
+                case "Squat":
+                    pressed &= ~PressedActions.SQUAT;
                     break;
-                case "PowerJump":
-                    pressed &= ~PressedActions.POWER_JUMP;
+                case "Attack":
+                    pressed &= ~PressedActions.ATTACK;
                     break;
                 }
                 break;
@@ -79,17 +79,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void Trigger() {
-            Hit judgeResult = p.criteria.Judge(pressed);
-            p.scoreTracker.Record(judgeResult);
+            Hit hit = p.criteria.Judge(pressed);
+            p.score.Record(hit);
 
             if ((pressed & PressedActions.JUMP) != 0) {
-                p.playerManager.tmpJump();
-                p.playerManager.player.AnimationJump();
-            } else if ((pressed & PressedActions.DASH) != 0) {
-                p.playerManager.player.AnimationDash();
+                p.playerManager.Jump(hit);
+            } else if ((pressed & PressedActions.SQUAT) != 0) {
+                p.playerManager.Squat(hit);
+            } else if ((pressed & PressedActions.ATTACK) != 0) {
+                p.playerManager.Attack(hit);
             }
 
-            // Todo add audio for feedback, layered
+            // todo add audio for feedback, layered
         }
 
 

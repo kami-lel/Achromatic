@@ -4,22 +4,23 @@
 
 [^format]
 
-<!-- todo camera fine tunning -->
+<!-- bug floating rocks are distracting -->
+<!-- bug must properly merge assets -->
 <!-- fixme better looking notes elements -->
-<!-- Todo final score window -->
-<!-- Todo particles efx -->
-<!-- Todo pause screen, allow restart/resume -->
-<!-- Todo frame counter -->
-<!-- Todo full UX: start, reset, etc. -->
-<!-- fixme walk vs run -->
+<!-- todo camera fine tunning: smooth follow during main piece -->
+<!-- todo final score window -->
+<!-- todo particles efx -->
+<!-- todo pause screen, allow restart/resume -->
+<!-- todo full UX: start, reset, etc. -->
+<!-- todo make prefabs disappearing as feed back -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
 <!-- todo need dramatic shift visually to indicate music has started -->
 <!-- todo add obstacles & enemy to kills -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
-<!-- todo speed multiplier (as setting) -->
 <!-- todo allows & give feedback for smashing input during: empty or climax -->
+<!-- todo Wwise Unity Integration -->
 
 
 
@@ -47,6 +48,46 @@
 ## 1.0.0-beta Beta Milestone
 
 ## 1.0.0-alpha Alpha Milestone
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [0.9.1] Pre-Alpha - 2026-03-12
+
+### Added
+
+- FPS Counter
+- various gameplay indicators:
+
+  - Running Score Indicator
+  - Score Addition Indicator
+  - Combo Indicator
+  - Hit Type Indicator
+
+- 2 new player actions: Squat & Attack
+- improve player animation/actions during main script
+
+### Changed
+
+- `PlayerScript.cs` code refactorization, utilize various managers
+- fine tunning camera for better play experience
+- using Controller Rumble to provide feedback information
+  of both hit type and action type during music play
+
+### Removed
+
+- unused sprites from last build
+
+
 
 
 
@@ -178,7 +219,8 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...dev
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...dev
+[0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
 [0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
 [0.5.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0-beta...v0.5.0+vertical_slice
