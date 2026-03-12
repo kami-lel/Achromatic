@@ -1,5 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Unity.VisualScripting;
 
 
 public class PlayerInputManager {
@@ -57,19 +58,19 @@ public class PlayerInputManager {
         case InputActionPhase.Started:  // -------------------------------------
             switch (ctxt.action.name) {
             case "Jump":
-                MovementJump();
+                p.mvmt.Jump();
                 break;
 
             case "Left":
-                TurnLeft();
+                p.mvmt.TurnLeft();
                 break;
 
             case "Right":
-                TurnRight();
+                p.mvmt.TurnRight();
                 break;
 
             case "Squat":
-                MovementDash();
+                p.Squat();
                 break;
 
             case "Interact":
@@ -83,7 +84,7 @@ public class PlayerInputManager {
             switch (ctxt.action.name) {
             case "Left":
             case "Right":
-                StopMovement();
+                p.mvmt.Stop();
                 break;
             }
             break;

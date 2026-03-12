@@ -51,6 +51,9 @@
   - Hit Type Indicator
 
 ### Changed
+
+- `PlayerScript.cs` code refactorization, utilize various managers
+
 ### Deprecated
 ### Removed
 

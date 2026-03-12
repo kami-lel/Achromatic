@@ -15,6 +15,14 @@ public class PlayerScript: MonoBehaviour {
     [NonSerialized]
     public Rigidbody2D playerRB;
 
+    // fixme try to use partial class
+    // managers
+    [NonSerialized]
+    public PlayerMovement mvmt;
+
+    [NonSerialized]
+    public PlayerInputManager im;
+
     public event Action<String> OnTriggerEnter;
     public event Action<String> OnTriggerExit;
 
@@ -41,14 +49,6 @@ public class PlayerScript: MonoBehaviour {
     public void Attack() {
         animator.SetTrigger(ATTACK_ANIM_ID);
         SFXManagerScript.Instance.PlayDashSFX();
-    }
-
-    public void SetInputForExplorePlay() {
-        im.SetInputForExplorePlay();
-    }
-
-    public void SetInputForMusicPlay() {
-        im.SetInputForMusicPlay();
     }
 
     // Inspector Fields  =======================================================
@@ -116,9 +116,4 @@ public class PlayerScript: MonoBehaviour {
 
     // cached references
     private Animator animator;
-
-    // fixme try to use partial class
-    // managers
-    private PlayerMovement mvmt;
-    private PlayerInputManager im;
 }
