@@ -47,11 +47,13 @@ namespace Assets._Achromatic.Scripts.Players {
             EnsureFacing(1);
         }
 
-        // Inspector Fields  #######################################################
+        // Inspector Fields  ###################################################
+
         [SerializeField]
         private LayerMask groundLayerMask = Physics2D.AllLayers;
 
         // MonoBehavior Lifecycle  #############################################
+
         private void Awake() {
             anim = GetComponent<AnimationManager>();
             if (anim == null) {
@@ -71,7 +73,6 @@ namespace Assets._Achromatic.Scripts.Players {
             rb.freezeRotation = true;
             rb.linearDamping = 0.0f;
         }
-
         private void FixedUpdate() {
             // apply horizontal force toward target velocity
             float targetVelX = moveDir * MAX_WALKING_SPEED;
@@ -89,7 +90,6 @@ namespace Assets._Achromatic.Scripts.Players {
             }
         }
 
-
         // constants  ##########################################################
         private static readonly float GRAVITY_SCALE = 1.0f;
         private static readonly float JUMP_FORCE = 8.0f;
@@ -103,7 +103,7 @@ namespace Assets._Achromatic.Scripts.Players {
         private AnimationManager anim;
         private Rigidbody2D rb;
 
-        // private methods  ########################################################
+        // private methods  ####################################################
 
         private bool IsOnGround() {
             return rb.IsTouchingLayers(groundLayerMask);
@@ -123,7 +123,5 @@ namespace Assets._Achromatic.Scripts.Players {
             s.x = -s.x;
             transform.localScale = s;
         }
-        // TODO
-
     }
 }

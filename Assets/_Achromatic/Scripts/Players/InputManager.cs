@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Movement))]
     class InputManager: MonoBehaviour {
         // Public API  #########################################################
         public void SetInputForExplorePlay() {
@@ -85,13 +86,14 @@ namespace Assets._Achromatic.Scripts.Players {
                     break;
 
                 case "Interact":
-                    Debug.Log("Player:\tInteract!!!");  // todo implement explore interaction
+                    // todo implement explore interaction
+                    Debug.Log("Player:\tInteract!!!");
                     break;
 
                 }
                 break;
 
-            case InputActionPhase.Canceled:  // ------------------------------------
+            case InputActionPhase.Canceled:  // --------------------------------
                 switch (ctxt.action.name) {
                 case "Left":
                 case "Right":
@@ -102,17 +104,10 @@ namespace Assets._Achromatic.Scripts.Players {
             }
         }
 
-
-
-        // private members  ########################################################
+        // private members  ####################################################
         // cached references
         private PlayerInput pi;
         private Collider2D col;
         private Movement mvmt;
-
-
-
-        // TODO
-
     }
 }
