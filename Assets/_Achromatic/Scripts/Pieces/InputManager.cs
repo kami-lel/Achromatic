@@ -6,10 +6,8 @@ using Assets._Achromatic.Scripts.Scores;
 
 namespace Assets._Achromatic.Scripts.Pieces {
 
-    /// <summary>
-    /// manage input during music piece
-    /// </summary>
-    public class InputManager {
+    public class InputManager: MonoBehaviour {
+        // FIXME FIXME make it mono behavior
 
         public PressedActions pressed;
 
