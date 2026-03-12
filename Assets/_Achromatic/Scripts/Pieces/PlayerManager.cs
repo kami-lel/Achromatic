@@ -77,6 +77,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 // todo use Spline path
 
+                // TODO attack & etc.
+                // BUG only change the sprite transform
                 float y = p.beatmap.origin.y +
                         jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
                 float x = p.beatmap.CalcCurrentXFromBeat();
@@ -149,6 +151,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private readonly float preludeAcceleration;
 
+        // fixme animation curve fine tuning
         private readonly AnimationCurve jumpHeightVsTime;
         private readonly AnimationCurve attackOffsetVsTime;
         private readonly AnimationCurve squatOffsetVsTime;
