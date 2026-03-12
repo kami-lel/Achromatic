@@ -6,7 +6,7 @@
 
 <!-- bug must properly merge assets -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
-<!-- Todo camera fine tunning: up view -->
+<!-- TODO camera fine tunning: up view -->
 <!-- fixme better looking notes elements -->
 <!-- todo final score window -->
 <!-- todo particles efx -->
@@ -53,6 +53,7 @@
 ### Changed
 
 - `PlayerScript.cs` code refactorization, utilize various managers
+- fine tunning camera for better play experience
 
 ### Deprecated
 ### Removed
