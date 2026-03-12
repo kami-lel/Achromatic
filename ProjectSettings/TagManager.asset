@@ -10,6 +10,7 @@ TagManager:
   - HitIndicator
   - ComboIndicator
   - RunningScoreIndicator
+  - ScoreAdditionIndicator
   layers:
   - Default
   - TransparentFX

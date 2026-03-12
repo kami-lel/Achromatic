@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- TODO hit indicator, close to user
 <!-- TODO score addition indicator -->
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning -->
