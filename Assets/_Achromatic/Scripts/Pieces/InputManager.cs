@@ -83,12 +83,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             p.score.Record(judgeResult);
 
             if ((pressed & PressedActions.JUMP) != 0) {
-                p.playerManager.tmpJump();
-                p.playerManager.player.Jump();
+                p.playerManager.Jump();
             } else if ((pressed & PressedActions.SQUAT) != 0) {
-                p.playerManager.player.Squat();
+                p.playerManager.Squat();
             } else if ((pressed & PressedActions.ATTACK) != 0) {
-                p.playerManager.player.Attack();
+                p.playerManager.Attack();
             }
 
             // todo add audio for feedback, layered

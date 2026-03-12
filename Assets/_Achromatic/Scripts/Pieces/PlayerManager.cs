@@ -49,8 +49,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void tmpJump() { // Hack tmp jump
+        public void Jump() {
+            p.playerManager.player.Jump();
             tmpPlayerLastJump = Time.time;
+        }
+
+        public void Squat() {
+            p.playerManager.player.Squat();
+
+        }
+
+        public void Attack() {
+            p.playerManager.player.Attack();
+
         }
 
         // MonoBehavior Lifecycle  #############################################
