@@ -9,11 +9,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private AnimationCurve vampDistantVsVolume;
 
+        [SerializeField]
+        private Transform startPreludeTransform;
+
         // MonoBehavior Lifecycle  #############################################
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (vampDistantVsVolume == null) {
                 Debug.LogError("must assign: Vamp Distance Vs Volume");
+            }
+            if (startPreludeTransform == null) {
+                Debug.LogError("must assign: Start Prelude Transform");
             }
 
             // caching reference of piece  -------------------------------------
@@ -26,6 +32,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GameObject playerGO = GCS.FindPlayer();
 
             player = playerGO.GetComponent<Player>();
+            playerTransform = playerGO.GetComponent<Transform>();
+            if (playerTransform == null) {
+                Debug.LogError("fail to get: playerTransform");
+            }
+
+            // caching references  ---------------------------------------------
+            preludeStartOrigin = startPreludeTransform.position;
         }
 
         private void Start() {
@@ -38,16 +51,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Update() {
-            /* HACK
             if (GCS.I.states == GameState.VAMP) {
                 // update vamp volume
                 float distance = Vector2.Distance(
-                        p.playerManager.player.transform.position,
-                        p.preludeStartOrigin);
-                float volume = p.vampDistantVsVolume.Evaluate(distance);
-                p.music.UpdateVampVolume(volume);
+                        playerTransform.position,
+                        preludeStartOrigin);
+                float volume = vampDistantVsVolume.Evaluate(distance);
+                music.UpdateVampVolume(volume);
             }
-            */
         }
 
 
@@ -91,9 +102,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // private members  ####################################################
+        private Vector2 preludeStartOrigin;
+
         // Cached References
         private Player player;
         private MusicManager music;
+        private Transform playerTransform;
 
         // private methods  ####################################################
 
