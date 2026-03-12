@@ -1,5 +1,5 @@
 
-using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
@@ -19,11 +19,11 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly float rightGreatBound;
         private readonly float rightPerfectBound;
 
-        private readonly PressedActions allowedAction;
+        private readonly Actions allowedAction;
 
         public Timing(
                 float centerTiming,
-                PressedActions action,
+                Actions action,
                 BeatmapMeta meta
             ) {
             center = centerTiming;
@@ -39,7 +39,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
         }
 
-        public Hit Judge(float time, PressedActions action) {
+        public Hit Judge(float time, Actions action) {
             if ((action & allowedAction) == 0) {
                 return Hit.INCORRECT;
             }

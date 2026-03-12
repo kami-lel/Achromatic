@@ -1,7 +1,7 @@
 // Criteria.cs
 using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Beatmap;
-using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Scores {
     public class Criteria {
@@ -20,10 +20,10 @@ namespace Assets._Achromatic.Scripts.Scores {
                 float center = p.beatmap.meta.preludeSeconds + beat * spb;
 
                 // Todo detach note type from action type
-                PressedActions action = note.type switch {
-                    BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.SQUAT,
-                    _ => PressedActions.NONE
+                Actions action = note.type switch {
+                    BeatmapNoteType.JUMP => Actions.JUMP,
+                    BeatmapNoteType.DASH => Actions.SQUAT,
+                    _ => Actions.NONE
                 };
 
                 timings.Enqueue(new Timing(center, action, p.beatmap.meta));
@@ -41,14 +41,14 @@ namespace Assets._Achromatic.Scripts.Scores {
                 timings.Dequeue();
         }
 
-        public Hit Judge(PressedActions actions) {
+        public Hit Judge(Actions actions) {
             if (timings.Count == 0)
                 return Hit.NO_HIT;
 
             var t = timings.Peek();
 
             // Do NOT dequeue unless player actually attempted a hit
-            if (actions == PressedActions.NONE)
+            if (actions == Actions.NONE)
                 return Hit.NO_HIT;
 
             if (!t.IsInJudgingRange(p.music.Time))
