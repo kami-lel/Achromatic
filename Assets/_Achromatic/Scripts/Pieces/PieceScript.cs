@@ -41,7 +41,7 @@ public class PieceScript: MonoBehaviour {
     public MusicManager music;
 
     public Criteria criteria;
-    public Score scoreTracker;
+    public Score score;
     public PlayerManager playerManager;
     public InputManager inputs;
     public Beatmap beatmap;
@@ -79,6 +79,10 @@ public class PieceScript: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
 
+    private void Awake() {
+        score.Awake();
+    }
+
     private void Start() {
         if (mainPartPath == null) {
             Debug.LogError("Piece:\tmust assign mainPartPath");
@@ -89,7 +93,7 @@ public class PieceScript: MonoBehaviour {
 
         beatmap = new(this, beatmapMeta);
         music = new(this, pseudoAudioPlugin);
-        scoreTracker = new(beatmap);
+        score = new(beatmap);
         criteria = new(this);
         playerManager = new(this);
         starter = new(this);

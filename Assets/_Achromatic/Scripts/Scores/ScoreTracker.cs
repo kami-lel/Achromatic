@@ -58,7 +58,7 @@ public class Score {
             }
         }
 
-        Debug.Log("Score:\tRecord:"
+        Debug.Log("Score.Record:"
                 + $"\tjudge: {judgeResult}"
                 + $"\tscore: {runningScore}"
                 + $"\tcombo: {combo}"
@@ -67,7 +67,9 @@ public class Score {
         // update indicators  --------------------------------------------------
         // combo indicator
         if (comboIndicator != null) {
-            comboIndicator.text = $"{runningScore}";  // FIXME
+            comboIndicator.text = "111222";  // HACK
+        } else {
+            Debug.LogError("aaaa");  // HACK
         }
     }
 
@@ -93,7 +95,8 @@ public class Score {
         maxCombo = 0;
 
         // init indicators
-        SceneManager.sceneLoaded += InitIndicators;
+        InitIndicators();
+        SceneManager.sceneLoaded += HandleInitIndicators;
     }
 
     // private members  ========================================================
@@ -111,15 +114,19 @@ public class Score {
     private readonly float goodScore;
 
     // private methods  ========================================================
-    private void InitIndicators(Scene scene, LoadSceneMode mode) {
+    private void InitIndicators() {
         // combo indicator
         GameObject comboGO = GameObject.FindWithTag("ComboIndicator");
         if (comboGO != null) {
             comboIndicator = comboGO.GetComponent<TextMeshProUGUI>();
         }
         if (comboIndicator == null) {
-            Debug.LogWarning("Score: fail to find Combo Indicator");
+            Debug.LogError("Score: fail to find Combo Indicator");
         }
+    }
+
+    private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {
+        InitIndicators();
     }
 }
 
