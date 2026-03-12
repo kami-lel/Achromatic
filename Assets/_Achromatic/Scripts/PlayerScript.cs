@@ -110,7 +110,7 @@ public class PlayerScript: MonoBehaviour {
     private PhysicsMaterial2D noFrictionMaterial;
 
     [SerializeField]
-    private GameObject tmpPlayerSprite;  // Hack
+    private GameObject tmpPlayerSprite;  // HACK
 
 
     // MonoBehavior Lifecycle  #################################################

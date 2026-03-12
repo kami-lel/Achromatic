@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 
-// Hack rm
+// HACK rm
 public class TmpCanvasScript: MonoBehaviour {
     [SerializeField] private TextMeshProUGUI a;
     [SerializeField] private TextMeshProUGUI b;

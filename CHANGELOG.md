@@ -10,7 +10,7 @@
 <!-- Todo final score window -->
 <!-- Todo particles efx -->
 <!-- Todo pause screen, allow restart/resume -->
-<!-- Todo Perfect indication placed close to player  -->
+<!-- TODO Perfect indication placed close to player  -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- Bug floating rocks are distracting -->
 <!-- Todo make prefabs disappearing as feed back -->

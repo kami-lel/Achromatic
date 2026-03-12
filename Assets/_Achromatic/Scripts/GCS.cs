@@ -28,7 +28,7 @@ public class GCS: MonoBehaviour {
 
     // Inspector Fields  #######################################################
 
-    // Hack rm these
+    // HACK rm these
     [SerializeField]
     private TMPro.TextMeshProUGUI tmpJudgeResult;
 
@@ -80,11 +80,11 @@ public class GCS: MonoBehaviour {
 
     }
 
-    // Fixme create score overlay
+    // FIXME create score overlay
 
     // public methods  #########################################################
 
-    // Hack tmp method
+    // HACK tmp method
     public void tmpUpdateText(
             Hit judgeResult, int combo, int runningScore) {
         if (!tmpCombo.gameObject.activeSelf) {
