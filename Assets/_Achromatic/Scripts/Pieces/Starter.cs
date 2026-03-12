@@ -8,28 +8,31 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public Starter(PieceScript piece) {
             p = piece;
 
+            /* HACK
             if (p.playerManager == null || p.playerManager.player == null) {
                 Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                // HACK
                 // p.playerManager.player.OnTriggerEnter += HandleOnTriggerEnter;
                 // p.playerManager.player.OnTriggerExit += HandleOnTriggerExit;
             }
+            */
         }
 
         // MonoBehavior Lifecycle  #############################################
 
         public void OnDisable() {
+            /* HACK
             if (p.playerManager == null || p.playerManager.player == null) {
                 Debug.LogWarning("Starter:\tplayerManager/player is null");
             } else {
-                // HACK
                 // p.playerManager.player.OnTriggerEnter -= HandleOnTriggerEnter;
                 // p.playerManager.player.OnTriggerExit -= HandleOnTriggerExit;
             }
+            */
         }
 
         public void Update() {
+            /* HACK
             if (GCS.I.states == GameState.VAMP) {
                 // update vamp volume
                 float distance = Vector2.Distance(
@@ -38,6 +41,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 float volume = p.vampDistantVsVolume.Evaluate(distance);
                 p.music.UpdateVampVolume(volume);
             }
+            */
         }
 
         // constants  ##########################################################

@@ -99,7 +99,6 @@ public class PieceScript: MonoBehaviour {
         beatmap = new(this, beatmapMeta);
         score = new(beatmap);
         criteria = new(this);
-        playerManager = new(this, jumpHeightVsTime, attackOffsetVsTime, squatOffsetVsTime);
         starter = new(this);
 
         elements = new(this, prefabs);
@@ -111,7 +110,6 @@ public class PieceScript: MonoBehaviour {
 
     private void Update() {
         starter.Update();
-        playerManager.Update();
         beatmap.Update();
         elements.Update();
         criteria.Update();
@@ -119,10 +117,6 @@ public class PieceScript: MonoBehaviour {
 
     private void OnDisable() {
         starter.OnDisable();
-    }
-
-    private void FixedUpdate() {
-        playerManager.FixedUpdate();
     }
 
 }
