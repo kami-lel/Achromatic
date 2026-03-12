@@ -30,9 +30,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             playerRB.linearVelocityX = preludeStartVelocityX;
 
-            player.TurnRight();
-            player.SetInputForMusicPlay();
-            player.AnimationStartWalk();
+            player.EnsureFacingRight();
+            player.im.SetInputForMusicPlay();
+            player.StartRun();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {

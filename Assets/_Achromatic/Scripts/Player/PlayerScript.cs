@@ -50,6 +50,11 @@ public class PlayerScript: MonoBehaviour {
         SFXManagerScript.Instance.PlayDashSFX();
     }
 
+    public void EnsureFacingRight() {
+        mvmt.EnsureFacing(1);
+    }
+
+
     // Inspector Fields  =======================================================
 
     public LayerMask groundLayerMask = Physics2D.AllLayers;

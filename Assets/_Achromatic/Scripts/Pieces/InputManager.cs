@@ -37,6 +37,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private readonly PieceScript p;
 
+        // TODO new actions
+
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
@@ -84,9 +86,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             if ((pressed & PressedActions.JUMP) != 0) {
                 p.playerManager.tmpJump();
-                p.playerManager.player.AnimationJump();
+                p.playerManager.player.Jump();
             } else if ((pressed & PressedActions.DASH) != 0) {
-                p.playerManager.player.AnimationDash();
+                p.playerManager.player.Squat();
             }
 
             // todo add audio for feedback, layered

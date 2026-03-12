@@ -87,7 +87,7 @@ public class PlayerMovement {
         return p.playerRB.IsTouchingLayers(p.groundLayerMask);
     }
 
-    private void EnsureFacing(int dir) {
+    public void EnsureFacing(int dir) {
         if (dir == 0)
             return;
         bool shouldFaceRight = dir > 0;
