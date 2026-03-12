@@ -18252,18 +18252,6 @@ PrefabInstance:
       propertyPath: pseudoAudioPlugin
       value: 
       objectReference: {fileID: 1822651826}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].time
-      value: 0.2506442
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: attackOffsetVsTime.m_Curve.Array.data[1].value
-      value: 1.3735152
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: attackOffsetVsTime.m_Curve.Array.data[2].value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4287971021022977273, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Name
       value: Piece
