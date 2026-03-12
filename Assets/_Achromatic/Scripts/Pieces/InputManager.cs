@@ -8,43 +8,32 @@ using Assets._Achromatic.Scripts.Players;
 namespace Assets._Achromatic.Scripts.Pieces {
 
     public class InputManager: MonoBehaviour {
-        // FIXME FIXME make it mono behavior
 
+        // MonoBehavior Lifecycle  #############################################
 
-        // MonoBehavior Lifecycle  #################################################
         private void Awake() {
             pressed = Actions.NONE;
-        }
 
-        // private members  ########################################################
-        private Actions pressed;
+            GameObject go = GCS.FindPlayer();
+            pi = go.GetComponent<PlayerInput>();
 
-        // olds  ###############################################################
-
-
-
-        public InputManager(PieceScript pieceScript) {
-            p = pieceScript;
-
-            PlayerInput playerInput = p.playerManager.playerInput;
-            if (playerInput == null) {
-                Debug.LogWarning("fInput:\tail to subscribe playerInput.onActionTriggered");
+            if (pi != null) {
+                pi.onActionTriggered += OnActionTriggered;
             } else {
-                playerInput.onActionTriggered += OnActionTriggered;
+                Debug.LogError("fail to subscribe");
             }
         }
 
         public void OnDisable() {
-            PlayerInput playerInput = p.playerManager.playerInput;
-            if (playerInput == null) {
-                Debug.LogWarning("Input:\tfail to subscribe playerInput.onActionTriggered");
+            if (pi != null) {
+                pi.onActionTriggered -= OnActionTriggered;
             } else {
-                playerInput.onActionTriggered -= OnActionTriggered;
+                Debug.LogError("fail to unsubscribe");
             }
         }
 
-        private readonly PieceScript p;
 
+        // event handlers  #####################################################
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
@@ -56,13 +45,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
             case InputActionPhase.Started:
                 switch (a.name) {
                 case "Jump":
-                    pressed |= PressedActions.JUMP;
+                    pressed |= Actions.JUMP;
                     break;
                 case "Squat":
-                    pressed |= PressedActions.SQUAT;
+                    pressed |= Actions.SQUAT;
                     break;
                 case "Attack":
-                    pressed |= PressedActions.ATTACK;
+                    pressed |= Actions.ATTACK;
                     break;
                 case "Trigger":
                     Trigger();
@@ -73,35 +62,42 @@ namespace Assets._Achromatic.Scripts.Pieces {
             case InputActionPhase.Canceled:
                 switch (a.name) {
                 case "Jump":
-                    pressed &= ~PressedActions.JUMP;
+                    pressed &= ~Actions.JUMP;
                     break;
                 case "Squat":
-                    pressed &= ~PressedActions.SQUAT;
+                    pressed &= ~Actions.SQUAT;
                     break;
                 case "Attack":
-                    pressed &= ~PressedActions.ATTACK;
+                    pressed &= ~Actions.ATTACK;
                     break;
                 }
                 break;
             }
         }
 
-        private void Trigger() {
-            Hit hit = p.criteria.Judge(pressed);
-            p.score.Record(hit);
+        // private members  ####################################################
+        private Actions pressed;
 
-            if ((pressed & PressedActions.JUMP) != 0) {
-                p.playerManager.Jump(hit);
-            } else if ((pressed & PressedActions.SQUAT) != 0) {
-                p.playerManager.Squat(hit);
-            } else if ((pressed & PressedActions.ATTACK) != 0) {
-                p.playerManager.Attack(hit);
-            }
+        // cached references
+        private PlayerInput pi;
+
+        // private methods  ####################################################
+
+        private void Trigger() {
+            // HACK
+            // Hit hit = p.criteria.Judge(pressed);
+            // p.score.Record(hit);
+
+            // if ((pressed & Actions.JUMP) != 0) {
+            //     p.playerManager.Jump(hit);
+            // } else if ((pressed & Actions.SQUAT) != 0) {
+            //     p.playerManager.Squat(hit);
+            // } else if ((pressed & Actions.ATTACK) != 0) {
+            //     p.playerManager.Attack(hit);
+            // }
 
             // Todo add audio for feedback, layered
         }
-
-
     }
 
 }

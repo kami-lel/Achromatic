@@ -31,17 +31,17 @@ namespace Assets._Achromatic.Scripts.Players {
         private void Awake() {
             pi = GetComponent<PlayerInput>();
             if (pi == null) {
-                Debug.LogError("InputManger:\tfail to get: PlayerInput");
+                Debug.LogError("fail to get: PlayerInput");
             }
 
             col = GetComponent<Collider2D>();
             if (col == null) {
-                Debug.LogError("InputManger:\tfail to get: Collider2D");
+                Debug.LogError("fail to get: Collider2D");
             }
 
             mvmt = GetComponent<Movement>();
             if (mvmt == null) {
-                Debug.LogError("InputManger:\tfail to get: Movement");
+                Debug.LogError("fail to get: Movement");
             }
         }
 

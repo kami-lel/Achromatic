@@ -22,16 +22,14 @@ public class GCS: MonoBehaviour {
         get; private set;
     }
 
-    public GameObject FindPlayer {
-        get {
-            GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
+    public static GameObject FindPlayer() {
+        GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
 
-            if (playerObject == null) {
-                Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
-            }
-
-            return playerObject;
+        if (playerObject == null) {
+            Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
         }
+
+        return playerObject;
     }
 
 
