@@ -19,7 +19,10 @@ public class GCS: MonoBehaviour {
         get; private set;
     }
 
-    public GameState states;
+
+    // public member  ##########################################################
+    [NonSerialized]
+    public GameState states = GameState.NONE;
 
     // MonoBehavior Lifecycle  #################################################
     private void Awake() { // ==================================================
@@ -27,16 +30,15 @@ public class GCS: MonoBehaviour {
         if (I == null) {
             I = this;
             DontDestroyOnLoad(gameObject);
-        }
-        if (I != this) {  // guard against duplicate
+        } else if (I != this) {  // guard against duplicate
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
+            return;
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         SceneManager.sceneLoaded += HandleInitFPSCounter;
 #endif
-
 
         // disable textbox
         tmpCombo.gameObject.SetActive(false);
@@ -67,16 +69,7 @@ public class GCS: MonoBehaviour {
 
     // public members  #########################################################
 
-    [NonSerialized]
-    public PlayerScript playerScript;
-
     private float lastTriggerTime;
-
-    // class method  ###########################################################
-    /// <returns>singleton player</returns>
-    public static GameObject GetPlayer() { // Hack rm
-        return null;
-    }
 
     // public methods  #########################################################
     // Hack tmp method
@@ -119,7 +112,6 @@ public class GCS: MonoBehaviour {
     // private members  ########################################################
     // cached references
     private TextMeshProUGUI fpsCounter;
-
 
     // private methods  ########################################################
 
