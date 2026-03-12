@@ -35,7 +35,7 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
-    // Fixme use multiple component approach
+    // FIXME use multiple component approach
     // managers
     public Starter starter;
     public MusicManager music;
@@ -83,7 +83,7 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
-    // Hack
+    // HACK
     public Transform playerSprite;
 
 

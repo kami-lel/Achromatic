@@ -7,15 +7,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour
-{
+public class PlayerScript: MonoBehaviour {
 
     // public members  =========================================================
 
     [NonSerialized]
     public Rigidbody2D playerRB;
 
-    // Fixme use multiple component approach
+    // FIXME use multiple component approach
     // managers
     [NonSerialized]
     public PlayerMovement mvmt;
@@ -28,33 +27,27 @@ public class PlayerScript : MonoBehaviour
 
     // public methods  =========================================================
 
-    public void StartRun()
-    {
+    public void StartRun() {
         animator.SetBool(RUN_ANIM_ID, true);
     }
 
-    public void StopRun()
-    {
+    public void StopRun() {
         animator.SetBool(RUN_ANIM_ID, false);
     }
 
-    public void Jump()
-    {
+    public void Jump() {
         animator.SetTrigger(JUMP_ANIM_ID);
     }
 
-    public void Squat()
-    {
+    public void Squat() {
         animator.SetTrigger(SQUAT_ANIM_ID);
     }
 
-    public void Attack()
-    {
+    public void Attack() {
         animator.SetTrigger(ATTACK_ANIM_ID);
     }
 
-    public void EnsureFacingRight()
-    {
+    public void EnsureFacingRight() {
         mvmt.EnsureFacing(1);
     }
 
@@ -69,44 +62,37 @@ public class PlayerScript : MonoBehaviour
 
     // MonoBehavior Lifecycle  =================================================
 
-    void Awake()
-    {
+    void Awake() {
         animator = GetComponent<Animator>();
 
         mvmt = new(this);
         im = new(this);
     }
 
-    private void Start()
-    {
+    private void Start() {
         mvmt.Start();
         im.Start();
 
         GCS.I.states = GameState.EXPLORE;
     }
 
-    void FixedUpdate()
-    {
-        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0)
-        {
+    void FixedUpdate() {
+        if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
             return;
         }
 
         mvmt.FixedUpdate();
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         im.OnDisable();
     }
 
     // Unity Messages  #########################################################
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
         if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0 ||
-                other == null || !other.isTrigger)
-        {
+                other == null || !other.isTrigger) {
             return;
         }
 
@@ -114,10 +100,8 @@ public class PlayerScript : MonoBehaviour
         OnTriggerEnter?.Invoke(other.tag);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other == null || !other.isTrigger)
-        {
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other == null || !other.isTrigger) {
             return;
         }
 

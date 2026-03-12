@@ -177,7 +177,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private readonly AnimationCurve attackOffsetVsTime;
         private readonly AnimationCurve squatOffsetVsTime;
         private float playerLastActionTime;
-        private int actionType = 0;  // Hack better way to do this
+        private int actionType = 0;  // HACK better way to do this
 
 
         // cached references
