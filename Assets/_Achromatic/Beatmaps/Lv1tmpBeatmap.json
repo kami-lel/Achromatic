@@ -1,0 +1,22 @@
+{
+  "notes": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "squat"
+    }
+  ]
+}
