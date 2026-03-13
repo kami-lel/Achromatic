@@ -60,7 +60,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         private MusicManager music;
         private Score score;
 
-        // BUG  criteria fix  ##################################################
+        // BUG  criteria fix
         // TODO need to work w/ half start
 
 
