@@ -1,7 +1,9 @@
 
+using Assets._Achromatic.Scripts.Beatmaps;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    [RequireComponent(typeof(Beatmap))]
     public class MusicManager: MonoBehaviour {
         // Bug audio start is jarring, lose framerate
 
@@ -40,23 +42,34 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
-            /* HACK
             float startTime = (debugMusicStaringBar - 1.0f)
-                                * p.beatmap.meta.beatPerBar
-                                * (60.0f / p.beatmap.meta.tempo)
-                                + p.beatmap.meta.preludeSeconds;
+                                * beatmap.meta.beatPerBar
+                                * (60.0f / beatmap.meta.tempo)
+                                + beatmap.meta.preludeSeconds;
 
             pseudoAudioPlugin.preludeAndMain.time = startTime;
 
             // start the music
             pseudoAudioPlugin.preludeAndMain.Play();
-            */
         }
 
-        // Inspector Fields  #######################################################
+        // Inspector Fields  ###################################################
 
         [SerializeField]
         private PseudoAudioPlugin pseudoAudioPlugin;
 
+        // Inspector Fields  ###################################################
+
+        private void Awake() {
+            // caching reference of piece  -------------------------------------
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
+            }
+        }
+
+        // private members  ####################################################
+        // cached references
+        private Beatmap beatmap;
     }
 }

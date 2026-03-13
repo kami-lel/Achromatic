@@ -1,5 +1,4 @@
 
-using System;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
