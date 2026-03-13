@@ -142,6 +142,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
     }
 }
+
 /* HACK rm
     public class ElementsManager {
 

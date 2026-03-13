@@ -42,10 +42,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
-            float startTime = (debugMusicStaringBar - 1.0f)
-                                * beatmap.meta.beatPerBar
-                                * (60.0f / beatmap.meta.tempo)
-                                + beatmap.meta.preludeSeconds;
+            float startTime = (debugMusicStaringBar - 1.0f) *
+                    beatmap.meta.beatPerBar *
+                    (60.0f / beatmap.meta.tempo) +
+                    beatmap.meta.preludeSeconds;
 
             pseudoAudioPlugin.preludeAndMain.time = startTime;
 
