@@ -3,9 +3,13 @@ using UnityEngine;
 
 // Fixme code refactorization & make monobehavior
 // Bug missing beat lines
+/*
 namespace Assets._Achromatic.Scripts.Beatmaps {
 
     public class ElementsManager {
+
+        [SerializeField]
+        private Transform prefabs;
         // constants  ========================================================
         private const string PREFAB_FOLDER_PATH = "Prefabs/BeatmapElements/";
         private const float NOTES_HEIGHT = 1.5f;
@@ -98,7 +102,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         }
 
         // private members  ==================================================
-        private readonly PieceScript p;
         private Queue<BeatmapNote> notesRenderQ;
         private readonly Transform root;
 
@@ -113,3 +116,4 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
     }
 
 }
+*/

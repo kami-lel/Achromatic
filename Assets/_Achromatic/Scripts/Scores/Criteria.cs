@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Players;
 
+/* FIXME make monobehavior
 namespace Assets._Achromatic.Scripts.Scores {
     public class Criteria {
-        // FIXME make monobehavior
         private readonly Queue<Timing> timings;
         private readonly PieceScript p;
 
@@ -71,3 +71,4 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
     }
 }
+*/
