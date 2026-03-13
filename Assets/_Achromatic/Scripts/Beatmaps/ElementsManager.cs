@@ -3,15 +3,25 @@ using UnityEngine;
 
 // FIXME code refactorization & make monobehavior
 // BUG missing beat lines
-/*
+//  TODO make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
 
+    public class ElementsManager: MonoBehaviour {
+
+        // MonoBehavior Lifecycle  #############################################
+
+
+        // constants  ##########################################################
+        private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
+
+    }
+}
+/*
     public class ElementsManager {
 
         [SerializeField]
         private Transform prefabs;
         // constants  ========================================================
-        private const string PREFAB_FOLDER_PATH = "Prefabs/BeatmapElements/";
         private const float NOTES_HEIGHT = 1.5f;
 
         // constructor  ==========================================================

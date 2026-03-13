@@ -59,7 +59,7 @@ public class PrefabPool: IDisposable {
     }
 
     ~PrefabPool() {
-        Dispose(false);  // Finalizer does not attempt Unity destroys
+        Dispose(false);  // finalizer does not attempt Unity destroys
     }
 
     // implement IDisposable  ##################################################
@@ -103,7 +103,7 @@ public class PrefabPool: IDisposable {
             }
 
         } else {
-            // Finalizer path: do not call Unity API from background thread
+            // finalizer path: do not call Unity API from background thread
             Debug.LogWarning("PrefabPool:\t" +
                     "Dispose was not called before GC. " +
                     "Unity objects were not destroyed safely.");
@@ -111,9 +111,9 @@ public class PrefabPool: IDisposable {
     }
 
     // private members  ########################################################
-    private GameObject prefab;
-    private int maxCount;
-    private Queue<GameObject> availableQ;
-    private Queue<GameObject> activeQ;
+    private readonly GameObject prefab;
+    private readonly int maxCount;
+    private readonly Queue<GameObject> availableQ;
+    private readonly Queue<GameObject> activeQ;
     private bool isDisposed = false;
 }

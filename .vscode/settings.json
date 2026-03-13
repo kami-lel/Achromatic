@@ -74,6 +74,7 @@
         "Beatmaps",
         "Cinemachine",
         "monobehavior",
+        "preinstantiate",
         "refactorization",
         "subbeat"
     ]
