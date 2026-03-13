@@ -105,7 +105,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
 
-            // Todo use speed mux
+            // todo use speed mux
             speedXInMainPiece =
                     meta.horizontalUnitsPerBeat * beatsPerSecond;
 
