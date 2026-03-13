@@ -23,9 +23,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             public int beat;
             public int subbeat;
 
-            /// <remark>
-            /// must be: "jump", "dash"
-            /// </remark>
             public string type;
         }
 

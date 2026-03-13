@@ -9,6 +9,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
     [Flags]
     public enum NoteType {
         JUMP,
-        DASH
+        SQUAT,
+        ATTACK,
+        JUMP_OR_ATTACK
     }
 }
