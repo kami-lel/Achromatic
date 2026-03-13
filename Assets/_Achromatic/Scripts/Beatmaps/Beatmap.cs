@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 
 namespace Assets._Achromatic.Scripts.Beatmaps {
+    [DefaultExecutionOrder(-100)]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(Piece))]
     public class Beatmap: MonoBehaviour {

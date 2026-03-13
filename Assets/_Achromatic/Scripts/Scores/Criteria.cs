@@ -4,7 +4,10 @@ using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
 
+
 namespace Assets._Achromatic.Scripts.Scores {
+
+    [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(Score))]
     [RequireComponent(typeof(Beatmap))]
