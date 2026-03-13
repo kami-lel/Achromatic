@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 // todo improve looking of indicators
 
 public class Score {
+    // FIXME make monobehavior
 
     // public members  =========================================================
 

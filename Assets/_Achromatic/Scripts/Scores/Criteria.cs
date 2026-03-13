@@ -5,6 +5,7 @@ using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Scores {
     public class Criteria {
+        // FIXME make monobehavior
         private readonly Queue<Timing> timings;
         private readonly PieceScript p;
 
