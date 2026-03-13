@@ -5,7 +5,8 @@ using UnityEngine;
 // BUG missing beat lines
 //  TODO make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
-
+    [DefaultExecutionOrder(0)]
+    [RequireComponent(typeof(Beatmap))]
     public class ElementsManager: MonoBehaviour {
 
         // Inspector Fields  ###################################################
@@ -19,10 +20,20 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
+            // check inspect fields  -------------------------------------------
             if (prefabs == null) {
                 Debug.LogError("must assign: Prefabs");
                 return;
             }
+
+            // caching reference of piece  -------------------------------------
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
+            }
+
+            // init vars
+            renderDistanceBeat = renderDistanceX;
 
             // create per-type pools  --------------------------------------------
             // action hints
@@ -119,13 +130,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
 
         // private members  ####################################################
+        private float renderDistanceBeat;
+
         // per-element pools
         private PrefabPool actionHintJump;
         private PrefabPool actionHintAttack;
         private PrefabPool actionHintSquat;
 
-        // cached reference
-
+        // Cached Reference
+        private Beatmap beatmap;
 
     }
 }
