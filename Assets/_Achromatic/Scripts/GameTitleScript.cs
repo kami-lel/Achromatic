@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 
-// TODO smooth movement w/ inertia
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class GameTitleScript: MonoBehaviour {
@@ -32,6 +31,7 @@ public class GameTitleScript: MonoBehaviour {
     }
 
     void Update() {
+        // TODO use smooth damp
         // track furthest right player X so title never moves down
         maxPlayerX = Mathf.Max(maxPlayerX, playerTransform.position.x);
 
