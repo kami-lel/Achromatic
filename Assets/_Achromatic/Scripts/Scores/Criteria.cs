@@ -60,8 +60,8 @@ namespace Assets._Achromatic.Scripts.Scores {
         private MusicManager music;
         private Score score;
 
-        // Bug  criteria fix  ##################################################
-        // Todo need to work w/ half start
+        // BUG  criteria fix  ##################################################
+        // TODO need to work w/ half start
 
 
         /*
@@ -77,7 +77,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                 float beat = p.beatmap.CalcBeatCount(note);
                 float center = p.beatmap.meta.preludeSeconds + beat * spb;
 
-                // Todo detach note type from action type
+                // TODO detach note type from action type
                 Actions action = note.type switch {
                     NoteType.JUMP => Actions.JUMP,
                     NoteType.DASH => Actions.SQUAT,

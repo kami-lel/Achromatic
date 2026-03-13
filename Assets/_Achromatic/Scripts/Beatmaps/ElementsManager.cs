@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Fixme code refactorization & make monobehavior
-// Bug missing beat lines
+// FIXME code refactorization & make monobehavior
+// BUG missing beat lines
 /*
 namespace Assets._Achromatic.Scripts.Beatmaps {
 
