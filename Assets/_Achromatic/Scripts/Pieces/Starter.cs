@@ -5,6 +5,7 @@ using Assets._Achromatic.Scripts.Players;
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(Piece))]
     public class Starter: MonoBehaviour {
 
         // Inspector Fields  ###################################################
@@ -16,9 +17,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private AnimationCurve vampDistantVsVolume;
 
         [SerializeField]
-        private Transform startPreludeTransform;
-
-        [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
 
         // MonoBehavior Lifecycle  #############################################
@@ -27,14 +25,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (vampDistantVsVolume == null) {
                 Debug.LogError("must assign: Vamp Distance Vs Volume");
             }
-            if (startPreludeTransform == null) {
-                Debug.LogError("must assign: Start Prelude Transform");
-            }
             if (virtualCamera == null) {
                 Debug.LogError("must assign: Virtual Camera");
             }
 
             // caching reference of piece  -------------------------------------
+            piece = GetComponent<Piece>();
+            if (piece == null) {
+                Debug.LogError("fail to get: Piece");
+            }
             music = GetComponent<MusicManager>();
             if (music == null) {
                 Debug.LogError("fail to get: MusicManager");
@@ -52,9 +51,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (playerTransform == null) {
                 Debug.LogError("fail to get: playerTransform");
             }
-
-            // caching references  ---------------------------------------------
-            preludeStartOrigin = startPreludeTransform.position;
         }
 
         private void Start() {
@@ -71,7 +67,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // update vamp volume
                 float distance = Vector2.Distance(
                         playerTransform.position,
-                        preludeStartOrigin);
+                        piece.preludeStartOrigin);
                 float volume = vampDistantVsVolume.Evaluate(distance);
                 music.UpdateVampVolume(volume);
             }
@@ -118,12 +114,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // private members  ####################################################
-        private Vector2 preludeStartOrigin;  // HACK
-
         // Cached References
         private Player player;
         private PlayerManager playerManager;
         private MusicManager music;
+        private Piece piece;
         private Transform playerTransform;
 
         // private methods  ####################################################

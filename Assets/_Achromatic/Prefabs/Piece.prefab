@@ -604,7 +604,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  startPreludeTransform: {fileID: 3938205800452466528}
   virtualCamera: {fileID: 1095902738690897300}
 --- !u!114 &708470406752799704
 MonoBehaviour:
@@ -619,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.Piece
   mainPath: {fileID: 675889762508624498}
+  startPreludeTransform: {fileID: 3938205800452466528}
 --- !u!114 &3336779841593416903
 MonoBehaviour:
   m_ObjectHideFlags: 0

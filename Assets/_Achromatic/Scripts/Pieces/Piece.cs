@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -7,11 +8,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // public members  #####################################################
 
-        public Vector2 preludeStartOrigin;  // TODO assign
-
+        [NonSerialized]
+        public Vector2 preludeStartOrigin;
 
         // Inspector Fields  ###################################################
         public SplineContainer mainPath;
+
+        [SerializeField]
+        private Transform startPreludeTransform;
 
         // MonoBehavior Lifecycle  #############################################
 
@@ -20,6 +24,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (mainPath == null) {
                 Debug.LogError("must assign: Main Path");
             }
+            if (startPreludeTransform == null) {
+                Debug.LogError("must assign: Start Prelude Transform");
+            }
+
+            // caching references  ---------------------------------------------
+            preludeStartOrigin = startPreludeTransform.position;
         }
     }
 }
