@@ -6,42 +6,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
     /// <summary>
     /// represent a single note w/i beatmap
     /// </summary>
-    public class BeatmapNote {
+    [Serializable]
+    public class Note {
 
-        /// <summary>
-        /// bar count, starting at 1
-        /// </summary>
-        public int Bar => jsonNote.bar;
+        public int bar;
+        public int beat;
+        public int subbeat;
 
-        /// <summary>
-        /// beat count w/i bar, start at 1
-        /// </summary>
-        public int Beat => jsonNote.beat;
-
-        /// <summary>
-        /// beat division count, start at 1
-        /// </summary>
-        public int Subbeat => jsonNote.subbeat;
-
-        public NoteType type;
-
-        private readonly BeatmapData.JsonDataNote jsonNote;
-
-        public BeatmapNote(
-                BeatmapData.JsonDataNote jsonNote) {
-
-            this.jsonNote = jsonNote;
-
-            // convert string to enum type
-            type = jsonNote.type switch {
-                "jump" => NoteType.JUMP,
-                "squat" => NoteType.SQUAT,
-                "attack" => NoteType.ATTACK,
-                "jump/attack" => NoteType.JUMP_OR_ATTACK,
-                _ => throw new InvalidOperationException(
-                    $"BeatmapNote: bad note type: {jsonNote.type}")
-            };
-        }
+        public string type;
     }
 }
 

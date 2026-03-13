@@ -14,10 +14,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         /// <remark>
         /// must be in order of appearances
         /// </remark>
-        public JsonDataNote[] notes;
+        public Note[] notes;
 
         [Serializable]
-        public class JsonDataNote {
+        public class Note {
 
             public int bar;
             public int beat;

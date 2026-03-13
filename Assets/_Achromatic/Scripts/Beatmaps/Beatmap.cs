@@ -110,7 +110,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // fill notesQ  ----------------------------------------------------
             notesQ = new();
-            foreach (BeatmapData.JsonDataNote jsonNote in data.notes) {
+            foreach (BeatmapData.Note jsonNote in data.notes) {
                 notesQ.Enqueue(new BeatmapNote(jsonNote));
             }
         }
