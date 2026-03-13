@@ -8,27 +8,20 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
     public class ElementsManager: MonoBehaviour {
 
-        // MonoBehavior Lifecycle  #############################################
-
-
-        // constants  ##########################################################
-        private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
-
-    }
-}
-/*
-    public class ElementsManager {
+        // Inspector Fields  ###################################################
 
         [SerializeField]
         private Transform prefabs;
-        // constants  ========================================================
-        private const float NOTES_HEIGHT = 1.5f;
 
-        // constructor  ==========================================================
-        public ElementsManager(PieceScript pieceScript, Transform rootTransform) {
-            p = pieceScript;
-            root = rootTransform;
+        // MonoBehavior Lifecycle  #############################################
 
+        private void Awake() {
+            if (prefabs == null) {
+                Debug.LogError("must assign: Prefabs");
+                return;
+            }
+
+            /* HACK
             // create per-type pools  --------------------------------------------
             beatLinePool = new PrefabPool(16, PREFAB_FOLDER_PATH + "BeatLine", root);
             barlinePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "Barline", root);
@@ -49,8 +42,33 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 float noteBeat = p.beatmap.CalcBeatCount(n);
                 if (noteBeat >= currentBeat)
                     notesRenderQ.Enqueue(n);
-            }
+
+                    */
         }
+
+
+        private void Update() {
+
+        }
+
+        // constants  ##########################################################
+        private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
+
+        // private members  ####################################################
+
+        // cached reference
+
+
+    }
+}
+/*
+    public class ElementsManager {
+
+        [SerializeField]
+        private Transform prefabs;
+        // constants  ========================================================
+        private const float NOTES_HEIGHT = 1.5f;
+
 
         // public methods  ===================================================
         public void Update() {

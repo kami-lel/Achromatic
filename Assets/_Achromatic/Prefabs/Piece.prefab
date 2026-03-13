@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc53fac3744e70a45843324b88b5c52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmaps.ElementsManager
+  prefabs: {fileID: 5487930671339377596}
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
