@@ -13,6 +13,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [SerializeField]
         private Transform prefabs;
 
+        [SerializeField]
+        private float renderDistanceX = 10f;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
@@ -21,13 +24,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return;
             }
 
-            /* HACK
             // create per-type pools  --------------------------------------------
-            beatLinePool = new PrefabPool(16, PREFAB_FOLDER_PATH + "BeatLine", root);
-            barlinePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "Barline", root);
-            jumpNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "JumpNote", root);
-            dashNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "DashNote", root);
+            // action hints
+            actionHintJump = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
+            actionHintAttack = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
+            actionHintSquat = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
+            // beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
+            // barlinePool = new PrefabPool(8, PREFAB_FOLDER + "Barline", prefabs);
 
+            /* HACK
             // initialize last placed positions to current playback state
             float currentBeat = p.beatmap.currentBeatCount;
             lastBeatLineOnBeat = Mathf.Floor(currentBeat);  // start at current beat
@@ -48,11 +53,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
 
         private void Update() {
-            /*
-                if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
-                    return;
-                }
+            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
+                return;
+            }
 
+
+
+            /*
 
                 // place beatLine  -----------------------------------------------
                 float renderBoundaryOnBeat = p.beatmap.currentBeatCount
@@ -112,13 +119,17 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
 
         // private members  ####################################################
+        // per-element pools
+        private PrefabPool actionHintJump;
+        private PrefabPool actionHintAttack;
+        private PrefabPool actionHintSquat;
 
         // cached reference
 
 
     }
 }
-/*
+/* HACK rm
     public class ElementsManager {
 
         private const float NOTES_HEIGHT = 1.5f;
