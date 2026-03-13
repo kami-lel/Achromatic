@@ -1,4 +1,3 @@
-// Criteria.cs
 using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Pieces;
@@ -54,7 +53,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             // Build full timing list
             foreach (Note note in beatmap.notesQ) {
-                timings.Enqueue(Timing(beatmap, note));
+                timings.Enqueue(new Timing(beatmap, note));
             }
         }
 
