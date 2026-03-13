@@ -156,6 +156,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void Update() {
+            // Bug movement jaggy, maybe use fixed update
             // main piece  -----------------------------------------------------
             if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
 
