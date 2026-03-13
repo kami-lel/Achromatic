@@ -1,11 +1,10 @@
 using UnityEngine;
 using TMPro;
 
-// Todo smooth movement w/ inertia
+// TODO smooth movement w/ inertia
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class GameTitleScript : MonoBehaviour
-{
+public class GameTitleScript: MonoBehaviour {
     // inspector fields #######################################################
     [SerializeField]
     private Transform playerTransform;
@@ -17,14 +16,12 @@ public class GameTitleScript : MonoBehaviour
     private float titleDeltaY = 20f;  // how far the title moves up in y
 
     // MonoBehaviour Lifecycle ################################################
-    void Start()
-    {
+    void Start() {
         rectTransform =
             GetComponent<TextMeshProUGUI>().rectTransform;  // cache rect
         initialY = rectTransform.anchoredPosition.y;  // read start y
 
-        if (playerTransform == null)
-        {
+        if (playerTransform == null) {
             Debug.LogError("GameTitleScript:\tmust set playerTransform");  // log
             enabled = false;  // disable this component to avoid updates
             return;
@@ -34,8 +31,7 @@ public class GameTitleScript : MonoBehaviour
         maxPlayerX = startPlayerX;  // begin tracking max player x
     }
 
-    void Update()
-    {
+    void Update() {
         // track furthest right player X so title never moves down
         maxPlayerX = Mathf.Max(maxPlayerX, playerTransform.position.x);
 
@@ -66,8 +62,7 @@ public class GameTitleScript : MonoBehaviour
         bool reachedY = Mathf.Abs(
             rectTransform.anchoredPosition.y - desiredEndY)
             <= FINISH_EPSILON;
-        if (reachedProgress && reachedY)
-        {
+        if (reachedProgress && reachedY) {
             enabled = false;  // stop updating when finished
         }
     }

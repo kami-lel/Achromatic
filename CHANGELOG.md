@@ -42,6 +42,7 @@
 ### Changed
 
 - refactorization of Piece and Player, using multiple components approach
+- improve Game Title movement to be smooth & natural
 
 ### Deprecated
 ### Removed
