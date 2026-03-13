@@ -1,4 +1,6 @@
 
+using System;
+using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Scores {
@@ -42,23 +44,28 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
 
         // Constructor  ########################################################
-        public Timing(
-                float centerTiming,
-                Actions action,
-                BeatmapMeta meta
-            ) {
-            // TODO TODO
-            center = centerTiming;
-            allowedAction = action;
+        public Timing(Beatmap beatmap, Note note) {
+            // calc center timing
+            float beat = beatmap.CalcBeatCount(note);
+            float centerTiming = beatmap.meta.preludeSeconds +
+                    beat * beatmap.secondsPerBeat;
 
-            leftGoodBound = centerTiming - meta.goodDeltaSecond;
-            leftGreatBound = centerTiming - meta.greatDeltaSecond;
-            leftPerfectBound = centerTiming - meta.perfectDeltaSecond;
-            rightGoodBound = centerTiming + meta.goodDeltaSecond;
-            rightGreatBound = centerTiming + meta.greatDeltaSecond;
-            rightPerfectBound = centerTiming + meta.perfectDeltaSecond;
+            leftGoodBound = centerTiming - beatmap.meta.goodDeltaSecond;
+            leftGreatBound = centerTiming - beatmap.meta.greatDeltaSecond;
+            leftPerfectBound = centerTiming - beatmap.meta.perfectDeltaSecond;
+            rightGoodBound = centerTiming + beatmap.meta.goodDeltaSecond;
+            rightGreatBound = centerTiming + beatmap.meta.greatDeltaSecond;
+            rightPerfectBound = centerTiming + beatmap.meta.perfectDeltaSecond;
 
-            startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
+            startJudgeBound = leftGoodBound - beatmap.meta.goodDeltaSecond;
+
+            // decide allowedAction  -------------------------------------------
+            allowedAction = note.type switch {
+                "jump" => Actions.JUMP,
+                "squat" => Actions.SQUAT,
+                "attack" => Actions.ATTACK,
+                _ => throw new ArgumentException($"unknown note type: {note.type}")
+            };
         }
 
 
@@ -74,23 +81,5 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly float rightPerfectBound;
 
         private readonly Actions allowedAction;
-
-
-
-        // HACK mv to Timing
-        private Timing CreateTiming(BeatmapNote note) {
-            float beat = beatmap.CalcBeatCount(note);
-            float center = beatmap.meta.preludeSeconds +
-                    beat * beatmap.secondsPerBeat;
-
-            // TODO detach note type from action type
-            Actions action = note.type switch {
-                NoteType.JUMP => Actions.JUMP,
-                NoteType.DASH => Actions.SQUAT,
-                _ => Actions.NONE
-            };
-
-            return new Timing(center, action, beatmap.meta);
-        }
     }
 }

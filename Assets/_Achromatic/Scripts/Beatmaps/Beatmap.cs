@@ -13,7 +13,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         // Public Members ######################################################
 
         [NonSerialized]
-        public Queue<BeatmapNote> notesQ;
+        public Queue<Note> notesQ;
 
         [NonSerialized]
         public Vector2 origin;
@@ -54,10 +54,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             return CalcXFromBeat(currentBeat);
         }
 
-        public float CalcBeatCount(BeatmapNote note) {
-            return (note.Bar - 1) * meta.beatPerBar
-                    + (note.Beat - 1)
-                    + (note.Subbeat - 1) * beatsPerDivision;
+        public float CalcBeatCount(Note note) {
+            return (note.bar - 1) * meta.beatPerBar
+                    + (note.beat - 1)
+                    + (note.subbeat - 1) * beatsPerDivision;
         }
 
         // Inspector Fields  ###################################################
@@ -110,8 +110,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // fill notesQ  ----------------------------------------------------
             notesQ = new();
-            foreach (BeatmapData.Note jsonNote in data.notes) {
-                notesQ.Enqueue(new BeatmapNote(jsonNote));
+            foreach (Note note in data.notes) {
+                notesQ.Enqueue(note);
             }
         }
 

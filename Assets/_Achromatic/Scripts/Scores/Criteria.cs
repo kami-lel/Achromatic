@@ -53,8 +53,8 @@ namespace Assets._Achromatic.Scripts.Scores {
             timings = new Queue<Timing>();
 
             // Build full timing list
-            foreach (BeatmapNote note in beatmap.notesQ) {
-                timings.Enqueue(Timing(note));
+            foreach (Note note in beatmap.notesQ) {
+                timings.Enqueue(Timing(beatmap, note));
             }
         }
 

@@ -15,16 +15,5 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         /// must be in order of appearances
         /// </remark>
         public Note[] notes;
-
-        [Serializable]
-        public class Note {
-
-            public int bar;
-            public int beat;
-            public int subbeat;
-
-            public string type;
-        }
-
     }
 }
