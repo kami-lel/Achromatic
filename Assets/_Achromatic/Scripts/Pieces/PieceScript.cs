@@ -82,7 +82,6 @@ public class PieceScript: MonoBehaviour {
     [SerializeField]
     private PseudoAudioPlugin pseudoAudioPlugin;
 
-    // HACK
     public Transform playerSprite;
 
 

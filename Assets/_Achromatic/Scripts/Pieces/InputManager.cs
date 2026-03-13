@@ -88,17 +88,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private methods  ####################################################
 
         private void Trigger() {
-            // HACK
-            // Hit hit = p.criteria.Judge(pressed);
-            // p.score.Record(hit);
+            /* HACK
+            Hit hit = p.criteria.Judge(pressed);
+            p.score.Record(hit);
 
-            // if ((pressed & Actions.JUMP) != 0) {
-            //     p.playerManager.Jump(hit);
-            // } else if ((pressed & Actions.SQUAT) != 0) {
-            //     p.playerManager.Squat(hit);
-            // } else if ((pressed & Actions.ATTACK) != 0) {
-            //     p.playerManager.Attack(hit);
-            // }
+            if ((pressed & Actions.JUMP) != 0) {
+                p.playerManager.Jump(hit);
+            } else if ((pressed & Actions.SQUAT) != 0) {
+                p.playerManager.Squat(hit);
+            } else if ((pressed & Actions.ATTACK) != 0) {
+                p.playerManager.Attack(hit);
+            }
+            */
 
             // Todo add audio for feedback, layered
         }

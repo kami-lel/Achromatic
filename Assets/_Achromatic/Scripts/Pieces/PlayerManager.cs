@@ -24,8 +24,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             anim.EnsureFacing(true);
             anim.StartRun();
-            // HACK
-            // player.im.SetInputForMusicPlay();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
