@@ -360,26 +360,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 45.220787
-      outSlope: 45.220787
+      inSlope: 48.25349
+      outSlope: 48.25349
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.05836652
+      outWeight: 0.03607523
     - serializedVersion: 3
-      time: 0.3136487
-      value: 0.68432623
-      inSlope: -4.1947894
-      outSlope: -4.1947894
+      time: 0.24072592
+      value: 0.27677694
+      inSlope: -3.0143535
+      outSlope: -3.0143535
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.16289885
-      outWeight: 0.10448146
+      inWeight: 0.21778327
+      outWeight: 0.21581927
     - serializedVersion: 3
       time: 0.5
       value: 0
-      inSlope: -3.6722374
-      outSlope: -3.6722374
+      inSlope: -1.0675073
+      outSlope: -1.0675073
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmaps.ElementsManager
   prefabs: {fileID: 5487930671339377596}
+  renderDistanceX: 10
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
