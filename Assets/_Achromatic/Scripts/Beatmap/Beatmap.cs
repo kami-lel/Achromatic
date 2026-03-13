@@ -1,21 +1,42 @@
 using UnityEngine;
 
 using System.Collections.Generic;
+using Assets._Achromatic.Scripts.Pieces;
+using System;
 
 namespace Assets._Achromatic.Scripts.Beatmap {
+    [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Piece))]
+    public class Beatmap: MonoBehaviour {
 
-    public class Beatmap {
+        // Public Members ######################################################
 
-        // public members ######################################################
-        public BeatmapMeta meta;
+
+        [NonSerialized]
         public BeatmapData data;
+
+        [NonSerialized]
         public Queue<BeatmapNote> notesQ;
 
+        [NonSerialized]
         public Vector2 origin;
-        public float currentBeatCount;
-        public readonly float horizontalSpeedInMainPiece;
 
-        // public methods  #####################################################
+        [NonSerialized]
+        public float currentBeatCount;
+
+        [NonSerialized]
+        public float horizontalSpeedInMainPiece;
+
+        // Public Methods  #####################################################
+
+        /// <returns>realtime beat count based on Audio Source time,
+        /// start on <c>0.0f</c></returns>
+        public float BeatCount {
+            get {
+                return music.Time * beatPerSec - preludeOffsetAsBeat;
+            }
+        }
+
         public float CalcXFromBeat(float beatCount) {
             return origin.x + beatCount * meta.horizontalUnitsPerBeat;
         }
@@ -30,33 +51,32 @@ namespace Assets._Achromatic.Scripts.Beatmap {
                     + (note.Subbeat - 1) * beatsPerDivision;
         }
 
-        /// <returns>realtime beat count based on Audio Source time,
-        /// start on <c>0.0f</c></returns>
-        public float BeatCount {
-            get {
-                return p.music.Time * beatPerSec - preludeOffsetAsBeat;
-            }
-        }
+        // Inspector Fields  ###################################################
+
+        public BeatmapMeta meta;
 
         // MonoBehavior Lifecycle  #############################################
 
-        public void Update() {
-            // update current beat count
-            currentBeatCount = p.music.Time * beatsPerSecond;
-        }
-
-        // constructor  ########################################################
-        public Beatmap(PieceScript piece, BeatmapMeta beatmapMeta) {
-            p = piece;
-            meta = beatmapMeta;
-
+        private void Awake() {
+            // test inspector fields  ------------------------------------------
             if (meta == null) {
-                Debug.LogError("Beatmap:\tmust assign Beatmap Meta in Piece");
+                Debug.LogError("must assign: Beatmap Meta");
                 return;
             }
             if (meta.file == null) {
-                Debug.LogError("Beatmap:\tmust assign Beatmap File in Beatmap Meta");
+                Debug.LogError("must assign Beatmap File in Beatmap Meta");
                 return;
+            }
+
+            // caching reference of piece  -------------------------------------
+            piece = GetComponent<Piece>();
+            if (piece == null) {
+                Debug.LogError("fail to get: Piece");
+            }
+
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
             }
 
             // load data  ------------------------------------------------------
@@ -71,7 +91,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             preludeOffsetAsBeat = meta.preludeSeconds * beatPerSec;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
 
-            var pos3 = piece.mainPartPath.EvaluatePosition(0, 0f);
+            var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
 
             beatsPerSecond = meta.tempo / 60f;
@@ -86,15 +106,21 @@ namespace Assets._Achromatic.Scripts.Beatmap {
             }
         }
 
+        private void Update() {
+            // update current beat count
+            currentBeatCount = music.Time * beatsPerSecond;
+        }
+
 
         // private members  ####################################################
-        private readonly float beatsPerSecond;
-        private readonly float beatPerSec;
-        private readonly float preludeOffsetAsBeat;
-        private readonly float beatsPerDivision;
+        private float beatsPerSecond;
+        private float beatPerSec;
+        private float preludeOffsetAsBeat;
+        private float beatsPerDivision;
 
         // cached references
-        private readonly PieceScript p;
+        private MusicManager music;
+        private Piece piece;
     }
 }
 

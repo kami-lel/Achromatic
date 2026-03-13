@@ -96,7 +96,6 @@ public class PieceScript: MonoBehaviour {
         preludeStartOrigin = startPreludeTransform.position;
 
 
-        beatmap = new(this, beatmapMeta);
         score = new(beatmap);
         criteria = new(this);
 
@@ -109,7 +108,6 @@ public class PieceScript: MonoBehaviour {
 
     private void Update() {
         starter.Update();
-        beatmap.Update();
         elements.Update();
         criteria.Update();
     }
