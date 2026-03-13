@@ -797,11 +797,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5386238845864634838, guid: 139043300a0e7ba4fb6154946f9e3503, type: 3}
   m_PrefabInstance: {fileID: 491483271}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &546950733 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 695588797208589614, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-  m_PrefabInstance: {fileID: 1176853362}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &567381968 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3998436889960283227, guid: 33e930b2effdbd44091164dea255896d, type: 3}
@@ -16833,17 +16828,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1998202008919027763, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.5993376
-      objectReference: {fileID: 0}
     - target: {fileID: 3743320143481646306, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.5993376
       objectReference: {fileID: 0}
     - target: {fileID: 5085497498859166764, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18200,6 +18187,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: pseudoAudioPlugin
+      value: 
+      objectReference: {fileID: 1822651826}
     - target: {fileID: 1095902738690897300, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Follow
       value: 
@@ -18244,14 +18235,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: playerSprite
-      value: 
-      objectReference: {fileID: 546950733}
-    - target: {fileID: 3880381500431647160, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: pseudoAudioPlugin
-      value: 
-      objectReference: {fileID: 1822651826}
     - target: {fileID: 4287971021022977273, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Name
       value: Piece

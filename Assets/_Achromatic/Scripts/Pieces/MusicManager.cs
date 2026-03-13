@@ -1,11 +1,13 @@
-using Assets._Achromatic.Scripts.Beatmap;
+
+using Assets._Achromatic.Scripts.Beatmaps;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    [RequireComponent(typeof(Beatmap))]
+    public class MusicManager: MonoBehaviour {
+        // Bug audio start is jarring, lose framerate
 
-    public class MusicManager {
-
-        // public API  #########################################################
+        // Public API  #########################################################
 
         public float Time {
             get {
@@ -41,9 +43,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void DebugStartMusic(int debugMusicStaringBar) {
             float startTime = (debugMusicStaringBar - 1.0f)
-                    * p.beatmap.meta.beatPerBar
-                    * (60.0f / p.beatmap.meta.tempo)
-                    + p.beatmap.meta.preludeSeconds;
+                                * beatmap.meta.beatPerBar
+                                * (60.0f / beatmap.meta.tempo)
+                                + beatmap.meta.preludeSeconds;
 
             pseudoAudioPlugin.preludeAndMain.time = startTime;
 
@@ -51,19 +53,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pseudoAudioPlugin.preludeAndMain.Play();
         }
 
+        // Inspector Fields  ###################################################
 
-        // Constructor  ########################################################
-        public MusicManager(PieceScript piece, PseudoAudioPlugin pseudoAudioPlugin) {
-            p = piece;
+        [SerializeField]
+        private PseudoAudioPlugin pseudoAudioPlugin;
 
-            this.pseudoAudioPlugin = pseudoAudioPlugin;
+        // Inspector Fields  ###################################################
+
+        private void Awake() {
+            // caching reference of piece  -------------------------------------
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
+            }
         }
 
         // private members  ####################################################
         // cached references
-        private readonly PseudoAudioPlugin pseudoAudioPlugin;
-        private readonly PieceScript p;
-
-
+        private Beatmap beatmap;
     }
 }

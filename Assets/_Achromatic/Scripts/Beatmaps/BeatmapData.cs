@@ -1,7 +1,7 @@
 using System;
 
 
-namespace Assets._Achromatic.Scripts.Beatmap {
+namespace Assets._Achromatic.Scripts.Beatmaps {
 
     /// <summary>
     /// a <b>Serializable</b> equivalent of <c>BeatmapData</c>

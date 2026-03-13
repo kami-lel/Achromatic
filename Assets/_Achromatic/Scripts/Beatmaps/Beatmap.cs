@@ -1,0 +1,126 @@
+using UnityEngine;
+
+using System.Collections.Generic;
+using Assets._Achromatic.Scripts.Pieces;
+using System;
+
+namespace Assets._Achromatic.Scripts.Beatmaps {
+    [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Piece))]
+    public class Beatmap: MonoBehaviour {
+
+        // Public Members ######################################################
+
+
+        [NonSerialized]
+        public BeatmapData data;
+
+        [NonSerialized]
+        public Queue<BeatmapNote> notesQ;
+
+        [NonSerialized]
+        public Vector2 origin;
+
+        [NonSerialized]
+        public float currentBeatCount;
+
+        [NonSerialized]
+        public float horizontalSpeedInMainPiece;
+
+        // Public Methods  #####################################################
+
+        /// <returns>realtime beat count based on Audio Source time,
+        /// start on <c>0.0f</c></returns>
+        public float BeatCount {
+            get {
+                return music.Time * beatPerSec - preludeOffsetAsBeat;
+            }
+        }
+
+        public float CalcXFromBeat(float beatCount) {
+            return origin.x + beatCount * meta.horizontalUnitsPerBeat;
+        }
+
+        public float CalcCurrentXFromBeat() {
+            return CalcXFromBeat(currentBeatCount);
+        }
+
+        public float CalcBeatCount(BeatmapNote note) {
+            return (note.Bar - 1) * meta.beatPerBar
+                    + (note.Beat - 1)
+                    + (note.Subbeat - 1) * beatsPerDivision;
+        }
+
+        // Inspector Fields  ###################################################
+
+        public BeatmapMeta meta;
+
+        // MonoBehavior Lifecycle  #############################################
+
+        private void Awake() {
+            // test inspector fields  ------------------------------------------
+            if (meta == null) {
+                Debug.LogError("must assign: Beatmap Meta");
+                return;
+            }
+            if (meta.file == null) {
+                Debug.LogError("must assign Beatmap File in Beatmap Meta");
+                return;
+            }
+
+            // caching reference of piece  -------------------------------------
+            piece = GetComponent<Piece>();
+            if (piece == null) {
+                Debug.LogError("fail to get: Piece");
+            }
+
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
+            }
+
+            // load data  ------------------------------------------------------
+            data = JsonUtility.FromJson<BeatmapData>(meta.file.text);
+            if (data.notes.Length == 0) {
+                Debug.LogError("Beatmap:\tbeatmap file contains no notes: "
+                        + meta.file.name);
+            }
+
+            // init vars  ------------------------------------------------------
+            beatPerSec = meta.tempo / 60.0f;
+            preludeOffsetAsBeat = meta.preludeSeconds * beatPerSec;
+            beatsPerDivision = 1 / meta.subdivisionPerBeat;
+
+            var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
+            origin = new Vector2(pos3.x, pos3.y);
+
+            beatsPerSecond = meta.tempo / 60f;
+            horizontalSpeedInMainPiece =
+                    meta.horizontalUnitsPerBeat * beatsPerSecond;
+
+
+            // fill notesQ  ----------------------------------------------------
+            notesQ = new();
+            foreach (BeatmapData.JsonDataNote jsonNote in data.notes) {
+                notesQ.Enqueue(new BeatmapNote(jsonNote));
+            }
+        }
+
+        private void Update() {
+            // update current beat count
+            currentBeatCount = music.Time * beatsPerSecond;
+        }
+
+
+        // private members  ####################################################
+        private float beatsPerSecond;
+        private float beatPerSec;
+        private float preludeOffsetAsBeat;
+        private float beatsPerDivision;
+
+        // cached references
+        private MusicManager music;
+        private Piece piece;
+    }
+}
+

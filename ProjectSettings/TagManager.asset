@@ -11,6 +11,7 @@ TagManager:
   - ComboIndicator
   - RunningScoreIndicator
   - ScoreAdditionIndicator
+  - PlayerSprite
   layers:
   - Default
   - TransparentFX

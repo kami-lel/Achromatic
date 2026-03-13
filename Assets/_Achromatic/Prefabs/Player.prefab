@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 2662436027331640132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.171523, y: 0.9000002, z: -10}
+  m_LocalPosition: {x: 1.422041, y: 0.9000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 3611119754416196937}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.171523, y: 0.9000002, z: -10}
+  m_LocalPosition: {x: 1.422041, y: 0.9000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -437,10 +437,13 @@ GameObject:
   - component: {fileID: 5085497498859166764}
   - component: {fileID: 5907455042728785774}
   - component: {fileID: 2897815183136813208}
-  - component: {fileID: 5589948328116730296}
   - component: {fileID: 3086159920649639274}
   - component: {fileID: 7563961214672109688}
   - component: {fileID: 7617232584069604541}
+  - component: {fileID: 2088707974650760597}
+  - component: {fileID: 2596056634301086646}
+  - component: {fileID: 690277133571386127}
+  - component: {fileID: 9052415178535514728}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -524,23 +527,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5589948328116730296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3743320143481646306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b19486b4b4af014eb53e5a4f98d2e70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  defaultMaterial: {fileID: 6200000, guid: 86d5166df87b660428dfde1de571da59, type: 2}
-  noFrictionMaterial: {fileID: 6200000, guid: 792bed60f11f30b4eab9e2fa0af053c6, type: 2}
 --- !u!95 &3086159920649639274
 Animator:
   serializedVersion: 7
@@ -659,6 +645,59 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2088707974650760597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743320143481646306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912cd37ca6b0d7349b0bdc63060e6f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &2596056634301086646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743320143481646306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06be7a1491a4f14883e3e48ae977364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Player.Movement
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!114 &690277133571386127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743320143481646306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e585b2dc1ed3ca41b41f227c4fb7864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Player.InputManager
+  defaultMaterial: {fileID: 6200000, guid: 86d5166df87b660428dfde1de571da59, type: 2}
+  noFrictionMaterial: {fileID: 6200000, guid: 792bed60f11f30b4eab9e2fa0af053c6, type: 2}
+--- !u!114 &9052415178535514728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743320143481646306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce22a4406ee18994b982f9373490462c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Player.AnimationManager
 --- !u!1 &3885278114047312203
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +1035,7 @@ GameObject:
   - component: {fileID: 2105379203806069407}
   m_Layer: 0
   m_Name: PlayerSprite
-  m_TagString: Untagged
+  m_TagString: PlayerSprite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,40 +2,44 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 using Assets._Achromatic.Scripts.Scores;
-using Assets._Achromatic.Scripts.Pieces;
-using Assets._Achromatic.Scripts.Beatmap;
-using TMPro;
-using UnityEngine.SceneManagement;
+using Assets._Achromatic.Scripts.Beatmaps;
 
 // todo improve looking of indicators
 
-public class Score {
 
-    // public members  =========================================================
+[RequireComponent(typeof(Beatmap))]
+public class Score: MonoBehaviour {
+
+    // Public Members  #########################################################
 
     /// <summary>
     /// running score, maybe lower than actual points
     /// </summary>
+    [NonSerialized]
     public float runningScore;
 
     /// <summary>
     /// number of current combos
     /// </summary>
+    [NonSerialized]
     public int combo;
 
     /// <summary>
     /// number of max combos
     /// </summary>
+    [NonSerialized]
     public int maxCombo;
 
     /// <summary>
     /// count each type of result
     /// </summary>
-    public readonly Dictionary<Hit, int> hitCnt;
+    public Dictionary<Hit, int> hitCnt;
 
-    // public methods  =========================================================
+    // Public Methods  #########################################################
 
     public void Record(Hit hit) {
         // save results
@@ -87,9 +91,15 @@ public class Score {
         }
     }
 
+    // MonoBehavior Lifecycle  #################################################
 
-    // constructor  ============================================================
-    public Score(Beatmap beatmap) {
+    private void Awake() {
+        // caching reference of piece  -----------------------------------------
+        beatmap = GetComponent<Beatmap>();
+        if (beatmap == null) {
+            Debug.LogError("fail to get: Beatmap");
+        }
+
         // init resultCnt  -----------------------------------------------------
         hitCnt = new Dictionary<Hit, int>();
         foreach (Hit result
@@ -97,41 +107,23 @@ public class Score {
             hitCnt[result] = 0;  // filled w/ 0
         }
 
-
         // init perResultScores  -----------------------------------------------
         perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
         greatScore = perfectScore * 0.7f;
         goodScore = perfectScore * 0.3f;
-
 
         // init combo  ---------------------------------------------------------
         combo = 0;
         maxCombo = 0;
 
         // init indicators
-        InitIndicators();
         SceneManager.sceneLoaded += HandleInitIndicators;
     }
 
-    // private members  ========================================================
 
-    // cached references
-    private TextMeshProUGUI comboIndicator;
-    private TextMeshProUGUI runningScoreIndicator;
-    private HitTypeIndicatorScript hitTypeIndicator;
-    private ScoreAdditionIndicatorScript scoreAdditionIndicator;
+    // event handlers  #########################################################
 
-    /// <summary>
-    /// total score possible for a piece
-    /// </summary>
-    private const int TOTAL_SCORES = 10000;
-
-    private readonly float perfectScore;
-    private readonly float greatScore;
-    private readonly float goodScore;
-
-    // private methods  ========================================================
-    private void InitIndicators() {
+    private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {
         // combo indicator
         GameObject comboGO = GameObject.FindWithTag("ComboIndicator");
         if (comboGO != null) {
@@ -170,8 +162,23 @@ public class Score {
         }
     }
 
-    private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {
-        InitIndicators();
-    }
+    // constants  ##############################################################
+
+    /// <summary>
+    /// total score possible for a piece
+    /// </summary>
+    private const int TOTAL_SCORES = 10000;
+
+    // private members  ########################################################
+    private float perfectScore;
+    private float greatScore;
+    private float goodScore;
+
+    // cached references
+    private TextMeshProUGUI comboIndicator;
+    private TextMeshProUGUI runningScoreIndicator;
+    private HitTypeIndicatorScript hitTypeIndicator;
+    private ScoreAdditionIndicatorScript scoreAdditionIndicator;
+    private Beatmap beatmap;
 }
 

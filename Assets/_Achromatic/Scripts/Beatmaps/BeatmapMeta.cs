@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BeatmapMeta", menuName = "Scriptable Objects/BeatmapMeta")]

@@ -1,12 +1,70 @@
 // Criteria.cs
 using System.Collections.Generic;
-using Assets._Achromatic.Scripts.Beatmap;
+using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Players;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
-    public class Criteria {
+    [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Score))]
+    public class Criteria: MonoBehaviour {
+
+        // Public API  #########################################################
+
+        public Hit Judge(Actions actions) {
+            if (timings.Count == 0)
+                return Hit.NO_HIT;
+
+            var t = timings.Peek();
+
+            // Do NOT dequeue unless player actually attempted a hit
+            if (actions == Actions.NONE)
+                return Hit.NO_HIT;
+
+            if (!t.IsInJudgingRange(music.Time))
+                return Hit.NO_HIT;
+
+            timings.Dequeue();
+            return t.Judge(music.Time, actions);
+        }
+
+        // MonoBehavior Lifecycle  #############################################
+
+        private void Awake() {
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
+            }
+            score = GetComponent<Score>();
+            if (score == null) {
+                Debug.LogError("fail to get: Score");
+            }
+        }
+
+        public void Update() {
+            if (GCS.I.states != GameState.MAIN_PIECE || timings.Count == 0)
+                return;
+
+            // auto-miss notes you fully passed
+            while (timings.Count > 0 && timings.Peek().IsPassByMiss(music.Time)) {
+                timings.Dequeue();
+                score.Record(Hit.LATE_MISS);
+            }
+        }
+
+        // private members  ####################################################
         private readonly Queue<Timing> timings;
-        private readonly PieceScript p;
+
+        // Cached References
+        private MusicManager music;
+        private Score score;
+
+        // Bug  #################################################################
+        // Todo need to work w/ half start
+
+
+        /*
 
         public Criteria(PieceScript piece) {
             p = piece;
@@ -20,10 +78,10 @@ namespace Assets._Achromatic.Scripts.Scores {
                 float center = p.beatmap.meta.preludeSeconds + beat * spb;
 
                 // Todo detach note type from action type
-                PressedActions action = note.type switch {
-                    BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.SQUAT,
-                    _ => PressedActions.NONE
+                Actions action = note.type switch {
+                    NoteType.JUMP => Actions.JUMP,
+                    NoteType.DASH => Actions.SQUAT,
+                    _ => Actions.NONE
                 };
 
                 timings.Enqueue(new Timing(center, action, p.beatmap.meta));
@@ -33,40 +91,13 @@ namespace Assets._Achromatic.Scripts.Scores {
             // matches next rendered note.
             SeekToTime(p.music.Time);
         }
+        */
 
         public void SeekToTime(float timeSeconds) {
             // Drop all notes that are already "too late to ever hit"
             // i.e., passed rightGoodBound.
             while (timings.Count > 0 && timings.Peek().IsPassByMiss(timeSeconds))
                 timings.Dequeue();
-        }
-
-        public Hit Judge(PressedActions actions) {
-            if (timings.Count == 0)
-                return Hit.NO_HIT;
-
-            var t = timings.Peek();
-
-            // Do NOT dequeue unless player actually attempted a hit
-            if (actions == PressedActions.NONE)
-                return Hit.NO_HIT;
-
-            if (!t.IsInJudgingRange(p.music.Time))
-                return Hit.NO_HIT;
-
-            timings.Dequeue();
-            return t.Judge(p.music.Time, actions);
-        }
-
-        public void Update() {
-            if (GCS.I.states != GameState.MAIN_PIECE || timings.Count == 0)
-                return;
-
-            // auto-miss notes you fully passed
-            while (timings.Count > 0 && timings.Peek().IsPassByMiss(p.music.Time)) {
-                timings.Dequeue();
-                p.score.Record(Hit.LATE_MISS);
-            }
         }
     }
 }

@@ -1,32 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Fixme code refactorization
+// Fixme code refactorization & make monobehavior
 // Bug missing beat lines
-namespace Assets._Achromatic.Scripts.Beatmap
-{
+/*
+namespace Assets._Achromatic.Scripts.Beatmaps {
 
-    public class ElementsManager
-    {
+    public class ElementsManager {
+
+        [SerializeField]
+        private Transform prefabs;
         // constants  ========================================================
         private const string PREFAB_FOLDER_PATH = "Prefabs/BeatmapElements/";
         private const float NOTES_HEIGHT = 1.5f;
 
         // constructor  ==========================================================
-        public ElementsManager(PieceScript pieceScript, Transform rootTransform)
-        {
+        public ElementsManager(PieceScript pieceScript, Transform rootTransform) {
             p = pieceScript;
             root = rootTransform;
 
             // create per-type pools  --------------------------------------------
-            beatLinePool = new PrefabPool(16,
-                    PREFAB_FOLDER_PATH + "BeatLine", root);
-            barlinePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "Barline", root);
-            jumpNotePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "JumpNote", root);
-            dashNotePool = new PrefabPool(8,
-                    PREFAB_FOLDER_PATH + "DashNote", root);
+            beatLinePool = new PrefabPool(16, PREFAB_FOLDER_PATH + "BeatLine", root);
+            barlinePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "Barline", root);
+            jumpNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "JumpNote", root);
+            dashNotePool = new PrefabPool(8, PREFAB_FOLDER_PATH + "DashNote", root);
 
             // initialize last placed positions to current playback state
             float currentBeat = p.beatmap.currentBeatCount;
@@ -38,8 +35,7 @@ namespace Assets._Achromatic.Scripts.Beatmap
 
             // prepare notes queue starting from currentBeat  ---------------------
             notesRenderQ = new Queue<BeatmapNote>();
-            foreach (var n in p.beatmap.notesQ)
-            {
+            foreach (var n in p.beatmap.notesQ) {
                 float noteBeat = p.beatmap.CalcBeatCount(n);
                 if (noteBeat >= currentBeat)
                     notesRenderQ.Enqueue(n);
@@ -47,10 +43,8 @@ namespace Assets._Achromatic.Scripts.Beatmap
         }
 
         // public methods  ===================================================
-        public void Update()
-        {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0)
-            {
+        public void Update() {
+            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
 
@@ -60,8 +54,7 @@ namespace Assets._Achromatic.Scripts.Beatmap
                     + p.beatmap.meta.barlineRenderDistance
                     * p.beatmap.meta.beatPerBar;
 
-            while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f)
-            {
+            while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
                 float placeOnBeat = lastBeatLineOnBeat + 1.0f;
 
                 beatLinePool?.Spawn(p.beatmap.CalcXFromBeat(placeOnBeat),
@@ -75,8 +68,7 @@ namespace Assets._Achromatic.Scripts.Beatmap
                     + p.beatmap.meta.barlineRenderDistance;
 
             while (renderBoundaryOnBeat - lastBarlineOnBeat
-                    > p.beatmap.meta.beatPerBar)
-            {
+                    > p.beatmap.meta.beatPerBar) {
                 float placeOnBeat = lastBarlineOnBeat
                         + p.beatmap.meta.beatPerBar;
 
@@ -90,8 +82,7 @@ namespace Assets._Achromatic.Scripts.Beatmap
             float noteRenderBoundary = p.beatmap.currentBeatCount
                     + p.beatmap.meta.noteRenderDistance;
 
-            while (notesRenderQ.Count > 0)
-            {
+            while (notesRenderQ.Count > 0) {
                 var next = notesRenderQ.Peek();
                 float noteOnBeat = p.beatmap.CalcBeatCount(next);
 
@@ -100,13 +91,10 @@ namespace Assets._Achromatic.Scripts.Beatmap
 
                 BeatmapNote note = notesRenderQ.Dequeue();
 
-                if (note.type == BeatmapNoteType.JUMP)
-                {
+                if (note.type == NoteType.JUMP) {
                     jumpNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
                                         NOTES_HEIGHT);
-                }
-                else if (note.type == BeatmapNoteType.DASH)
-                {
+                } else if (note.type == NoteType.DASH) {
                     dashNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
                                         NOTES_HEIGHT);
                 }
@@ -114,7 +102,6 @@ namespace Assets._Achromatic.Scripts.Beatmap
         }
 
         // private members  ==================================================
-        private readonly PieceScript p;
         private Queue<BeatmapNote> notesRenderQ;
         private readonly Transform root;
 
@@ -129,3 +116,4 @@ namespace Assets._Achromatic.Scripts.Beatmap
     }
 
 }
+*/
