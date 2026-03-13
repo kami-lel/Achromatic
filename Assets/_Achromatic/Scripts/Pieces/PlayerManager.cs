@@ -5,9 +5,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using Assets._Achromatic.Scripts.Players;
+using Assets._Achromatic.Scripts.Beatmaps;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Beatmap))]
+    [RequireComponent(typeof(Piece))]
     public class PlayerManager: MonoBehaviour {
 
         // Public API  #########################################################
@@ -82,6 +85,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (music == null) {
                 Debug.LogError("fail to get: MusicManager");
             }
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
+            }
+            piece = GetComponent<Piece>();
+            if (piece == null) {
+                Debug.LogError("fail to get: Piece");
+            }
 
             // caching references of player  -----------------------------------
             GameObject playerGO = GCS.FindPlayer();
@@ -125,15 +136,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc movement during prelude  -----------------------------------
-            /* HACK
-            float t = p.beatmap.meta.preludeSeconds;
+            float t = beatmap.meta.preludeSeconds;
             if (t <= 0f) {
                 Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
                 t = Mathf.Epsilon;
             }
 
-            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
-            float v = p.beatmap.horizontalSpeedInMainPiece;
+            float s = beatmap.origin.x - piece.preludeStartOrigin.x;
+            float v = beatmap.horizontalSpeedInMainPiece;
 
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
@@ -146,7 +156,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
-            */
         }
 
         private void Update() {
@@ -155,12 +164,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
                 // Todo use Spline path
 
-                /* HACK
                 // move player in world map
-                float x = p.beatmap.CalcCurrentXFromBeat();
-                Vector2 newPosition = new(x, p.beatmap.origin.y);
+                float x = beatmap.CalcCurrentXFromBeat();
+                Vector2 newPosition = new(x, beatmap.origin.y);
                 rb.MovePosition(newPosition);
-                */
 
                 // make player movement by animation curve
                 float localX = 0;
@@ -216,5 +223,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Beatmap beatmap;
         private PlayerInput pi;
         private Transform playerSprite;
+        private Piece piece;
     }
 }

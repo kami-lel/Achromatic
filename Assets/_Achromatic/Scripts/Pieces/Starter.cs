@@ -118,7 +118,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
         // private members  ####################################################
-        private Vector2 preludeStartOrigin;
+        private Vector2 preludeStartOrigin;  // HACK
 
         // Cached References
         private Player player;
