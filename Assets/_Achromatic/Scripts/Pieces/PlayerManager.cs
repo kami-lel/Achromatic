@@ -157,7 +157,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void Update() {
             // main piece  -----------------------------------------------------
-            if (GCS.I.states == GameState.MAIN_PIECE) {
+            if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
 
                 // Todo use Spline path
 
@@ -196,6 +196,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // Fixme using music to control triggering
                 if (music.Time >= beatmap.meta.preludeSeconds) {
                     StartMainPiece();
+                    GCS.I.states = GameState.MAIN_PIECE;
                     return;
                 }
 

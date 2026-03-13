@@ -107,17 +107,19 @@ public class Score: MonoBehaviour {
             hitCnt[result] = 0;  // filled w/ 0
         }
 
-        // init perResultScores  -----------------------------------------------
-        perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
-        greatScore = perfectScore * 0.7f;
-        goodScore = perfectScore * 0.3f;
-
         // init combo  ---------------------------------------------------------
         combo = 0;
         maxCombo = 0;
 
         // init indicators
         SceneManager.sceneLoaded += HandleInitIndicators;
+    }
+
+    private void Start() {
+        // init perResultScores  -----------------------------------------------
+        perfectScore = TOTAL_SCORES / beatmap.data.notes.Length;
+        greatScore = perfectScore * 0.7f;
+        goodScore = perfectScore * 0.3f;
     }
 
 
