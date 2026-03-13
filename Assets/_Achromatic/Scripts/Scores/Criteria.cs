@@ -9,7 +9,6 @@ namespace Assets._Achromatic.Scripts.Scores {
     [RequireComponent(typeof(Score))]
     [RequireComponent(typeof(Beatmap))]
     public class Criteria: MonoBehaviour {
-        // TODO need to work w/ half start
 
         // Public API  #########################################################
 
