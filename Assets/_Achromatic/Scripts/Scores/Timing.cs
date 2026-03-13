@@ -33,7 +33,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             }
         }
 
-        public bool IsPassByMiss(float time) {
+        public bool IsMissedByPassing(float time) {
             return time > rightGoodBound;
         }
 
@@ -41,13 +41,13 @@ namespace Assets._Achromatic.Scripts.Scores {
             return time > startJudgeBound;
         }
 
-
         // Constructor  ########################################################
         public Timing(
                 float centerTiming,
                 Actions action,
                 BeatmapMeta meta
             ) {
+            // TODO TODO
             center = centerTiming;
             allowedAction = action;
 
@@ -74,5 +74,23 @@ namespace Assets._Achromatic.Scripts.Scores {
         private readonly float rightPerfectBound;
 
         private readonly Actions allowedAction;
+
+
+
+        // HACK mv to Timing
+        private Timing CreateTiming(BeatmapNote note) {
+            float beat = beatmap.CalcBeatCount(note);
+            float center = beatmap.meta.preludeSeconds +
+                    beat * beatmap.secondsPerBeat;
+
+            // TODO detach note type from action type
+            Actions action = note.type switch {
+                NoteType.JUMP => Actions.JUMP,
+                NoteType.DASH => Actions.SQUAT,
+                _ => Actions.NONE
+            };
+
+            return new Timing(center, action, beatmap.meta);
+        }
     }
 }

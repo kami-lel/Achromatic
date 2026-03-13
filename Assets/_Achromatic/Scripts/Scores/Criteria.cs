@@ -54,36 +54,15 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             // Build full timing list
             foreach (BeatmapNote note in beatmap.notesQ) {
-                float beat = beatmap.CalcBeatCount(note);
-                float center = beatmap.meta.preludeSeconds +
-                        beat * beatmap.secondsPerBeat;
-
-                // TODO detach note type from action type
-                Actions action = note.type switch {
-                    NoteType.JUMP => Actions.JUMP,
-                    NoteType.DASH => Actions.SQUAT,
-                    _ => Actions.NONE
-                };
-
-                timings.Enqueue(new Timing(center, action, beatmap.meta));
+                timings.Enqueue(Timing(note));
             }
-
-            // Drop all notes that are already "too late to ever hit"
-            // i.e., passed rightGoodBound.
-            while (timings.Count > 0 && timings.Peek().IsPassByMiss(timeSeconds))
-                timings.Dequeue();
-
         }
 
         public void Update() {
             if (GCS.I.states != GameState.MAIN_PIECE || timings.Count == 0)
                 return;
 
-            // auto-miss notes you fully passed
-            while (timings.Count > 0 && timings.Peek().IsPassByMiss(music.Time)) {
-                timings.Dequeue();
-                score.Record(Hit.LATE_MISS);
-            }
+            CheckMissedByPassing();
         }
 
         // private members  ####################################################
@@ -93,5 +72,14 @@ namespace Assets._Achromatic.Scripts.Scores {
         private MusicManager music;
         private Score score;
         private Beatmap beatmap;
+
+        // private methods  ####################################################
+        public void CheckMissedByPassing() {
+            while (timings.Count > 0 && timings.Peek().IsMissedByPassing(music.Time)) {
+                timings.Dequeue();
+                score.Record(Hit.LATE_MISS);
+            }
+        }
+
     }
 }
