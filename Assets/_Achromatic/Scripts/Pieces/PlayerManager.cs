@@ -190,11 +190,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // prelude  --------------------------------------------------------
             if (GCS.I.states == GameState.PRELUDE) {
                 // Fixme using music to control triggering
-                // HACK
-                // if (music.Time >= p.beatmap.meta.preludeSeconds) {
-                //     StartMainPiece();
-                //     return;
-                // }
+                if (music.Time >= beatmap.meta.preludeSeconds) {
+                    StartMainPiece();
+                    return;
+                }
 
                 rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             }
@@ -214,6 +213,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Rigidbody2D rb;
         private AnimationManager anim;
         private MusicManager music;
+        private Beatmap beatmap;
         private PlayerInput pi;
         private Transform playerSprite;
     }

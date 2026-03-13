@@ -6,7 +6,7 @@ using UnityEngine.Splines;
 
 using Assets._Achromatic.Scripts.Scores;
 using Assets._Achromatic.Scripts.Pieces;
-using Assets._Achromatic.Scripts.Beatmap;
+using Assets._Achromatic.Scripts.Beatmaps;
 using Cinemachine;
 
 

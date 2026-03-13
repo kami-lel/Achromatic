@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Pieces;
 using System;
 
-namespace Assets._Achromatic.Scripts.Beatmap {
+namespace Assets._Achromatic.Scripts.Beatmaps {
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(Piece))]
     public class Beatmap: MonoBehaviour {

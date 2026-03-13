@@ -1,6 +1,6 @@
 // Criteria.cs
 using System.Collections.Generic;
-using Assets._Achromatic.Scripts.Beatmap;
+using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Players;
 
 namespace Assets._Achromatic.Scripts.Scores {

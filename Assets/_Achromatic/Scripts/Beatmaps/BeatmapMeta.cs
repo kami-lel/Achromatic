@@ -1,7 +1,7 @@
-using UnityEngine;
 
 [CreateAssetMenu(fileName = "BeatmapMeta", menuName = "Scriptable Objects/BeatmapMeta")]
-public class BeatmapMeta: ScriptableObject {
+public class BeatmapMeta : ScriptableObject
+{
 
     [SerializeField]
     public TextAsset file;

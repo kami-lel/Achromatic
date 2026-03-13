@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// FIXME code refactorization
-// FIXME FIXME make monobehavior
+// Fixme code refactorization & make monobehavior
 // Bug missing beat lines
-namespace Assets._Achromatic.Scripts.Beatmap {
+namespace Assets._Achromatic.Scripts.Beatmaps {
 
     public class ElementsManager {
         // constants  ========================================================
