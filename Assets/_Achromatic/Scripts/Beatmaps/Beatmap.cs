@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Pieces;
 using System;
+using System.Linq;
 
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [RequireComponent(typeof(MusicManager))]
@@ -10,10 +11,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
     public class Beatmap: MonoBehaviour {
 
         // Public Members ######################################################
-
-
-        [NonSerialized]
-        public BeatmapData data;
 
         [NonSerialized]
         public Queue<BeatmapNote> notesQ;
@@ -27,13 +24,22 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [NonSerialized]
         public float horizontalSpeedInMainPiece;
 
+        [NonSerialized]
+        public float beatsPerSecond;
+
         // Public Methods  #####################################################
 
         /// <returns>realtime beat count based on Audio Source time,
         /// start on <c>0.0f</c></returns>
         public float BeatCount {
             get {
-                return music.Time * beatPerSec - preludeOffsetAsBeat;
+                return music.Time * beatsPerSecond - preludeOffsetAsBeat;
+            }
+        }
+
+        public int NotesCount {
+            get {
+                return data.notes.Count();
             }
         }
 
@@ -87,14 +93,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             }
 
             // init vars  ------------------------------------------------------
-            beatPerSec = meta.tempo / 60.0f;
-            preludeOffsetAsBeat = meta.preludeSeconds * beatPerSec;
+            beatsPerSecond = meta.tempo / 60.0f;
+            preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
 
             var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
 
-            beatsPerSecond = meta.tempo / 60f;
             horizontalSpeedInMainPiece =
                     meta.horizontalUnitsPerBeat * beatsPerSecond;
 
@@ -113,8 +118,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
 
         // private members  ####################################################
-        private float beatsPerSecond;
-        private float beatPerSec;
+        private BeatmapData data;
+
         private float preludeOffsetAsBeat;
         private float beatsPerDivision;
 

@@ -1,6 +1,5 @@
 
 using Assets._Achromatic.Scripts.Players;
-using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
 
@@ -9,36 +8,7 @@ namespace Assets._Achromatic.Scripts.Scores {
     /// </summary>
     public class Timing {
 
-        private readonly float startJudgeBound;
-        private readonly float center;
-
-        private readonly float leftGoodBound;
-        private readonly float leftGreatBound;
-        private readonly float leftPerfectBound;
-        private readonly float rightGoodBound;
-        private readonly float rightGreatBound;
-        private readonly float rightPerfectBound;
-
-        private readonly Actions allowedAction;
-
-        public Timing(
-                float centerTiming,
-                Actions action,
-                BeatmapMeta meta
-            ) {
-            center = centerTiming;
-            allowedAction = action;
-
-            leftGoodBound = centerTiming - meta.goodDeltaSecond;
-            leftGreatBound = centerTiming - meta.greatDeltaSecond;
-            leftPerfectBound = centerTiming - meta.perfectDeltaSecond;
-            rightGoodBound = centerTiming + meta.goodDeltaSecond;
-            rightGreatBound = centerTiming + meta.greatDeltaSecond;
-            rightPerfectBound = centerTiming + meta.perfectDeltaSecond;
-
-            startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
-        }
-
+        // Public API  #########################################################
         public Hit Judge(float time, Actions action) {
             if ((action & allowedAction) == 0) {
                 return Hit.INCORRECT;
@@ -70,5 +40,39 @@ namespace Assets._Achromatic.Scripts.Scores {
         public bool IsInJudgingRange(float time) {
             return time > startJudgeBound;
         }
+
+
+        // Constructor  ########################################################
+        public Timing(
+                float centerTiming,
+                Actions action,
+                BeatmapMeta meta
+            ) {
+            center = centerTiming;
+            allowedAction = action;
+
+            leftGoodBound = centerTiming - meta.goodDeltaSecond;
+            leftGreatBound = centerTiming - meta.greatDeltaSecond;
+            leftPerfectBound = centerTiming - meta.perfectDeltaSecond;
+            rightGoodBound = centerTiming + meta.goodDeltaSecond;
+            rightGreatBound = centerTiming + meta.greatDeltaSecond;
+            rightPerfectBound = centerTiming + meta.perfectDeltaSecond;
+
+            startJudgeBound = leftGoodBound - meta.goodDeltaSecond;
+        }
+
+
+        // private members  ####################################################
+        private readonly float startJudgeBound;
+        private readonly float center;
+
+        private readonly float leftGoodBound;
+        private readonly float leftGreatBound;
+        private readonly float leftPerfectBound;
+        private readonly float rightGoodBound;
+        private readonly float rightGreatBound;
+        private readonly float rightPerfectBound;
+
+        private readonly Actions allowedAction;
     }
 }
