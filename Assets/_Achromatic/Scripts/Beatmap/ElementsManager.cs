@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // FIXME code refactorization
+// FIXME FIXME make monobehavior
 // Bug missing beat lines
 namespace Assets._Achromatic.Scripts.Beatmap {
 
@@ -87,10 +88,10 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
                 BeatmapNote note = notesRenderQ.Dequeue();
 
-                if (note.type == BeatmapNoteType.JUMP) {
+                if (note.type == NoteType.JUMP) {
                     jumpNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
                                         NOTES_HEIGHT);
-                } else if (note.type == BeatmapNoteType.DASH) {
+                } else if (note.type == NoteType.DASH) {
                     dashNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
                                         NOTES_HEIGHT);
                 }

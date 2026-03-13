@@ -7,7 +7,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
     /// flags for a single element note type in beatmap
     /// </summary>
     [Flags]
-    public enum BeatmapNoteType {
+    public enum NoteType {
         JUMP,
         DASH
     }

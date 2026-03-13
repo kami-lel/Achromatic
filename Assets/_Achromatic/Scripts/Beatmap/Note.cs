@@ -23,7 +23,7 @@ namespace Assets._Achromatic.Scripts.Beatmap {
         /// </summary>
         public int Subbeat => jsonNote.subbeat;
 
-        public BeatmapNoteType type;
+        public NoteType type;
 
         private readonly BeatmapData.JsonDataNote jsonNote;
 
@@ -34,8 +34,8 @@ namespace Assets._Achromatic.Scripts.Beatmap {
 
             // convert string to enum type
             type = jsonNote.type switch {
-                "jump" => BeatmapNoteType.JUMP,
-                "dash" => BeatmapNoteType.DASH,
+                "jump" => NoteType.JUMP,
+                "dash" => NoteType.DASH,
                 _ => throw new InvalidOperationException(
                     $"BeatmapNote: bad note type: {jsonNote.type}")
             };

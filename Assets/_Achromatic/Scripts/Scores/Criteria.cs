@@ -21,8 +21,8 @@ namespace Assets._Achromatic.Scripts.Scores {
 
                 // Todo detach note type from action type
                 Actions action = note.type switch {
-                    BeatmapNoteType.JUMP => Actions.JUMP,
-                    BeatmapNoteType.DASH => Actions.SQUAT,
+                    NoteType.JUMP => Actions.JUMP,
+                    NoteType.DASH => Actions.SQUAT,
                     _ => Actions.NONE
                 };
 
