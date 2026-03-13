@@ -1,74 +1,71 @@
 using UnityEngine;
 using TMPro;
 
-
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class GameTitleScript: MonoBehaviour {
-    // inspector fields #######################################################
-    [SerializeField]
-    private Transform playerTransform;
+    // inspector fields ########################################################
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private float playerDeltaX = 15f;   // how far player must move in x
+    [SerializeField] private float titleDeltaY = 20f;    // how far the title moves up in y
+    [SerializeField] private float smoothTime = 0.3f;   // lower = snappier, higher = floatier
 
-    [SerializeField]
-    private float playerDeltaX = 15f;  // how far player must move in x
-
-    [SerializeField]
-    private float titleDeltaY = 20f;  // how far the title moves up in y
-
-    // MonoBehaviour Lifecycle ################################################
+    // MonoBehaviour Lifecycle #################################################
     void Start() {
-        rectTransform =
-            GetComponent<TextMeshProUGUI>().rectTransform;  // cache rect
-        initialY = rectTransform.anchoredPosition.y;  // read start y
+        rectTransform = GetComponent<TextMeshProUGUI>().rectTransform;
+        initialY = rectTransform.anchoredPosition.y;
 
         if (playerTransform == null) {
-            Debug.LogError("GameTitleScript:\tmust set playerTransform");  // log
-            enabled = false;  // disable this component to avoid updates
+            Debug.LogError("GameTitleScript:\tmust set playerTransform");
+            enabled = false;
             return;
         }
 
-        startPlayerX = playerTransform.position.x;  // record start x
-        maxPlayerX = startPlayerX;  // begin tracking max player x
+        startPlayerX = playerTransform.position.x;
+        maxPlayerX = startPlayerX;
     }
 
     void Update() {
-        // TODO use smooth damp
-        // track furthest right player X so title never moves down
+        // Track furthest-right player X so progress never decreases.
         maxPlayerX = Mathf.Max(maxPlayerX, playerTransform.position.x);
 
-        // compute finish positions using deltas
+        // Compute progress based on how far the player has moved.
         float finishPlayerX = startPlayerX + playerDeltaX;
         float desiredEndY = initialY + titleDeltaY;
 
-        // compute progress 0..1 based on how far player has moved
-        float progress = Mathf.InverseLerp(
-            startPlayerX, finishPlayerX, maxPlayerX);
-
-        // desired Y based on progress
+        float progress = Mathf.InverseLerp(startPlayerX, finishPlayerX, maxPlayerX);
         float desiredY = Mathf.Lerp(initialY, desiredEndY, progress);
 
-        // never move the title down
+        // Never let the title move backward.
         float currentY = rectTransform.anchoredPosition.y;
-        float newY = Mathf.Max(currentY, desiredY);
+        desiredY = Mathf.Max(currentY, desiredY);
 
-        // smoothly move toward the new Y
-        Vector2 currentPos = rectTransform.anchoredPosition;
-        Vector2 targetPos = new(currentPos.x, newY);
-        float step = MOVE_SPEED * Time.deltaTime;
-        rectTransform.anchoredPosition =
-            Vector2.MoveTowards(currentPos, targetPos, step);
+        // Smoothly move Y toward desiredY.
+        float newY = Mathf.SmoothDamp(
+            currentY,
+            desiredY,
+            ref yVelocity,
+            smoothTime,
+            Mathf.Infinity,
+            Time.deltaTime
+        );
 
-        // detect finish and disable this component when reached
-        bool reachedProgress = progress >= 1f - Mathf.Epsilon;
-        bool reachedY = Mathf.Abs(
-            rectTransform.anchoredPosition.y - desiredEndY)
-            <= FINISH_EPSILON;
+        Vector2 anchoredPos = rectTransform.anchoredPosition;
+        anchoredPos.y = newY;
+        rectTransform.anchoredPosition = anchoredPos;
+
+        // Detect finish and snap exactly to final value.
+        bool reachedProgress = progress >= 1f;
+        bool reachedY = Mathf.Abs(newY - desiredEndY) <= FINISH_EPSILON;
+
         if (reachedProgress && reachedY) {
-            enabled = false;  // stop updating when finished
+            anchoredPos.y = desiredEndY;
+            rectTransform.anchoredPosition = anchoredPos;
+            yVelocity = 0f;
+            enabled = false;
         }
     }
 
     // constants ##############################################################
-    private const float MOVE_SPEED = 200f;  // units per second for UI smoothing
     private const float FINISH_EPSILON = 0.5f;  // small tolerance in UI units
 
     // private members ########################################################
@@ -76,4 +73,5 @@ public class GameTitleScript: MonoBehaviour {
     private float initialY;
     private float startPlayerX;
     private float maxPlayerX;
+    private float yVelocity;
 }
