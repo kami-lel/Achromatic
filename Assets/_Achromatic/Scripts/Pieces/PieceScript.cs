@@ -9,8 +9,7 @@ using Assets._Achromatic.Scripts.Pieces;
 using Assets._Achromatic.Scripts.Beatmaps;
 using Cinemachine;
 
-
-// Bug audio start is jarring, lose framerate
+// Hack rm this
 
 
 /// <summary>
@@ -35,7 +34,6 @@ public class PieceScript: MonoBehaviour {
     [NonSerialized]
     public Vector2 preludeStartOrigin;
 
-    // FIXME FIXME, even rm use multiple component approach
     // managers
     public Starter starter;
     public MusicManager music;

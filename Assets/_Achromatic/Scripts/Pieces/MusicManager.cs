@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     public class MusicManager: MonoBehaviour {
+        // Bug audio start is jarring, lose framerate
 
         // Public API  #########################################################
 
