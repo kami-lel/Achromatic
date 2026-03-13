@@ -11,7 +11,6 @@
 <!-- Todo particles efx -->
 <!-- Todo full UX: start, reset, etc. -->
 <!-- Todo scene transition -->
-<!-- TODO make prefabs disappearing as feed back -->
 <!-- Todo Wwise Unity Integration -->
 <!-- fixme better looking notes elements -->
 <!-- todo pause screen, allow restart/resume -->
