@@ -274,6 +274,8 @@ GameObject:
   - component: {fileID: 1231703176888338262}
   - component: {fileID: 708470406752799704}
   - component: {fileID: 3336779841593416903}
+  - component: {fileID: 8515482075639812258}
+  - component: {fileID: 7838412611453589432}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -492,7 +494,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f630e0758afa9344ae3dad93e576c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmap.Beatmap
-  meta: {fileID: 0}
+  meta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
+--- !u!114 &8515482075639812258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7725608bf602e408707f70608a2bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Score
+--- !u!114 &7838412611453589432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02c93570da629443a0d9c207253d536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Scores.Criteria
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0

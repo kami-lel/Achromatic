@@ -2,10 +2,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Players;
+using Assets._Achromatic.Scripts.Scores;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
-
+    [RequireComponent(typeof(Criteria))]
+    [RequireComponent(typeof(Score))]
+    [RequireComponent(typeof(PlayerManager))]
     public class InputManager: MonoBehaviour {
 
         // MonoBehavior Lifecycle  #############################################
@@ -13,6 +16,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Awake() {
             pressed = Actions.NONE;
 
+            // caching references to piece  ------------------------------------
+            score = GetComponent<Score>();
+            if (score == null) {
+                Debug.LogError("fail to get: Score");
+            }
+            criteria = GetComponent<Criteria>();
+            if (score == null) {
+                Debug.LogError("fail to get: Criteria");
+            }
+            playerManager = GetComponent<PlayerManager>();
+            if (playerManager == null) {
+                Debug.LogError("fail to get: Player Manager");
+            }
+
+            // caching references to player  -----------------------------------
             GameObject go = GCS.FindPlayer();
             pi = go.GetComponent<PlayerInput>();
 
@@ -84,22 +102,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // cached references
         private PlayerInput pi;
+        private Score score;
+        private Criteria criteria;
+        private PlayerManager playerManager;
 
         // private methods  ####################################################
 
         private void Trigger() {
-            /* HACK
-            Hit hit = p.criteria.Judge(pressed);
-            p.score.Record(hit);
+            Hit hit = criteria.Judge(pressed);
+            score.Record(hit);
 
             if ((pressed & Actions.JUMP) != 0) {
-                p.playerManager.Jump(hit);
+                playerManager.Jump(hit);
             } else if ((pressed & Actions.SQUAT) != 0) {
-                p.playerManager.Squat(hit);
+                playerManager.Squat(hit);
             } else if ((pressed & Actions.ATTACK) != 0) {
-                p.playerManager.Attack(hit);
+                playerManager.Attack(hit);
             }
-            */
 
             // Todo add audio for feedback, layered
         }
