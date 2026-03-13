@@ -52,12 +52,11 @@ namespace Assets._Achromatic.Scripts.Scores {
             // init timings  ---------------------------------------------------
             timings = new Queue<Timing>();
 
-            float spb = 60f / beatmap.meta.tempo; // seconds per beat
-
             // Build full timing list
-            foreach (var note in beatmap.notesQ) {
+            foreach (BeatmapNote note in beatmap.notesQ) {
                 float beat = beatmap.CalcBeatCount(note);
-                float center = beatmap.meta.preludeSeconds + beat * spb;
+                float center = beatmap.meta.preludeSeconds +
+                        beat * beatmap.secondsPerBeat;
 
                 // TODO detach note type from action type
                 Actions action = note.type switch {

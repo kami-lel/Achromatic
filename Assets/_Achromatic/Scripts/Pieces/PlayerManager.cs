@@ -140,7 +140,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             float s = beatmap.origin.x - piece.preludeStartOrigin.x;
-            float v = beatmap.horizontalSpeedInMainPiece;
+            float v = beatmap.speedXInMainPiece;
 
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;

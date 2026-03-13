@@ -19,13 +19,16 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         public Vector2 origin;
 
         [NonSerialized]
-        public float currentBeatCount;
+        public float currentBeat;
 
         [NonSerialized]
-        public float horizontalSpeedInMainPiece;
+        public float speedXInMainPiece;
 
         [NonSerialized]
         public float beatsPerSecond;
+
+        [NonSerialized]
+        public float secondsPerBeat;
 
         // Public Methods  #####################################################
 
@@ -48,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         }
 
         public float CalcCurrentXFromBeat() {
-            return CalcXFromBeat(currentBeatCount);
+            return CalcXFromBeat(currentBeat);
         }
 
         public float CalcBeatCount(BeatmapNote note) {
@@ -94,15 +97,16 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // init vars  ------------------------------------------------------
             beatsPerSecond = meta.tempo / 60.0f;
+            secondsPerBeat = 60.0f / meta.tempo;
             preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
 
             var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
             origin = new Vector2(pos3.x, pos3.y);
 
-            horizontalSpeedInMainPiece =
+            // Todo use speed mux
+            speedXInMainPiece =
                     meta.horizontalUnitsPerBeat * beatsPerSecond;
-
 
             // fill notesQ  ----------------------------------------------------
             notesQ = new();
@@ -113,7 +117,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         private void Update() {
             // update current beat count
-            currentBeatCount = music.Time * beatsPerSecond;
+            currentBeat = music.Time * beatsPerSecond;
         }
 
 
