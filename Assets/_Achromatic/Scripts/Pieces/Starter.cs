@@ -78,8 +78,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (player != null) {
                 player.OnTriggerEnter -= HandleOnTriggerEnter;
                 player.OnTriggerExit -= HandleOnTriggerExit;
-            } else {
-                Debug.LogError("fail to unsubscribe");
             }
         }
 

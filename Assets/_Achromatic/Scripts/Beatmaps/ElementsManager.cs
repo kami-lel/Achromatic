@@ -126,6 +126,12 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         }
 
+        private void OnDestroy() {
+            actionHintJump.Dispose();
+            actionHintAttack.Dispose();
+            actionHintSquat.Dispose();
+        }
+
         // constants  ##########################################################
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
 

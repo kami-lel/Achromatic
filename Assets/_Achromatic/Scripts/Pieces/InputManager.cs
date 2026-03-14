@@ -50,8 +50,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void OnDisable() {
             if (pi != null) {
                 pi.onActionTriggered -= OnActionTriggered;
-            } else {
-                Debug.LogError("fail to unsubscribe");
             }
         }
 
