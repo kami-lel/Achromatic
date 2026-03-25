@@ -21,6 +21,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             rb.linearVelocityX = preludeStartVelocityX;
 
+            pim.SetInputForMusicPlay();
+
             anim.EnsureFacing(true);
             anim.StartRun();
         }
@@ -30,7 +32,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
             rb.bodyType = RigidbodyType2D.Kinematic;
-            pi.SwitchCurrentActionMap("PlayerMusicPlay");
         }
 
         public void FinishPiece() {
@@ -104,9 +105,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 Debug.LogError("fail to get: AnimationManager");
             }
 
-            pi = playerGO.GetComponent<PlayerInput>();
-            if (pi == null) {
-                Debug.LogError("fail to get: PlayerInput");
+            pim = playerGO.GetComponent<Players.InputManager>();
+            if (pim == null) {
+                Debug.LogError("fail to get: Player InputManager");
             }
 
             // find player sprite  ---------------------------------------------
@@ -220,7 +221,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private AnimationManager anim;
         private MusicManager music;
         private Beatmap beatmap;
-        private PlayerInput pi;
+        private Players.InputManager pim;
         private Transform playerSprite;
         private Piece piece;
     }

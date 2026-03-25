@@ -107,6 +107,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private methods  ####################################################
 
         private void Trigger() {
+            Debug.Log("hi");  // HACK HACK
+
             Hit hit = criteria.Judge(pressed);
             score.Record(hit);
 
@@ -121,7 +123,5 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // Todo add audio for feedback, layered
         }
     }
-
-    // BUG prelude no control?
 }
 
