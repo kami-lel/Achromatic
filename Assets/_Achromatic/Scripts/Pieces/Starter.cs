@@ -2,6 +2,9 @@ using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
+
+// Bug player is jumped when start prelude
+
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(PlayerManager))]
