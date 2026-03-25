@@ -39,7 +39,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 // on which beat this note should be rendered
                 onBeat = beatmap.CalcBeatCount(note) - renderDistanceBeat;
                 renderBeatNotesQ.Enqueue((onBeat, note));
-                Debug.Log(onBeat);   // HACK HACK
             }
             if (renderBeatNotesQ.Count() == 0) {
                 Debug.LogError("empty notesQ");
@@ -80,7 +79,19 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
 
             // place action hints  ---------------------------------------------
+            float onBeat;
+            Note note;
+            while (renderBeatNotesQ.Count > 0) {
+                (onBeat, note) = renderBeatNotesQ.Peek();
+                if (onBeat < beatmap.currentBeat) {
+                    // TODO render
 
+                    renderBeatNotesQ.Dequeue();
+
+                } else {
+                    break;
+                }
+            }
 
 
 
