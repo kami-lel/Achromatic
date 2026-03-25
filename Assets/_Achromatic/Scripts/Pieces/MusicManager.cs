@@ -58,8 +58,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private PseudoAudioPlugin pseudoAudioPlugin;
 
-        // Inspector Fields  ###################################################
-
+        // Monobehavior Lifecycle  #############################################
         private void Awake() {
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();

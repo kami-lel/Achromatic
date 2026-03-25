@@ -15,8 +15,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [SerializeField]
         private Transform prefabs;
 
-        [SerializeField]
-        private float renderDistanceX = 10f;
+        public float renderDistanceBeat = 10f;
 
         // MonoBehavior Lifecycle  #############################################
 
@@ -33,17 +32,16 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 Debug.LogError("fail to get: Beatmap");
             }
 
-            // init vars
-            renderDistanceBeat = renderDistanceX;  // TODO
-
             // local copy queue
-            distNotesQ = new Queue<(float, Note)>();
-            float dist;
+            renderBeatNotesQ = new Queue<(float, Note)>();
+            float onBeat;
             foreach (Note note in beatmap.notesQ) {
-                dist = 0f;  // TODO
-                distNotesQ.Enqueue((dist, note));
+                // on which beat this note should be rendered
+                onBeat = beatmap.CalcBeatCount(note) - renderDistanceBeat;
+                renderBeatNotesQ.Enqueue((onBeat, note));
+                Debug.Log(onBeat);   // HACK HACK
             }
-            if (distNotesQ.Count() == 0) {
+            if (renderBeatNotesQ.Count() == 0) {
                 Debug.LogError("empty notesQ");
             }
 
@@ -131,8 +129,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
 
         // private members  ####################################################
-        private float renderDistanceBeat;
-        private Queue<(float, Note)> distNotesQ;  // distance & notes queue
+        // on which beat note is rendered, note object
+        private Queue<(float, Note)> renderBeatNotesQ;
 
         // per-element pools
         private PrefabPool actionHintJumpPool;
