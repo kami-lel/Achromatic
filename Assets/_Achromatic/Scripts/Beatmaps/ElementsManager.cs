@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // FIXME code refactorization & make monobehavior
@@ -33,17 +34,28 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             }
 
             // init vars
-            renderDistanceBeat = renderDistanceX;
+            renderDistanceBeat = renderDistanceX;  // TODO
+
+            // local copy queue
+            distNotesQ = new Queue<(float, Note)>();
+            float dist;
+            foreach (Note note in beatmap.notesQ) {
+                dist = 0f;  // TODO
+                distNotesQ.Enqueue((dist, note));
+            }
+            if (distNotesQ.Count() == 0) {
+                Debug.LogError("empty notesQ");
+            }
 
             // create per-type pools  --------------------------------------------
             // action hints
-            actionHintJump = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
-            actionHintAttack = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
-            actionHintSquat = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
-            // beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
-            // barlinePool = new PrefabPool(8, PREFAB_FOLDER + "Barline", prefabs);
+            actionHintJumpPool = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
+            actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
+            actionHintSquatPool = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
 
             /* HACK
+            // beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
+            // barlinePool = new PrefabPool(8, PREFAB_FOLDER + "Barline", prefabs);
             // initialize last placed positions to current playback state
             float currentBeat = p.beatmap.currentBeatCount;
             lastBeatLineOnBeat = Mathf.Floor(currentBeat);  // start at current beat
@@ -67,6 +79,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
+
+
+            // place action hints  ---------------------------------------------
+
 
 
 
@@ -101,35 +117,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     lastBarlineOnBeat = placeOnBeat;
                 }
 
-                // render notes  ------------------------------------------------
-                float noteRenderBoundary = p.beatmap.currentBeatCount
-                        + p.beatmap.meta.noteRenderDistance;
-
-                while (notesRenderQ.Count > 0) {
-                    var next = notesRenderQ.Peek();
-                    float noteOnBeat = p.beatmap.CalcBeatCount(next);
-
-                    if (noteOnBeat >= noteRenderBoundary)
-                        break;
-
-                    BeatmapNote note = notesRenderQ.Dequeue();
-
-                    if (note.type == NoteType.JUMP) {
-                        jumpNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
-                                            NOTES_HEIGHT);
-                    } else if (note.type == NoteType.DASH) {
-                        dashNotePool?.Spawn(p.beatmap.CalcXFromBeat(noteOnBeat),
-                                            NOTES_HEIGHT);
-                    }
-                }
                 */
 
         }
 
         private void OnDestroy() {
-            actionHintJump.Dispose();
-            actionHintAttack.Dispose();
-            actionHintSquat.Dispose();
+            actionHintJumpPool.Dispose();
+            actionHintAttackPool.Dispose();
+            actionHintSquatPool.Dispose();
         }
 
         // constants  ##########################################################
@@ -137,41 +132,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // private members  ####################################################
         private float renderDistanceBeat;
+        private Queue<(float, Note)> distNotesQ;  // distance & notes queue
 
         // per-element pools
-        private PrefabPool actionHintJump;
-        private PrefabPool actionHintAttack;
-        private PrefabPool actionHintSquat;
+        private PrefabPool actionHintJumpPool;
+        private PrefabPool actionHintAttackPool;
+        private PrefabPool actionHintSquatPool;
 
         // Cached Reference
         private Beatmap beatmap;
-
     }
 }
-
-/* HACK rm
-    public class ElementsManager {
-
-        private const float NOTES_HEIGHT = 1.5f;
-
-
-        // public methods  ===================================================
-        public void Update() {
-        }
-
-        // private members  ==================================================
-        private Queue<BeatmapNote> notesRenderQ;
-        private readonly Transform root;
-
-        // per-element pools  ------------------------------------------------
-        private readonly PrefabPool beatLinePool;
-        private readonly PrefabPool barlinePool;
-        private readonly PrefabPool jumpNotePool;
-        private readonly PrefabPool dashNotePool;
-
-        private float lastBeatLineOnBeat;
-        private float lastBarlineOnBeat;
-    }
-
-}
-*/
