@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// FIXME code refactorization & make monobehavior
-// BUG missing beat lines
 //  TODO make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
@@ -32,13 +30,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 Debug.LogError("fail to get: Beatmap");
             }
 
-            // local copy queue
+            lastBarlineOnBeat = 0.0f;
+            lastBeatLineOnBeat = 0.0f;
+
+            // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(float, Note)>();
-            float onBeat;
+            float beatCount;
             foreach (Note note in beatmap.notesQ) {
-                // on which beat this note should be rendered
-                onBeat = beatmap.CalcBeatCount(note) - renderDistanceBeat;
-                renderBeatNotesQ.Enqueue((onBeat, note));
+                beatCount = beatmap.CalcBeatCount(note);
+                renderBeatNotesQ.Enqueue((beatCount, note));
             }
             if (renderBeatNotesQ.Count() == 0) {
                 Debug.LogError("empty notesQ");
@@ -60,12 +60,18 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return;
             }
 
+            float currentRenderBeat = beatmap.currentBeat + renderDistanceBeat;
+
+            // place beat line  ------------------------------------------------
+            // TODO TODO
+
+
             // place action hints  ---------------------------------------------
             float onBeat;
             Note note;
             while (renderBeatNotesQ.Count > 0) {
                 (onBeat, note) = renderBeatNotesQ.Peek();
-                if (onBeat < beatmap.currentBeat) {
+                if (onBeat < currentRenderBeat) {
                     // TODO render
 
                     renderBeatNotesQ.Dequeue();
@@ -122,8 +128,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
 
         // private members  ####################################################
-        // on which beat note is rendered, note object
+        // note beat, note object
         private Queue<(float, Note)> renderBeatNotesQ;
+        private float lastBarlineOnBeat;
+        private float lastBeatLineOnBeat;
 
         // per-element pools
         private PrefabPool actionHintJumpPool;
