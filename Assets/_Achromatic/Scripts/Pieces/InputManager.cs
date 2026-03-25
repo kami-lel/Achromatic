@@ -107,8 +107,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private methods  ####################################################
 
         private void Trigger() {
-            Debug.Log("hi");  // HACK HACK
-
             Hit hit = criteria.Judge(pressed);
             score.Record(hit);
 
