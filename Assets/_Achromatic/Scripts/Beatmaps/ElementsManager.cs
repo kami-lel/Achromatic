@@ -50,25 +50,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
             actionHintSquatPool = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
 
-            /* HACK
-            // beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
-            // barlinePool = new PrefabPool(8, PREFAB_FOLDER + "Barline", prefabs);
-            // initialize last placed positions to current playback state
-            float currentBeat = p.beatmap.currentBeatCount;
-            lastBeatLineOnBeat = Mathf.Floor(currentBeat);  // start at current beat
-                                                            // align to the most recent bar boundary
-            int beatsPerBar = p.beatmap.meta.beatPerBar;
-            lastBarlineOnBeat = Mathf.Floor(currentBeat / beatsPerBar)
-                                * beatsPerBar;
-
-            // prepare notes queue starting from currentBeat  ---------------------
-            notesRenderQ = new Queue<BeatmapNote>();
-            foreach (var n in p.beatmap.notesQ) {
-                float noteBeat = p.beatmap.CalcBeatCount(n);
-                if (noteBeat >= currentBeat)
-                    notesRenderQ.Enqueue(n);
-
-                    */
+            beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
+            barlinePool = new PrefabPool(4, PREFAB_FOLDER + "Barline", prefabs);
         }
 
 
@@ -76,7 +59,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
-
 
             // place action hints  ---------------------------------------------
             float onBeat;
@@ -95,7 +77,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
 
 
-            /*
+            /* FIXME
 
                 // place beatLine  -----------------------------------------------
                 float renderBoundaryOnBeat = p.beatmap.currentBeatCount
@@ -147,6 +129,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private PrefabPool actionHintJumpPool;
         private PrefabPool actionHintAttackPool;
         private PrefabPool actionHintSquatPool;
+        private PrefabPool beatLinePool;
+        private PrefabPool barlinePool;
 
         // Cached Reference
         private Beatmap beatmap;
