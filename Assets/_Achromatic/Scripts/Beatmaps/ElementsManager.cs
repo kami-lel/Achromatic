@@ -62,9 +62,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             float currentRenderBeat = beatmap.currentBeat + renderDistanceBeat;
 
-            // place beat line  ------------------------------------------------
+            // place beat line & barline  --------------------------------------
+            while (lastBeatLineOnBeat < currentRenderBeat) {
+            }
+
             // TODO TODO
 
+            // TODO barlines
 
             // place action hints  ---------------------------------------------
             float onBeat;
@@ -130,7 +134,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         // private members  ####################################################
         // note beat, note object
         private Queue<(float, Note)> renderBeatNotesQ;
-        private float lastBarlineOnBeat;
         private float lastBeatLineOnBeat;
 
         // per-element pools
