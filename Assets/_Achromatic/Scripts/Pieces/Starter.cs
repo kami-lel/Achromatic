@@ -76,7 +76,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-
         private void OnDisable() {
             if (player != null) {
                 player.OnTriggerEnter -= HandleOnTriggerEnter;
