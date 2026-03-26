@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
     public class HitTypeIndicatorScript: MonoBehaviour {
-        // Todo animation for hit type indicator
+        // TODO animation for hit type indicator
 
         // public methods  =====================================================
 

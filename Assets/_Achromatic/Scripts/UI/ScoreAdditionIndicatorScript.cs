@@ -4,20 +4,17 @@ using UnityEngine.UI;
 
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class ScoreAdditionIndicatorScript : MonoBehaviour
-{
+public class ScoreAdditionIndicatorScript: MonoBehaviour {
 
     // public method  ==========================================================
 
-    public void Show(int scoreAddition)
-    {
+    public void Show(int scoreAddition) {
         textField.text = $"+{scoreAddition}";
-        // Todo animation for score addition
+        // TODO animation for score addition
     }
 
     // MonoBehavior Lifecycle  =================================================
-    private void Awake()
-    {
+    private void Awake() {
         textField = GetComponent<TextMeshProUGUI>();
     }
 
