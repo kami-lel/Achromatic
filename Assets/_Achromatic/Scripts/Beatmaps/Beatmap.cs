@@ -33,31 +33,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // Public Methods  #####################################################
 
-        // BUG BUG allow negative beat
-
-        /// <returns>realtime beat count based on Audio Source time,
-        /// start on <c>0.0f</c></returns>
-        public float BeatCount {
-            get {
-                return music.Time * beatsPerSecond - preludeOffsetAsBeat;
-            }
-        }
-
-        public int NotesCount {
-            get {
-                return data.notes.Count();
-            }
-        }
-
-        public float CalcXFromBeat(float beatCount) {
-            return origin.x + beatCount * meta.horizontalUnitsPerBeat;
+        public float CalcXFromBeat(float beat) {
+            return origin.x + beat * meta.horizontalUnitsPerBeat;
         }
 
         public float CalcCurrentXFromBeat() {
             return CalcXFromBeat(currentBeat);
         }
 
-        public float CalcBeatCount(Note note) {
+        public float CalcNoteBeat(Note note) {
             return (note.bar - 1) * meta.beatPerBar
                     + (note.beat - 1)
                     + (note.subbeat - 1) * beatsPerDivision;
@@ -120,7 +104,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         private void Update() {
             // update current beat count
-            currentBeat = music.Time * beatsPerSecond;
+            currentBeat = music.Time * beatsPerSecond - preludeOffsetAsBeat;
         }
 
 

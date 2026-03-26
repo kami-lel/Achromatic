@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 using Assets._Achromatic.Scripts.Beatmaps;
+using System.Linq;
 
 // todo improve looking of indicators
 
@@ -117,7 +118,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
         private void Start() {
             // init perResultScores  -------------------------------------------
-            perfectScore = TOTAL_SCORES / beatmap.NotesCount;
+            perfectScore = TOTAL_SCORES / beatmap.notesQ.Count();
             greatScore = perfectScore * 0.7f;
             goodScore = perfectScore * 0.3f;
         }

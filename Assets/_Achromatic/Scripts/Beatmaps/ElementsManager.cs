@@ -40,7 +40,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             renderBeatNotesQ = new Queue<(float, Note)>();
             float beatCount;
             foreach (Note note in beatmap.notesQ) {
-                beatCount = beatmap.CalcBeatCount(note);
+                beatCount = beatmap.CalcNoteBeat(note);
                 renderBeatNotesQ.Enqueue((beatCount, note));
             }
             if (renderBeatNotesQ.Count() == 0) {

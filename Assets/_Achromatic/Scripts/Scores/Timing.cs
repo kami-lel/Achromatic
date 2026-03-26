@@ -46,7 +46,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         // Constructor  ########################################################
         public Timing(Beatmap beatmap, Note note) {
             // calc center timing
-            float beat = beatmap.CalcBeatCount(note);
+            float beat = beatmap.CalcNoteBeat(note);
             float centerTiming = beatmap.meta.preludeSeconds +
                     beat * beatmap.secondsPerBeat;
 
