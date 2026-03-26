@@ -19,9 +19,31 @@ public class SFX: MonoBehaviour {
 
     // Public Methods  #########################################################
 
-    public void OnHit(Actions action, Hit hit) {
+    public void OnHit(Actions pressed, Hit hit) {
+        if ((hit & Hit.PERFECT) != 0) {
+            // perfect, use action sound
+            if ((pressed & Actions.JUMP) != 0) {
+                Jump();
+            } else if ((pressed & Actions.SQUAT) != 0) {
+                Squat();
 
-        // TODO TODO on hit
+            } else if ((pressed & Actions.ATTACK) != 0) {
+                Attack();
+            }
+
+        } else if ((hit & Hit.GREAT) != 0) {
+            PlaySFX(greatSFX);
+
+        } else if ((hit & Hit.GOOD) != 0) {
+
+            PlaySFX(goodSFX);
+        } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
+
+            PlaySFX(missSFX1);
+
+        } else {
+            PlaySFX(missSFX2);
+        }
     }
 
     // directly play action-audio  =============================================
@@ -54,7 +76,8 @@ public class SFX: MonoBehaviour {
         }
     }
 
-    public void Squat(Hit hit = Hit.NONE) {
+    public void Squat() {
+        // TODO use squat in player
         PlaySFX(dashSFX1);
     }
 
@@ -79,7 +102,8 @@ public class SFX: MonoBehaviour {
     [Header("Hit SFX")]
     [SerializeField] private AudioSource greatSFX;
     [SerializeField] private AudioSource goodSFX;
-    [SerializeField] private AudioSource missSFX;
+    [SerializeField] private AudioSource missSFX1;
+    [SerializeField] private AudioSource missSFX2;
 
     // MonoBehavior Lifecycle  #################################################
 
