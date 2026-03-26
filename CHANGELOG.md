@@ -5,7 +5,6 @@
 [^format]
 
 <!-- Todo final score window -->
-<!-- TODO mpl Lv2 & Lv3 -->
 <!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
