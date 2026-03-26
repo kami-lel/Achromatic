@@ -3,12 +3,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Scores;
+using Assets._Achromatic.Scripts.Beatmaps;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(Criteria))]
     [RequireComponent(typeof(Score))]
     [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(ElementsManager))]
     public class InputManager: MonoBehaviour {
 
         // MonoBehavior Lifecycle  #############################################
@@ -28,6 +30,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             playerManager = GetComponent<PlayerManager>();
             if (playerManager == null) {
                 Debug.LogError("fail to get: Player Manager");
+            }
+            elementsManager = GetComponent<ElementsManager>();
+            if (elementsManager == null) {
+                Debug.LogError("fail to get: Elements Manager");
             }
 
             // caching references to player  -----------------------------------
@@ -103,6 +109,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Score score;
         private Criteria criteria;
         private PlayerManager playerManager;
+        private ElementsManager elementsManager;
 
         // private methods  ####################################################
 
@@ -110,7 +117,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             (Hit hit, int noteIdx) = criteria.Judge(pressed);
             score.Record(hit);
             SFX.I.OnHit(pressed, hit);
-            // TODO use noteIdx to make prefab disappear
+            elementsManager.PerishActionHint(noteIdx);
 
             if ((pressed & Actions.JUMP) != 0) {
                 playerManager.Jump();

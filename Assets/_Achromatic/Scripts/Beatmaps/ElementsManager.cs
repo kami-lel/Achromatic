@@ -2,11 +2,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//  TODO make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(Beatmap))]
     public class ElementsManager: MonoBehaviour {
+
+        // Public Methods  #####################################################
+
+        public void PerishActionHint(int noteIdx) {
+            if (noteIdx == -1) {
+                return;
+            }
+
+            Debug.LogError(noteIdx);  // TODO
+
+        }
 
         // Inspector Fields  ###################################################
 
@@ -58,7 +68,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
             barlinePool = new PrefabPool(4, PREFAB_FOLDER + "Barline", prefabs);
         }
-
 
         private void Update() {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
