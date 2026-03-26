@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class ActionHint: MonoBehaviour {
 
-    // TODO allow reset
-
     // Public API  #############################################################
 
     public void Perish(Hit hit) {
@@ -18,6 +16,12 @@ public class ActionHint: MonoBehaviour {
     private AnimationCurve transformVsTime;
 
     // MonoBehavior Lifecycle  #################################################
+
+    private void OnEnable() {
+        perishTime = -1f;
+        transform.localScale = new Vector2(1.0f, 1.0f);
+    }
+
     private void Update() {
         if (perishTime < 0.0f) {
             return;
@@ -28,5 +32,5 @@ public class ActionHint: MonoBehaviour {
     }
 
     // private members  ########################################################
-    private float perishTime = -1f;
+    private float perishTime;
 }

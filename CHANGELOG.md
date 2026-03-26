@@ -12,6 +12,7 @@
 <!-- Todo mpl Lv2 & Lv3 -->
 <!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
+<!-- fixme perfect+action sfx must be satisfying -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo barline & beat line as environmental element -->

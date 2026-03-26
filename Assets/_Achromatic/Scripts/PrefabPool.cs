@@ -25,7 +25,13 @@ public class PrefabPool<TKey>: IDisposable {
 
         // recycle earliest spawned instance when pool is full
         (TKey _, GameObject oldest) = activeQ.Dequeue();
-        activeQ.Enqueue((key, oldest));  // now considered newest
+
+        // reset prefab
+        oldest.SetActive(false);
+        oldest.SetActive(true);
+
+        // now considered newest
+        activeQ.Enqueue((key, oldest));
         return oldest;
     }
 
