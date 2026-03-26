@@ -40,6 +40,10 @@ namespace Assets._Achromatic.Scripts.UI {
             StartCoroutine(DeactivateAfterDelay());
 
             running.text = $"{score.runningScore}";
+            combo.text = $"{score.maxCombo}";
+            int perfectCnt = score.hitCnt[Hit.EARLY_PERFECT] + score.hitCnt[Hit.LATE_PERFECT];
+            perfect.text = $"{perfectCnt}";
+            // TODO more
         }
 
         // private methods  ####################################################

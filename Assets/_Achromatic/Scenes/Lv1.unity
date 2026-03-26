@@ -644,6 +644,17 @@ MonoBehaviour:
   triggerOffsetX: -9
   titleDeltaY: 40
   smoothTime: 0.3
+--- !u!114 &395582839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8515482075639812258, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+  m_PrefabInstance: {fileID: 1738055640979121357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7725608bf602e408707f70608a2bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Score
 --- !u!224 &567381968 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3998436889960283227, guid: 33e930b2effdbd44091164dea255896d, type: 3}
@@ -20632,7 +20643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3671283930753476158, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5532494311206298826, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
       propertyPath: m_Pivot.x
@@ -20714,6 +20725,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8991805410456367858, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 395582839}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
