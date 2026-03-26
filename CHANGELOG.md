@@ -4,7 +4,7 @@
 
 [^format]
 
-<!-- Todo final score window -->
+<!-- TODO final score window -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
 <!-- todo new tilemap -->
