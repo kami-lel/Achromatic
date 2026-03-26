@@ -10,11 +10,20 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         // Public Methods  #####################################################
 
         public void PerishActionHint(int noteIdx) {
+            void SearchActiveQInPool(PrefabPool<int> prefabPool, out GameObject) {
+
+                // TODO TODO
+            }
+
+
+            // routine  ********************************************************
+
+
             if (noteIdx == -1) {
                 return;
             }
 
-            Debug.LogError(noteIdx);  // TODO
+            // TODO
 
         }
 
