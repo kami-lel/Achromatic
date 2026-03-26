@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+
+// TODO make also work w/ credits
+
 namespace Assets._Achromatic.Scripts.Lv1Map {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class GameTitleScript: MonoBehaviour {
