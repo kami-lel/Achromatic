@@ -49,6 +49,7 @@
 - improve Game Title movement to be smooth & natural
 - flatten down Beatmap Note structure, directly use string-typed note typed
 - reimplement score indicators
+- fine tunning player jumping animation curve during music play
 
 ### Deprecated
 ### Removed
