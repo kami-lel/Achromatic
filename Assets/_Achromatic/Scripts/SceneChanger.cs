@@ -11,7 +11,7 @@ public class SceneChanger: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
 
-    private void Start() {
+    private void Awake() {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         // special case for 1st ever scene, when game start
