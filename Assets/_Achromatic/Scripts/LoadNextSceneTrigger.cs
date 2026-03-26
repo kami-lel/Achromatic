@@ -1,5 +1,6 @@
 using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoadNextSceneTrigger: MonoBehaviour {
 
@@ -7,7 +8,6 @@ public class LoadNextSceneTrigger: MonoBehaviour {
 
     [SerializeField]
     private string nextSceneName;
-
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -21,7 +21,6 @@ public class LoadNextSceneTrigger: MonoBehaviour {
 
     private void Start() {
         player.OnTriggerEnter += HandleOnTriggerEnter;
-
     }
 
     // event handler  ######################################################
@@ -31,7 +30,9 @@ public class LoadNextSceneTrigger: MonoBehaviour {
         if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
                 triggerTag == TRIGGER_TAG) {
 
-            GCS.I.LoadNextScene(nextSceneName);
+            SceneManager.LoadScene(nextSceneName);
+            // hack use GCS
+            // GCS.I.LoadNextScene(nextSceneName);
         }
     }
     // constants  ##############################################################
