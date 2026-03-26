@@ -17679,6 +17679,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 423928753066404984, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423928753066404984, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
@@ -17723,6 +17727,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2553934465481323710, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553934465481323710, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
@@ -17735,29 +17743,57 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4803757723508624554, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803757723508624554, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+    - target: {fileID: 4980430291768304150, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4980430291768304150, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
     - target: {fileID: 4997255781444638440, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997255781444638440, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+    - target: {fileID: 5794645454973203372, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5794645454973203372, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
     - target: {fileID: 6289296988280632846, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289296988280632846, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
     - target: {fileID: 7479531177983656019, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479531177983656019, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 3024182841658141070, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+    - target: {fileID: 8748489255177452574, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8748489255177452574, guid: f0bd3731bc40044449d82531622a94fe, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
