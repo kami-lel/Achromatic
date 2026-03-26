@@ -107,7 +107,7 @@ public class SFX: MonoBehaviour {
 
     // ramble  =================================================================
 
-    // Todo use ramble
+    // TODO use ramble
 
     private void PlayRumble(String action, Hit hit = Hit.NONE) {
         var pad = Gamepad.current;
