@@ -18197,6 +18197,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: bgm
+      value: 
+      objectReference: {fileID: 1587649733}
+    - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: vamp
+      value: 
+      objectReference: {fileID: 1624558191}
+    - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: preludeAndMain
+      value: 
+      objectReference: {fileID: 669015543}
+    - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: pseudoAudioPlugin
       value: 
       objectReference: {fileID: 1822651826}

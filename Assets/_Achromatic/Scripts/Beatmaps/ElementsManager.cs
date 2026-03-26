@@ -16,12 +16,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [SerializeField]
         private float renderDistanceBeat = 10f;
 
-        [SerializeField]
-        private float barlineBeatlineOffsetY = 2.0f;
-
-        [SerializeField]
-        private float actionHintOffsetY = 5.0f;
-
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
@@ -39,8 +33,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // calc vars  ------------------------------------------------------
             lastBeatLineOnBeat = 0;
-            barlineBeatlineY = beatmap.origin.y + barlineBeatlineOffsetY;
-            actionHintY = beatmap.origin.y + actionHintOffsetY;
+            barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
+            actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(float, Note)>();
@@ -117,6 +111,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // constants  ##########################################################
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
+        private const float BARLINE_BEATLINE_OFFSET_Y = 3.0f;
+        private const float ACTION_HINT_OFFSET_Y = 6.0f;
 
         // private members  ####################################################
         // note beat, note object
