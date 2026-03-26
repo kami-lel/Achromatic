@@ -4,30 +4,45 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-using Assets._Achromatic.Scripts.Scores;
 using UnityEngine.Profiling;
+using Unity.VectorGraphics;
 
-// todo metrics: fps
-// todo metrics: total time &portion of time
-// todo metrics: deltas
-// todo metrics: hit / miss ratio per part
-// todo merge game stat
+[RequireComponent(typeof(SceneChanger))]
+
+// todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
+// fixme merge game stat
 
 public class GCS: MonoBehaviour {
+
+    // Public Members  #########################################################
 
     // singleton
     public static GCS I {
         get; private set;
     }
 
-    // public member  ==========================================================
     [NonSerialized]
     public GameState states = GameState.NONE;
 
+    // Public Methods  #########################################################
 
-    // MonoBehavior Lifecycle  =================================================
+    public static GameObject FindPlayer() {
+        GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
 
-    private void Awake() { // ==================================================
+        if (playerObject == null) {
+            Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
+        }
+
+        return playerObject;
+    }
+
+    public void LoadNextScene(string sceneName) {
+        sceneChanger.LoadNextScene(sceneName);
+    }
+
+    // MonoBehavior Lifecycle  #################################################
+
+    private void Awake() {
         // ensure Singleton  ---------------------------------------------------
         if (I == null) {
             I = this;
@@ -38,13 +53,18 @@ public class GCS: MonoBehaviour {
             return;
         }
 
+        // caching references to piece  ----------------------------------------
+        sceneChanger = GetComponent<SceneChanger>();
+        if (sceneChanger == null) {
+            Debug.LogError("fail to get: SceneChanger");
+        }
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         SceneManager.sceneLoaded += HandleInitFPSCounter;
 #endif
     }
 
-    private void Update() {  // ================================================
-
+    private void Update() {
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         fpsFrameCounter++;
@@ -59,18 +79,22 @@ public class GCS: MonoBehaviour {
             fpsCounterAccumulateTime = 0.0f;
         }
 #endif
-
     }
 
-    // private members  ========================================================
+    // constants  ##############################################################
+    private const string PLAYER_TAG = "Player";
+
+    // private members  ########################################################
+    // cached references
+    private SceneChanger sceneChanger;
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private TextMeshProUGUI fpsCounter;
     private int fpsFrameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
 #endif
 
-    // private methods  ========================================================
-
+    // private methods  ########################################################
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void HandleInitFPSCounter(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
         GameObject fpsCounterGameObject = GameObject.FindWithTag("FPSCounter");

@@ -1,72 +1,88 @@
-// Criteria.cs
 using System.Collections.Generic;
-using Assets._Achromatic.Scripts.Beatmap;
+using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.Pieces;
+using Assets._Achromatic.Scripts.Players;
+using UnityEngine;
+
 
 namespace Assets._Achromatic.Scripts.Scores {
-    public class Criteria {
-        private readonly Queue<Timing> timings;
-        private readonly PieceScript p;
 
-        public Criteria(PieceScript piece) {
-            p = piece;
-            timings = new Queue<Timing>();
+    [DefaultExecutionOrder(0)]
+    [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Score))]
+    [RequireComponent(typeof(Beatmap))]
+    public class Criteria: MonoBehaviour {
 
-            float spb = 60f / p.beatmap.meta.tempo; // seconds per beat
+        // Public API  #########################################################
 
-            // Build full timing list
-            foreach (var note in p.beatmap.notesQ) {
-                float beat = p.beatmap.CalcBeatCount(note);
-                float center = p.beatmap.meta.preludeSeconds + beat * spb;
-
-                // todo detach note type from action type
-                PressedActions action = note.type switch {
-                    BeatmapNoteType.JUMP => PressedActions.JUMP,
-                    BeatmapNoteType.DASH => PressedActions.SQUAT,
-                    _ => PressedActions.NONE
-                };
-
-                timings.Enqueue(new Timing(center, action, p.beatmap.meta));
-            }
-
-            // IMPORTANT: seek to current playback time so next judged note
-            // matches next rendered note.
-            SeekToTime(p.music.Time);
-        }
-
-        public void SeekToTime(float timeSeconds) {
-            // Drop all notes that are already "too late to ever hit"
-            // i.e., passed rightGoodBound.
-            while (timings.Count > 0 && timings.Peek().IsPassByMiss(timeSeconds))
-                timings.Dequeue();
-        }
-
-        public Hit Judge(PressedActions actions) {
+        public (Hit, int) Judge(Actions actions) {
             if (timings.Count == 0)
-                return Hit.NO_HIT;
+                return (Hit.NO_HIT, -1);
 
-            var t = timings.Peek();
+            Timing t = timings.Peek();
 
             // Do NOT dequeue unless player actually attempted a hit
-            if (actions == PressedActions.NONE)
-                return Hit.NO_HIT;
+            if (actions == Actions.NONE)
+                return (Hit.NO_HIT, -1);
 
-            if (!t.IsInJudgingRange(p.music.Time))
-                return Hit.NO_HIT;
+            if (!t.IsInJudgingRange(music.Time))
+                return (Hit.NO_HIT, -1);
 
             timings.Dequeue();
-            return t.Judge(p.music.Time, actions);
+            return t.Judge(music.Time, actions);
+        }
+
+        // MonoBehavior Lifecycle  #############################################
+
+        private void Awake() {
+            // caching references  ---------------------------------------------
+
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
+            }
+            score = GetComponent<Score>();
+            if (score == null) {
+                Debug.LogError("fail to get: Score");
+            }
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
+            }
+
+            // init timings  ---------------------------------------------------
+            timings = new Queue<Timing>();
+
+            // Build full timing list
+            int noteIdx = 0;
+            foreach (Note note in beatmap.notesQ) {
+                timings.Enqueue(new Timing(beatmap, note, noteIdx));
+                noteIdx++;
+            }
         }
 
         public void Update() {
             if (GCS.I.states != GameState.MAIN_PIECE || timings.Count == 0)
                 return;
 
-            // auto-miss notes you fully passed
-            while (timings.Count > 0 && timings.Peek().IsPassByMiss(p.music.Time)) {
+            CheckMissedByPassing();
+        }
+
+        // private members  ####################################################
+        private Queue<Timing> timings;
+
+        // Cached References
+        private MusicManager music;
+        private Score score;
+        private Beatmap beatmap;
+
+        // private methods  ####################################################
+        public void CheckMissedByPassing() {
+            while (timings.Count > 0 && timings.Peek().IsMissedByPassing(music.Time)) {
                 timings.Dequeue();
-                p.score.Record(Hit.LATE_MISS);
+                score.Record(Hit.LATE_MISS);
             }
         }
+
     }
 }

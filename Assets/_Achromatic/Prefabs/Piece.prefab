@@ -268,7 +268,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2687839753507349163}
-  - component: {fileID: 3880381500431647160}
+  - component: {fileID: 3336779841593416903}
+  - component: {fileID: 5956879129964327650}
+  - component: {fileID: 158509688283701863}
+  - component: {fileID: 3919188863656031373}
+  - component: {fileID: 1231703176888338262}
+  - component: {fileID: 708470406752799704}
+  - component: {fileID: 8515482075639812258}
+  - component: {fileID: 7838412611453589432}
+  - component: {fileID: 2315091613825934166}
+  - component: {fileID: 7910136319746607527}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -296,7 +305,7 @@ Transform:
   - {fileID: 5487930671339377596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3880381500431647160
+--- !u!114 &3336779841593416903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,65 +314,84 @@ MonoBehaviour:
   m_GameObject: {fileID: 4287971021022977273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f932da7785fbf4da63d149417d4462, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f630e0758afa9344ae3dad93e576c60, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PieceScript
-  beatmapMeta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
-  debugMusicStaringBar: 0
-  vampDistantVsVolume:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: -0.033333335
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 30
-      value: 0
-      inSlope: -0.033333335
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  startPreludeTransform: {fileID: 3938205800452466528}
-  mainPartPath: {fileID: 675889762508624498}
-  virtualCamera: {fileID: 1095902738690897300}
-  prefabs: {fileID: 5487930671339377596}
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmap.Beatmap
+  meta: {fileID: 11400000, guid: d2c2d8729290c9645b71cf48717248af, type: 2}
+--- !u!114 &5956879129964327650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb5dde0ac1bce24fb73070a3e022567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.InputManager
+--- !u!114 &158509688283701863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac30f74560b8074caf32d662be57e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.MusicManager
+  bgm: {fileID: 0}
+  vamp: {fileID: 0}
+  preludeAndMain: {fileID: 0}
+--- !u!114 &3919188863656031373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcae3bb044e33ef499c26a2f75482c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.PlayerManager
   jumpHeightVsTime:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 45.220787
-      outSlope: 45.220787
+      inSlope: 48.25349
+      outSlope: 48.25349
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.05836652
+      outWeight: 0.03607523
     - serializedVersion: 3
-      time: 0.3136487
-      value: 0.68432623
-      inSlope: -4.1947894
-      outSlope: -4.1947894
+      time: 0.085
+      value: 3.5
+      inSlope: 0.30144012
+      outSlope: 0.30144012
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.16289885
-      outWeight: 0.10448146
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.20597842
+      value: 2.1138954
+      inSlope: -20.753624
+      outSlope: -20.753624
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10531595
+      outWeight: 0.21581927
     - serializedVersion: 3
       time: 0.5
       value: 0
-      inSlope: -3.6722374
-      outSlope: -3.6722374
+      inSlope: -7.189593
+      outSlope: -7.189593
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -428,8 +456,111 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pseudoAudioPlugin: {fileID: 0}
-  playerSprite: {fileID: 0}
+--- !u!114 &1231703176888338262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fdaf7c218f43542b62ee9a3dce31e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.Starter
+  debugMusicStartingBar: 0
+  vampDistantVsVolume:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -0.033333335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 30
+      value: 0
+      inSlope: -0.033333335
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  virtualCamera: {fileID: 1095902738690897300}
+--- !u!114 &708470406752799704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17287057699a4647aa0c6a41c06cdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.Piece
+  mainPath: {fileID: 675889762508624498}
+  startPreludeTransform: {fileID: 3938205800452466528}
+--- !u!114 &8515482075639812258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7725608bf602e408707f70608a2bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Score
+--- !u!114 &7838412611453589432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02c93570da629443a0d9c207253d536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Scores.Criteria
+--- !u!114 &2315091613825934166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc53fac3744e70a45843324b88b5c52b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmaps.ElementsManager
+  prefabs: {fileID: 5487930671339377596}
+  renderDistanceBeat: 10
+--- !u!114 &7910136319746607527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38fb29b73a49db4186b717cee121b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerTransform: {fileID: 0}
+  endX: 0
+  virtualCamera: {fileID: 1095902738690897300}
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +675,7 @@ Transform:
   m_GameObject: {fileID: 6937807419582017513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.909139, y: 0.49999988, z: -10}
+  m_LocalPosition: {x: 6.1432176, y: 0.49999988, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

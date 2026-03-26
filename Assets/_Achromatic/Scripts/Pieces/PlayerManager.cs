@@ -1,47 +1,33 @@
 
-using System;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+using Assets._Achromatic.Scripts.Players;
+using Assets._Achromatic.Scripts.Beatmaps;
+
 
 namespace Assets._Achromatic.Scripts.Pieces {
-    /// <summary>
-    /// take control of player GameObject during music piece
-    /// </summary>
-    public class PlayerManager {
+    [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(Beatmap))]
+    [RequireComponent(typeof(Piece))]
+    public class PlayerManager: MonoBehaviour {
 
-        // public members  #####################################################
-
-        // cached references
-        public PlayerScript player;
-        public PlayerInput playerInput;
-
-        [NonSerialized]
-        public Rigidbody2D playerRB;
-
-        // public methods  #####################################################
+        // Public API  #########################################################
 
         public void StartPrelude() {
-            playerLastActionTime = Time.time;
-
             Debug.Log("PlayerManager:\tStartPrelude");
 
-            GCS.I.states = GameState.PRELUDE;
+            rb.linearVelocityX = preludeStartVelocityX;
 
-            playerRB.linearVelocityX = preludeStartVelocityX;
-
-            player.EnsureFacingRight();
-            player.im.SetInputForMusicPlay();
-            player.StartRun();
+            SetupPlayerForPiece();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
             Debug.Log("PlayerManager:\tStartMainPiece");
 
-            GCS.I.states = GameState.MAIN_PIECE;
+            rb.bodyType = RigidbodyType2D.Kinematic;
 
-            playerRB.bodyType = RigidbodyType2D.Kinematic;
-            playerInput.SwitchCurrentActionMap("PlayerMusicPlay");
+            SetupPlayerForPiece();
         }
 
         public void FinishPiece() {
@@ -50,105 +36,104 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PIECE_FINISHED;
         }
 
-        public void Jump(Hit hit) {
-            p.playerManager.player.Jump();
-            SFX.I.Jump(hit);
-            playerLastActionTime = Time.time;
-            actionType = 1;
+        // Public Methods  #####################################################
+        public void Jump() {
+            anim.Jump();
+            currentAction = Actions.JUMP;
+            currentActionStartTime = Time.time;
         }
 
-        public void Squat(Hit hit) {
-            p.playerManager.player.Squat();
-            SFX.I.Squat(hit);
-            playerLastActionTime = Time.time;
-            actionType = 2;
+        public void Squat() {
+            anim.Squat();
+
+            currentAction = Actions.SQUAT;
+            currentActionStartTime = Time.time;
         }
 
-        public void Attack(Hit hit) {
-            p.playerManager.player.Attack();
-            SFX.I.Attack(hit);
-            playerLastActionTime = Time.time;
-            actionType = 3;
+        public void Attack() {
+            anim.Attack();
+
+            currentAction = Actions.ATTACK;
+            currentActionStartTime = Time.time;
         }
+
+        // Inspector Fields  ###################################################
+
+        [SerializeField]
+        private AnimationCurve jumpHeightVsTime;
+
+        [SerializeField]
+        private AnimationCurve attackOffsetVsTime;
+
+        [SerializeField]
+        private AnimationCurve squatOffsetVsTime;
 
         // MonoBehavior Lifecycle  #############################################
-
-        public void Update() {
-            // main piece  -----------------------------------------------------
-            if (GCS.I.states == GameState.MAIN_PIECE) {
-
-                // todo use Spline path
-
-                // move player in world map
-                float x = p.beatmap.CalcCurrentXFromBeat();
-                Vector2 newPosition = new(x, p.beatmap.origin.y);
-                playerRB.MovePosition(newPosition);
-
-                // make player movement by animation curve
-                float localX = 0;
-                float localY = 0;
-                switch (actionType) {
-                case 1:
-                    localY = jumpHeightVsTime.Evaluate(Time.time - playerLastActionTime);
-                    break;
-
-                case 2:
-                    localX = -squatOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
-                    break;
-
-                case 3:
-                    localX = attackOffsetVsTime.Evaluate(Time.time - playerLastActionTime);
-                    break;
-
-                default:
-                    break;
-                }
-
-                playerSprite.localPosition = new Vector2(localX, localY);
+        private void Awake() {
+            // caching reference of piece  -------------------------------------
+            music = GetComponent<MusicManager>();
+            if (music == null) {
+                Debug.LogError("fail to get: MusicManager");
             }
-        }
-
-        public void FixedUpdate() {
-            // prelude  --------------------------------------------------------
-            if (GCS.I.states == GameState.PRELUDE) {
-                // fixme using music to control triggering
-                if (p.music.Time >= p.beatmap.meta.preludeSeconds) {
-                    StartMainPiece();
-                    return;
-                }
-
-                playerRB.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: Beatmap");
             }
-        }
-
-        // constructor  ########################################################
-        public PlayerManager(PieceScript piece, AnimationCurve jumpHeightVsTime, AnimationCurve attackOffsetVsTime, AnimationCurve squatOffsetVsTime) {
-            p = piece;
-            this.jumpHeightVsTime = jumpHeightVsTime;
-            this.attackOffsetVsTime = attackOffsetVsTime;
-            this.squatOffsetVsTime = squatOffsetVsTime;
-
-            // find player
-            GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
-            if (playerObject == null) {
-                Debug.LogError("PlayerManager:\tfail to find GameObject with tag 'player'");
-                return;
+            piece = GetComponent<Piece>();
+            if (piece == null) {
+                Debug.LogError("fail to get: Piece");
             }
 
-            player = playerObject.GetComponent<PlayerScript>();
-            playerInput = playerObject.GetComponent<PlayerInput>();
-            playerRB = player.playerRB;
-            playerSprite = p.playerSprite;
+            // caching references of player  -----------------------------------
+            GameObject playerGO = GCS.FindPlayer();
+
+            rb = playerGO.GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("fail to find: Rigidbody2D");
+            }
+
+            anim = playerGO.GetComponent<AnimationManager>();
+            if (anim == null) {
+                Debug.LogError("fail to get: AnimationManager");
+            }
+
+            pim = playerGO.GetComponent<Players.InputManager>();
+            if (pim == null) {
+                Debug.LogError("fail to get: Player InputManager");
+            }
+
+            // find player sprite  ---------------------------------------------
+            GameObject spriteGO = GameObject.FindWithTag(PLAYER_SPRITE_TAG);
+            if (spriteGO != null) {
+                playerSprite = spriteGO.GetComponent<Transform>();
+            }
+            if (playerSprite == null) {
+                Debug.LogError("fail to find: Player Sprite by Tag");
+            }
+
+            // test inspector fields  ------------------------------------------
+            if (playerSprite == null) {
+                Debug.LogError("must assign: Player Sprite");
+            }
+            if (jumpHeightVsTime == null) {
+                Debug.LogError("must assign: Jump Height Vs Time");
+            }
+            if (attackOffsetVsTime == null) {
+                Debug.LogError("must assign: Attack Offset Vs Time");
+            }
+            if (squatOffsetVsTime == null) {
+                Debug.LogError("must assign: Squat Offset Vs Time");
+            }
 
             // calc movement during prelude  -----------------------------------
-            float t = p.beatmap.meta.preludeSeconds;
+            float t = beatmap.meta.preludeSeconds;
             if (t <= 0f) {
                 Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
                 t = Mathf.Epsilon;
             }
 
-            float s = p.beatmap.origin.x - p.preludeStartOrigin.x;
-            float v = p.beatmap.horizontalSpeedInMainPiece;
+            float s = beatmap.origin.x - piece.preludeStartOrigin.x;
+            float v = beatmap.speedXInMainPiece;
 
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
@@ -163,26 +148,79 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
-        // constants  ##########################################################
+        private void FixedUpdate() {
+            if (GCS.I.states == GameState.PRELUDE) {
+                // prelude  ----------------------------------------------------
+                // fixme using music to control triggering
+                if (music.Time >= beatmap.meta.preludeSeconds) {
+                    StartMainPiece();
+                    GCS.I.states = GameState.MAIN_PIECE;
+                    return;
+                }
 
-        private const string PLAYER_TAG = "Player";
+                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
+            } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+                // main piece  -------------------------------------------------
+
+                // todo use Spline path
+
+                // move player in world map
+                float x = beatmap.CalcCurrentXFromBeat();
+                Vector2 newPosition = new(x, beatmap.origin.y);
+                rb.MovePosition(newPosition);
+
+                // make player movement by animation curve
+                float localX = 0;
+                float localY = 0;
+                switch (currentAction) {
+                case Actions.JUMP:
+                    localY = jumpHeightVsTime.Evaluate(Time.time - currentActionStartTime);
+                    break;
+
+                case Actions.SQUAT:
+                    localX = -squatOffsetVsTime.Evaluate(Time.time - currentActionStartTime);
+                    break;
+
+                case Actions.ATTACK:
+                    localX = attackOffsetVsTime.Evaluate(Time.time - currentActionStartTime);
+                    break;
+
+                default:
+                    break;
+                }
+
+                playerSprite.localPosition = new Vector2(localX, localY);
+            }
+        }
+
+
+        // constants  ##########################################################
+        private const string PLAYER_SPRITE_TAG = "PlayerSprite";
 
         // private members  ####################################################
-        private readonly float preludeStartVelocityX;
-
-        private readonly float preludeAcceleration;
-
-        // fixme animation curve fine tuning
-        private readonly AnimationCurve jumpHeightVsTime;
-        private readonly AnimationCurve attackOffsetVsTime;
-        private readonly AnimationCurve squatOffsetVsTime;
-        private float playerLastActionTime;
-        private int actionType = 0;  // hack better way to do this
-
+        private float preludeStartVelocityX;
+        private float preludeAcceleration;
+        private float currentActionStartTime;
+        private Actions currentAction;
 
         // cached references
-        private readonly PieceScript p;
-        private readonly Transform playerSprite;
+        private Rigidbody2D rb;
+        private AnimationManager anim;
+        private MusicManager music;
+        private Beatmap beatmap;
+        private Players.InputManager pim;
+        private Transform playerSprite;
+        private Piece piece;
 
+
+
+        // private methods  ####################################################
+
+        private void SetupPlayerForPiece() {
+            pim.SetInputForMusicPlay();
+            anim.EnsureFacing(true);
+            anim.StartRun();
+            currentActionStartTime = Time.time;
+        }
     }
 }

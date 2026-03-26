@@ -5,7 +5,7 @@ namespace Assets._Achromatic.Scripts.Scores {
     [Flags]
     public enum Hit {
 
-        // results  ----------------------------------------------------------------
+        // results  ------------------------------------------------------------
         NONE = 0,
 
         NO_HIT = 1 << 0,
@@ -19,7 +19,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         EARLY_PERFECT = 1 << 8,
         LATE_PERFECT = 1 << 9,
 
-        // groups  -----------------------------------------------------------------
+        // groups  -------------------------------------------------------------
         NO_SCORE = NO_HIT | MISS | INCORRECT,
         EARLY = EARLY_MISS | EARLY_GOOD | EARLY_GREAT | EARLY_PERFECT,
         LATE = LATE_MISS | LATE_GOOD | LATE_GREAT | LATE_PERFECT,

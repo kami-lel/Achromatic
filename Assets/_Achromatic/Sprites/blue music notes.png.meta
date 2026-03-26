@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 4d416505f1c80a845bf2ec2e1e1d322e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6120569878239436098
+    second: blue music notes_0
+  - first:
+      213: -8657078358966418908
+    second: blue music notes_1
+  - first:
+      213: 5257335116896321298
+    second: blue music notes_2
+  - first:
+      213: -2086622439518673536
+    second: blue music notes_3
+  - first:
+      213: 230016373745096226
+    second: blue music notes_4
+  - first:
+      213: -7510326075931142506
+    second: blue music notes_5
+  - first:
+      213: -4762198003167685621
+    second: blue music notes_6
+  - first:
+      213: 2036054440933214266
+    second: blue music notes_7
+  - first:
+      213: 7262473470363643630
+    second: blue music notes_8
+  - first:
+      213: -3862893619579920358
+    second: blue music notes_9
+  - first:
+      213: 4408087761580347780
+    second: blue music notes_10
+  - first:
+      213: -5495307664169266906
+    second: blue music notes_11
+  - first:
+      213: -2761256080013210598
+    second: blue music notes_12
+  - first:
+      213: 7998331544138948459
+    second: blue music notes_13
+  - first:
+      213: -379551792834592088
+    second: blue music notes_14
+  - first:
+      213: -4718600592543419691
+    second: blue music notes_15
+  - first:
+      213: -795999288649369285
+    second: blue music notes_16
+  - first:
+      213: -4854988692614523680
+    second: blue music notes_17
+  - first:
+      213: -6237448255748602551
+    second: blue music notes_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: blue music notes_0
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 270
+        width: 156
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24dda6740e1a0f450800000000000000
+      internalID: 6120569878239436098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_1
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 444
+        width: 193
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 422c5158911ebd780800000000000000
+      internalID: -8657078358966418908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_2
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 478
+        width: 67
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21fbacb2f6ec5f840800000000000000
+      internalID: 5257335116896321298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 587
+        width: 36
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085612852f3da03e0800000000000000
+      internalID: -2086622439518673536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_4
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 469
+        width: 123
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22699995cae213300800000000000000
+      internalID: 230016373745096226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_5
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 272
+        width: 155
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69655c0b936f5c790800000000000000
+      internalID: -7510326075931142506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_6
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 584
+        width: 32
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b049d17b52649edb0800000000000000
+      internalID: -4762198003167685621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_7
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 319
+        width: 60
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a384e2ff9b4814c10800000000000000
+      internalID: 2036054440933214266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_8
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 406
+        width: 138
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee29bf942d79c460800000000000000
+      internalID: 7262473470363643630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_9
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 405
+        width: 53
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a10e0df28be346ac0800000000000000
+      internalID: -3862893619579920358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_10
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 75
+        width: 143
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4815ebfc67cac2d30800000000000000
+      internalID: 4408087761580347780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_11
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 255
+        width: 108
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62195b97bcebcb3b0800000000000000
+      internalID: -5495307664169266906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_12
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 83
+        width: 165
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ccce8993c0ea9d0800000000000000
+      internalID: -2761256080013210598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_13
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 253
+        width: 35
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6f14349928cffe60800000000000000
+      internalID: 7998331544138948459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_14
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 88
+        width: 161
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a24b36c7af8bbaf0800000000000000
+      internalID: -379551792834592088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_15
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 94
+        width: 187
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d27084e2c9248eb0800000000000000
+      internalID: -4718600592543419691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_16
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 118
+        width: 67
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3937964dda04f4f0800000000000000
+      internalID: -795999288649369285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_17
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 72
+        width: 30
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e45c24c18d9f9cb0800000000000000
+      internalID: -4854988692614523680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue music notes_18
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 94
+        width: 57
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 945893bdbd12079a0800000000000000
+      internalID: -6237448255748602551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      blue music notes_0: 6120569878239436098
+      blue music notes_1: -8657078358966418908
+      blue music notes_10: 4408087761580347780
+      blue music notes_11: -5495307664169266906
+      blue music notes_12: -2761256080013210598
+      blue music notes_13: 7998331544138948459
+      blue music notes_14: -379551792834592088
+      blue music notes_15: -4718600592543419691
+      blue music notes_16: -795999288649369285
+      blue music notes_17: -4854988692614523680
+      blue music notes_18: -6237448255748602551
+      blue music notes_2: 5257335116896321298
+      blue music notes_3: -2086622439518673536
+      blue music notes_4: 230016373745096226
+      blue music notes_5: -7510326075931142506
+      blue music notes_6: -4762198003167685621
+      blue music notes_7: 2036054440933214266
+      blue music notes_8: 7262473470363643630
+      blue music notes_9: -3862893619579920358
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

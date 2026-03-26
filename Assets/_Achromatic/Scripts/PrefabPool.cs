@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PrefabPool: IDisposable {
+public class PrefabPool<TKey>: IDisposable {
 
-    // public API  #############################################################
+    // Public Members  #########################################################
+    public readonly Queue<(TKey, GameObject)> activeQ;
 
-    public GameObject Spawn() {
+    // Public Methods  #########################################################
+
+    public GameObject Spawn(TKey key) {
         if (isDisposed) {
             Debug.LogError("PrefabPool:\tAttempt To Spawn After Dispose");
             return null;
@@ -16,18 +19,24 @@ public class PrefabPool: IDisposable {
         if (availableQ.Count > 0) {
             GameObject go = availableQ.Dequeue();
             go.SetActive(true);  // activate new instance
-            activeQ.Enqueue(go);  // track as newest spawned
+            activeQ.Enqueue((key, go));  // track as newest spawned
             return go;
         }
 
         // recycle earliest spawned instance when pool is full
-        GameObject oldest = activeQ.Dequeue();
-        activeQ.Enqueue(oldest);  // now considered newest
+        (TKey _, GameObject oldest) = activeQ.Dequeue();
+
+        // reset prefab
+        oldest.SetActive(false);
+        oldest.SetActive(true);
+
+        // now considered newest
+        activeQ.Enqueue((key, oldest));
         return oldest;
     }
 
-    public GameObject Spawn(float x, float y) {
-        GameObject go = Spawn();  // reuse generic spawn logic
+    public GameObject Spawn(float x, float y, TKey key) {
+        GameObject go = Spawn(key);  // reuse generic spawn logic
         if (go != null) {
             go.transform.position = new Vector3(x, y, 0f);
         }
@@ -39,7 +48,7 @@ public class PrefabPool: IDisposable {
                       Transform parentTransform = null) {
         maxCount = Math.Max(0, maxPrefabsCnt);  // ensure non-negative
         availableQ = new Queue<GameObject>(maxCount);
-        activeQ = new Queue<GameObject>(maxCount);
+        activeQ = new Queue<(TKey, GameObject)>(maxCount);
 
         prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab == null) {
@@ -59,7 +68,7 @@ public class PrefabPool: IDisposable {
     }
 
     ~PrefabPool() {
-        Dispose(false);  // Finalizer does not attempt Unity destroys
+        Dispose(false);  // finalizer does not attempt Unity destroys
     }
 
     // implement IDisposable  ##################################################
@@ -90,7 +99,7 @@ public class PrefabPool: IDisposable {
 
             // Destroy active instances  ---------------------------------------
             if (activeQ != null) {
-                foreach (GameObject go in activeQ) {
+                foreach ((TKey _, GameObject go) in activeQ) {
                     if (go == null)
                         continue;
                     if (Application.isPlaying) {
@@ -103,7 +112,7 @@ public class PrefabPool: IDisposable {
             }
 
         } else {
-            // Finalizer path: do not call Unity API from background thread
+            // finalizer path: do not call Unity API from background thread
             Debug.LogWarning("PrefabPool:\t" +
                     "Dispose was not called before GC. " +
                     "Unity objects were not destroyed safely.");
@@ -111,9 +120,8 @@ public class PrefabPool: IDisposable {
     }
 
     // private members  ########################################################
-    private GameObject prefab;
-    private int maxCount;
-    private Queue<GameObject> availableQ;
-    private Queue<GameObject> activeQ;
+    private readonly GameObject prefab;
+    private readonly int maxCount;
+    private readonly Queue<GameObject> availableQ;
     private bool isDisposed = false;
 }

@@ -4,23 +4,20 @@
 
 [^format]
 
-<!-- bug floating rocks are distracting -->
-<!-- bug must properly merge assets -->
-<!-- fixme better looking notes elements -->
+<!-- todo metrics save to file -->
+<!-- todo new tilemap -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
-<!-- todo final score window -->
-<!-- todo particles efx -->
 <!-- todo pause screen, allow restart/resume -->
-<!-- todo full UX: start, reset, etc. -->
-<!-- todo make prefabs disappearing as feed back -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
-<!-- todo need dramatic shift visually to indicate music has started -->
 <!-- todo add obstacles & enemy to kills -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 <!-- todo allows & give feedback for smashing input during: empty or climax -->
+<!-- todo particles efx -->
+<!-- todo full UX: start, reset, etc. -->
 <!-- todo Wwise Unity Integration -->
+<!-- fixme perfect+action sfx must be satisfying -->
 
 
 
@@ -47,7 +44,33 @@
 
 ## 1.0.0-beta Beta Milestone
 
-## 1.0.0-alpha Alpha Milestone
+## [1.0.0-alpha] Alpha Milestone - 2026-03-26
+
+### Added
+
+- Hit Type Indicator to tell judge result
+- implement Credits Scene with placeholder content
+- piece ending logic
+
+### Changed
+
+- refactorization of Piece and Player, using multiple components approach
+- improve Game Title movement to be smooth & natural
+- flatten down Beatmap Note structure, directly use string-typed note typed
+- reimplement score indicators
+- fine tunning player jumping animation curve during music play
+- refactorization of SFX script
+- layered audio sfx: audio cue reflect both action & hit type, and random use one of few samples
+- re-implement background with static background color & dynamic floating objects
+- create an interesting beatmap for Lv1
+
+### Removed
+
+- un-used Assets
+
+### Fixed
+
+- player sprite transparent issue
 
 
 
@@ -219,7 +242,8 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...dev
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...dev
+[0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
 [0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
 [0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
