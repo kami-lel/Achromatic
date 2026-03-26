@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PrefabPool: IDisposable {
+public class PrefabPool<TKey>: IDisposable {
 
     // public API  #############################################################
 
-    public GameObject Spawn() {
+    public GameObject Spawn(TKey key) {
         if (isDisposed) {
             Debug.LogError("PrefabPool:\tAttempt To Spawn After Dispose");
             return null;
@@ -16,18 +16,18 @@ public class PrefabPool: IDisposable {
         if (availableQ.Count > 0) {
             GameObject go = availableQ.Dequeue();
             go.SetActive(true);  // activate new instance
-            activeQ.Enqueue(go);  // track as newest spawned
+            activeQ.Enqueue((key, go));  // track as newest spawned
             return go;
         }
 
         // recycle earliest spawned instance when pool is full
-        GameObject oldest = activeQ.Dequeue();
-        activeQ.Enqueue(oldest);  // now considered newest
+        (TKey _, GameObject oldest) = activeQ.Dequeue();
+        activeQ.Enqueue((key, oldest));  // now considered newest
         return oldest;
     }
 
-    public GameObject Spawn(float x, float y) {
-        GameObject go = Spawn();  // reuse generic spawn logic
+    public GameObject Spawn(float x, float y, TKey key) {
+        GameObject go = Spawn(key);  // reuse generic spawn logic
         if (go != null) {
             go.transform.position = new Vector3(x, y, 0f);
         }
@@ -39,7 +39,7 @@ public class PrefabPool: IDisposable {
                       Transform parentTransform = null) {
         maxCount = Math.Max(0, maxPrefabsCnt);  // ensure non-negative
         availableQ = new Queue<GameObject>(maxCount);
-        activeQ = new Queue<GameObject>(maxCount);
+        activeQ = new Queue<(TKey, GameObject)>(maxCount);
 
         prefab = Resources.Load<GameObject>(prefabPath);
         if (prefab == null) {
@@ -90,7 +90,7 @@ public class PrefabPool: IDisposable {
 
             // Destroy active instances  ---------------------------------------
             if (activeQ != null) {
-                foreach (GameObject go in activeQ) {
+                foreach ((TKey _, GameObject go) in activeQ) {
                     if (go == null)
                         continue;
                     if (Application.isPlaying) {
@@ -114,6 +114,6 @@ public class PrefabPool: IDisposable {
     private readonly GameObject prefab;
     private readonly int maxCount;
     private readonly Queue<GameObject> availableQ;
-    private readonly Queue<GameObject> activeQ;
+    private readonly Queue<(TKey, GameObject)> activeQ;
     private bool isDisposed = false;
 }

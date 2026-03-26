@@ -65,8 +65,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
             actionHintSquatPool = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
 
-            beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
-            barlinePool = new PrefabPool(4, PREFAB_FOLDER + "Barline", prefabs);
+            beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
+            barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
         }
 
         private void Update() {
@@ -83,10 +83,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
                 if (lastBeatLineOnBeat % beatmap.meta.beatPerBar == 0) {
                     // barline
-                    barlinePool.Spawn(x, barlineBeatlineY);
+                    barlinePool.Spawn(x, barlineBeatlineY, -1);
                 } else {
                     // beat lines
-                    beatLinePool.Spawn(x, barlineBeatlineY);
+                    beatLinePool.Spawn(x, barlineBeatlineY, -1);
                 }
             }
 
@@ -97,14 +97,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             while (renderBeatNotesQ.Count > 0) {
                 (noteIdx, onBeat, note) = renderBeatNotesQ.Peek();
                 if (onBeat < currentRenderBeat) {
-                    // TODO use noteIdx for disappear
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
-                        actionHintJumpPool.Spawn(x, actionHintY);
+                        actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
                     } else if (note.type == "squat") {
-                        actionHintSquatPool.Spawn(x, actionHintY);
+                        actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
                     } else {
-                        actionHintAttackPool.Spawn(x, actionHintY);
+                        actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -134,11 +133,11 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private float actionHintY;
 
         // per-element pools
-        private PrefabPool actionHintJumpPool;
-        private PrefabPool actionHintAttackPool;
-        private PrefabPool actionHintSquatPool;
-        private PrefabPool beatLinePool;
-        private PrefabPool barlinePool;
+        private PrefabPool<int> actionHintJumpPool;
+        private PrefabPool<int> actionHintAttackPool;
+        private PrefabPool<int> actionHintSquatPool;
+        private PrefabPool<int> beatLinePool;
+        private PrefabPool<int> barlinePool;
 
         // Cached Reference
         private Beatmap beatmap;
