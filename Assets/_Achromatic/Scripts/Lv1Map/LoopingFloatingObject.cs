@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 // HACK rm
+// HACK rm old floats from hierarchy
 public class LoopingFloatingObject: MonoBehaviour {
     [Header("浮动设置")]
     public float floatSpeed = 2f;
