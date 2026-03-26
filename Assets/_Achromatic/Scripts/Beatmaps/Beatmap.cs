@@ -33,6 +33,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // Public Methods  #####################################################
 
+        // BUG BUG allow negative beat
+
         /// <returns>realtime beat count based on Audio Source time,
         /// start on <c>0.0f</c></returns>
         public float BeatCount {
