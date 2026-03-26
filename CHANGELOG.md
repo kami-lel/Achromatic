@@ -6,7 +6,7 @@
 
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
-<!-- Bug transparent player model -->
+<!-- BUG transparent player model -->
 <!-- Todo air wall for go back -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
