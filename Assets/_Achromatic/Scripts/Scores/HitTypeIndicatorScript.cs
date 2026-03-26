@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Scores {
     public class HitTypeIndicatorScript: MonoBehaviour {
-        // TODO animation for hit type indicator
 
         // Public Methods  #####################################################
 
@@ -14,6 +13,8 @@ namespace Assets._Achromatic.Scripts.Scores {
             earlyGreat.SetActive(hit == Hit.EARLY_GREAT);
             lateGreat.SetActive(hit == Hit.LATE_GREAT);
             perfect.SetActive((hit & Hit.PERFECT) != 0);
+
+            lastShowTime = Time.time;
         }
 
         // Inspector Fields  ###################################################
@@ -36,9 +37,24 @@ namespace Assets._Achromatic.Scripts.Scores {
         [SerializeField]
         private GameObject perfect;
 
+        [SerializeField]
+        private AnimationCurve transformVsTime;
+
         // MonoBehavior Lifecycle  #############################################
         private void Start() {
             Show(Hit.NONE);
         }
+
+        private void Update() {
+            float timeDelta = Time.time - lastShowTime;
+
+            float size = transformVsTime.Evaluate(timeDelta);
+            transform.localScale = new Vector2(size, size);
+        }
+
+
+
+        // private members  ####################################################
+        private float lastShowTime;
     }
 }

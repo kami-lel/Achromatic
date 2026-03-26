@@ -39,6 +39,9 @@
 ## [Unreleased]
 
 ### Added
+
+- Hit Type Indicator to tell judge result
+
 ### Changed
 
 - refactorization of Piece and Player, using multiple components approach
