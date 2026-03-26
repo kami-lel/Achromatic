@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 using Assets._Achromatic.Scripts.Beatmaps;
-using System.Linq;
+using Assets._Achromatic.Scripts.UI;
+
 
 // todo improve looking of indicators
 
