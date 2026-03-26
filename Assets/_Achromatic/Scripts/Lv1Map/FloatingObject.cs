@@ -8,18 +8,18 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
         [SerializeField] private Sprite[] sprites;
 
         [Header("Float Radius")]
-        [SerializeField] private Vector2 verticalRadiusRange = new Vector2(0.4f, 1.0f);
-        [SerializeField] private Vector2 horizontalRadiusRange = new Vector2(0.1f, 0.4f);
+        [SerializeField] private Vector2 verticalRadiusRange = new(0.4f, 1.0f);
+        [SerializeField] private Vector2 horizontalRadiusRange = new(0.1f, 0.4f);
 
         [Header("Drift Speed")]
-        [SerializeField] private Vector2 driftSpeedRange = new Vector2(0.1f, 0.4f);
+        [SerializeField] private Vector2 driftSpeedRange = new(0.1f, 0.4f);
 
         [Header("Smoothing")]
-        [SerializeField] private Vector2 smoothTimeRange = new Vector2(0.8f, 2.0f);
+        [SerializeField] private Vector2 smoothTimeRange = new(0.8f, 2.0f);
 
         [Header("Rotation")]
-        [SerializeField] private Vector2 rotationAngleRange = new Vector2(2f, 8f);
-        [SerializeField] private Vector2 rotationSpeedRange = new Vector2(0.1f, 0.4f);
+        [SerializeField] private Vector2 rotationAngleRange = new(2f, 8f);
+        [SerializeField] private Vector2 rotationSpeedRange = new(0.1f, 0.4f);
 
         // Private Runtime Values  #############################################
         private float verticalRadius;
@@ -40,8 +40,7 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
 
         // MonoBehavior Lifecycle  #############################################
         void Awake() {
-            startPosition = transform.position;
-
+            // Randomize everything except position capture
             noiseOffsetX = Random.Range(0f, 100f);
             noiseOffsetY = Random.Range(0f, 100f);
             noiseOffsetAngle = Random.Range(0f, 100f);
@@ -57,6 +56,11 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
                 GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
             else
                 Debug.LogWarning("No sprites assigned!", this);
+        }
+
+        void Start() {
+            // FIX: Capture position here, after the spawner has set transform.position
+            startPosition = transform.position;
         }
 
         void Update() {
