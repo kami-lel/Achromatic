@@ -10,33 +10,31 @@ namespace Assets._Achromatic.Scripts.Scores {
     /// </summary>
     public class Timing {
 
-        // Public Members  #####################################################
-
-        public int noteIdx;
-
         // Public API  #########################################################
-        public Hit Judge(float time, Actions action) {
+        public (Hit, int) Judge(float time, Actions action) {
+            Hit hit;
+
             if ((action & allowedAction) == 0) {
-                return Hit.INCORRECT;
+                hit = Hit.INCORRECT;
+            } else if (time < leftGoodBound) {
+                hit = Hit.EARLY_MISS;
+            } else if (time < leftGreatBound) {
+                hit = Hit.EARLY_GOOD;
+            } else if (time < leftPerfectBound) {
+                hit = Hit.EARLY_GREAT;
+            } else if (time < center) {
+                hit = Hit.EARLY_PERFECT;
+            } else if (time < rightPerfectBound) {
+                hit = Hit.LATE_PERFECT;
+            } else if (time < rightGreatBound) {
+                hit = Hit.LATE_GREAT;
+            } else if (time < rightGoodBound) {
+                hit = Hit.LATE_GOOD;
+            } else {
+                hit = Hit.LATE_MISS;
             }
 
-            if (time < leftGoodBound) {
-                return Hit.EARLY_MISS;
-            } else if (time < leftGreatBound) {
-                return Hit.EARLY_GOOD;
-            } else if (time < leftPerfectBound) {
-                return Hit.EARLY_GREAT;
-            } else if (time < center) {
-                return Hit.EARLY_PERFECT;
-            } else if (time < rightPerfectBound) {
-                return Hit.LATE_PERFECT;
-            } else if (time < rightGreatBound) {
-                return Hit.LATE_GREAT;
-            } else if (time < rightGoodBound) {
-                return Hit.LATE_GOOD;
-            } else {
-                return Hit.LATE_MISS;
-            }
+            return (hit, noteIdx);
         }
 
         public bool IsMissedByPassing(float time) {
@@ -76,6 +74,8 @@ namespace Assets._Achromatic.Scripts.Scores {
 
 
         // private members  ####################################################
+        private int noteIdx;
+
         private readonly float startJudgeBound;
         private readonly float center;
 

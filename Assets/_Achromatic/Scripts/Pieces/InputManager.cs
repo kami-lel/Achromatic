@@ -107,9 +107,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private methods  ####################################################
 
         private void Trigger() {
-            Hit hit = criteria.Judge(pressed);
+            (Hit hit, int noteIdx) = criteria.Judge(pressed);
             score.Record(hit);
             SFX.I.OnHit(pressed, hit);
+            // TODO use noteIdx to make prefab disappear
 
             if ((pressed & Actions.JUMP) != 0) {
                 playerManager.Jump();

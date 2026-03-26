@@ -15,18 +15,18 @@ namespace Assets._Achromatic.Scripts.Scores {
 
         // Public API  #########################################################
 
-        public Hit Judge(Actions actions) {
+        public (Hit, int) Judge(Actions actions) {
             if (timings.Count == 0)
-                return Hit.NO_HIT;
+                return (Hit.NO_HIT, -1);
 
-            var t = timings.Peek();
+            Timing t = timings.Peek();
 
             // Do NOT dequeue unless player actually attempted a hit
             if (actions == Actions.NONE)
-                return Hit.NO_HIT;
+                return (Hit.NO_HIT, -1);
 
             if (!t.IsInJudgingRange(music.Time))
-                return Hit.NO_HIT;
+                return (Hit.NO_HIT, -1);
 
             timings.Dequeue();
             return t.Judge(music.Time, actions);
