@@ -65,6 +65,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             float currentRenderBeat = beatmap.currentBeat + renderDistanceBeat;
 
+            // Bug missing 1st barline
             // place beat line & barline  --------------------------------------
             while (lastBeatLineOnBeat < currentRenderBeat) {
                 lastBeatLineOnBeat += 1;
