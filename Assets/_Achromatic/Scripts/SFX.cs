@@ -20,6 +20,7 @@ public class SFX: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void OnHit(Actions action, Hit hit) {
+
         // TODO TODO on hit
     }
 
@@ -76,7 +77,6 @@ public class SFX: MonoBehaviour {
     [SerializeField] private AudioSource attackSFX1;
 
     [Header("Hit SFX")]
-    [SerializeField] private AudioSource perfectSFX;
     [SerializeField] private AudioSource greatSFX;
     [SerializeField] private AudioSource goodSFX;
     [SerializeField] private AudioSource missSFX;
