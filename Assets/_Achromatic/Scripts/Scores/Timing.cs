@@ -10,6 +10,10 @@ namespace Assets._Achromatic.Scripts.Scores {
     /// </summary>
     public class Timing {
 
+        // Public Members  #####################################################
+
+        public int noteIdx;
+
         // Public API  #########################################################
         public Hit Judge(float time, Actions action) {
             if ((action & allowedAction) == 0) {
@@ -44,7 +48,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
 
         // Constructor  ########################################################
-        public Timing(Beatmap beatmap, Note note) {
+        public Timing(Beatmap beatmap, Note note, int noteIdx) {
             // calc center timing
             float beat = beatmap.CalcNoteBeat(note);
             float centerTiming = beatmap.meta.preludeSeconds +
@@ -66,6 +70,8 @@ namespace Assets._Achromatic.Scripts.Scores {
                 "attack" => Actions.ATTACK,
                 _ => throw new ArgumentException($"unknown note type: {note.type}")
             };
+
+            this.noteIdx = noteIdx;
         }
 
 

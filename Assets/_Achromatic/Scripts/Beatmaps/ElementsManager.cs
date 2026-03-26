@@ -37,11 +37,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
-            renderBeatNotesQ = new Queue<(float, Note)>();
+            renderBeatNotesQ = new Queue<(int, float, Note)>();
             float beatCount;
+            int noteIdx = 0;
             foreach (Note note in beatmap.notesQ) {
                 beatCount = beatmap.CalcNoteBeat(note);
-                renderBeatNotesQ.Enqueue((beatCount, note));
+                renderBeatNotesQ.Enqueue((noteIdx, beatCount, note));
+                noteIdx++;
             }
             if (renderBeatNotesQ.Count() == 0) {
                 Debug.LogError("empty notesQ");
@@ -79,13 +81,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 }
             }
 
-
             // place action hints  ---------------------------------------------
+            int noteIdx;
             float onBeat;
             Note note;
             while (renderBeatNotesQ.Count > 0) {
-                (onBeat, note) = renderBeatNotesQ.Peek();
+                (noteIdx, onBeat, note) = renderBeatNotesQ.Peek();
                 if (onBeat < currentRenderBeat) {
+                    // TODO use noteIdx for disappear
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
                         actionHintJumpPool.Spawn(x, actionHintY);
@@ -116,7 +119,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // private members  ####################################################
         // note beat, note object
-        private Queue<(float, Note)> renderBeatNotesQ;
+        private Queue<(int, float, Note)> renderBeatNotesQ;
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
         private float actionHintY;
