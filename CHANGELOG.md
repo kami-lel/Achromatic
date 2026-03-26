@@ -38,6 +38,7 @@
 ### Added
 
 - Hit Type Indicator to tell judge result
+- implement Credits Scene with placeholder content
 
 ### Changed
 
