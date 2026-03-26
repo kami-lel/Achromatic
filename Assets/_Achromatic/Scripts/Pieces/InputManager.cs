@@ -118,8 +118,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if ((pressed & Actions.ATTACK) != 0) {
                 playerManager.Attack();
             }
-
-            // TODO add audio for feedback, layered
         }
     }
 }
