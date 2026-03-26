@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using Assets._Achromatic.Scripts.Players;
+using Cinemachine;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -16,9 +17,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private float endX;
 
+        [SerializeField]
+        private CinemachineVirtualCamera virtualCamera;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
+            // test inspector fields  ------------------------------------------
+            if (virtualCamera == null) {
+                Debug.LogError("must assign: Virtual Camera");
+            }
             // caching references of player  -----------------------------------
             GameObject playerGO = GCS.FindPlayer();
 
@@ -28,6 +36,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (pim == null) {
                 Debug.LogError("fail to get: Player InputManager");
             }
+
+            rb = playerGO.GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("fail to find: Rigidbody2D");
+            }
+
         }
 
 
@@ -46,13 +60,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // Cached References
         private Player player;
+        private Rigidbody2D rb;
         private Players.InputManager pim;
 
         // private methods  ####################################################
 
         private void EndPiece() {
             pim.SetInputForExplorePlay();
-            Debug.Log("AABBCC");  // HACK
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            GCS.I.states = GameState.EXPLORE_CONTROL;
+            virtualCamera.Priority = 0;
+            Debug.Log("End Piece");
         }
     }
 
