@@ -59,18 +59,17 @@ public class SFX: MonoBehaviour {
         }
     }
 
+    // todo customize sfx for squat & attack
+
     public void Squat(Hit hit = Hit.NONE) {
         dashSFX1.Play();
         dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        // PlayRumble("Squat", hit);
     }
 
     public void Attack(Hit hit = Hit.NONE) {
-        dashSFX1.Play();
-        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        // PlayRumble("Attack", hit);
+        dashSFX2.Play();
+        dashSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
     }
-
 
 
     // Inspector Fields  #######################################################
