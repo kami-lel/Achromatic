@@ -1,5 +1,5 @@
 using UnityEngine;
 
 public class FinalPointWindow: MonoBehaviour {
-    // TODO
+    // TODO final point window
 }
