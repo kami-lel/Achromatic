@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- Bug must properly merge assets -->
 <!-- Todo new tilemap -->
 <!-- Todo air wall for go back -->
 <!-- Todo final score window -->
@@ -57,6 +56,9 @@
 
 ### Deprecated
 ### Removed
+
+- un-used Assets
+
 ### Fixed
 
 - player sprite transparent issue
