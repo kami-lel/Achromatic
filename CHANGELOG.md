@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- Todo final score window -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
 <!-- todo new tilemap -->
@@ -50,6 +49,7 @@
 - refactorization of SFX script
 - layered audio sfx: audio cue reflect both action & hit type, and random use one of few samples
 - re-implement background with static background color & dynamic floating objects
+- create an interesting beatmap for Lv1
 
 ### Deprecated
 ### Removed

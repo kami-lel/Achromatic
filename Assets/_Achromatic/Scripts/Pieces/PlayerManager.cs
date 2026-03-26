@@ -15,23 +15,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Public API  #########################################################
 
         public void StartPrelude() {
-            currentActionStartTime = Time.time;
-
             Debug.Log("PlayerManager:\tStartPrelude");
 
             rb.linearVelocityX = preludeStartVelocityX;
 
-            pim.SetInputForMusicPlay();
-
-            anim.EnsureFacing(true);
-            anim.StartRun();
+            SetupPlayerForPiece();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
             Debug.Log("PlayerManager:\tStartMainPiece");
 
-
             rb.bodyType = RigidbodyType2D.Kinematic;
+
+            SetupPlayerForPiece();
         }
 
         public void FinishPiece() {
@@ -215,5 +211,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Players.InputManager pim;
         private Transform playerSprite;
         private Piece piece;
+
+
+
+        // private methods  ####################################################
+
+        private void SetupPlayerForPiece() {
+            pim.SetInputForMusicPlay();
+            anim.EnsureFacing(true);
+            anim.StartRun();
+            currentActionStartTime = Time.time;
+        }
     }
 }

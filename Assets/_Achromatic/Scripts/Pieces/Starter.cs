@@ -2,7 +2,6 @@ using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
-
 // bug player is jumped when start prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -54,6 +53,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (playerTransform == null) {
                 Debug.LogError("fail to get: playerTransform");
             }
+
+
+            if (debugMusicStartingBar != 0) {
+                Debug.LogWarning("Debug Music Starting Bar is non-zero");
+            }
         }
 
         private void Start() {
@@ -75,7 +79,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 music.UpdateVampVolume(volume);
             }
         }
-
 
         private void OnDisable() {
             if (player != null) {

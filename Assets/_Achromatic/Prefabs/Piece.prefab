@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 8515482075639812258}
   - component: {fileID: 7838412611453589432}
   - component: {fileID: 2315091613825934166}
+  - component: {fileID: 7910136319746607527}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -545,6 +546,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmaps.ElementsManager
   prefabs: {fileID: 5487930671339377596}
   renderDistanceBeat: 10
+--- !u!114 &7910136319746607527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287971021022977273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38fb29b73a49db4186b717cee121b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerTransform: {fileID: 0}
+  endX: 0
+  virtualCamera: {fileID: 1095902738690897300}
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0
