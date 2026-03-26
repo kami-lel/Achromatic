@@ -32,7 +32,7 @@ namespace Assets._Achromatic.Scripts.Players {
 
             rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
 
-            SFX.I.Jump();
+            SFX.I.PlayerJump();
             anim.Jump();
         }
 
@@ -77,7 +77,7 @@ namespace Assets._Achromatic.Scripts.Players {
 
             bool isOnGroundNow = rb.IsTouchingLayers(groundLayerMask);
             if (isOnGroundNow && !isOnGround) {
-                SFX.I.Land();
+                SFX.I.PlayerLand();
             }
             isOnGround = isOnGroundNow;
 

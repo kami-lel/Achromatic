@@ -23,8 +23,6 @@ public class SFX: MonoBehaviour {
 
     // directly play action-audio  =============================================
 
-    // TODO use ramble
-
     public void Jump() {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
@@ -103,6 +101,7 @@ public class SFX: MonoBehaviour {
 
     // ramble  =================================================================
 
+    // Todo use ramble
 
     private void PlayRumble(String action, Hit hit = Hit.NONE) {
         var pad = Gamepad.current;
