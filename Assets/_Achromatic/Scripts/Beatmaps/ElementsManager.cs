@@ -47,7 +47,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 Debug.LogError("empty notesQ");
             }
 
-            // create per-type pools  --------------------------------------------
+            // create per-type pools  ------------------------------------------
             // action hints
             actionHintJumpPool = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
             actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
