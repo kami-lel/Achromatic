@@ -6,6 +6,8 @@
 
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
+<!-- Fixme background floats -->
+<!-- Todo new tilemap -->
 <!-- Todo air wall for go back -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
