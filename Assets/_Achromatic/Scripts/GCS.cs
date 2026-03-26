@@ -33,6 +33,10 @@ public class GCS: MonoBehaviour {
         return playerObject;
     }
 
+    public void LoadNextScene(string sceneName) {
+        // TODO
+    }
+
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
