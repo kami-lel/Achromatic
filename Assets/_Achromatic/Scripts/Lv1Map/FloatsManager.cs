@@ -3,6 +3,8 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Lv1Map {
     public class FloatsManager: MonoBehaviour {
 
+        // bug float manager is not functional
+
         // Inspector Fields  ###################################################
         [SerializeField] private float renderDistanceX = 20f;
         [SerializeField] private float rockSpawnIntervalMinX = 1.5f;
