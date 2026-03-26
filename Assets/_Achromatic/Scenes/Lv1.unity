@@ -634,8 +634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameTitleScript
   playerTransform: {fileID: 1882001273}
-  triggerStartX: 0
-  triggerEndX: 15
+  triggerWidth: 7
+  triggerOffsetX: -9
   titleDeltaY: 40
   smoothTime: 0.3
 --- !u!224 &567381968 stripped
