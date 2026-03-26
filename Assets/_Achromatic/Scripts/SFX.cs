@@ -27,15 +27,15 @@ public class SFX: MonoBehaviour {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
             jumpSFX1.Play();
-            jumpSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            jumpSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         case 1:
             jumpSFX2.Play();
-            jumpSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            jumpSFX2.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         case 2:
             jumpSFX3.Play();
-            jumpSFX3.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            jumpSFX3.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         }
     }
@@ -44,15 +44,15 @@ public class SFX: MonoBehaviour {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
             landSFX1.Play();
-            landSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            landSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         case 1:
             landSFX2.Play();
-            landSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            landSFX2.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         case 2:
             landSFX3.Play();
-            landSFX3.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            landSFX3.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
             break;
         }
     }
@@ -61,12 +61,12 @@ public class SFX: MonoBehaviour {
 
     public void Squat(Hit hit = Hit.NONE) {
         dashSFX1.Play();
-        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
     }
 
     public void Attack(Hit hit = Hit.NONE) {
-        dashSFX2.Play();
-        dashSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        attackSFX1.Play();
+        attackSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
     }
 
 
@@ -83,6 +83,8 @@ public class SFX: MonoBehaviour {
     [SerializeField] private AudioSource landSFX2;
     [SerializeField] private AudioSource landSFX3;
 
+    [SerializeField] private AudioSource attackSFX1;
+
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
@@ -96,6 +98,10 @@ public class SFX: MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+
+    // constants  ##############################################################
+    private const float SFX_LASTING_TIME = 1.0f;
 
     // private methods  ########################################################
 
