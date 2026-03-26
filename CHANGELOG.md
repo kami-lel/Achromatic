@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- TODO air wall for go back -->
 <!-- Todo final score window -->
 <!-- TODO scene transition -->
 <!-- TODO mpl Lv2 & Lv3 -->
