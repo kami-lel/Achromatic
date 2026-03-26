@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 
 public class SFX: MonoBehaviour {
-    // Todo randomize b/t different samples
-    // Todo audio cue to reflects both judge result & action type
+    // TODO randomize b/t different samples
+    // TODO audio cue to reflects both judge result & action type
 
     // public members  =========================================================
 
@@ -19,7 +19,7 @@ public class SFX: MonoBehaviour {
     // public methods  =========================================================
 
     public void Play(Actions actions, Hit hit = Hit.NONE) {
-        // Todo generic method for play
+        // TODO generic method for play
     }
 
     public void Jump(Hit hit = Hit.NONE) {

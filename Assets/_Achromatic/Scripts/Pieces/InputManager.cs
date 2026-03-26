@@ -118,7 +118,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 playerManager.Attack(hit);
             }
 
-            // Todo add audio for feedback, layered
+            // TODO add audio for feedback, layered
         }
     }
 }

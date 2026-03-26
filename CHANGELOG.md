@@ -4,6 +4,7 @@
 
 [^format]
 
+<!-- HACK rm old sfx audios from proj -->
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
 <!-- Bug transparent player model -->
