@@ -11,16 +11,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         // Public Methods  #####################################################
 
         public void PerishActionHint(int noteIdx, Hit hit) {
-            void SearchActiveQInPool(PrefabPool<int> prefabPool, out GameObject go) {
+            GameObject SearchActiveQInPool(PrefabPool<int> prefabPool) {
                 var enumerator = prefabPool.activeQ.GetEnumerator();
                 while (enumerator.MoveNext()) {
-                    (int i, GameObject g) = enumerator.Current;
+                    (int i, GameObject go) = enumerator.Current;
                     if (i == noteIdx) {
-                        go = g;
-                        return;
+                        return go;
                     }
                 }
-                go = null;
+                return null;
             }
 
             // routine  ********************************************************
@@ -29,22 +28,21 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return;
             }
 
-            GameObject go;
-            SearchActiveQInPool(actionHintJumpPool, out go);
-            SearchActiveQInPool(actionHintAttackPool, out go);
-            SearchActiveQInPool(actionHintSquatPool, out go);
+            GameObject go = SearchActiveQInPool(actionHintJumpPool) ??
+                    SearchActiveQInPool(actionHintAttackPool) ??
+                    SearchActiveQInPool(actionHintSquatPool);
 
             if (go == null) {
-                Debug.LogWarning("fail to perish Action Hint w/ index of: " + noteIdx);
+                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx);
                 return;
             }
 
-            ActionHint hint = go.GetComponent<ActionHint>();
-            if (hint == null) {
-                Debug.LogWarning("fail to find ActionHint attach to prefab w/ index of" + noteIdx);
+            if (go.TryGetComponent(out ActionHint hint)) {
+                hint.Perish(hit);
+            } else {
+                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx);
+                return;
             }
-
-            hint.Perish(hit);
         }
 
         // Inspector Fields  ###################################################
