@@ -2,7 +2,6 @@ using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
-
 // bug player is jumped when start prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {

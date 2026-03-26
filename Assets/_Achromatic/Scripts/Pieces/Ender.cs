@@ -2,6 +2,7 @@ using UnityEngine;
 
 using Assets._Achromatic.Scripts.Players;
 using Cinemachine;
+using Assets._Achromatic.Scripts.UI;
 
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -20,6 +21,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
 
+        [SerializeField]
+        private GameObject finalPointWindow;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
@@ -27,6 +31,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (virtualCamera == null) {
                 Debug.LogError("must assign: Virtual Camera");
             }
+            if (finalPointWindow == null) {
+                Debug.LogError("must assign: Final Point Window");
+            }
+
             // caching references of player  -----------------------------------
             GameObject playerGO = GCS.FindPlayer();
 
@@ -70,6 +78,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             rb.bodyType = RigidbodyType2D.Dynamic;
             GCS.I.states = GameState.EXPLORE_CONTROL;
             virtualCamera.Priority = 0;
+            finalPointWindow.SetActive(true);
             Debug.Log("End Piece");
         }
     }
