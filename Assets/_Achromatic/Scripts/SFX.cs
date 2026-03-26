@@ -42,6 +42,23 @@ public class SFX: MonoBehaviour {
         }
     }
 
+    public void Land() {
+        switch (UnityEngine.Random.Range(0, 3)) {
+        case 0:
+            landSFX1.Play();
+            landSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        case 1:
+            landSFX2.Play();
+            landSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        case 2:
+            landSFX3.Play();
+            landSFX3.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        }
+    }
+
     public void Squat(Hit hit = Hit.NONE) {
         dashSFX1.Play();
         dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
@@ -54,10 +71,6 @@ public class SFX: MonoBehaviour {
         // PlayRumble("Attack", hit);
     }
 
-    public void Land() {
-        // TODO landing
-
-    }
 
 
     // Inspector Fields  #######################################################

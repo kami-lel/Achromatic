@@ -7,6 +7,10 @@ namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(Rigidbody2D))]
     class Movement: MonoBehaviour {
 
+        // Public Members  #####################################################
+        public bool isOnGround;
+
+
         // Public API  #########################################################
         public void TurnLeft() {
             moveDir = -1;
@@ -74,6 +78,12 @@ namespace Assets._Achromatic.Scripts.Players {
                 return;
             }
 
+            bool isOnGroundNow = rb.IsTouchingLayers(groundLayerMask);
+            if (isOnGroundNow && !isOnGround) {
+                SFX.I.Land();
+            }
+            isOnGround = isOnGroundNow;
+
             // apply horizontal force toward target velocity
             float targetVelX = moveDir * MAX_WALKING_SPEED;
             float velDiff = targetVelX - rb.linearVelocityX;
@@ -104,6 +114,7 @@ namespace Assets._Achromatic.Scripts.Players {
 
         // private methods  ####################################################
 
+        // HACK merge w/ isOnGround
         private bool IsOnGround() {
             return rb.IsTouchingLayers(groundLayerMask);
         }
