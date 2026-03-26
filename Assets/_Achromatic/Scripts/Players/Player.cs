@@ -26,7 +26,6 @@ namespace Assets._Achromatic.Scripts.Players {
                 return;
             }
 
-            Debug.Log("Player:\tenters trigger: " + other.tag);
             OnTriggerEnter?.Invoke(other.tag);
         }
 

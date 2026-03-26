@@ -6,9 +6,15 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
     public class GameTitleScript: MonoBehaviour {
         // inspector fields ####################################################
         [SerializeField] private Transform playerTransform;
-        [SerializeField] private float playerDeltaX = 15f;   // how far player must move in x
-        [SerializeField] private float titleDeltaY = 20f;    // how far the title moves up in y
-        [SerializeField] private float smoothTime = 0.3f;   // lower = snappier, higher = floatier
+
+        [Header("Player X Trigger Range")]
+
+        [SerializeField] private float triggerWidth = 7f;
+        [SerializeField] private float triggerOffsetX = -5f;
+
+        [Header("Title Motion")]
+        [SerializeField] private float titleDeltaY = 20f;  // how far the title moves up in y
+        [SerializeField] private float smoothTime = 0.3f; // lower = snappier, higher = floatier
 
         // MonoBehaviour Lifecycle #############################################
         void Start() {
@@ -21,19 +27,28 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
                 return;
             }
 
-            startPlayerX = playerTransform.position.x;
-            maxPlayerX = startPlayerX;
+            if (triggerWidth <= 0f) {
+                Debug.LogError("GameTitleScript:\ttriggerWidth must be greater than zero");
+                enabled = false;
+                return;
+            }
+
+            // Bake the trigger bounds once, based on this object's world X plus offset.
+            float centreX = transform.position.x + triggerOffsetX;
+            triggerStartX = centreX - triggerWidth;
+            triggerEndX = centreX + triggerWidth;
+
+            maxPlayerX = playerTransform.position.x;
         }
 
         void Update() {
             // Track furthest-right player X so progress never decreases.
             maxPlayerX = Mathf.Max(maxPlayerX, playerTransform.position.x);
 
-            // Compute progress based on how far the player has moved.
-            float finishPlayerX = startPlayerX + playerDeltaX;
             float desiredEndY = initialY + titleDeltaY;
 
-            float progress = Mathf.InverseLerp(startPlayerX, finishPlayerX, maxPlayerX);
+            // progress is 0 until player hits triggerStartX, then ramps to 1 at triggerEndX.
+            float progress = Mathf.InverseLerp(triggerStartX, triggerEndX, maxPlayerX);
             float desiredY = Mathf.Lerp(initialY, desiredEndY, progress);
 
             // Never let the title move backward.
@@ -66,13 +81,14 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
             }
         }
 
-        // constants ##########################################################
-        private const float FINISH_EPSILON = 0.5f;  // small tolerance in UI units
+        // constants ###########################################################
+        private const float FINISH_EPSILON = 0.5f; // small tolerance in UI units
 
-        // private members ####################################################
+        // private members #####################################################
         private RectTransform rectTransform;
         private float initialY;
-        private float startPlayerX;
+        private float triggerStartX;
+        private float triggerEndX;
         private float maxPlayerX;
         private float yVelocity;
     }

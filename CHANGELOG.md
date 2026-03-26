@@ -4,14 +4,10 @@
 
 [^format]
 
-<!-- Todo new tilemap -->
-<!-- Todo air wall for go back -->
 <!-- Todo final score window -->
-<!-- Todo scene transition -->
-<!-- Todo mpl Lv2 & Lv3 -->
-<!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
+<!-- todo new tilemap -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo barline & beat line as environmental element -->
@@ -42,6 +38,7 @@
 ### Added
 
 - Hit Type Indicator to tell judge result
+- implement Credits Scene with placeholder content
 
 ### Changed
 
