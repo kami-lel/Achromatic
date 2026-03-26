@@ -6,7 +6,6 @@
 
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
-<!-- BUG transparent player model -->
 <!-- Todo air wall for go back -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
@@ -57,6 +56,8 @@
 ### Deprecated
 ### Removed
 ### Fixed
+
+- player sprite transparent issue
 
 ## 1.0.0 Release
 
