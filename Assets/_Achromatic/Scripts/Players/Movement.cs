@@ -7,6 +7,7 @@ namespace Assets._Achromatic.Scripts.Players {
     [RequireComponent(typeof(Rigidbody2D))]
     class Movement: MonoBehaviour {
 
+
         // Public API  #########################################################
         public void TurnLeft() {
             moveDir = -1;
@@ -26,7 +27,7 @@ namespace Assets._Achromatic.Scripts.Players {
         }
 
         public void Jump() {
-            if (!IsOnGround())
+            if (!isOnGround)
                 return;
 
             rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
@@ -36,7 +37,7 @@ namespace Assets._Achromatic.Scripts.Players {
         }
 
         public void Squat() {
-            if (!IsOnGround())
+            if (!isOnGround)
                 return;
 
             anim.Squat();
@@ -74,6 +75,12 @@ namespace Assets._Achromatic.Scripts.Players {
                 return;
             }
 
+            bool isOnGroundNow = rb.IsTouchingLayers(groundLayerMask);
+            if (isOnGroundNow && !isOnGround) {
+                SFX.I.Land();
+            }
+            isOnGround = isOnGroundNow;
+
             // apply horizontal force toward target velocity
             float targetVelX = moveDir * MAX_WALKING_SPEED;
             float velDiff = targetVelX - rb.linearVelocityX;
@@ -97,16 +104,11 @@ namespace Assets._Achromatic.Scripts.Players {
 
         // private members  ####################################################
         private int moveDir = 0;
+        private bool isOnGround;
 
         // Cached References
         private AnimationManager anim;
         private Rigidbody2D rb;
-
-        // private methods  ####################################################
-
-        private bool IsOnGround() {
-            return rb.IsTouchingLayers(groundLayerMask);
-        }
 
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-namespace Assets._Achromatic.Scripts.Scores {
+
+using Assets._Achromatic.Scripts.Scores;
+
+namespace Assets._Achromatic.Scripts.UI {
     public class HitTypeIndicatorScript: MonoBehaviour {
 
         // Public Methods  #####################################################

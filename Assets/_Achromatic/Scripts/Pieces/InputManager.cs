@@ -109,16 +109,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Trigger() {
             Hit hit = criteria.Judge(pressed);
             score.Record(hit);
+            SFX.I.OnHit(pressed, hit);
 
             if ((pressed & Actions.JUMP) != 0) {
-                playerManager.Jump(hit);
+                playerManager.Jump();
             } else if ((pressed & Actions.SQUAT) != 0) {
-                playerManager.Squat(hit);
+                playerManager.Squat();
             } else if ((pressed & Actions.ATTACK) != 0) {
-                playerManager.Attack(hit);
+                playerManager.Attack();
             }
-
-            // Todo add audio for feedback, layered
         }
     }
 }
