@@ -4,10 +4,10 @@
 
 [^format]
 
-<!-- Bug air wall for go back -->
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
 <!-- Bug transparent player model -->
+<!-- Todo air wall for go back -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
 <!-- Todo mpl Lv2 & Lv3 -->
