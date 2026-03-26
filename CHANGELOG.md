@@ -4,7 +4,6 @@
 
 [^format]
 
-<!-- TODO new tilemap -->
 <!-- TODO air wall for go back -->
 <!-- Todo final score window -->
 <!-- TODO scene transition -->
@@ -12,6 +11,7 @@
 <!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
+<!-- todo new tilemap -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo barline & beat line as environmental element -->
