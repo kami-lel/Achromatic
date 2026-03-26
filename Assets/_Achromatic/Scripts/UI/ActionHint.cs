@@ -3,10 +3,28 @@ using UnityEngine;
 
 public class ActionHint: MonoBehaviour {
 
+    // TODO allow reset
+
     // Public API  #############################################################
 
     public void Perish(Hit hit) {
-        gameObject.SetActive(false);
-        Debug.Log("action hint disabled:\t" + hit);  // HACK make prefab disappear
+        // todo different behavior of action hint based on hit type
+        perishTime = Time.time;
     }
+
+    // Inspector Fields  #######################################################
+
+    [SerializeField]
+    private AnimationCurve transformVsTime;
+
+    // MonoBehavior Lifecycle  #################################################
+    private void Update() {
+        float size = transformVsTime.Evaluate(Time.time - perishTime);
+        transform.localScale = new Vector2(size, size);
+
+        // TODO set active false
+    }
+
+    // private members  ########################################################
+    private float perishTime;
 }

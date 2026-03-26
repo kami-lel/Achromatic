@@ -55,8 +55,6 @@ namespace Assets._Achromatic.Scripts.UI {
             transform.localScale = new Vector2(size, size);
         }
 
-
-
         // private members  ####################################################
         private float lastShowTime;
     }
