@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//  TODO make prefabs disappearing as feed back
+//  Todo make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(Beatmap))]
