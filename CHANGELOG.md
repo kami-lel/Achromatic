@@ -6,12 +6,12 @@
 
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
-<!-- Todo camera fine tunning: smooth follow during main piece -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
 <!-- Todo mpl Lv2 & Lv3 -->
 <!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
+<!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
