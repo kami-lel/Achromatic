@@ -32,7 +32,6 @@ public class ParallaxBackgroundSingleLayer: MonoBehaviour {
     void Start() {
         // validate inputs  -------------------------------------------------------
         if (mainCamera == null || layerSprite == null) {
-            // Hack
             // Debug.LogError("Parallax:\tassign mainCamera and layerSprite");
             enabled = false;  // disable script on bad config
             return;
