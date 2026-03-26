@@ -3,13 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour {
 
-    // TODO scene transition
-
-    // Public Methods  #########################################################
-
     // Event Handler  ##########################################################
 
-    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         EnterNewScene();
     }
 
@@ -36,7 +32,7 @@ public class SceneChanger: MonoBehaviour {
     // private methods  ########################################################
 
     private void EnterNewScene() {
-
+        Debug.LogError("new scene logic");  // HACK
     }
 
 }
