@@ -5,8 +5,8 @@ public class ActionHint: MonoBehaviour {
 
     // Public API  #############################################################
 
-    public void OnHit(Hit hit) {
+    public void Perish(Hit hit) {
         gameObject.SetActive(false);
-        Debug.Log("action hint disabled");  // Hack make prefab disappear
+        Debug.Log("action hint disabled:\t" + hit);  // HACK make prefab disappear
     }
 }

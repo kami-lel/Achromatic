@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Beatmaps {
@@ -9,22 +10,41 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // Public Methods  #####################################################
 
-        public void PerishActionHint(int noteIdx) {
-            void SearchActiveQInPool(PrefabPool<int> prefabPool, out GameObject) {
-
-                // TODO TODO
+        public void PerishActionHint(int noteIdx, Hit hit) {
+            void SearchActiveQInPool(PrefabPool<int> prefabPool, out GameObject go) {
+                var enumerator = prefabPool.activeQ.GetEnumerator();
+                while (enumerator.MoveNext()) {
+                    (int i, GameObject g) = enumerator.Current;
+                    if (i == noteIdx) {
+                        go = g;
+                        return;
+                    }
+                }
+                go = null;
             }
 
-
             // routine  ********************************************************
-
 
             if (noteIdx == -1) {
                 return;
             }
 
-            // TODO
+            GameObject go;
+            SearchActiveQInPool(actionHintJumpPool, out go);
+            SearchActiveQInPool(actionHintAttackPool, out go);
+            SearchActiveQInPool(actionHintSquatPool, out go);
 
+            if (go == null) {
+                Debug.LogWarning("fail to perish Action Hint w/ index of: " + noteIdx);
+                return;
+            }
+
+            ActionHint hint = go.GetComponent<ActionHint>();
+            if (hint == null) {
+                Debug.LogWarning("fail to find ActionHint attach to prefab w/ index of" + noteIdx);
+            }
+
+            hint.Perish(hit);
         }
 
         // Inspector Fields  ###################################################

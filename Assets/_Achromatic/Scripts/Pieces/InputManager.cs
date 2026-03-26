@@ -117,7 +117,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             (Hit hit, int noteIdx) = criteria.Judge(pressed);
             score.Record(hit);
             SFX.I.OnHit(pressed, hit);
-            elementsManager.PerishActionHint(noteIdx);
+            elementsManager.PerishActionHint(noteIdx, hit);
 
             if ((pressed & Actions.JUMP) != 0) {
                 playerManager.Jump();
