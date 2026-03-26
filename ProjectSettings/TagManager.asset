@@ -12,6 +12,7 @@ TagManager:
   - RunningScoreIndicator
   - ScoreAdditionIndicator
   - PlayerSprite
+  - LoadNextSceneTrigger
   layers:
   - Default
   - TransparentFX

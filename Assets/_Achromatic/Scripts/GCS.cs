@@ -34,7 +34,8 @@ public class GCS: MonoBehaviour {
     }
 
     public void LoadNextScene(string sceneName) {
-        // TODO load next scene logic
+        Debug.LogError("GCS load next scene: " + sceneName);
+        // TODO TODO load next scene logic
     }
 
     // MonoBehavior Lifecycle  #################################################
