@@ -35,9 +35,22 @@
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+
+## 1.0.0 Release
+
+## 1.0.0-beta Beta Milestone
+
+## [1.0.0-alpha] Alpha Milestone - 2026-03-26
+
+### Added
 
 - Hit Type Indicator to tell judge result
 - implement Credits Scene with placeholder content
+- piece ending logic
 
 ### Changed
 
@@ -51,7 +64,6 @@
 - re-implement background with static background color & dynamic floating objects
 - create an interesting beatmap for Lv1
 
-### Deprecated
 ### Removed
 
 - un-used Assets
@@ -59,12 +71,6 @@
 ### Fixed
 
 - player sprite transparent issue
-
-## 1.0.0 Release
-
-## 1.0.0-beta Beta Milestone
-
-## 1.0.0-alpha Alpha Milestone
 
 
 
