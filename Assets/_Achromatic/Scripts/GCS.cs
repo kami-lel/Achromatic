@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.Profiling;
 
 // Todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
-// Todo merge game stat
+// Fixme merge game stat
 
 public class GCS: MonoBehaviour {
 
