@@ -33,16 +33,20 @@ public class SFX: MonoBehaviour {
 
         } else if ((hit & Hit.GREAT) != 0) {
             PlaySFX(greatSFX);
+            PlayRumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
-
             PlaySFX(goodSFX);
-        } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
+            PlayRumble("Good");
 
+        } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
             PlaySFX(missSFX1);
+            PlayRumble("Miss");
 
         } else {
             PlaySFX(missSFX2);
+            PlayRumble("Miss");
+
         }
     }
 
@@ -60,6 +64,8 @@ public class SFX: MonoBehaviour {
             PlaySFX(jumpSFX3);
             break;
         }
+
+        PlayRumble("Jump");
     }
 
     public void Land() {
@@ -74,10 +80,14 @@ public class SFX: MonoBehaviour {
             PlaySFX(landSFX3);
             break;
         }
+
+        PlayRumble("Land");
+
     }
 
     public void Squat() {
         PlaySFX(dashSFX1);
+        PlayRumble("Squat");
     }
 
     // Inspector Fields  #######################################################
@@ -129,54 +139,58 @@ public class SFX: MonoBehaviour {
         src.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
     }
 
-
-    public void Attack(Hit hit = Hit.NONE) {
+    private void Attack(Hit hit = Hit.NONE) {
         PlaySFX(attackSFX1);
+        PlayRumble("Attack");
     }
 
     // ramble  =================================================================
 
-    // TODO use ramble
-
-    private void PlayRumble(String action, Hit hit = Hit.NONE) {
+    private void PlayRumble(String rambleType) {
         var pad = Gamepad.current;
         if (pad == null) {
             return;
         }
 
-        // set rumble data  ----------------------------------------------------
         float low, high, duration;
-        if ((hit & Hit.PERFECT) != 0 || hit == Hit.NONE) {
-            switch (action) {
-            case "Jump":
-            default:
-                low = 0.35f;
-                high = 1.00f;
-                duration = 0.14f;
-                break;
-            case "Attack":
-                low = 1.00f;
-                high = 0.80f;
-                duration = 0.16f;
-                break;
-            case "Squat":
-                low = 0.70f;
-                high = 0.30f;
-                duration = 0.15f;
-                break;
-            }
-        } else if ((hit & Hit.GREAT) != 0) {
+
+        switch (rambleType) {
+        case "Jump":
+        default:
+            low = 0.35f;
+            high = 1.00f;
+            duration = 0.14f;
+            break;
+        case "Land":
+            low = 0.50f;
+            high = 0.60f;
+            duration = 0.10f;
+            break;
+        case "Attack":
+            low = 1.00f;
+            high = 0.80f;
+            duration = 0.16f;
+            break;
+        case "Squat":
+            low = 0.70f;
+            high = 0.30f;
+            duration = 0.15f;
+            break;
+        case "Great":
             low = 0.55f;
             high = 0.65f;
             duration = 0.12f;
-        } else if ((hit & Hit.GOOD) != 0) {
+            break;
+        case "Good":
             low = 0.35f;
             high = 0.40f;
             duration = 0.10f;
-        } else {  // miss
+            break;
+        case "Miss":
             low = 0.90f;
             high = 0.20f;
             duration = 0.20f;
+            break;
         }
 
         // perform rumble  -----------------------------------------------------
