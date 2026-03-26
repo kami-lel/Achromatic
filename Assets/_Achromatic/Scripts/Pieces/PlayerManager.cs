@@ -41,24 +41,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Public Methods  #####################################################
-        public void Jump(Hit hit) {
+        public void Jump() {
             anim.Jump();
-            SFX.I.Jump(hit);
             currentAction = Actions.JUMP;
             currentActionStartTime = Time.time;
         }
 
-        public void Squat(Hit hit) {
+        public void Squat() {
             anim.Squat();
-            SFX.I.Squat(hit);
 
             currentAction = Actions.SQUAT;
             currentActionStartTime = Time.time;
         }
 
-        public void Attack(Hit hit) {
+        public void Attack() {
             anim.Attack();
-            SFX.I.Attack(hit);
 
             currentAction = Actions.ATTACK;
             currentActionStartTime = Time.time;

@@ -111,11 +111,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             score.Record(hit);
 
             if ((pressed & Actions.JUMP) != 0) {
-                playerManager.Jump(hit);
+                playerManager.Jump();
             } else if ((pressed & Actions.SQUAT) != 0) {
-                playerManager.Squat(hit);
+                playerManager.Squat();
             } else if ((pressed & Actions.ATTACK) != 0) {
-                playerManager.Attack(hit);
+                playerManager.Attack();
             }
 
             // TODO add audio for feedback, layered

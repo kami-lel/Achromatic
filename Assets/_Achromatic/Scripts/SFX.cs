@@ -5,9 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-// TODO randomize b/t different samples
-// TODO audio cue to reflects both judge result & action type
-
 public class SFX: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -24,30 +21,57 @@ public class SFX: MonoBehaviour {
         // TODO generic method for play
     }
 
-    public void Jump(Hit hit = Hit.NONE) {
-        jumpSFX.Play();
-        jumpSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Jump", hit);
+    // directly play action-audio  =============================================
+
+    // TODO use ramble
+
+    public void Jump() {
+        switch (UnityEngine.Random.Range(0, 3)) {
+        case 0:
+            jumpSFX1.Play();
+            jumpSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        case 1:
+            jumpSFX2.Play();
+            jumpSFX2.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        case 2:
+            jumpSFX3.Play();
+            jumpSFX3.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+            break;
+        }
     }
 
     public void Squat(Hit hit = Hit.NONE) {
-        dashSFX.Play();
-        dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Squat", hit);
+        dashSFX1.Play();
+        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        // PlayRumble("Squat", hit);
     }
 
     public void Attack(Hit hit = Hit.NONE) {
-        dashSFX.Play();
-        dashSFX.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
-        PlayRumble("Attack", hit);
+        dashSFX1.Play();
+        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + 1.0f);
+        // PlayRumble("Attack", hit);
     }
 
-    // Inspector Fields  #######################################################
-    [SerializeField]
-    private AudioSource jumpSFX;
+    public void Land() {
+        // TODO landing
 
-    [SerializeField]
-    private AudioSource dashSFX;
+    }
+
+
+    // Inspector Fields  #######################################################
+    [SerializeField] private AudioSource jumpSFX1;
+    [SerializeField] private AudioSource jumpSFX2;
+    [SerializeField] private AudioSource jumpSFX3;
+
+    [SerializeField] private AudioSource dashSFX1;
+    [SerializeField] private AudioSource dashSFX2;
+    [SerializeField] private AudioSource dashSFX3;
+
+    [SerializeField] private AudioSource landSFX1;
+    [SerializeField] private AudioSource landSFX2;
+    [SerializeField] private AudioSource landSFX3;
 
     // MonoBehavior Lifecycle  #################################################
 
