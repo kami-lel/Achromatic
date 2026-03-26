@@ -10,12 +10,18 @@ using UnityEngine.Profiling;
 // Todo merge game stat
 
 public class GCS: MonoBehaviour {
-    // Public API  #############################################################
+
+    // Public Members  #########################################################
 
     // singleton
     public static GCS I {
         get; private set;
     }
+
+    [NonSerialized]
+    public GameState states = GameState.NONE;
+
+    // Public Methods  #########################################################
 
     public static GameObject FindPlayer() {
         GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
@@ -26,12 +32,6 @@ public class GCS: MonoBehaviour {
 
         return playerObject;
     }
-
-
-    // Public Members  #########################################################
-
-    [NonSerialized]
-    public GameState states = GameState.NONE;
 
     // MonoBehavior Lifecycle  #################################################
 
