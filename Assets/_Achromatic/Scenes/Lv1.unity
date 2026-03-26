@@ -20445,7 +20445,7 @@ PrefabInstance:
       objectReference: {fileID: 1882001273}
     - target: {fileID: 1231703176888338262, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: debugMusicStartingBar
-      value: 75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
