@@ -1,12 +1,49 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
-//  Todo make prefabs disappearing as feed back
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(Beatmap))]
     public class ElementsManager: MonoBehaviour {
+
+        // Public Methods  #####################################################
+
+        public void PerishActionHint(int noteIdx, Hit hit) {
+            GameObject SearchActiveQInPool(PrefabPool<int> prefabPool) {
+                var enumerator = prefabPool.activeQ.GetEnumerator();
+                while (enumerator.MoveNext()) {
+                    (int i, GameObject go) = enumerator.Current;
+                    if (i == noteIdx) {
+                        return go;
+                    }
+                }
+                return null;
+            }
+
+            // routine  ********************************************************
+
+            if (noteIdx == -1) {
+                return;
+            }
+
+            GameObject go = SearchActiveQInPool(actionHintJumpPool) ??
+                    SearchActiveQInPool(actionHintAttackPool) ??
+                    SearchActiveQInPool(actionHintSquatPool);
+
+            if (go == null) {
+                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx);
+                return;
+            }
+
+            if (go.TryGetComponent(out ActionHint hint)) {
+                hint.Perish(hit);
+            } else {
+                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx);
+                return;
+            }
+        }
 
         // Inspector Fields  ###################################################
 
@@ -37,26 +74,27 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
-            renderBeatNotesQ = new Queue<(float, Note)>();
+            renderBeatNotesQ = new Queue<(int, float, Note)>();
             float beatCount;
+            int noteIdx = 0;
             foreach (Note note in beatmap.notesQ) {
                 beatCount = beatmap.CalcNoteBeat(note);
-                renderBeatNotesQ.Enqueue((beatCount, note));
+                renderBeatNotesQ.Enqueue((noteIdx, beatCount, note));
+                noteIdx++;
             }
             if (renderBeatNotesQ.Count() == 0) {
                 Debug.LogError("empty notesQ");
             }
 
-            // create per-type pools  --------------------------------------------
+            // create per-type pools  ------------------------------------------
             // action hints
             actionHintJumpPool = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
             actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
             actionHintSquatPool = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
 
-            beatLinePool = new PrefabPool(16, PREFAB_FOLDER + "BeatLine", prefabs);
-            barlinePool = new PrefabPool(4, PREFAB_FOLDER + "Barline", prefabs);
+            beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
+            barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
         }
-
 
         private void Update() {
             if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
@@ -72,27 +110,27 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
                 if (lastBeatLineOnBeat % beatmap.meta.beatPerBar == 0) {
                     // barline
-                    barlinePool.Spawn(x, barlineBeatlineY);
+                    barlinePool.Spawn(x, barlineBeatlineY, -1);
                 } else {
                     // beat lines
-                    beatLinePool.Spawn(x, barlineBeatlineY);
+                    beatLinePool.Spawn(x, barlineBeatlineY, -1);
                 }
             }
 
-
             // place action hints  ---------------------------------------------
+            int noteIdx;
             float onBeat;
             Note note;
             while (renderBeatNotesQ.Count > 0) {
-                (onBeat, note) = renderBeatNotesQ.Peek();
+                (noteIdx, onBeat, note) = renderBeatNotesQ.Peek();
                 if (onBeat < currentRenderBeat) {
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
-                        actionHintJumpPool.Spawn(x, actionHintY);
+                        actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
                     } else if (note.type == "squat") {
-                        actionHintSquatPool.Spawn(x, actionHintY);
+                        actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
                     } else {
-                        actionHintAttackPool.Spawn(x, actionHintY);
+                        actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -116,17 +154,17 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // private members  ####################################################
         // note beat, note object
-        private Queue<(float, Note)> renderBeatNotesQ;
+        private Queue<(int, float, Note)> renderBeatNotesQ;
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
         private float actionHintY;
 
         // per-element pools
-        private PrefabPool actionHintJumpPool;
-        private PrefabPool actionHintAttackPool;
-        private PrefabPool actionHintSquatPool;
-        private PrefabPool beatLinePool;
-        private PrefabPool barlinePool;
+        private PrefabPool<int> actionHintJumpPool;
+        private PrefabPool<int> actionHintAttackPool;
+        private PrefabPool<int> actionHintSquatPool;
+        private PrefabPool<int> beatLinePool;
+        private PrefabPool<int> barlinePool;
 
         // Cached Reference
         private Beatmap beatmap;

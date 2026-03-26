@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1705551877
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1130164488, guid: ef75f57dccac24241abc51536c549bbe, type: 3}
@@ -104,3 +104,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d826c5d98f11d458f010e6ab2f56e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionHint
+  transformVsTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 5
+      outSlope: 5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.1
+      value: 1.5
+      inSlope: -0.4738628
+      outSlope: -0.4738628
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1389291
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: -3.75
+      outSlope: -3.75
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
