@@ -19,6 +19,10 @@ public class ActionHint: MonoBehaviour {
 
     // MonoBehavior Lifecycle  #################################################
     private void Update() {
+        if (perishTime < 0.0f) {
+            return;
+        }
+
         float size = transformVsTime.Evaluate(Time.time - perishTime);
         transform.localScale = new Vector2(size, size);
 
@@ -26,5 +30,5 @@ public class ActionHint: MonoBehaviour {
     }
 
     // private members  ########################################################
-    private float perishTime;
+    private float perishTime = -1f;
 }
