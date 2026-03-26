@@ -14,6 +14,7 @@ public class SceneChanger: MonoBehaviour {
     private void Start() {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        // special case for 1st ever scene, when game start
         if (isFirstScene) {
             EnterNewScene();
             isFirstScene = false;
@@ -23,7 +24,6 @@ public class SceneChanger: MonoBehaviour {
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
 
     // private members  ########################################################
     private bool isFirstScene = true;
