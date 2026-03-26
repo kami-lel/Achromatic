@@ -11,9 +11,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        private AudioSource preludeAndMain;
-
-        [SerializeField]
         private Transform playerTransform;
 
         [SerializeField]
