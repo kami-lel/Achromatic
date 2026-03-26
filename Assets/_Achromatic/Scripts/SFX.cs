@@ -77,7 +77,6 @@ public class SFX: MonoBehaviour {
     }
 
     public void Squat() {
-        // TODO use squat in player
         PlaySFX(dashSFX1);
     }
 
