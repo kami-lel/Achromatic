@@ -13,17 +13,32 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private AudioSource preludeAndMain;
 
+        [SerializeField]
+        private Transform playerTransform;
+
+        [SerializeField]
+        private float endX;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
             // caching references of player  -----------------------------------
-            player = GCS.FindPlayer().GetComponent<Player>();
+            GameObject playerGO = GCS.FindPlayer();
+
+            player = playerGO.GetComponent<Player>();
+
+            pim = playerGO.GetComponent<Players.InputManager>();
+            if (pim == null) {
+                Debug.LogError("fail to get: Player InputManager");
+            }
         }
 
 
         private void Update() {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) != 0 &&
-                    !preludeAndMain.isPlaying) {
+            if ((GCS.I.states & GameState.MAIN_PIECE) != 0 &&
+                        playerTransform.position.x > endX) {
+                // fixme better logic to trigger ending
+
 
                 GCS.I.states = GameState.PIECE_FINISHED;
                 EndPiece();
@@ -34,11 +49,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // Cached References
         private Player player;
+        private Players.InputManager pim;
 
         // private methods  ####################################################
 
         private void EndPiece() {
-            Debug.Log("abc");  // HACK
+            pim.SetInputForExplorePlay();
+            Debug.Log("AABBCC");  // HACK
         }
     }
 
