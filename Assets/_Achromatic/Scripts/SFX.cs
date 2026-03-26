@@ -5,18 +5,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class SFX: MonoBehaviour {
-    // TODO randomize b/t different samples
-    // TODO audio cue to reflects both judge result & action type
+// TODO randomize b/t different samples
+// TODO audio cue to reflects both judge result & action type
 
-    // public members  =========================================================
+public class SFX: MonoBehaviour {
+
+    // Public Members  #########################################################
 
     // singleton
     public static SFX I {
         get; private set;
     }
 
-    // public methods  =========================================================
+
+    // Public Methods  #########################################################
 
     public void Play(Actions actions, Hit hit = Hit.NONE) {
         // TODO generic method for play
@@ -40,15 +42,15 @@ public class SFX: MonoBehaviour {
         PlayRumble("Attack", hit);
     }
 
-
-    // Inspector Fields  =======================================================
+    // Inspector Fields  #######################################################
     [SerializeField]
     private AudioSource jumpSFX;
 
     [SerializeField]
     private AudioSource dashSFX;
 
-    // MonoBehavior Lifecycle  =================================================
+    // MonoBehavior Lifecycle  #################################################
+
     private void Awake() {
         if (I == null) {  // create Singleton
             I = this;
@@ -61,7 +63,8 @@ public class SFX: MonoBehaviour {
         }
     }
 
-    // controller rumbling  ====================================================
+
+    // private methods  ########################################################
 
     private void PlayRumble(String action, Hit hit = Hit.NONE) {
         var pad = Gamepad.current;
@@ -109,8 +112,7 @@ public class SFX: MonoBehaviour {
         _ = StartCoroutine(StopRumbleAfter(pad, duration));
     }
 
-    private System.Collections.IEnumerator StopRumbleAfter(
-            Gamepad pad, float duration) {
+    private System.Collections.IEnumerator StopRumbleAfter(Gamepad pad, float duration) {
         yield return new WaitForSeconds(duration);
 
         pad?.SetMotorSpeeds(0f, 0f);   // stop motors
