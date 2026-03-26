@@ -341,7 +341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac30f74560b8074caf32d662be57e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Pieces.MusicManager
-  pseudoAudioPlugin: {fileID: 0}
+  bgm: {fileID: 0}
+  vamp: {fileID: 0}
+  preludeAndMain: {fileID: 0}
 --- !u!114 &3919188863656031373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,19 +369,28 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.03607523
     - serializedVersion: 3
-      time: 0.24072592
-      value: 0.27677694
-      inSlope: -3.0143535
-      outSlope: -3.0143535
+      time: 0.085
+      value: 3.5
+      inSlope: 0.30144012
+      outSlope: 0.30144012
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.21778327
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.20597842
+      value: 2.1138954
+      inSlope: -20.753624
+      outSlope: -20.753624
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10531595
       outWeight: 0.21581927
     - serializedVersion: 3
       time: 0.5
       value: 0
-      inSlope: -1.0675073
-      outSlope: -1.0675073
+      inSlope: -7.189593
+      outSlope: -7.189593
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -533,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets._Achromatic.Scripts.Beatmaps.ElementsManager
   prefabs: {fileID: 5487930671339377596}
-  renderDistanceX: 10
+  renderDistanceBeat: 10
 --- !u!1 &6306000680563290550
 GameObject:
   m_ObjectHideFlags: 0

@@ -17365,8 +17365,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1180437015
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6937817954938267909, guid: 32524b8ed78ffab45a90e5efc068c80d, type: 3}
@@ -17815,10 +17815,6 @@ PrefabInstance:
       propertyPath: preludeAndMain
       value: 
       objectReference: {fileID: 669015543}
-    - target: {fileID: 158509688283701863, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: pseudoAudioPlugin
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1095902738690897300, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_Follow
       value: 
@@ -17874,14 +17870,6 @@ PrefabInstance:
     - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.687788
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.49999988
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

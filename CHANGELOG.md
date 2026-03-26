@@ -6,6 +6,7 @@
 
 <!-- Bug floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
+<!-- Bug transparent player model -->
 <!-- Todo final score window -->
 <!-- Todo scene transition -->
 <!-- Todo mpl Lv2 & Lv3 -->

@@ -67,7 +67,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Inspector Fields  ###################################################
 
-        // Fixme animation curve fine tuning
         [SerializeField]
         private AnimationCurve jumpHeightVsTime;
 
