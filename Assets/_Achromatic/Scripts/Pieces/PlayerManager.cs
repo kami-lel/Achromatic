@@ -152,12 +152,21 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
-        private void Update() {
-            // Bug movement jaggy, maybe use fixed update
-            // main piece  -----------------------------------------------------
-            if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+        private void FixedUpdate() {
+            if (GCS.I.states == GameState.PRELUDE) {
+                // prelude  ----------------------------------------------------
+                // fixme using music to control triggering
+                if (music.Time >= beatmap.meta.preludeSeconds) {
+                    StartMainPiece();
+                    GCS.I.states = GameState.MAIN_PIECE;
+                    return;
+                }
 
-                // Todo use Spline path
+                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
+            } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+                // main piece  -------------------------------------------------
+
+                // todo use Spline path
 
                 // move player in world map
                 float x = beatmap.CalcCurrentXFromBeat();
@@ -185,20 +194,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 }
 
                 playerSprite.localPosition = new Vector2(localX, localY);
-            }
-        }
-
-        private void FixedUpdate() {
-            // prelude  --------------------------------------------------------
-            if (GCS.I.states == GameState.PRELUDE) {
-                // fixme using music to control triggering
-                if (music.Time >= beatmap.meta.preludeSeconds) {
-                    StartMainPiece();
-                    GCS.I.states = GameState.MAIN_PIECE;
-                    return;
-                }
-
-                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             }
         }
 
