@@ -166,7 +166,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
                 // main piece  -------------------------------------------------
 
-                // TODO use Spline path
+                // todo use Spline path
 
                 // move player in world map
                 float x = beatmap.CalcCurrentXFromBeat();
