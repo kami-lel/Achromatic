@@ -53,6 +53,7 @@
 - fine tunning player jumping animation curve during music play
 - refactorization of SFX script
 - layered audio sfx: audio cue reflect both action & hit type, and random use one of few samples
+- re-implement background with static background color & dynamic floating objects
 
 ### Deprecated
 ### Removed
