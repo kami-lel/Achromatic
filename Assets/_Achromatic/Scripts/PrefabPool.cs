@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class PrefabPool<TKey>: IDisposable {
 
-    // public API  #############################################################
+    // Public Members  #########################################################
+    public readonly Queue<(TKey, GameObject)> activeQ;
+
+    // Public Methods  #########################################################
 
     public GameObject Spawn(TKey key) {
         if (isDisposed) {
@@ -114,6 +117,5 @@ public class PrefabPool<TKey>: IDisposable {
     private readonly GameObject prefab;
     private readonly int maxCount;
     private readonly Queue<GameObject> availableQ;
-    private readonly Queue<(TKey, GameObject)> activeQ;
     private bool isDisposed = false;
 }
