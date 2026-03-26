@@ -52,6 +52,7 @@
 - reimplement score indicators
 - fine tunning player jumping animation curve during music play
 - refactorization of SFX script
+- layered audio system: audio cue reflect both action & hit type
 
 ### Deprecated
 ### Removed
