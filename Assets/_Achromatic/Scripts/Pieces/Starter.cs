@@ -54,6 +54,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (playerTransform == null) {
                 Debug.LogError("fail to get: playerTransform");
             }
+
+
+            if (debugMusicStartingBar != 0) {
+                Debug.LogWarning("Debug Music Starting Bar is non-zero");
+            }
         }
 
         private void Start() {

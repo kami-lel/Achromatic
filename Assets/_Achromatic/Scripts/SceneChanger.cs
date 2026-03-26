@@ -30,11 +30,12 @@ public class SceneChanger: MonoBehaviour {
     // private methods  ########################################################
 
     private void EnterNewScene() {
-        return;  // hack
+        /* todo scene changer enter new scene
+        return;
         GCS.I.states = GameState.SCENE_TRANSITION;
 
-        // todo scene changer enter new scene
         Debug.LogError("new scene logic");
+        */
     }
 
 }
