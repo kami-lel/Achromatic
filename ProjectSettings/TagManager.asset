@@ -55,6 +55,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: actionHints
+    uniqueID: 2589415419
+    locked: 0
   - name: ScoreIndicators
     uniqueID: 3339278749
     locked: 0

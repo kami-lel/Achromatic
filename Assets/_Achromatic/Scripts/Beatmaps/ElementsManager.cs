@@ -19,6 +19,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [SerializeField]
         private float barlineBeatlineOffsetY = 2.0f;
 
+        [SerializeField]
+        private float actionHintOffsetY = 5.0f;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
@@ -37,6 +40,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             // calc vars  ------------------------------------------------------
             lastBeatLineOnBeat = 0;
             barlineBeatlineY = beatmap.origin.y + barlineBeatlineOffsetY;
+            actionHintY = beatmap.origin.y + actionHintOffsetY;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(float, Note)>();
@@ -88,7 +92,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             while (renderBeatNotesQ.Count > 0) {
                 (onBeat, note) = renderBeatNotesQ.Peek();
                 if (onBeat < currentRenderBeat) {
-                    // TODO render
+                    float x = beatmap.CalcXFromBeat(onBeat);
+                    if (note.type == "jump") {
+                        actionHintJumpPool.Spawn(x, actionHintY);
+                    } else if (note.type == "squat") {
+                        actionHintSquatPool.Spawn(x, actionHintY);
+                    } else {
+                        actionHintAttackPool.Spawn(x, actionHintY);
+                    }
 
                     renderBeatNotesQ.Dequeue();
 
@@ -112,6 +123,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private Queue<(float, Note)> renderBeatNotesQ;
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
+        private float actionHintY;
 
         // per-element pools
         private PrefabPool actionHintJumpPool;
