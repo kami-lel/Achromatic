@@ -5,7 +5,6 @@
 [^format]
 
 <!-- Todo final score window -->
-<!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
 <!-- todo new tilemap -->
