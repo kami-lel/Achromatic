@@ -6,6 +6,7 @@ public class SceneChanger: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void LoadNextScene(string sceneName) {
+        // TODO load next scene
         Debug.LogError("scene changer load next scene: " + sceneName);
     }
 
@@ -19,26 +20,18 @@ public class SceneChanger: MonoBehaviour {
 
     private void Awake() {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // special case for 1st ever scene, when game start
-        if (isFirstScene) {
-            EnterNewScene();
-            isFirstScene = false;
-        }
     }
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // private members  ########################################################
-    private bool isFirstScene = true;
-
 
     // private methods  ########################################################
 
     private void EnterNewScene() {
-        Debug.LogError("new scene logic");  // HACK
+        // TODO enter new scene
+        Debug.LogError("new scene logic");
     }
 
 }
