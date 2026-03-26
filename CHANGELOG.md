@@ -242,7 +242,8 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...dev
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...dev
+[0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
 [0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
 [0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
