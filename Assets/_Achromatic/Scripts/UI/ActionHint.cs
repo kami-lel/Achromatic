@@ -25,8 +25,6 @@ public class ActionHint: MonoBehaviour {
 
         float size = transformVsTime.Evaluate(Time.time - perishTime);
         transform.localScale = new Vector2(size, size);
-
-        // TODO set active false
     }
 
     // private members  ########################################################
