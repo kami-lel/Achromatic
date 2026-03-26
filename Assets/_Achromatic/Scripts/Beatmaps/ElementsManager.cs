@@ -30,8 +30,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 Debug.LogError("fail to get: Beatmap");
             }
 
-            lastBarlineOnBeat = 0.0f;
-            lastBeatLineOnBeat = 0.0f;
+            // calc vars  ------------------------------------------------------
+            lastBeatLineOnBeat = 0;
+            barlineBeatlineY = beatmap.origin.y +
+                    BARLINE_BEATLINE_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(float, Note)>();
@@ -64,11 +66,18 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // place beat line & barline  --------------------------------------
             while (lastBeatLineOnBeat < currentRenderBeat) {
+                lastBeatLineOnBeat += 1;
+                float x = beatmap.CalcXFromBeat(lastBeatLineOnBeat);
+
+                if (lastBeatLineOnBeat % beatmap.meta.beatPerBar == 0) {
+                    // barline
+                    barlinePool.Spawn(x, barlineBeatlineY);
+                } else {
+                    // beat lines
+                    beatLinePool.Spawn(x, barlineBeatlineY);
+                }
             }
 
-            // TODO TODO
-
-            // TODO barlines
 
             // place action hints  ---------------------------------------------
             float onBeat;
@@ -84,42 +93,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     break;
                 }
             }
-
-
-
-            /* FIXME
-
-                // place beatLine  -----------------------------------------------
-                float renderBoundaryOnBeat = p.beatmap.currentBeatCount
-                        + p.beatmap.meta.barlineRenderDistance
-                        * p.beatmap.meta.beatPerBar;
-
-                while (renderBoundaryOnBeat - lastBeatLineOnBeat > 1.0f) {
-                    float placeOnBeat = lastBeatLineOnBeat + 1.0f;
-
-                    beatLinePool?.Spawn(p.beatmap.CalcXFromBeat(placeOnBeat),
-                                        0.0f);
-
-                    lastBeatLineOnBeat = placeOnBeat;
-                }
-
-                // place barline  -----------------------------------------------
-                renderBoundaryOnBeat = p.beatmap.currentBeatCount
-                        + p.beatmap.meta.barlineRenderDistance;
-
-                while (renderBoundaryOnBeat - lastBarlineOnBeat
-                        > p.beatmap.meta.beatPerBar) {
-                    float placeOnBeat = lastBarlineOnBeat
-                            + p.beatmap.meta.beatPerBar;
-
-                    barlinePool?.Spawn(p.beatmap.CalcXFromBeat(placeOnBeat),
-                                       0.0f);
-
-                    lastBarlineOnBeat = placeOnBeat;
-                }
-
-                */
-
         }
 
         private void OnDestroy() {
@@ -130,11 +103,13 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // constants  ##########################################################
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
+        private const float BARLINE_BEATLINE_OFFSET_Y = 5.0f;  // TODO TODO make editable
 
         // private members  ####################################################
         // note beat, note object
         private Queue<(float, Note)> renderBeatNotesQ;
-        private float lastBeatLineOnBeat;
+        private int lastBeatLineOnBeat;
+        private float barlineBeatlineY;
 
         // per-element pools
         private PrefabPool actionHintJumpPool;
