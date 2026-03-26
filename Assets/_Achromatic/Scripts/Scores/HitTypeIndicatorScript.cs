@@ -4,7 +4,7 @@ namespace Assets._Achromatic.Scripts.Scores {
     public class HitTypeIndicatorScript: MonoBehaviour {
         // TODO animation for hit type indicator
 
-        // public methods  =====================================================
+        // Public Methods  #####################################################
 
         public void Show(Hit hit) {
             // set which symbol is active
@@ -16,7 +16,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             perfect.SetActive((hit & Hit.PERFECT) != 0);
         }
 
-        // Inspector Fields  ===================================================
+        // Inspector Fields  ###################################################
 
         [SerializeField]
         private GameObject miss;
@@ -36,9 +36,8 @@ namespace Assets._Achromatic.Scripts.Scores {
         [SerializeField]
         private GameObject perfect;
 
-        // Inspector Fields  ===================================================
-
-        void Start() {
+        // MonoBehavior Lifecycle  #############################################
+        private void Start() {
             Show(Hit.NONE);
         }
     }
