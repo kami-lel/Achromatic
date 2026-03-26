@@ -32,7 +32,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             }
 
             // calc vars  ------------------------------------------------------
-            lastBeatLineOnBeat = 0;
+            lastBeatLineOnBeat = -1;
             barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
             actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
 
@@ -65,7 +65,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             float currentRenderBeat = beatmap.currentBeat + renderDistanceBeat;
 
-            // Bug missing 1st barline
             // place beat line & barline  --------------------------------------
             while (lastBeatLineOnBeat < currentRenderBeat) {
                 lastBeatLineOnBeat += 1;
