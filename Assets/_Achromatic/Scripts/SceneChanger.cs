@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour {
 
+    // Public Methods  #########################################################
+
+    public void LoadNextScene(string sceneName) {
+        Debug.LogError("scene changer load next scene: " + sceneName);
+    }
+
     // Event Handler  ##########################################################
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

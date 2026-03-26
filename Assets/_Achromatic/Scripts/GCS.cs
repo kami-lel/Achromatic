@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 using UnityEngine.Profiling;
+using Unity.VectorGraphics;
+
+[RequireComponent(typeof(SceneChanger))]
 
 // Todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
 // Fixme merge game stat
@@ -34,8 +37,7 @@ public class GCS: MonoBehaviour {
     }
 
     public void LoadNextScene(string sceneName) {
-        Debug.LogError("GCS load next scene: " + sceneName);
-        // TODO TODO load next scene logic
+        sceneChanger.LoadNextScene(sceneName);
     }
 
     // MonoBehavior Lifecycle  #################################################
@@ -49,6 +51,12 @@ public class GCS: MonoBehaviour {
             Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
             Destroy(gameObject);
             return;
+        }
+
+        // caching references to piece  ----------------------------------------
+        sceneChanger = GetComponent<SceneChanger>();
+        if (sceneChanger == null) {
+            Debug.LogError("fail to get: SceneChanger");
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -77,6 +85,9 @@ public class GCS: MonoBehaviour {
     private const string PLAYER_TAG = "Player";
 
     // private members  ########################################################
+    // cached references
+    private SceneChanger sceneChanger;
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private TextMeshProUGUI fpsCounter;
     private int fpsFrameCounter = 0;
