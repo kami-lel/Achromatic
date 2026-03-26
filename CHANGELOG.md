@@ -4,9 +4,9 @@
 
 [^format]
 
-<!-- Bug floating rocks are distracting -->
+<!-- BUG floating rocks are distracting -->
 <!-- Bug must properly merge assets -->
-<!-- Fixme background floats -->
+<!-- FIXME background floats -->
 <!-- Todo new tilemap -->
 <!-- Todo air wall for go back -->
 <!-- Todo final score window -->
