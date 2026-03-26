@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class LoopingFloatingObject : MonoBehaviour
-{
+// HACK rm
+public class LoopingFloatingObject: MonoBehaviour {
     [Header("浮动设置")]
     public float floatSpeed = 2f;
     public float floatStrength = 0.5f;
@@ -17,8 +17,7 @@ public class LoopingFloatingObject : MonoBehaviour
     private float randomOffset;
     private Transform camTransform;
 
-    void Start()
-    {
+    void Start() {
         // 自动获取场景中的主摄像机
         camTransform = Camera.main.transform;
 
@@ -27,8 +26,7 @@ public class LoopingFloatingObject : MonoBehaviour
         randomOffset = Random.Range(0f, 2f * Mathf.PI);
     }
 
-    void Update()
-    {
+    void Update() {
         // 1. 计算上下浮动的 Y 轴位置
         float newY = startY + Mathf.Sin(Time.time * floatSpeed + randomOffset) * floatStrength;
 
@@ -37,21 +35,21 @@ public class LoopingFloatingObject : MonoBehaviour
         float camX = camTransform.position.x;
 
         // 如果摄像机往右走，漂浮物落在了左边很远的地方
-        if (currentX < camX - wrapDistanceX)
-        {
+        if (currentX < camX - wrapDistanceX) {
             // 把漂浮物搬运到右边去（原距离的基础上加上两倍的跨度）
             currentX += wrapDistanceX * 2f;
 
             // 每次重新出现时，稍微上下偏移一下基础高度，打破规律感
-            if (randomizeHeightOnLoop) startY += Random.Range(-1.5f, 1.5f);
+            if (randomizeHeightOnLoop)
+                startY += Random.Range(-1.5f, 1.5f);
         }
         // 如果摄像机往左走，漂浮物落在了右边很远的地方
-        else if (currentX > camX + wrapDistanceX)
-        {
+        else if (currentX > camX + wrapDistanceX) {
             // 把漂浮物搬运到左边去
             currentX -= wrapDistanceX * 2f;
 
-            if (randomizeHeightOnLoop) startY += Random.Range(-1.5f, 1.5f);
+            if (randomizeHeightOnLoop)
+                startY += Random.Range(-1.5f, 1.5f);
         }
 
         // 3. 更新物体的最终位置
