@@ -4,11 +4,11 @@
 
 [^format]
 
-<!-- Todo new tilemap -->
-<!-- Todo air wall for go back -->
+<!-- TODO new tilemap -->
+<!-- TODO air wall for go back -->
 <!-- Todo final score window -->
-<!-- Todo scene transition -->
-<!-- Todo mpl Lv2 & Lv3 -->
+<!-- TODO scene transition -->
+<!-- TODO mpl Lv2 & Lv3 -->
 <!-- Todo credits scene as ending -->
 <!-- Todo metrics save to file -->
 <!-- fixme perfect+action sfx must be satisfying -->
