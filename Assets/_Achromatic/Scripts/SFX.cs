@@ -17,8 +17,9 @@ public class SFX: MonoBehaviour {
 
     // Public Methods  #########################################################
 
-    public void Play(Actions actions, Hit hit = Hit.NONE) {
-        // TODO generic method for play
+    public void OnHit(Actions action, Hit hit) {
+        Debug.LogWarning(action + "\t" + hit);
+        // TODO  on hit
     }
 
     // directly play action-audio  =============================================

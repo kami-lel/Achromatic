@@ -109,6 +109,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Trigger() {
             Hit hit = criteria.Judge(pressed);
             score.Record(hit);
+            SFX.I.OnHit(pressed, hit);
 
             if ((pressed & Actions.JUMP) != 0) {
                 playerManager.Jump();
