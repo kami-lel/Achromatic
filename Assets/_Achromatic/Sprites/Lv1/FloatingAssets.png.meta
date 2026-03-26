@@ -494,7 +494,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rock54
+      name: rock30
       rect:
         serializedVersion: 2
         x: 342
@@ -1706,6 +1706,7 @@ TextureImporter:
       rock28: 5403552729450484059
       rock29: -1815203376462628561
       rock3: -6714004320890128516
+      rock30: -7026056245487088806
       rock31: -5251838299248800473
       rock32: 1984484211375910829
       rock33: 273235999105201097
@@ -1731,7 +1732,6 @@ TextureImporter:
       rock51: 8982502512463027463
       rock52: 1726477730283827502
       rock53: 2008814917911045511
-      rock54: -7026056245487088806
       rock6: -6204089146867723501
       rock7: 3724850321589492792
       rock8: 4201330504647642653
