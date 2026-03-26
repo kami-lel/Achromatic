@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
+// todo customize sfx for squat & attack
+
 public class SFX: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -26,16 +28,13 @@ public class SFX: MonoBehaviour {
     public void Jump() {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
-            jumpSFX1.Play();
-            jumpSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(jumpSFX1);
             break;
         case 1:
-            jumpSFX2.Play();
-            jumpSFX2.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(jumpSFX2);
             break;
         case 2:
-            jumpSFX3.Play();
-            jumpSFX3.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(jumpSFX3);
             break;
         }
     }
@@ -43,34 +42,25 @@ public class SFX: MonoBehaviour {
     public void Land() {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
-            landSFX1.Play();
-            landSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(landSFX1);
             break;
         case 1:
-            landSFX2.Play();
-            landSFX2.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(landSFX2);
             break;
         case 2:
-            landSFX3.Play();
-            landSFX3.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+            PlaySFX(landSFX3);
             break;
         }
     }
 
-    // todo customize sfx for squat & attack
-
     public void Squat(Hit hit = Hit.NONE) {
-        dashSFX1.Play();
-        dashSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+        PlaySFX(dashSFX1);
     }
-
-    public void Attack(Hit hit = Hit.NONE) {
-        attackSFX1.Play();
-        attackSFX1.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
-    }
-
 
     // Inspector Fields  #######################################################
+
+    [Header("Action SFX")]
+
     [SerializeField] private AudioSource jumpSFX1;
     [SerializeField] private AudioSource jumpSFX2;
     [SerializeField] private AudioSource jumpSFX3;
@@ -84,6 +74,12 @@ public class SFX: MonoBehaviour {
     [SerializeField] private AudioSource landSFX3;
 
     [SerializeField] private AudioSource attackSFX1;
+
+    [Header("Hit SFX")]
+    [SerializeField] private AudioSource perfectSFX;
+    [SerializeField] private AudioSource greatSFX;
+    [SerializeField] private AudioSource goodSFX;
+    [SerializeField] private AudioSource missSFX;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -104,6 +100,16 @@ public class SFX: MonoBehaviour {
     private const float SFX_LASTING_TIME = 1.0f;
 
     // private methods  ########################################################
+
+    private void PlaySFX(AudioSource src) {
+        src.Play();
+        src.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
+    }
+
+
+    public void Attack(Hit hit = Hit.NONE) {
+        PlaySFX(attackSFX1);
+    }
 
     // ramble  =================================================================
 
