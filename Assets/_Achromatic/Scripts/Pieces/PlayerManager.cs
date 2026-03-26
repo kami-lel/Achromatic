@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Beatmaps;
+using UnityEngine.Analytics;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
