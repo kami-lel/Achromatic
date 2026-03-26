@@ -6,10 +6,8 @@ using UnityEngine.InputSystem;
 
 
 public class SFX: MonoBehaviour {
-    // Fixme implement the new audios
-
-    // todo randomize b/t different samples
-    // todo audio cue to reflects both judge result & action type
+    // Todo randomize b/t different samples
+    // Todo audio cue to reflects both judge result & action type
 
     // public members  =========================================================
 

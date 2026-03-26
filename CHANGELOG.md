@@ -8,19 +8,20 @@
 <!-- Bug must properly merge assets -->
 <!-- Todo camera fine tunning: smooth follow during main piece -->
 <!-- Todo final score window -->
-<!-- Todo particles efx -->
-<!-- Todo full UX: start, reset, etc. -->
 <!-- Todo scene transition -->
-<!-- Todo Wwise Unity Integration -->
-<!-- fixme better looking notes elements -->
+<!-- Todo mpl Lv2 & Lv3 -->
+<!-- Todo credits scene as ending -->
+<!-- Todo metrics save to file -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
-<!-- todo need dramatic shift visually to indicate music has started -->
 <!-- todo add obstacles & enemy to kills -->
 <!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
 <!-- todo allows & give feedback for smashing input during: empty or climax -->
+<!-- todo particles efx -->
+<!-- todo full UX: start, reset, etc. -->
+<!-- todo Wwise Unity Integration -->
 
 
 
