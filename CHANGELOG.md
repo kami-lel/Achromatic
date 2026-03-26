@@ -4,8 +4,7 @@
 
 [^format]
 
-<!-- Todo metrics save to file -->
-<!-- fixme perfect+action sfx must be satisfying -->
+<!-- todo metrics save to file -->
 <!-- todo new tilemap -->
 <!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
@@ -18,6 +17,7 @@
 <!-- todo particles efx -->
 <!-- todo full UX: start, reset, etc. -->
 <!-- todo Wwise Unity Integration -->
+<!-- fixme perfect+action sfx must be satisfying -->
 
 
 
