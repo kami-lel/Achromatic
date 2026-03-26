@@ -17782,7 +17782,7 @@ GameObject:
   - component: {fileID: 1822651825}
   - component: {fileID: 1822651826}
   m_Layer: 0
-  m_Name: pseudoAudioPlugin
+  m_Name: audios
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

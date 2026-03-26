@@ -5,40 +5,39 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(Beatmap))]
     public class MusicManager: MonoBehaviour {
-        // Bug audio start is jarring, lose framerate
 
         // Public API  #########################################################
 
         public float Time {
             get {
-                return pseudoAudioPlugin.preludeAndMain.time;
+                return preludeAndMain.time;
             }
         }
 
         public void Start() {
-            pseudoAudioPlugin.bgm.loop = true;
-            pseudoAudioPlugin.bgm.Play();
+            bgm.loop = true;
+            bgm.Play();
         }
 
         public void StartVamp() {
-            pseudoAudioPlugin.bgm.Stop();
-            pseudoAudioPlugin.vamp.loop = true;
-            pseudoAudioPlugin.vamp.Play();
+            bgm.Stop();
+            vamp.loop = true;
+            vamp.Play();
         }
 
         public void StopVamp() {
-            pseudoAudioPlugin.vamp.Stop();
-            pseudoAudioPlugin.bgm.Play();
+            vamp.Stop();
+            bgm.Play();
         }
 
         public void UpdateVampVolume(float vol) {
-            pseudoAudioPlugin.vamp.volume = vol;
+            vamp.volume = vol;
         }
 
         public void StartPreludeThenMainPiece() {
-            pseudoAudioPlugin.bgm.Stop();
-            pseudoAudioPlugin.vamp.Stop();
-            pseudoAudioPlugin.preludeAndMain.Play();
+            bgm.Stop();
+            vamp.Stop();
+            preludeAndMain.Play();
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
@@ -47,19 +46,39 @@ namespace Assets._Achromatic.Scripts.Pieces {
                     (60.0f / beatmap.meta.tempo) +
                     beatmap.meta.preludeSeconds;
 
-            pseudoAudioPlugin.preludeAndMain.time = startTime;
+            preludeAndMain.time = startTime;
 
             // start the music
-            pseudoAudioPlugin.preludeAndMain.Play();
+            preludeAndMain.Play();
         }
 
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        private PseudoAudioPlugin pseudoAudioPlugin;
+        public AudioSource bgm;
+
+        [SerializeField]
+        public AudioSource vamp;
+
+        [SerializeField]
+        public AudioSource preludeAndMain;
 
         // Monobehavior Lifecycle  #############################################
         private void Awake() {
+            // test inspector fields  ------------------------------------------
+            if (bgm == null) {
+                Debug.LogError("must assign: BGM");
+                return;
+            }
+            if (vamp == null) {
+                Debug.LogError("must assign: Vamp");
+                return;
+            }
+            if (preludeAndMain == null) {
+                Debug.LogError("must assign: Prelude And Main");
+                return;
+            }
+
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
