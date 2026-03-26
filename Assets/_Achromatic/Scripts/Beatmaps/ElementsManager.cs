@@ -130,7 +130,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
                         actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
-                        blockadePool.Spawn(x, blockadeY, -1);
+                        blockadePool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
                     } else if (note.type == "squat") {
                         actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
                     } else {
@@ -156,6 +156,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const float BARLINE_BEATLINE_OFFSET_Y = 3.0f;
         private const float ACTION_HINT_OFFSET_Y = 6.0f;
         private const float BLOCKADE_OFFSET_Y = 1.0f;
+        private const float BLOCKADE_OFFSET_X = 1.0f;
 
         // private members  ####################################################
         // note beat, note object
