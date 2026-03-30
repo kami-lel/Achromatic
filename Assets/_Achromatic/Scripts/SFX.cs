@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-// todo customize sfx for squat & attack
+// Todo customize sfx for squat & attack
 
 public class SFX: MonoBehaviour {
 

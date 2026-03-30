@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Lv1Map {
     public class FloatsManager: MonoBehaviour {
 
-        // bug float manager is not functional
+        // Bug float manager is not functional
 
         // Inspector Fields  ###################################################
         [SerializeField] private float renderDistanceX = 20f;

@@ -151,7 +151,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void FixedUpdate() {
             if (GCS.I.states == GameState.PRELUDE) {
                 // prelude  ----------------------------------------------------
-                // fixme using music to control triggering
+                // Fixme using music to control triggering
                 if (music.Time >= beatmap.meta.preludeSeconds) {
                     StartMainPiece();
                     GCS.I.states = GameState.MAIN_PIECE;

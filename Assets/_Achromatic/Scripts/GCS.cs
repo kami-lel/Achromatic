@@ -9,8 +9,8 @@ using Unity.VectorGraphics;
 
 [RequireComponent(typeof(SceneChanger))]
 
-// todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
-// fixme merge game stat
+// Todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
+// Fixme merge game stat
 
 public class GCS: MonoBehaviour {
 
