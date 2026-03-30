@@ -4,47 +4,26 @@
 
 [^format]
 
+
+<!-- Bug jarring visual during fast exploration / movement -->
+<!-- Fixme camera fine tunning: smooth follow during main piece -->
+<!-- Fixme barline / internals too confusing issue -->
+<!-- Fixme visual feedback for holding left stick -->
+<!-- Todo longer tutorial -->
+<!-- Todo graphical instruction on control schemes, based on input types,
+especially consider holding and trigger is hard  -->
+<!-- Todo new tilemap -->
+<!-- Todo add obstacles & enemy to kills -->
+<!-- Todo local leaderboard -->
+<!-- Todo smashing inputs type -->
+<!-- Todo particles efx -->
+
 <!-- todo metrics save to file -->
-<!-- todo new tilemap -->
-<!-- todo camera fine tunning: smooth follow during main piece -->
 <!-- todo pause screen, allow restart/resume -->
-<!-- todo barline & beat line as environmental element -->
 <!-- todo show player character origin in world -->
-<!-- todo add obstacles & enemy to kills -->
-<!-- todo local leaderboard -->
 <!-- todo set up hooks utility -->
-<!-- todo allows & give feedback for smashing input during: empty or climax -->
-<!-- todo particles efx -->
-<!-- todo full UX: start, reset, etc. -->
 <!-- todo Wwise Unity Integration -->
-<!-- fixme perfect+action sfx must be satisfying -->
-<!-- bug jump input not intuitive / players try trigger or space instead of intended control
-<!-- bug attack input not obvious without explanation
-<!-- bug combined input (pressing two buttons together) hard to discover -->
-<!-- bug visual feedback missing when pressing down -->
-<!-- bug jarring visual during fast exploration / movement -->
-<!-- bug barline confusing or distracting -->
-<!-- bug empty lines / intervals confusing to players -->
-<!-- fixme improve onboarding for first interactive section -->
-<!-- fixme add clearer tutorial for forward attack and directional actions -->
-<!-- fixme make jump control scheme more obvious -->
-<!-- fixme improve visual distinction between barline and notes -->
-<!-- fixme strengthen feedback when input is correct vs incorrect -->
-<!-- fixme improve consistency of environmental prefabs -->
-<!-- fixme make difficulty ramp more consistent -->
-<!-- fixme make attack symbol more obvious -->
-<!-- fixme clarify when to press during intervals -->
-<!-- todo add tutorial level for first interactive sequence -->
-<!-- todo create smoother onboarding flow for rhythm and platforming controls -->
-<!-- todo add stronger visual feedback for directional inputs -->
-<!-- todo add environmental reaction to correct input -->
-<!-- todo add enemy / environmental interactions that reinforce music gameplay -->
-<!-- todo add dynamic music response to player performance -->
-<!-- todo add more gradual difficulty ramping -->
-<!-- todo add more varied environment changes during gameplay -->
-<!-- todo add clearer hit / miss response in audio mix -->
-<!-- todo add stronger feedback for idle / empty / interval states -->
-<!-- todo explore separate guidance for controller vs keyboard --> --> -->
+<!-- todo add map dynamic response to player performance -->
 
 
 
