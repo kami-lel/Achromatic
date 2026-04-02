@@ -6,9 +6,13 @@
 
 
 <!-- Bug jarring visual during fast exploration / movement -->
+<!-- Bug fix sprite -->
+<!-- Bug player movement is jarring, add smooth -->
 <!-- Fixme camera fine tunning: smooth follow during main piece -->
 <!-- Fixme barline / internals too confusing issue -->
 <!-- Fixme visual feedback for holding left stick -->
+<!-- Fixme barline, prefabs confusing, new placement -->
+<!-- Fixme better total score windows -->
 <!-- Todo longer tutorial -->
 <!-- Todo graphical instruction on control schemes, based on input types,
 especially consider holding and trigger is hard  -->
