@@ -5,7 +5,7 @@ public class ParallaxBackground: MonoBehaviour {
 
     // Inspector Fields  #######################################################
     [SerializeField]
-    private float depth = 1.0f;
+    private float depth = 0.5f;
     [SerializeField]
     private GameObject left;
     [SerializeField]
