@@ -29,10 +29,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (virtualCamera == null) {
-                Debug.LogError("must assign: Virtual Camera");
+                Debug.LogError("must assign: Virtual Camera", this);
             }
             if (finalPointWindow == null) {
-                Debug.LogError("must assign: Final Point Window");
+                Debug.LogError("must assign: Final Point Window", this);
             }
 
             // caching references of player  -----------------------------------
@@ -42,12 +42,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             pim = playerGO.GetComponent<Players.InputManager>();
             if (pim == null) {
-                Debug.LogError("fail to get: Player InputManager");
+                Debug.LogError("fail to get: Player InputManager", this);
             }
 
             rb = playerGO.GetComponent<Rigidbody2D>();
             if (rb == null) {
-                Debug.LogError("fail to find: Rigidbody2D");
+                Debug.LogError("fail to find: Rigidbody2D", this);
             }
 
         }

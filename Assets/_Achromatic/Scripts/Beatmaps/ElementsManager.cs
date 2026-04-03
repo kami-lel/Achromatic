@@ -33,14 +33,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     SearchActiveQInPool(actionHintSquatPool);
 
             if (go == null) {
-                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx);
+                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx, this);
                 return;
             }
 
             if (go.TryGetComponent(out ActionHint hint)) {
                 hint.Perish(hit);
             } else {
-                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx);
+                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx, this);
                 return;
             }
         }
@@ -58,14 +58,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private void Awake() {
             // check inspect fields  -------------------------------------------
             if (prefabs == null) {
-                Debug.LogError("must assign: Prefabs");
+                Debug.LogError("must assign: Prefabs", this);
                 return;
             }
 
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
 
             // calc vars  ------------------------------------------------------
@@ -84,7 +84,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 noteIdx++;
             }
             if (renderBeatNotesQ.Count() == 0) {
-                Debug.LogError("empty notesQ");
+                Debug.LogError("empty notesQ", this);
             }
 
             // create per-type pools  ------------------------------------------

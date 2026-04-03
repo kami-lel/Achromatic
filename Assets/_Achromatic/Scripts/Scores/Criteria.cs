@@ -39,15 +39,15 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             music = GetComponent<MusicManager>();
             if (music == null) {
-                Debug.LogError("fail to get: MusicManager");
+                Debug.LogError("fail to get: MusicManager", this);
             }
             score = GetComponent<Score>();
             if (score == null) {
-                Debug.LogError("fail to get: Score");
+                Debug.LogError("fail to get: Score", this);
             }
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
 
             // init timings  ---------------------------------------------------
