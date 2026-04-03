@@ -5,10 +5,7 @@
 [^format]
 
 
-<!-- Bug jarring visual during fast exploration / movement -->
 <!-- Bug fix sprite -->
-<!-- Bug player movement is jarring, add smooth -->
-<!-- Fixme camera fine tunning: smooth follow during main piece -->
 <!-- Fixme barline / internals too confusing issue -->
 <!-- Fixme visual feedback for holding left stick -->
 <!-- Fixme barline, prefabs confusing, new placement -->

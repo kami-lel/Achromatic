@@ -1,9 +1,10 @@
 using UnityEngine;
 
-namespace Assets._Achromatic.Scripts.Lv1Map {
-    public class FloatsManager: MonoBehaviour {
+// Hack rm using particle
 
-        // Bug float manager is not functional
+namespace Assets._Achromatic.Scripts.Lv1Map {
+
+    public class FloatsManager: MonoBehaviour {
 
         // Inspector Fields  ###################################################
         [SerializeField] private float renderDistanceX = 20f;
@@ -17,64 +18,65 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
         // MonoBehaviour Lifecycle  ############################################
         private void Awake() {
             camTransform = Camera.main.transform;
-            if (camTransform == null)
+            if (camTransform == null) {
                 Debug.LogError("FloatsManager: failed to find Main Camera Transform");
+                return;
+            }
 
-            rockPool = new(16, PREFAB_FOLDER + "FloatingRock", transform);
-            notePool = new(8, PREFAB_FOLDER + "FloatingNote", transform);
+            rockPool = new PrefabPool<int>(16, PREFAB_FOLDER + "FloatingRock", transform);
+            notePool = new PrefabPool<int>(8, PREFAB_FOLDER + "FloatingNote", transform);
 
-            // Pre-warm: fill the entire visible window on startup
+            // Pre-warm: seed the entire visible window on startup
             float leftEdge = camTransform.position.x - renderDistanceX;
             float rightEdge = camTransform.position.x + renderDistanceX;
 
             nextRockSpawnX = leftEdge;
             nextNoteSpawnX = leftEdge;
 
-            SpawnRocksAhead(rightEdge);
-            SpawnNotesAhead(rightEdge);
+            SpawnRocksUpTo(rightEdge);
+            SpawnNotesUpTo(rightEdge);
+        }
+
+        private void OnDestroy() {
+            rockPool?.Dispose();
+            notePool?.Dispose();
         }
 
         private void Update() {
             float rightEdge = camTransform.position.x + renderDistanceX;
 
-            // If camera teleported far ahead, skip spawn cursor forward
+            // If camera teleported far ahead, skip spawn cursors forward
             // to avoid a massive catch-up loop in one frame
-            ClampSpawnCursorToWindow(rightEdge);
+            ClampSpawnCursors(rightEdge);
 
-            SpawnRocksAhead(rightEdge);
-            SpawnNotesAhead(rightEdge);
-
+            SpawnRocksUpTo(rightEdge);
+            SpawnNotesUpTo(rightEdge);
         }
 
         // Private Methods  ####################################################
 
         /// <summary>
-        /// If the camera has jumped so far right that the spawn cursors are
-        /// more than one full window behind, snap them forward.
-        /// This prevents a multi-thousand iteration catch-up loop.
+        /// Snap cursors forward if the camera jumped more than one full window
+        /// ahead, preventing a multi-thousand-iteration catch-up loop.
         /// </summary>
-        private void ClampSpawnCursorToWindow(float rightEdge) {
-            float maxLag = renderDistanceX * 2f;    // one full window width
-
+        private void ClampSpawnCursors(float rightEdge) {
+            float maxLag = renderDistanceX * 2f;
             if (rightEdge - nextRockSpawnX > maxLag)
                 nextRockSpawnX = rightEdge - maxLag;
-
             if (rightEdge - nextNoteSpawnX > maxLag)
                 nextNoteSpawnX = rightEdge - maxLag;
         }
 
-        private void SpawnRocksAhead(float rightEdge) {
+        private void SpawnRocksUpTo(float rightEdge) {
             while (nextRockSpawnX <= rightEdge) {
-                float y = Random.Range(spawnMinY, spawnMaxY);
-                rockPool.Spawn(nextRockSpawnX, y, key: 0);
+                rockPool.Spawn(nextRockSpawnX, Random.Range(spawnMinY, spawnMaxY), key: 0);
                 nextRockSpawnX += Random.Range(rockSpawnIntervalMinX, rockSpawnIntervalMaxX);
             }
         }
 
-        private void SpawnNotesAhead(float rightEdge) {
+        private void SpawnNotesUpTo(float rightEdge) {
             while (nextNoteSpawnX <= rightEdge) {
-                float y = Random.Range(spawnMinY, spawnMaxY);
-                notePool.Spawn(nextNoteSpawnX, y, key: 0);
+                notePool.Spawn(nextNoteSpawnX, Random.Range(spawnMinY, spawnMaxY), key: 0);
                 nextNoteSpawnX += Random.Range(noteSpawnIntervalMinX, noteSpawnIntervalMaxX);
             }
         }

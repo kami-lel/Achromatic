@@ -56,30 +56,32 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (meta == null) {
-                Debug.LogError("must assign: Beatmap Meta");
+                Debug.LogError("must assign: Beatmap Meta", this);
                 return;
             }
             if (meta.file == null) {
-                Debug.LogError("must assign Beatmap File in Beatmap Meta");
+                Debug.LogError("must assign Beatmap File in Beatmap Meta", this);
                 return;
             }
 
             // caching reference of piece  -------------------------------------
             piece = GetComponent<Piece>();
             if (piece == null) {
-                Debug.LogError("fail to get: Piece");
+                Debug.LogError("fail to get: Piece", this);
             }
 
             music = GetComponent<MusicManager>();
             if (music == null) {
-                Debug.LogError("fail to get: MusicManager");
+                Debug.LogError("fail to get: MusicManager", this);
             }
 
             // load data  ------------------------------------------------------
             data = JsonUtility.FromJson<BeatmapData>(meta.file.text);
             if (data.notes.Length == 0) {
-                Debug.LogError("Beatmap:\tbeatmap file contains no notes: "
-                        + meta.file.name);
+                Debug.LogError(
+                        "Beatmap:\tbeatmap file contains no notes: "
+                        + meta.file.name,
+                        this);
             }
 
             // init vars  ------------------------------------------------------

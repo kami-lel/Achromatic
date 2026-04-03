@@ -124,7 +124,7 @@ public class SFX: MonoBehaviour {
             return;
         }
         if (I != this) {  // guard against duplicate
-            Debug.LogError("SFX:\tplace SFXManager Prefab only in 1st scene");
+            Debug.LogError("SFX:\tplace SFXManager Prefab only in 1st scene", this);
             Destroy(gameObject);
         }
     }

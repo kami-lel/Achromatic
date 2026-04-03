@@ -22,13 +22,13 @@ namespace Assets._Achromatic.Scripts.Lv1Map {
             initialY = rectTransform.anchoredPosition.y;
 
             if (playerTransform == null) {
-                Debug.LogError("GameTitleScript:\tmust set playerTransform");
+                Debug.LogError("GameTitleScript:\tmust set playerTransform", this);
                 enabled = false;
                 return;
             }
 
             if (triggerWidth <= 0f) {
-                Debug.LogError("GameTitleScript:\ttriggerWidth must be greater than zero");
+                Debug.LogError("GameTitleScript:\ttriggerWidth must be greater than zero", this);
                 enabled = false;
                 return;
             }

@@ -7,7 +7,7 @@ public class SceneChanger: MonoBehaviour {
 
     public void LoadNextScene(string sceneName) {
         // Todo scene changer load next scene
-        Debug.LogError("scene changer load next scene: " + sceneName);
+        Debug.LogError("scene changer load next scene: " + sceneName, this);
     }
 
     // Event Handler  ##########################################################

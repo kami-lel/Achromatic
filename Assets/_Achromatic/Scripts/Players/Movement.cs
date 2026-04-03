@@ -54,12 +54,12 @@ namespace Assets._Achromatic.Scripts.Players {
         private void Awake() {
             anim = GetComponent<AnimationManager>();
             if (anim == null) {
-                Debug.LogError("Movement:\tfail to get: AnimationManager");
+                Debug.LogError("fail to get: AnimationManager", this);
             }
 
             rb = GetComponent<Rigidbody2D>();
             if (rb == null) {
-                Debug.LogError("Movement:\tfail to get: Rigidbody2D");
+                Debug.LogError("fail to get: Rigidbody2D", this);
             }
 
         }

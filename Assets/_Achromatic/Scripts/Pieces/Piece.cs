@@ -22,10 +22,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (mainPath == null) {
-                Debug.LogError("must assign: Main Path");
+                Debug.LogError("must assign: Main Path", this);
             }
             if (startPreludeTransform == null) {
-                Debug.LogError("must assign: Start Prelude Transform");
+                Debug.LogError("must assign: Start Prelude Transform", this);
             }
 
             // caching references  ---------------------------------------------

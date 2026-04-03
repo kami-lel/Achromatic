@@ -100,7 +100,7 @@ namespace Assets._Achromatic.Scripts.Scores {
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
 
             // init resultCnt  -------------------------------------------------
@@ -153,16 +153,16 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             // print error if fail to find by tags
             if (comboIndicator == null) {
-                Debug.LogError("Score: fail to find Combo Indicator");
+                Debug.LogError("Score: fail to find Combo Indicator", this);
             }
             if (runningScoreIndicator == null) {
-                Debug.LogError("Score: fail to find Running Score Indicator");
+                Debug.LogError("Score: fail to find Running Score Indicator", this);
             }
             if (hitTypeIndicator == null) {
-                Debug.LogError("Score: fail to find Hit Type Indicator");
+                Debug.LogError("Score: fail to find Hit Type Indicator", this);
             }
             if (scoreAdditionIndicator == null) {
-                Debug.LogError("Score: fail to find Score Addition Indicator");
+                Debug.LogError("Score: fail to find Score Addition Indicator", this);
             }
         }
 

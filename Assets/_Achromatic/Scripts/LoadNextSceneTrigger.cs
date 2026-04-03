@@ -15,7 +15,7 @@ public class LoadNextSceneTrigger: MonoBehaviour {
         player = GCS.FindPlayer().GetComponent<Player>();
 
         if (nextSceneName == null || nextSceneName == "") {
-            Debug.LogError("must set: Next Scene Name");
+            Debug.LogError("must set: Next Scene Name", this);
         }
     }
 

@@ -48,7 +48,7 @@ public class GCS: MonoBehaviour {
             I = this;
             DontDestroyOnLoad(gameObject);
         } else if (I != this) {  // guard against duplicate
-            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene");
+            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene", this);
             Destroy(gameObject);
             return;
         }
@@ -56,7 +56,7 @@ public class GCS: MonoBehaviour {
         // caching references to piece  ----------------------------------------
         sceneChanger = GetComponent<SceneChanger>();
         if (sceneChanger == null) {
-            Debug.LogError("fail to get: SceneChanger");
+            Debug.LogError("fail to get: SceneChanger", this);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -102,7 +102,7 @@ public class GCS: MonoBehaviour {
             fpsCounter = fpsCounterGameObject.GetComponent<TextMeshProUGUI>();
         }
         if (fpsCounter == null) {
-            Debug.LogWarning("GCS: fail to find FPS Counter text field");
+            Debug.LogWarning("fail to find: FPS Counter text field", this);
         }
     }
 #endif
