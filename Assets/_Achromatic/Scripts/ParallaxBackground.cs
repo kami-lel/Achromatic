@@ -20,11 +20,15 @@ public class ParallaxBackground: MonoBehaviour {
         lastCamPos = cam.position;
 
         // test left & right  --------------------------------------------------
-        if (!left.TryGetComponent<SpriteRenderer>(out leftSpriteRenderer)) {
+        if (left == null) {
+            Debug.LogError("must assign left", this);
+        } else if (!left.TryGetComponent<SpriteRenderer>(out leftSpriteRenderer)) {
             Debug.LogError("left must have SpriteRenderer Component", this);
         }
 
-        if (!right.TryGetComponent<SpriteRenderer>(out rightSpriteRenderer)) {
+        if (right == null) {
+            Debug.LogError("must assign right", this);
+        } else if (!right.TryGetComponent<SpriteRenderer>(out rightSpriteRenderer)) {
             Debug.LogError("right must have SpriteRenderer Component", this);
         }
     }
