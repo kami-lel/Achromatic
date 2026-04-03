@@ -20275,7 +20275,7 @@ GameObject:
   - component: {fileID: 1744746553}
   - component: {fileID: 1744746552}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Skybox_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
