@@ -19540,7 +19540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2970994497880058528, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3611119754416196937, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_IsActive
@@ -20840,6 +20840,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803687074031391922, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: m_XDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803687074031391922, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: m_YDamping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803687074031391922, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803687074031391922, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803687074031391922, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: m_SoftZoneHeight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3938205800452466528, guid: c6f02133992bcc949858c7867e7df140, type: 3}

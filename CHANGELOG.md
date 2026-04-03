@@ -6,8 +6,6 @@
 
 
 <!-- BUG jarring visual during fast exploration / movement -->
-<!-- BUG player movement is jarring, add smooth -->
-<!-- FIXME camera fine tunning: smooth follow during main piece -->
 
 <!-- Bug fix sprite -->
 <!-- Fixme barline / internals too confusing issue -->
