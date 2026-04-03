@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// BUG BUG some rocks are randomly flying
+// Hack rm using particle
 
 namespace Assets._Achromatic.Scripts.Lv1Map {
 
