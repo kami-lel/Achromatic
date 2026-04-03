@@ -20553,6 +20553,10 @@ PrefabInstance:
       propertyPath: right
       value: 
       objectReference: {fileID: 516583121}
+    - target: {fileID: 6529289335674037181, guid: ecbe21aa7468e744899afb282d6c4d3b, type: 3}
+      propertyPath: parallaxFactor
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7941548818931942468, guid: ecbe21aa7468e744899afb282d6c4d3b, type: 3}
       propertyPath: m_Name
       value: ParallaxBackground
