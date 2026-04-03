@@ -24,8 +24,14 @@ public class ParallaxBackground: MonoBehaviour {
         }
     }
 
+
+    // constants  ##############################################################
+    private const float BOUND_SIZE = 20f;
+
     // private members  ########################################################
     // cached references
     private SpriteRenderer leftSpriteRenderer;
     private SpriteRenderer rightSpriteRenderer;
+
 }
+
