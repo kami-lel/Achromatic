@@ -5,10 +5,11 @@
 [^format]
 
 
-<!-- Bug jarring visual during fast exploration / movement -->
+<!-- BUG jarring visual during fast exploration / movement -->
+<!-- BUG player movement is jarring, add smooth -->
+<!-- FIXME camera fine tunning: smooth follow during main piece -->
+
 <!-- Bug fix sprite -->
-<!-- Bug player movement is jarring, add smooth -->
-<!-- Fixme camera fine tunning: smooth follow during main piece -->
 <!-- Fixme barline / internals too confusing issue -->
 <!-- Fixme visual feedback for holding left stick -->
 <!-- Fixme barline, prefabs confusing, new placement -->
