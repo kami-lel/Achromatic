@@ -5,16 +5,17 @@
 [^format]
 
 
+<!-- FIXME barline / internals too confusing issue -->
+<!-- TODO longer tutorial -->
+<!-- TODO graphical instruction on control schemes, based on input types,
+especially consider holding and trigger is hard  -->
+<!-- TODO new tilemap -->
+<!-- TODO add obstacles & enemy to kills -->
+
 <!-- Bug fix sprite -->
-<!-- Fixme barline / internals too confusing issue -->
 <!-- Fixme visual feedback for holding left stick -->
 <!-- Fixme barline, prefabs confusing, new placement -->
 <!-- Fixme better total score windows -->
-<!-- Todo longer tutorial -->
-<!-- Todo graphical instruction on control schemes, based on input types,
-especially consider holding and trigger is hard  -->
-<!-- Todo new tilemap -->
-<!-- Todo add obstacles & enemy to kills -->
 <!-- Todo local leaderboard -->
 <!-- Todo smashing inputs type -->
 <!-- Todo particles efx -->
