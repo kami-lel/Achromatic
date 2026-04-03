@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class ParallaxBackgroundSingleLayer: MonoBehaviour {
-    // TODO improve, allow mux layers
+    // HACK rm
 
     // Inspector Fields  #######################################################
     [SerializeField]
