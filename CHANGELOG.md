@@ -5,8 +5,6 @@
 [^format]
 
 
-<!-- BUG jarring visual during fast exploration / movement -->
-
 <!-- Bug fix sprite -->
 <!-- Fixme barline / internals too confusing issue -->
 <!-- Fixme visual feedback for holding left stick -->

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// BUG movement touch softzone jarring
+
 public class ParallaxBackground: MonoBehaviour {
     // Inspector Fields  #######################################################
     [SerializeField]
