@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Lv1Map {
 
+    // BUG BUG floating object flatten out
+
     [RequireComponent(typeof(SpriteRenderer))]
     public class FloatingObject: MonoBehaviour {
         // Inspector Fields  ###################################################
