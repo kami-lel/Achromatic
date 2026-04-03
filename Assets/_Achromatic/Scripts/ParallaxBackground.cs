@@ -13,19 +13,31 @@ public class ParallaxBackground: MonoBehaviour {
     private void Awake() {
         cam = Camera.main.transform;
         lastCamPos = cam.position;
+
+        // deal with left & right  ---------------------------------------------
         if (left == null) {
             Debug.LogError("must assign left", this);
-        } else if (left.GetComponent<SpriteRenderer>() == null) {
-            Debug.LogError("left must have SpriteRenderer Component", this);
+            return;
         }
         if (right == null) {
             Debug.LogError("must assign right", this);
-        } else if (right.GetComponent<SpriteRenderer>() == null) {
+            return;
+        }
+
+        left.SetActive(true);
+        right.SetActive(true);
+
+        if (left.GetComponent<SpriteRenderer>() == null) {
+            Debug.LogError("left must have SpriteRenderer Component", this);
+        }
+        if (right.GetComponent<SpriteRenderer>() == null) {
             Debug.LogError("right must have SpriteRenderer Component", this);
         }
-        if (left != null && left.TryGetComponent<SpriteRenderer>(out var sr)) {
+        if (left.TryGetComponent<SpriteRenderer>(out var sr)) {
             tileWidth = sr.bounds.size.x;
         }
+
+        // init right position
         right.transform.position = new Vector3(
             left.transform.position.x + tileWidth,
             right.transform.position.y,
