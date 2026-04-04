@@ -9,7 +9,7 @@
 <!-- TODO longer tutorial -->
 <!-- TODO graphical instruction on control schemes, based on input types,
 especially consider holding and trigger is hard  -->
-<!-- TODO new tilemap -->
+<!-- TODO TODO new tilemap -->
 <!-- TODO add obstacles & enemy to kills -->
 
 <!-- Bug fix sprite -->
