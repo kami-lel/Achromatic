@@ -12,6 +12,7 @@ especially consider holding and trigger is hard  -->
 <!-- TODO add obstacles & enemy to kills -->
 
 <!-- Bug fix sprite -->
+<!-- Fixme title screen need better font -->
 <!-- Fixme visual feedback for holding left stick -->
 <!-- Fixme barline, prefabs confusing, new placement -->
 <!-- Fixme better total score windows -->
