@@ -73,6 +73,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
             actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
             blockadeY = beatmap.origin.y + BLOCKADE_OFFSET_Y;
+            beatmapOriginY = beatmap.origin.y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(int, float, Note)>();
@@ -137,7 +138,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     } else {
                         // attack
                         actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
-                        mobPool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
+                        mobPool.Spawn(x, beatmapOriginY, -1);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -168,6 +169,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private float barlineBeatlineY;
         private float actionHintY;
         private float blockadeY;
+        private float beatmapOriginY;
 
         // per-element pools
         private PrefabPool<int> actionHintJumpPool;
