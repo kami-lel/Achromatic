@@ -7,6 +7,7 @@
 
 <!-- TODO particles efx -->
 <!-- Bug mob didn't get killed -->
+<!-- Fixme squat obstacle confusing with background -->
 
 <!-- Bug fix sprite -->
 <!-- Todo graphical instruction on control scheme tutorial -->
