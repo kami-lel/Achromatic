@@ -55,6 +55,10 @@ especially consider holding and trigger is hard  -->
 - obstacles & enemy (mob) during music play
 
 ### Changed
+
+- using a new tile sets
+- re-create the entire Lv1 map
+
 ### Deprecated
 ### Removed
 ### Fixed
