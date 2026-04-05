@@ -56,7 +56,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Update() {
             if ((GCS.I.states & GameState.MAIN_PIECE) != 0 &&
                         playerTransform.position.x > endX) {
-                // fixme better logic to trigger ending
+                // Fixme better logic to trigger ending
 
 
                 GCS.I.states = GameState.PIECE_FINISHED;
