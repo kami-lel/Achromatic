@@ -70,10 +70,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // calc vars  ------------------------------------------------------
             lastBeatLineOnBeat = -1;
-            barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
-            actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
-            blockadeY = beatmap.origin.y + BLOCKADE_OFFSET_Y;
             beatmapOriginY = beatmap.origin.y;
+            barlineBeatlineY = beatmapOriginY + BARLINE_BEATLINE_OFFSET_Y;
+            actionHintY = beatmapOriginY + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(int, float, Note)>();
@@ -132,7 +131,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
                         actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
-                        blockadePool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
+                        blockadePool.Spawn(x, beatmapOriginY, -1);
                     } else if (note.type == "squat") {
                         actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
                     } else {
@@ -168,7 +167,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
         private float actionHintY;
-        private float blockadeY;
         private float beatmapOriginY;
 
         // per-element pools
