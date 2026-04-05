@@ -5,13 +5,14 @@
 [^format]
 
 
-<!-- Todo graphical instruction on control scheme tutorial -->
+<!-- TODO particles efx -->
+
 <!-- Bug fix sprite -->
+<!-- Todo graphical instruction on control scheme tutorial -->
+<!-- Todo smashing inputs type -->
+<!-- Todo metrics save to file -->
 <!-- Fixme title screen need better font -->
 <!-- Fixme better total score windows -->
-<!-- Todo smashing inputs type -->
-<!-- Todo particles efx -->
-<!-- Todo metrics save to file -->
 
 <!-- todo local leaderboard -->
 <!-- todo pause screen, allow restart/resume -->
