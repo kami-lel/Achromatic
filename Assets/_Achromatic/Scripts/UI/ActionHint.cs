@@ -6,8 +6,7 @@ public class ActionHint: MonoBehaviour {
     // Public API  #############################################################
 
     public void Perish(Hit hit) {
-        // Todo different behavior of action hint based on hit type
-        // Todo larger visual difference before/after perishing
+        // todo different behavior for action hint based on hit or miss
         perishTime = Time.time;
     }
 
