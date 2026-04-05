@@ -5,4 +5,6 @@
 
 [BGM](https://www.youtube.com/watch?v=T7FzbJ8Wbn8&list=PLzCxunOM5WFIjE1Ll3iXcFA63VF4c8m1t)
 
+[Simple 2D Platformer Assets Pack](https://assetstore.unity.com/packages/2d/characters/simple-2d-platformer-assets-pack-188518) by Goldmetal
+
 (Helton Yan's Old-School Shonen SFX)[https://heltonyan.itch.io/retroanimesfx]
