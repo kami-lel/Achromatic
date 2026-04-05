@@ -5,7 +5,6 @@
 [^format]
 
 
-<!-- FIXME barline / internals too confusing issue -->
 <!-- TODO longer tutorial -->
 <!-- TODO graphical instruction on control schemes, based on input types,
 especially consider holding and trigger is hard  -->
