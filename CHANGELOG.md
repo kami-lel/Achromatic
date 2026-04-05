@@ -8,7 +8,6 @@
 <!-- TODO longer tutorial -->
 <!-- TODO graphical instruction on control schemes, based on input types,
 especially consider holding and trigger is hard  -->
-<!-- TODO add obstacles & enemy to kills -->
 
 <!-- Bug fix sprite -->
 <!-- Fixme title screen need better font -->
@@ -50,6 +49,48 @@ especially consider holding and trigger is hard  -->
 ## 1.0.0 Release
 
 ## 1.0.0-beta Beta Milestone
+
+### Added
+
+- obstacles & enemy (mob) during music play
+
+### Changed
+### Deprecated
+### Removed
+### Fixed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [1.0.0-alpha] Alpha Milestone - 2026-03-26
 
