@@ -6,6 +6,7 @@
 
 
 <!-- TODO particles efx -->
+<!-- BUG mob didn't get killed -->
 
 <!-- Bug fix sprite -->
 <!-- Todo graphical instruction on control scheme tutorial -->
