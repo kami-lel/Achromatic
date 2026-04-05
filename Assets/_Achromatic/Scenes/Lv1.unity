@@ -106695,7 +106695,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 40, y: 6, z: 0}
+    m_Position: {x: 40, y: 4.5, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 50, y: 8, z: 1}
     placementMode: 0
@@ -126191,7 +126191,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1998202008919027763, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5446901
+      value: 1.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 3743320143481646306, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Name
@@ -126199,7 +126199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5446901
+      value: 1.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 5085497498859166764, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172839,7 +172839,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 40, y: 6, z: 0}
+    m_Position: {x: 40, y: 4.5, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 50, y: 8, z: 1}
     placementMode: 0
@@ -177209,7 +177209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.993062
+      value: 6.912
       objectReference: {fileID: 0}
     - target: {fileID: 7910136319746607527, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: playerTransform
