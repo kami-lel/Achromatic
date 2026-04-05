@@ -158,8 +158,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
         private const float BARLINE_BEATLINE_OFFSET_Y = 5.5f;
         private const float ACTION_HINT_OFFSET_Y = 5.5f;
-        private const float BLOCKADE_OFFSET_Y = 0.8f;
-        private const float BLOCKADE_OFFSET_X = 1.0f;
 
         // private members  ####################################################
         // note beat, note object
