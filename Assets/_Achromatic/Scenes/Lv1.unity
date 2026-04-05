@@ -45524,6 +45524,38 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &495902729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 495902730}
+  m_Layer: 0
+  m_Name: GameTitleGrp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &495902730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495902729}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.93257, y: 0.62948, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1562560695}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &516583121
 GameObject:
   m_ObjectHideFlags: 0
@@ -126191,7 +126223,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1998202008919027763, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5999999
+      value: 2.5446901
       objectReference: {fileID: 0}
     - target: {fileID: 3743320143481646306, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Name
@@ -126199,7 +126231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5999999
+      value: 2.5446901
       objectReference: {fileID: 0}
     - target: {fileID: 5085497498859166764, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -156413,11 +156445,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 365897333}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 495902730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.969864, y: 5.4}
+  m_AnchoredPosition: {x: 1.0372925, y: 4.77052}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1562560696
@@ -177209,7 +177241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7396950107847252968, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.912
+      value: 10.993062
       objectReference: {fileID: 0}
     - target: {fileID: 7910136319746607527, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: playerTransform
@@ -177577,7 +177609,7 @@ SceneRoots:
   - {fileID: 1822651825}
   - {fileID: 1461395306}
   - {fileID: 120342144}
-  - {fileID: 1562560695}
   - {fileID: 240911747}
   - {fileID: 8173565104163635356}
   - {fileID: 1741119925}
+  - {fileID: 495902730}

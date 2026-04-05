@@ -15,6 +15,7 @@
 <!-- Todo metrics save to file -->
 <!-- Fixme title screen need better font -->
 <!-- Fixme better total score windows -->
+<!-- Fixme camera movement during title screen -->
 
 <!-- todo local leaderboard -->
 <!-- todo pause screen, allow restart/resume -->
