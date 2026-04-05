@@ -49,6 +49,8 @@
 ### Added
 
 - obstacles & enemy (mob) during music play
+- functional parallax background
+- Lv1 distant background image
 
 ### Changed
 
@@ -58,6 +60,8 @@
 ### Deprecated
 ### Removed
 ### Fixed
+
+- Camera Jittering, by fine tunning virtual camera parameters
 
 
 
