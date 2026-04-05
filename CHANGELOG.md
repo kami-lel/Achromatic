@@ -57,6 +57,7 @@
 
 - using a new tile sets
 - re-create the entire Lv1 map
+- floating objects in the background using particle system
 
 ### Deprecated
 ### Removed
