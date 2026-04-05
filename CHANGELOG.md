@@ -10,6 +10,7 @@
 <!-- TODO graphical instruction on control schemes, based on input types,
 especially consider holding and trigger is hard  -->
 <!-- TODO add obstacles & enemy to kills -->
+<!-- FIXME chg action hint -->
 
 <!-- Bug fix sprite -->
 <!-- Fixme title screen need better font -->
