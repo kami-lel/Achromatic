@@ -8,19 +8,18 @@
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Bug fix sprite -->
 <!-- Fixme title screen need better font -->
-<!-- Fixme visual feedback for holding left stick -->
-<!-- Fixme barline, prefabs confusing, new placement -->
 <!-- Fixme better total score windows -->
-<!-- Todo local leaderboard -->
 <!-- Todo smashing inputs type -->
 <!-- Todo particles efx -->
 <!-- Todo metrics save to file -->
 
+<!-- todo local leaderboard -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo show player character origin in world -->
 <!-- todo set up hooks utility -->
 <!-- todo Wwise Unity Integration -->
 <!-- todo add map dynamic response to player performance -->
+<!-- fixme visual feedback for holding left stick -->
 
 
 
