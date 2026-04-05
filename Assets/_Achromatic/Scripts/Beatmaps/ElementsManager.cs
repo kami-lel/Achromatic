@@ -70,9 +70,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // calc vars  ------------------------------------------------------
             lastBeatLineOnBeat = -1;
-            barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
-            actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
-            blockadeY = beatmap.origin.y + BLOCKADE_OFFSET_Y;
+            beatmapOriginY = beatmap.origin.y;
+            barlineBeatlineY = beatmapOriginY + BARLINE_BEATLINE_OFFSET_Y;
+            actionHintY = beatmapOriginY + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(int, float, Note)>();
@@ -96,7 +96,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
             barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
 
-            blockadePool = new(8, PREFAB_FOLDER + "blockade", prefabs);
+            blockadePool = new(4, PREFAB_FOLDER + "blockade", prefabs);
+            obstaclePool = new(4, PREFAB_FOLDER + "obstacle", prefabs);
+            mobPool = new(4, PREFAB_FOLDER + "Enemy", prefabs);
         }
 
         private void Update() {
@@ -130,11 +132,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
                         actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
-                        blockadePool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
+                        blockadePool.Spawn(x, beatmapOriginY, -1);
                     } else if (note.type == "squat") {
                         actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
+                        obstaclePool.Spawn(x, beatmapOriginY, -1);
                     } else {
+                        // attack
                         actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
+                        mobPool.Spawn(x, beatmapOriginY, -1);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -153,10 +158,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // constants  ##########################################################
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
-        private const float BARLINE_BEATLINE_OFFSET_Y = 3.0f;
-        private const float ACTION_HINT_OFFSET_Y = 6.0f;
-        private const float BLOCKADE_OFFSET_Y = 1.0f;
-        private const float BLOCKADE_OFFSET_X = 1.0f;
+        private const float BARLINE_BEATLINE_OFFSET_Y = 5.5f;
+        private const float ACTION_HINT_OFFSET_Y = 5.5f;
 
         // private members  ####################################################
         // note beat, note object
@@ -164,7 +167,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
         private float actionHintY;
-        private float blockadeY;
+        private float beatmapOriginY;
 
         // per-element pools
         private PrefabPool<int> actionHintJumpPool;
@@ -173,6 +176,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private PrefabPool<int> beatLinePool;
         private PrefabPool<int> barlinePool;
         private PrefabPool<int> blockadePool;
+        private PrefabPool<int> obstaclePool;
+        private PrefabPool<int> mobPool;
 
         // Cached Reference
         private Beatmap beatmap;

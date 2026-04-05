@@ -5,16 +5,12 @@
 [^format]
 
 
+<!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Bug fix sprite -->
-<!-- Fixme barline / internals too confusing issue -->
+<!-- Fixme title screen need better font -->
 <!-- Fixme visual feedback for holding left stick -->
 <!-- Fixme barline, prefabs confusing, new placement -->
 <!-- Fixme better total score windows -->
-<!-- Todo longer tutorial -->
-<!-- Todo graphical instruction on control schemes, based on input types,
-especially consider holding and trigger is hard  -->
-<!-- Todo new tilemap -->
-<!-- Todo add obstacles & enemy to kills -->
 <!-- Todo local leaderboard -->
 <!-- Todo smashing inputs type -->
 <!-- Todo particles efx -->
@@ -50,6 +46,52 @@ especially consider holding and trigger is hard  -->
 ## 1.0.0 Release
 
 ## 1.0.0-beta Beta Milestone
+
+### Added
+
+- obstacles & enemy (mob) during music play
+
+### Changed
+
+- using a new tile sets
+- re-create the entire Lv1 map
+
+### Deprecated
+### Removed
+### Fixed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [1.0.0-alpha] Alpha Milestone - 2026-03-26
 
