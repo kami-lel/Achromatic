@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Lv1Map {
 
-    // HACK rm using particle
+    // Hack rm using particle
 
     [RequireComponent(typeof(SpriteRenderer))]
     public class FloatingObject: MonoBehaviour {

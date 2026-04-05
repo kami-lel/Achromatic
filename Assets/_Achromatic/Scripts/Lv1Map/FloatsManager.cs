@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// HACK rm using particle
+// Hack rm using particle
 
 namespace Assets._Achromatic.Scripts.Lv1Map {
 
