@@ -5,10 +5,7 @@
 [^format]
 
 
-<!-- TODO longer tutorial -->
-<!-- TODO graphical instruction on control schemes, based on input types,
-especially consider holding and trigger is hard  -->
-
+<!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Bug fix sprite -->
 <!-- Fixme title screen need better font -->
 <!-- Fixme visual feedback for holding left stick -->
