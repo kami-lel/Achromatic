@@ -96,7 +96,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
             barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
 
-            blockadePool = new(8, PREFAB_FOLDER + "blockade", prefabs);
+            blockadePool = new(4, PREFAB_FOLDER + "blockade", prefabs);
+            mobPool = new(4, PREFAB_FOLDER + "Enemy", prefabs);
         }
 
         private void Update() {
@@ -134,7 +135,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     } else if (note.type == "squat") {
                         actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
                     } else {
+                        // attack
                         actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
+                        mobPool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -173,6 +176,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private PrefabPool<int> beatLinePool;
         private PrefabPool<int> barlinePool;
         private PrefabPool<int> blockadePool;
+        private PrefabPool<int> mobPool;
 
         // Cached Reference
         private Beatmap beatmap;
