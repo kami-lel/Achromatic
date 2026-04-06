@@ -7,13 +7,12 @@
 
 <!-- TODO particles efx -->
 <!-- Bug mob didn't get killed -->
-<!-- Fixme squat obstacle confusing with background -->
-
 <!-- Bug fix sprite -->
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Todo smashing inputs type -->
 <!-- Todo metrics save to file -->
 <!-- Fixme title screen need better font -->
+<!-- Fixme squat obstacle confusing with background -->
 <!-- Fixme better total score windows -->
 <!-- Fixme camera movement during title screen -->
 
