@@ -6,7 +6,7 @@ public class SceneChanger: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void LoadNextScene(string sceneName) {
-        // Todo scene changer load next scene
+        // TODO scene changer load next scene
         Debug.LogError("scene changer load next scene: " + sceneName, this);
     }
 
@@ -30,7 +30,7 @@ public class SceneChanger: MonoBehaviour {
     // private methods  ########################################################
 
     private void EnterNewScene() {
-        /* Todo scene changer enter new scene
+        /* TODO scene changer enter new scene
         return;
         GCS.I.states = GameState.SCENE_TRANSITION;
 

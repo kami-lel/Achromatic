@@ -31,7 +31,7 @@ public class LoadNextSceneTrigger: MonoBehaviour {
                 triggerTag == TRIGGER_TAG) {
 
             SceneManager.LoadScene(nextSceneName);
-            // Hack use GCS
+            // HACK use GCS
             // GCS.I.LoadNextScene(nextSceneName);
         }
     }
