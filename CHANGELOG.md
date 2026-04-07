@@ -6,7 +6,6 @@
 
 
 <!-- Bug mob didn't get killed -->
-<!-- Bug fix sprite -->
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Todo smashing inputs type -->
 <!-- Todo metrics save to file -->
@@ -15,6 +14,7 @@
 <!-- Fixme better total score windows -->
 <!-- Fixme camera movement during title screen -->
 
+<!-- bug fix sprite -->
 <!-- todo local leaderboard -->
 <!-- todo more particles effects -->
 <!-- todo pause screen, allow restart/resume -->
