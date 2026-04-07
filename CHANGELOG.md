@@ -7,7 +7,6 @@
 
 <!-- Bug mob didn't get killed -->
 <!-- Todo graphical instruction on control scheme tutorial -->
-<!-- Todo smashing inputs type -->
 <!-- Todo metrics save to file -->
 <!-- Fixme title screen need better font -->
 <!-- Fixme squat obstacle confusing with background -->
@@ -15,6 +14,7 @@
 <!-- Fixme camera movement during title screen -->
 
 <!-- bug fix sprite -->
+<!-- todo smashing inputs type -->
 <!-- todo local leaderboard -->
 <!-- todo more particles effects -->
 <!-- todo pause screen, allow restart/resume -->
