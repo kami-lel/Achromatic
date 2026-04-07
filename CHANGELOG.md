@@ -5,7 +5,6 @@
 [^format]
 
 
-<!-- TODO particles efx -->
 <!-- Bug mob didn't get killed -->
 <!-- Bug fix sprite -->
 <!-- Todo graphical instruction on control scheme tutorial -->
@@ -17,6 +16,7 @@
 <!-- Fixme camera movement during title screen -->
 
 <!-- todo local leaderboard -->
+<!-- todo more particles effects -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo show player character origin in world -->
 <!-- todo set up hooks utility -->
@@ -54,6 +54,7 @@
 - obstacles & enemy (mob) during music play
 - functional parallax background
 - Lv1 distant background image
+- basic particle effects during player running
 
 ### Changed
 
