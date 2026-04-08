@@ -84,7 +84,7 @@ public class SceneChanger: MonoBehaviour {
         go = GameObject.FindGameObjectWithTag(tag);
         if (go == null) {
             Debug.LogError(
-                $"fail to find Virtual Camera with tag: ${tag}"
+                $"fail to find Virtual Camera with tag: {tag}"
             );
             return null;
         }
