@@ -7,11 +7,7 @@ public class FadingBlockingPanel: MonoBehaviour {
 
     // Public Methods  #########################################################
     public void FadeOut() => StartCoroutine(CoFade(0f, 1f));
-    // HACK
-    // public void FadeIn() => StartCoroutine(CoFade(1f, 0f));
-    public void FadeIn() {
-        StartCoroutine(CoFade(1f, 0f));
-    }
+    public void FadeIn() => StartCoroutine(CoFade(1f, 0f));
 
     // Inspector Fields  #######################################################
 
@@ -22,8 +18,10 @@ public class FadingBlockingPanel: MonoBehaviour {
 
     private void Awake() {
         panelImage = GetComponent<Image>();
-        panelImage.color = new Color(0f, 0f, 0f, 1f); // transparent black
-        Debug.Log("panel awake");  // HACK
+
+
+
+        panelImage.color = new Color(0f, 0f, 0f, 1f); // solid black
     }
 
     // private members  ########################################################
@@ -43,7 +41,6 @@ public class FadingBlockingPanel: MonoBehaviour {
         while (t < duration) {
             t += Time.deltaTime;
             color.a = Mathf.Lerp(from, to, t / duration);
-            Debug.Log(color);  // HACK
             panelImage.color = color;
             yield return null;
         }

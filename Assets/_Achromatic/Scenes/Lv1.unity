@@ -141425,6 +141425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 932874907816187823, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
+      propertyPath: fadingBlockingPanel
+      value: 
+      objectReference: {fileID: 1388875911}
     - target: {fileID: 1540102156307766482, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -156545,7 +156549,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d63350e485257a45b9bcc4c9503db48, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::FadingBlockingPanel
   fadingDurationSec: 1.5
 --- !u!1 &1461395303
 GameObject:
