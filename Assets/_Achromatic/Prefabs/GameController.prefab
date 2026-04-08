@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6192b521541244b9be477109e9db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
-  fadingBlockingPanel: {fileID: 0}
-  fadeDuration: 1
+  fadingBlockingPanel: {fileID: 1121129788616797732}
+  fadeDuration: 1.5
 --- !u!1 &5611777507486511390
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d63350e485257a45b9bcc4c9503db48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  fadingDurationSec: 1.5

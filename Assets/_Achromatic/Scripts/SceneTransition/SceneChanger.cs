@@ -44,6 +44,9 @@ public class SceneChanger: MonoBehaviour {
     // MonoBehavior Lifecycle  ###################################################
 
     private void Awake() {
+        if (fadingBlockingPanel == null) {
+            Debug.LogError("must assign: fadingBlockingPanel", this);
+        }
 
         I = this;
         DontDestroyOnLoad(gameObject);

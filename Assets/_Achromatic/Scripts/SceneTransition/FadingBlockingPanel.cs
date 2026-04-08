@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class FadingBlockingPanel: MonoBehaviour {
 
+    // FIXME FIXME mpv here
+
     // Public Methods  #########################################################
     //
     public void FadeOut() => StartCoroutine(CoFade(0f, 1f));
@@ -31,7 +33,6 @@ public class FadingBlockingPanel: MonoBehaviour {
         c.a = to;
         panelImage.color = c;
     }
-
 
 
     // private members  ########################################################
