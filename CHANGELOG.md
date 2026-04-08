@@ -55,6 +55,7 @@
 - functional parallax background
 - Lv1 distant background image
 - basic particle effects during player running
+- scene transition logic with fade-in and fade-out
 
 ### Changed
 
