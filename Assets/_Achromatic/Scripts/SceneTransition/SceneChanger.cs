@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,13 +15,10 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
-        endingCamera.Priority = 10;  // enable ending camera
-        fadingBlockingPanel.FadeOut();
-
         // TODO set game state
-
-        // TODO scene changer load next scene
-        Debug.LogError("scene changer load next scene: " + sceneName, this);
+        endingCamera.Priority = HIGH_CAMERA_PRIORITY;  // enable ending camera
+        fadingBlockingPanel.FadeOut();
+        // TODO load scene async
     }
 
     public void RegisterStaticCameras(
@@ -30,7 +28,7 @@ public class SceneChanger: MonoBehaviour {
         this.startingCamera = startingCamera;
         this.endingCamera = endingCamera;
 
-        this.startingCamera.Priority = 10;
+        this.startingCamera.Priority = HIGH_CAMERA_PRIORITY;
         this.endingCamera.Priority = 0;
     }
 
@@ -40,7 +38,7 @@ public class SceneChanger: MonoBehaviour {
     [SerializeField]
     private FadingBlockingPanel fadingBlockingPanel;
 
-    // MonoBehavior Lifecycle  ###################################################
+    // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
         if (fadingBlockingPanel == null) {
@@ -57,12 +55,16 @@ public class SceneChanger: MonoBehaviour {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // Event Handler  #############################################################
+    // Event Handler  ##########################################################
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         EnterNewScene();
     }
 
+
+    // constants  ##############################################################
+
+    private const int HIGH_CAMERA_PRIORITY = 100;
 
     // private members  ########################################################
     // cached references
@@ -74,13 +76,12 @@ public class SceneChanger: MonoBehaviour {
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
 
-        fadingBlockingPanel.FadeIn();  // HACK
-        /* TODO scene changer enter new scene
-        return;
-        GCS.I.states = GameState.SCENE_TRANSITION;
+        startingCamera.Priority = HIGH_CAMERA_PRIORITY;
+        fadingBlockingPanel.FadeIn();
 
-        Debug.LogError("new scene logic");
-        */
+        // TODO clear camera priority
+
+        GCS.I.states = GameState.EXPLORE;
     }
 
 }
