@@ -22,7 +22,6 @@ public class SceneChanger: MonoBehaviour {
                 FindVirtualCameraByTag(END_CAMERA_TAG);
         ending.Priority = HIGH_CAMERA_PRIORITY;
 
-
         fadingBlockingPanel.FadeOut(
                 onComplete: () => StartCoroutine(LoadSceneCoroutine(sceneName))
         );
@@ -43,18 +42,7 @@ public class SceneChanger: MonoBehaviour {
         // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        // find fading panel  --------------------------------------------------
-        GameObject go;
-        go = GameObject.FindGameObjectWithTag(BLOCKING_PANEL_TAG);
-        if (go == null) {
-            Debug.LogError("fail to find Fading Blocking Panel");
-        }
-        fadingBlockingPanel = go.GetComponent<FadingBlockingPanel>();
-        if (fadingBlockingPanel == null) {
-            Debug.LogError("fail to find Fading Blocking Panel");
-        } else {
-            Debug.Log("register: fadingBlockingPanel");
-        }
+        FindFadingBlockingPanel();
     }
 
     private void OnDisable() {
@@ -84,6 +72,8 @@ public class SceneChanger: MonoBehaviour {
 
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
+
+        FindFadingBlockingPanel();
 
         CinemachineVirtualCamera startingCamera =
                 FindVirtualCameraByTag(START_CAMERA_TAG);
@@ -137,5 +127,19 @@ public class SceneChanger: MonoBehaviour {
         op.allowSceneActivation = true;  // triggers OnSceneLoaded
     }
 
+
+    private void FindFadingBlockingPanel() {
+        GameObject go;
+        go = GameObject.FindGameObjectWithTag(BLOCKING_PANEL_TAG);
+        if (go == null) {
+            Debug.LogError("fail to find Fading Blocking Panel");
+        }
+        fadingBlockingPanel = go.GetComponent<FadingBlockingPanel>();
+        if (fadingBlockingPanel == null) {
+            Debug.LogError("fail to find Fading Blocking Panel");
+        } else {
+            Debug.Log("register: fadingBlockingPanel");
+        }
+    }
 }
 
