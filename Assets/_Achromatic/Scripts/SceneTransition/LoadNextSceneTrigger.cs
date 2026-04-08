@@ -1,6 +1,5 @@
 using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoadNextSceneTrigger: MonoBehaviour {
 
@@ -30,9 +29,7 @@ public class LoadNextSceneTrigger: MonoBehaviour {
         if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
                 triggerTag == TRIGGER_TAG) {
 
-            SceneManager.LoadScene(nextSceneName);
-            // Hack use GCS
-            // GCS.I.LoadNextScene(nextSceneName);
+            GCS.I.LoadNextScene(nextSceneName);
         }
     }
     // constants  ##############################################################
