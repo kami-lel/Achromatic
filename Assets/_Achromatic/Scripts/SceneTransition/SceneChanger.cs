@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,9 +19,10 @@ public class SceneChanger: MonoBehaviour {
         CinemachineVirtualCamera ending =
                 FindVirtualCameraByTag(END_CAMERA_TAG);
         ending.Priority = HIGH_CAMERA_PRIORITY;
-        fadingBlockingPanel.FadeOut();
 
-        // TODO load scene async
+        fadingBlockingPanel.FadeOut(
+                onComplete: () => StartCoroutine(LoadSceneCoroutine(sceneName))
+        );
     }
 
     // Inspector Fields  #######################################################
@@ -95,6 +97,24 @@ public class SceneChanger: MonoBehaviour {
         }
 
         return virtualCamera;
+    }
+
+    private IEnumerator LoadSceneCoroutine(string sceneName) {
+        AsyncOperation op =
+            SceneManager.LoadSceneAsync(sceneName);
+
+        if (op == null) {
+            Debug.LogError($"fail to load scene: {sceneName}", this);
+            yield break;
+        }
+
+        op.allowSceneActivation = false;
+
+        // wait for load to reach 90% (Unity max before activation)
+        while (op.progress < 0.9f)
+            yield return null;
+
+        op.allowSceneActivation = true;  // triggers OnSceneLoaded
     }
 
 }
