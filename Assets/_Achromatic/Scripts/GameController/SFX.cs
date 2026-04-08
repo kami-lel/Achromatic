@@ -117,7 +117,15 @@ public class SFX: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
+        // singleton logic  ----------------------------------------------------
+        if (I != null && I != this) {
+            Debug.LogWarning("duplicated SFX", this);
+            Destroy(gameObject);
+            return;
+        }
+
         I = this;
+        DontDestroyOnLoad(gameObject);
     }
 
 

@@ -12,9 +12,11 @@ public class GameController: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        if (I == null) {
-        } else {
-            Debug.LogWarning("GameController singleton replaced", this);
+        // singleton logic  ----------------------------------------------------
+        if (I != null && I != this) {
+            Debug.LogWarning("duplicated GameController", this);
+            Destroy(gameObject);
+            return;
         }
 
         I = this;

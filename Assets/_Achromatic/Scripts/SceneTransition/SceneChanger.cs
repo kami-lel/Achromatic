@@ -28,8 +28,17 @@ public class SceneChanger: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        I = this;
+        // singleton logic  ----------------------------------------------------
+        if (I != null && I != this) {
+            Debug.LogWarning("duplicated SceneManager", this);
+            Destroy(gameObject);
+            return;
+        }
 
+        I = this;
+        DontDestroyOnLoad(gameObject);
+
+        // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         // find fading panel  --------------------------------------------------
