@@ -28,7 +28,7 @@ public class SceneChanger: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private FadingBlockingPanel fadingBlockingPanel;
+    private FadingBlockingPanel fadingBlockingPanel;  // BUG use tag instead
 
     // MonoBehavior Lifecycle  #################################################
 
