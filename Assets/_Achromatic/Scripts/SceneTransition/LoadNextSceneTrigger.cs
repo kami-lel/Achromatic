@@ -30,9 +30,7 @@ public class LoadNextSceneTrigger: MonoBehaviour {
         if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
                 triggerTag == TRIGGER_TAG) {
 
-            SceneManager.LoadScene(nextSceneName);
-            // HACK use GCS
-            // GCS.I.LoadNextScene(nextSceneName);
+            GCS.I.LoadNextScene(nextSceneName);
         }
     }
     // constants  ##############################################################
