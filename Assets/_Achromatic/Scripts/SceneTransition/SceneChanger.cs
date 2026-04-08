@@ -77,6 +77,7 @@ public class SceneChanger: MonoBehaviour {
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
 
+        fadingBlockingPanel.FadeIn();  // HACK
         /* TODO scene changer enter new scene
         return;
         GCS.I.states = GameState.SCENE_TRANSITION;

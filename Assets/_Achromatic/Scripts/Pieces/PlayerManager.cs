@@ -146,7 +146,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc acceleration — use v - u over t to be explicit
             preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
-            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
+            // Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         private void FixedUpdate() {
