@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour {
 
+    // Public Members  #########################################################
+
+    // Singleton
+    public static SceneChanger I;
+
     // Public Methods  #########################################################
 
     public void LoadNextScene(string sceneName) {
@@ -10,22 +15,24 @@ public class SceneChanger: MonoBehaviour {
         Debug.LogError("scene changer load next scene: " + sceneName, this);
     }
 
-    // Event Handler  ##########################################################
+    // Event Handler  #############################################################
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         EnterNewScene();
     }
 
-    // MonoBehavior Lifecycle  #################################################
+    // MonoBehavior Lifecycle  ###################################################
 
     private void Awake() {
+        I = this;
+        DontDestroyOnLoad(this.gameObject);
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
 
     // private methods  ########################################################
 
@@ -39,3 +46,4 @@ public class SceneChanger: MonoBehaviour {
     }
 
 }
+
