@@ -12,9 +12,11 @@ public class SceneChanger: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void LoadNextScene(string sceneName) {
-        // enable ending camera
-        endingCamera.Priority = 10;
+        Debug.Log("LoadNextScene", this);
+
+        endingCamera.Priority = 10;  // enable ending camera
         fadingBlockingPanel.FadeOut();
+
         // TODO set game state
 
         // TODO scene changer load next scene
@@ -73,6 +75,8 @@ public class SceneChanger: MonoBehaviour {
     // private methods  ########################################################
 
     private void EnterNewScene() {
+        Debug.Log("EnterNewScene", this);
+
         /* TODO scene changer enter new scene
         return;
         GCS.I.states = GameState.SCENE_TRANSITION;
