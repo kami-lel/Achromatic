@@ -52,6 +52,8 @@ public class SceneChanger: MonoBehaviour {
         fadingBlockingPanel = go.GetComponent<FadingBlockingPanel>();
         if (fadingBlockingPanel == null) {
             Debug.LogError("fail to find Fading Blocking Panel");
+        } else {
+            Debug.Log("register: fadingBlockingPanel");
         }
     }
 
