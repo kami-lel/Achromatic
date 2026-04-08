@@ -1,6 +1,5 @@
 using Assets._Achromatic.Scripts.Players;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoadNextSceneTrigger: MonoBehaviour {
 
