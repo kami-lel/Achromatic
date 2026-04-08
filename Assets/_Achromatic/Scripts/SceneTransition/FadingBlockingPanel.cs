@@ -19,8 +19,6 @@ public class FadingBlockingPanel: MonoBehaviour {
     private void Awake() {
         panelImage = GetComponent<Image>();
 
-
-
         panelImage.color = new Color(0f, 0f, 0f, 1f); // solid black
     }
 

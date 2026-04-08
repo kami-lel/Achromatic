@@ -15,23 +15,13 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
-        // TODO set game state
-        endingCamera.Priority = HIGH_CAMERA_PRIORITY;  // enable ending camera
+        CinemachineVirtualCamera ending =
+                FindVirtualCameraByTag(END_CAMERA_TAG);
+        ending.Priority = HIGH_CAMERA_PRIORITY;
         fadingBlockingPanel.FadeOut();
+
         // TODO load scene async
     }
-
-    public void RegisterStaticCameras(
-            CinemachineVirtualCamera startingCamera,
-            CinemachineVirtualCamera endingCamera) {
-
-        this.startingCamera = startingCamera;
-        this.endingCamera = endingCamera;
-
-        this.startingCamera.Priority = HIGH_CAMERA_PRIORITY;
-        this.endingCamera.Priority = 0;
-    }
-
 
     // Inspector Fields  #######################################################
 
@@ -65,23 +55,46 @@ public class SceneChanger: MonoBehaviour {
     // constants  ##############################################################
 
     private const int HIGH_CAMERA_PRIORITY = 100;
-
-    // private members  ########################################################
-    // cached references
-    private CinemachineVirtualCamera startingCamera;
-    private CinemachineVirtualCamera endingCamera;
+    private const string START_CAMERA_TAG = "startingCamera";
+    private const string END_CAMERA_TAG = "endingCamera";
 
     // private methods  ########################################################
 
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
 
+        CinemachineVirtualCamera startingCamera =
+                FindVirtualCameraByTag(START_CAMERA_TAG);
         startingCamera.Priority = HIGH_CAMERA_PRIORITY;
+
         fadingBlockingPanel.FadeIn();
 
         // TODO clear camera priority
 
         GCS.I.states = GameState.EXPLORE;
+    }
+
+
+    // helpers  ================================================================
+
+    private CinemachineVirtualCamera FindVirtualCameraByTag(string tag) {
+        GameObject go;
+        go = GameObject.FindGameObjectWithTag(tag);
+        if (go == null) {
+            Debug.LogError(
+                $"fail to find Virtual Camera with tag: ${tag}"
+            );
+            return null;
+        }
+
+        var virtualCamera = go.GetComponent<CinemachineVirtualCamera>();
+        if (virtualCamera == null) {
+            Debug.LogError(
+                $"GameObject does not have Virtual Camera Component"
+            );
+        }
+
+        return virtualCamera;
     }
 
 }
