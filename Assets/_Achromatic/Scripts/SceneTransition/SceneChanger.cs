@@ -29,7 +29,6 @@ public class SceneChanger: MonoBehaviour {
 
     private void Awake() {
         I = this;
-        DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 

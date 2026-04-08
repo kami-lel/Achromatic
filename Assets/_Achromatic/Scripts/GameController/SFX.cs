@@ -117,15 +117,7 @@ public class SFX: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        if (I == null) {  // create Singleton
-            I = this;
-            DontDestroyOnLoad(gameObject);
-            return;
-        }
-        if (I != this) {  // guard against duplicate
-            Debug.LogError("SFX:\tplace SFXManager Prefab only in 1st scene", this);
-            Destroy(gameObject);
-        }
+        I = this;
     }
 
 

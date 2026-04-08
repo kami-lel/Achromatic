@@ -43,15 +43,7 @@ public class GCS: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        // ensure Singleton  ---------------------------------------------------
-        if (I == null) {
-            I = this;
-            DontDestroyOnLoad(gameObject);
-        } else if (I != this) {  // guard against duplicate
-            Debug.LogError("GameController:\tplace GameController Prefab only in 1st scene", this);
-            Destroy(gameObject);
-            return;
-        }
+        I = this;
 
         // caching references to piece  ----------------------------------------
         sceneChanger = GetComponent<SceneChanger>();

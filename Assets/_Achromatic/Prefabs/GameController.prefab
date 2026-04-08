@@ -957,6 +957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7399498692419916722}
+  - component: {fileID: 3457163934720779363}
   - component: {fileID: 8658348783131816595}
   - component: {fileID: 932874907816187823}
   - component: {fileID: 5033110263473436355}
@@ -983,6 +984,18 @@ Transform:
   - {fileID: 484340791855353179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3457163934720779363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4854841207321159400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36756972fec4b5946aeeced3b665ce23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!114 &8658348783131816595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +1020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6192b521541244b9be477109e9db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
-  fadingBlockingPanel: {fileID: 0}
 --- !u!114 &5033110263473436355
 MonoBehaviour:
   m_ObjectHideFlags: 0
