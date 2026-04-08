@@ -12,6 +12,11 @@ public class SceneChanger: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void LoadNextScene(string sceneName) {
+        // enable ending camera
+        endingCamera.Priority = 10;
+        fadingBlockingPanel.FadeOut();
+        // TODO set game state
+
         // TODO scene changer load next scene
         Debug.LogError("scene changer load next scene: " + sceneName, this);
     }
@@ -24,17 +29,22 @@ public class SceneChanger: MonoBehaviour {
         this.endingCamera = endingCamera;
 
         this.startingCamera.Priority = 10;
+        this.endingCamera.Priority = 0;
     }
 
-    // Event Handler  #############################################################
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        EnterNewScene();
-    }
+    // Inspector Fields  #######################################################
+
+    [SerializeField]
+    private FadingBlockingPanel fadingBlockingPanel;
+
+    [SerializeField]
+    private float fadeDuration = 1f;
 
     // MonoBehavior Lifecycle  ###################################################
 
     private void Awake() {
+
         I = this;
         DontDestroyOnLoad(gameObject);
 
@@ -45,8 +55,15 @@ public class SceneChanger: MonoBehaviour {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // Event Handler  #############################################################
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        EnterNewScene();
+    }
+
 
     // private members  ########################################################
+    // cached references
     private CinemachineVirtualCamera startingCamera;
     private CinemachineVirtualCamera endingCamera;
 
