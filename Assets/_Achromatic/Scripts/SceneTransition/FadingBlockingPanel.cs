@@ -40,7 +40,7 @@ public class FadingBlockingPanel: MonoBehaviour {
 
         while (t < duration) {
             t += Time.deltaTime;
-            color.a = Mathf.Lerp(from, to, t / duration);
+            color.a = Mathf.SmoothStep(from, to, t / duration);  // ease-in-out
             panelImage.color = color;
             yield return null;
         }

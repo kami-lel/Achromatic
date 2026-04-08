@@ -40,9 +40,6 @@ public class SceneChanger: MonoBehaviour {
     [SerializeField]
     private FadingBlockingPanel fadingBlockingPanel;
 
-    [SerializeField]
-    private float fadeDuration = 1f;
-
     // MonoBehavior Lifecycle  ###################################################
 
     private void Awake() {
