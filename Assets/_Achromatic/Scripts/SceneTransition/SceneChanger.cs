@@ -16,9 +16,12 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
+        // Todo change game state
+
         CinemachineVirtualCamera ending =
                 FindVirtualCameraByTag(END_CAMERA_TAG);
         ending.Priority = HIGH_CAMERA_PRIORITY;
+
 
         fadingBlockingPanel.FadeOut(
                 onComplete: () => StartCoroutine(LoadSceneCoroutine(sceneName))
@@ -32,11 +35,10 @@ public class SceneChanger: MonoBehaviour {
         if (I != null && I != this) {
             Debug.LogWarning("duplicated SceneManager", this);
             Destroy(gameObject);
-            return;
+        } else {
+            I = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-        I = this;
-        DontDestroyOnLoad(gameObject);
 
         // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
