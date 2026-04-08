@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,16 @@ public class SceneChanger: MonoBehaviour {
         Debug.LogError("scene changer load next scene: " + sceneName, this);
     }
 
+    public void RegisterStaticCameras(
+            CinemachineVirtualCamera startingCamera,
+            CinemachineVirtualCamera endingCamera) {
+
+        this.startingCamera = startingCamera;
+        this.endingCamera = endingCamera;
+
+        this.startingCamera.Priority = 10;
+    }
+
     // Event Handler  #############################################################
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -25,7 +36,7 @@ public class SceneChanger: MonoBehaviour {
 
     private void Awake() {
         I = this;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -33,6 +44,11 @@ public class SceneChanger: MonoBehaviour {
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+
+    // private members  ########################################################
+    private CinemachineVirtualCamera startingCamera;
+    private CinemachineVirtualCamera endingCamera;
 
     // private methods  ########################################################
 
