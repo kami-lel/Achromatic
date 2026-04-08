@@ -51,10 +51,10 @@ public class SceneChanger: MonoBehaviour {
         EnterNewScene();
     }
 
-
     // constants  ##############################################################
 
     private const int HIGH_CAMERA_PRIORITY = 100;
+    private const int LOW_CAMERA_PRIORITY = 0;
     private const string START_CAMERA_TAG = "startingCamera";
     private const string END_CAMERA_TAG = "endingCamera";
 

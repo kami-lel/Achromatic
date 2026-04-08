@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class FadingBlockingPanel: MonoBehaviour {
 
     // Public Methods  #########################################################
-    public void FadeOut() => StartCoroutine(CoFade(0f, 1f));
-    public void FadeIn() => StartCoroutine(CoFade(1f, 0f));
+    public void FadeOut(System.Action onComplete = null) =>
+            StartCoroutine(CoFade(0f, 1f, onComplete));
+    public void FadeIn(System.Action onComplete = null) =>
+            StartCoroutine(CoFade(1f, 0f, onComplete));
 
     // Inspector Fields  #######################################################
 
@@ -28,7 +30,10 @@ public class FadingBlockingPanel: MonoBehaviour {
 
     // private methods  ########################################################
 
-    private IEnumerator CoFade(float from, float to) {
+    private IEnumerator CoFade(
+            float from,
+            float to,
+            System.Action onComplete = null) {
         float duration = Mathf.Max(1e-5f, fadingDurationSec); // ensure safe
         float t = 0f;
 
@@ -45,6 +50,8 @@ public class FadingBlockingPanel: MonoBehaviour {
 
         color.a = to;
         panelImage.color = color;
+
+        onComplete?.Invoke();
     }
 
 }
