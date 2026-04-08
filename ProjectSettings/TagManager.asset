@@ -15,6 +15,7 @@ TagManager:
   - LoadNextSceneTrigger
   - startingCamera
   - endingCamera
+  - fadingBlockingPanel
   layers:
   - Default
   - TransparentFX

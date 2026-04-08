@@ -25,22 +25,24 @@ public class SceneChanger: MonoBehaviour {
         );
     }
 
-    // Inspector Fields  #######################################################
-
-    [SerializeField]
-    private FadingBlockingPanel fadingBlockingPanel;  // BUG use tag instead
-
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        if (fadingBlockingPanel == null) {
-            Debug.LogError("must assign: fadingBlockingPanel", this);
-        }
-
         I = this;
         DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // find fading panel  --------------------------------------------------
+        GameObject go;
+        go = GameObject.FindGameObjectWithTag(BLOCKING_PANEL_TAG);
+        if (go == null) {
+            Debug.LogError("fail to find Fading Blocking Panel");
+        }
+        fadingBlockingPanel = go.GetComponent<FadingBlockingPanel>();
+        if (fadingBlockingPanel == null) {
+            Debug.LogError("fail to find Fading Blocking Panel");
+        }
     }
 
     private void OnDisable() {
@@ -59,6 +61,12 @@ public class SceneChanger: MonoBehaviour {
     private const int LOW_CAMERA_PRIORITY = 0;
     private const string START_CAMERA_TAG = "startingCamera";
     private const string END_CAMERA_TAG = "endingCamera";
+    private const string BLOCKING_PANEL_TAG = "fadingBlockingPanel";
+
+
+    // private members  ########################################################
+
+    private FadingBlockingPanel fadingBlockingPanel;
 
     // private methods  ########################################################
 
