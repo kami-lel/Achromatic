@@ -51,10 +51,16 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         public BeatmapMeta meta;
 
+        [SerializeField]
+        private Transform originReferences;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
             // test inspector fields  ------------------------------------------
+            if (originReferences == null) {
+                Debug.LogError("must assign: Origin References", this);
+            }
             if (meta == null) {
                 Debug.LogError("must assign: Beatmap Meta", this);
                 return;
@@ -89,7 +95,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             secondsPerBeat = 60.0f / meta.tempo;
             preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
-            origin = new Vector2(transform.position.x, transform.position.y);
+            origin = new Vector2(
+                    originReferences.position.x, originReferences.position.y);
 
             Debug.Log("beatmap origin: " + origin);
 

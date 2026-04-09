@@ -11,6 +11,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [NonSerialized]
         public Vector2 preludeStartOrigin;
 
+
         // Inspector Fields  ###################################################
 
         [SerializeField]
