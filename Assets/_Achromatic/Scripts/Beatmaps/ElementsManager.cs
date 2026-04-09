@@ -35,12 +35,12 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 }
             }
 
-            // routine  ************************************************************
+            // routine  ********************************************************
             if (noteIdx == -1) {
                 return;
             }
 
-            // resolve hint pool  --------------------------------------------------
+            // resolve hint pool  ----------------------------------------------
             GameObject hintGo =
                 SearchActiveQInPool(actionHintJumpPool) ??
                 SearchActiveQInPool(actionHintAttackPool) ??
@@ -55,7 +55,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             PerishHint(hintGo);
 
-            // perish paired mob if present (attack notes only)  -------------------
+            // perish paired mob if present (attack notes only)  ---------------
             GameObject mobGo = SearchActiveQInPool(mobPool);
             if (mobGo != null &&
                     mobGo.TryGetComponent(out Enemy mobHint)) {
