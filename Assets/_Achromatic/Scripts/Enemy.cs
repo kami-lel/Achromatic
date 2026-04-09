@@ -52,7 +52,7 @@ public class Enemy: MonoBehaviour {
         yield return StartCoroutine(CoSpinShrink());
         yield return StartCoroutine(CoFadeOut());
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     // punch  ------------------------------------------------------------------
