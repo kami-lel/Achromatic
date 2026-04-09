@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-// Fixme new action sfx
+// FIXME new action sfx
 
 public class SFX: MonoBehaviour {
 
