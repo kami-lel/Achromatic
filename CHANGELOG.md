@@ -65,8 +65,6 @@
 - re-create the entire Lv1 map
 - floating objects in the background using particle system
 
-### Deprecated
-### Removed
 ### Fixed
 
 - Camera Jittering, by fine tunning virtual camera parameters
