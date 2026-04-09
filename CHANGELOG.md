@@ -11,6 +11,7 @@
 <!-- Fixme better total score windows -->
 
 <!-- bug fix sprite -->
+<!-- Bug running score indicator missing -->
 
 <!-- fixme camera movement during title screen -->
 <!-- todo smashing inputs type -->

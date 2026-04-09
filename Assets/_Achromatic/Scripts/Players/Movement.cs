@@ -100,7 +100,7 @@ namespace Assets._Achromatic.Scripts.Players {
         // constants  ##########################################################
         private static readonly float GRAVITY_SCALE = 1.0f;
         private static readonly float JUMP_FORCE = 5.5f;
-        private static readonly float MAX_WALKING_SPEED = 10.0f;
+        private static readonly float MAX_WALKING_SPEED = 8.0f;
 
         // private members  ####################################################
         private int moveDir = 0;
