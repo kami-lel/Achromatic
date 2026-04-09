@@ -5,15 +5,14 @@
 [^format]
 
 
-<!-- Bug mob didn't get killed -->
+<!-- BUG mob didn't get killed -->
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Todo metrics save to file -->
-<!-- Fixme title screen need better font -->
-<!-- Fixme squat obstacle confusing with background -->
 <!-- Fixme better total score windows -->
 <!-- Fixme camera movement during title screen -->
 
-<!-- bug fix sprite -->
+<!-- Bug fix sprite -->
+
 <!-- todo smashing inputs type -->
 <!-- todo local leaderboard -->
 <!-- todo more particles effects -->
@@ -23,6 +22,8 @@
 <!-- todo Wwise Unity Integration -->
 <!-- todo add map dynamic response to player performance -->
 <!-- fixme visual feedback for holding left stick -->
+<!-- fixme squat obstacle confusing with background -->
+<!-- fixme title screen need better font -->
 
 
 

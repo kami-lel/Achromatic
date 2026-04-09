@@ -10,7 +10,7 @@ using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.UI;
 
 
-// Todo improve looking of indicators
+// todo improve looking of indicators
 
 namespace Assets._Achromatic.Scripts.Scores {
 
