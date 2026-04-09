@@ -10,8 +10,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // Public Methods  #####################################################
 
-        public void PerishActionHint(int noteIdx, Hit hit) {
-            GameObject SearchActiveQInPool(PrefabPool<int> prefabPool) {
+        public void PerishNoteRelatedPrefab(int noteIdx, Hit hit) {
+            GameObject SearchActiveQInPool(
+                    PrefabPool<int> prefabPool) {
                 var enumerator = prefabPool.activeQ.GetEnumerator();
                 while (enumerator.MoveNext()) {
                     (int i, GameObject go) = enumerator.Current;
@@ -22,29 +23,45 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return null;
             }
 
-            // routine  ********************************************************
+            void PerishHint(GameObject go) {  // perish hint go
+                if (go == null)
+                    return;
+                if (go.TryGetComponent(out ActionHint hint)) {
+                    hint.Perish(hit);
+                } else {
+                    Debug.LogWarning(
+                        "fail to find: ActionHint on prefab w/ index of: "
+                        + noteIdx, this);
+                }
+            }
 
+            // routine  ************************************************************
             if (noteIdx == -1) {
                 return;
             }
 
-            GameObject go = SearchActiveQInPool(actionHintJumpPool) ??
-                    SearchActiveQInPool(actionHintAttackPool) ??
-                    SearchActiveQInPool(actionHintSquatPool);
+            // resolve hint pool  --------------------------------------------------
+            GameObject hintGo =
+                SearchActiveQInPool(actionHintJumpPool) ??
+                SearchActiveQInPool(actionHintAttackPool) ??
+                SearchActiveQInPool(actionHintSquatPool);
 
-            if (go == null) {
-                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx, this);
+            if (hintGo == null) {
+                Debug.LogWarning(
+                    "fail to find: Action Hint Prefab w/ index of: "
+                    + noteIdx, this);
                 return;
             }
 
-            if (go.TryGetComponent(out ActionHint hint)) {
-                hint.Perish(hit);
-            } else {
-                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx, this);
-                return;
+            PerishHint(hintGo);
+
+            // perish paired mob if present (attack notes only)  -------------------
+            GameObject mobGo = SearchActiveQInPool(mobPool);
+            if (mobGo != null &&
+                    mobGo.TryGetComponent(out Enemy mobHint)) {
+                mobHint.Perish(hit);
             }
         }
-
         // Inspector Fields  ###################################################
 
         [SerializeField]
@@ -139,7 +156,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     } else {
                         // attack
                         actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
-                        mobPool.Spawn(x, beatmapOriginY, -1);
+                        mobPool.Spawn(x, beatmapOriginY, noteIdx);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -183,3 +200,4 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private Beatmap beatmap;
     }
 }
+
