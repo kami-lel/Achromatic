@@ -37,6 +37,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Public Methods  #####################################################
+
         public void Jump() {
             anim.Jump();
             currentAction = Actions.JUMP;

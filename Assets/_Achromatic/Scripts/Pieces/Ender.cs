@@ -9,8 +9,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Ender: MonoBehaviour {
 
-        // TODO place airwall
-
         // Inspector Fields  ###################################################
 
         [SerializeField]
@@ -25,9 +23,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private GameObject finalPointWindow;
 
+        [SerializeField]
+        private GameObject midWall;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
+
             // test inspector fields  ------------------------------------------
             if (virtualCamera == null) {
                 Debug.LogError("must assign: Virtual Camera", this);
@@ -35,6 +37,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (finalPointWindow == null) {
                 Debug.LogError("must assign: Final Point Window", this);
             }
+
+            if (midWall == null) {
+                Debug.LogError("must assign: Mid Wall", this);
+            }
+            midWall.SetActive(false);
 
             // caching references of player  -----------------------------------
             GameObject playerGO = GCS.FindPlayer();
@@ -49,6 +56,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             rb = playerGO.GetComponent<Rigidbody2D>();
             if (rb == null) {
                 Debug.LogError("fail to find: Rigidbody2D", this);
+            }
+
+            anim = playerGO.GetComponent<AnimationManager>();
+            if (anim == null) {
+                Debug.LogError("fail to get: AnimationManager", this);
             }
 
         }
@@ -69,6 +81,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // Cached References
         private Player player;
+        private AnimationManager anim;
         private Rigidbody2D rb;
         private Players.InputManager pim;
 
@@ -81,6 +94,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             virtualCamera.Priority = 0;
             finalPointWindow.SetActive(true);
             Debug.Log("End Piece");
+            anim.StopRun();
+            anim.Idle();
+            midWall.SetActive(true);
         }
     }
 
