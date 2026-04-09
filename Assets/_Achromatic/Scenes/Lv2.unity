@@ -15190,6 +15190,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1741119925}
+    - target: {fileID: 8424437673835332493, guid: 6743a9eeda3c3454794880b963621a04, type: 3}
+      propertyPath: m_Priority
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -125961,7 +125965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3967378544829968314, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: orthographic size
-      value: 2.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4314454075813065455, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_Priority
@@ -125969,11 +125973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 4804229803973909344, guid: d062543937ba88e44b72d78bde74614c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -177076,6 +177080,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1882001273}
+    - target: {fileID: 1231703176888338262, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: debugMusicStartingBar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
