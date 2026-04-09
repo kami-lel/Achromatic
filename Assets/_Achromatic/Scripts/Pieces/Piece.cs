@@ -12,7 +12,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public Vector2 preludeStartOrigin;
 
         // Inspector Fields  ###################################################
-        public SplineContainer mainPath;
 
         [SerializeField]
         private Transform startPreludeTransform;
@@ -21,9 +20,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void Awake() {
             // test inspector fields  ------------------------------------------
-            if (mainPath == null) {
-                Debug.LogError("must assign: Main Path", this);
-            }
             if (startPreludeTransform == null) {
                 Debug.LogError("must assign: Start Prelude Transform", this);
             }

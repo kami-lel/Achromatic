@@ -89,9 +89,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             secondsPerBeat = 60.0f / meta.tempo;
             preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
+            origin = new Vector2(transform.position.x, transform.position.y);
 
-            var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
-            origin = new Vector2(pos3.x, pos3.y);
             Debug.Log("beatmap origin: " + origin);
 
             // todo use speed mux
