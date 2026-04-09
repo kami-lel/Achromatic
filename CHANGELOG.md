@@ -5,7 +5,6 @@
 [^format]
 
 <!-- fixme Lv2 background extend and make tileable -->
-<!-- TODO rm particles -->
 <!-- Fixme extend barline to be longer -->
 
 <!-- Todo metrics save to file -->
