@@ -3,19 +3,19 @@ using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 public class Enemy: MonoBehaviour {
-
-    // Public API  #############################################################
+    // Public API  ################################################################
 
     public void Perish(Hit hit) {
         if (is_dead)
             return;
+
         is_dead = true;
 
         StopAllCoroutines();
         StartCoroutine(CoDeathAnimation());
     }
 
-    // Inspector Fields  #######################################################
+    // Inspector Fields  ########################################################
 
     [Header("Death Timing")]
     [SerializeField] private float punchDuration = 0.08f;
@@ -24,17 +24,17 @@ public class Enemy: MonoBehaviour {
 
     [Header("Death Scale")]
     [SerializeField] private float punchScale = 1.55f;  // spike size
-    [SerializeField] private float spinShrinkScale = 0.0f;  // shrink target
+    [SerializeField] private float spinShrinkScale = 0.0f;   // shrink target
 
     [Header("Death Spin")]
-    [SerializeField] private float spinDegrees = 540f;   // total rotation
+    [SerializeField] private float spinDegrees = 540f;  // total rotation
 
     [Header("Hit Flash")]
     [SerializeField] private Color flashColor = Color.white;
 
-    // private members  ########################################################
+    // private members  #########################################################
 
-    private bool is_dead = false;
+    private bool is_dead;
     private Vector3 original_scale;
     private SpriteRenderer[] renderers;
 
@@ -59,17 +59,19 @@ public class Enemy: MonoBehaviour {
 
     private IEnumerator CoPunch() {
         float t = 0f;
-
-        SetFlash(flashColor);  // flash white on hit
+        SetTint(flashColor);  // flash on hit
 
         while (t < punchDuration) {
             t += Time.deltaTime;
-            float s = Mathf.SmoothStep(1f, punchScale, t / punchDuration);
+            float p = Mathf.Clamp01(t / punchDuration);
+
+            float s = Mathf.SmoothStep(1f, punchScale, p);
             transform.localScale = original_scale * s;
+
             yield return null;
         }
 
-        SetFlash(Color.white);  // restore tint
+        SetTint(Color.white);  // restore tint
     }
 
     // spin & shrink  ----------------------------------------------------------
@@ -80,15 +82,15 @@ public class Enemy: MonoBehaviour {
 
         while (t < spinDuration) {
             t += Time.deltaTime;
-            float eased = Mathf.SmoothStep(0f, 1f, t / spinDuration);
+            float p = Mathf.Clamp01(t / spinDuration);
+            float eased = Mathf.SmoothStep(0f, 1f, p);
 
-            float angle = Mathf.Lerp(0f, spinDegrees, eased);
             transform.eulerAngles = new Vector3(
-                0f, 0f, start_rot + angle
+                0f, 0f, start_rot + Mathf.Lerp(0f, spinDegrees, eased)
             );
 
-            float s = Mathf.Lerp(1f, spinShrinkScale, eased);
-            transform.localScale = original_scale * s;
+            transform.localScale = original_scale
+                                 * Mathf.Lerp(1f, spinShrinkScale, eased);
 
             yield return null;
         }
@@ -101,11 +103,13 @@ public class Enemy: MonoBehaviour {
 
         while (t < fadeDuration) {
             t += Time.deltaTime;
-            SetAlpha(Mathf.Lerp(1f, 0f, t / fadeDuration));
+            float p = Mathf.Clamp01(t / fadeDuration);
+
+            SetAlpha(Mathf.Lerp(1f, 0f, p));
             yield return null;
         }
 
-        SetAlpha(0f);
+        SetAlpha(0f);  // guarantee fully transparent
     }
 
     // helpers  ================================================================
@@ -118,9 +122,8 @@ public class Enemy: MonoBehaviour {
         }
     }
 
-    private void SetFlash(Color tint) {
+    private void SetTint(Color tint) {
         foreach (var r in renderers)
             r.color = tint;
     }
-
 }

@@ -14,7 +14,7 @@ public class FadingBlockingPanel: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private float fadingDurationSec = 1.5f;
+    private float fadingDurationSec = 3.5f;
 
     // MonoBehavior Lifecycle  #################################################
 
