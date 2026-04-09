@@ -9,6 +9,7 @@
 <!-- Todo particle efx: running score -->
 <!-- Todo add schools logo -->
 <!-- Fixme squat obstacle (also for jump) confusing with background -->
+<!-- Todo write dev log -->
 
 <!-- bug fix sprite -->
 <!-- todo smashing inputs type -->
@@ -45,7 +46,9 @@
 
 ## 1.0.0 Release
 
-## 1.0.0-beta Beta Milestone
+## 1.0.0-beta.2 Beta2 Milestone
+
+## [1.0.0-beta] Beta Milestone
 
 ### Added
 
@@ -297,8 +300,9 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...dev
-[0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta...dev
+[1.0.0-beta]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...v1.0.0-beta
+[1.0.0-alpha]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
 [0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
 [0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
