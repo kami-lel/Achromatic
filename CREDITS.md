@@ -6,4 +6,6 @@
 
 [Simple 2D Platformer Assets Pack](https://assetstore.unity.com/packages/2d/characters/simple-2d-platformer-assets-pack-188518) by Goldmetal
 
+[Input Prompts](https://kenney.nl/assets/input-prompts)
+
 (Helton Yan's Old-School Shonen SFX)[https://heltonyan.itch.io/retroanimesfx]
