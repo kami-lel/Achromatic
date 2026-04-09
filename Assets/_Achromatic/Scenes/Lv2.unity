@@ -177149,6 +177149,10 @@ PrefabInstance:
       value: 6.912
       objectReference: {fileID: 0}
     - target: {fileID: 7910136319746607527, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+      propertyPath: endX
+      value: 1890
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910136319746607527, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1882001273}
