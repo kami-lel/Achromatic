@@ -96,9 +96,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
             barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
 
-            blockadePool = new(4, PREFAB_FOLDER + "blockade", prefabs);
-            obstaclePool = new(4, PREFAB_FOLDER + "obstacle", prefabs);
-            mobPool = new(4, PREFAB_FOLDER + "Enemy", prefabs);
+            blockadePool = new(8, PREFAB_FOLDER + "blockade", prefabs);
+            obstaclePool = new(8, PREFAB_FOLDER + "obstacle", prefabs);
+            mobPool = new(8, PREFAB_FOLDER + "Enemy", prefabs);
         }
 
         private void Update() {
