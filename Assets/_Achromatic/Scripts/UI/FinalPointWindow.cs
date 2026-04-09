@@ -4,6 +4,8 @@ using Assets._Achromatic.Scripts.Scores;
 using TMPro;
 
 
+// Fixme better total score windows
+// Fixme use icons w/o arrows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
 
@@ -47,7 +49,7 @@ namespace Assets._Achromatic.Scripts.UI {
             great.text = $"{greatCnt}";
             int goodCnt = score.hitCnt[Hit.EARLY_GOOD] + score.hitCnt[Hit.LATE_GOOD];
             good.text = $"{goodCnt}";
-            // todo miss
+            // Todo missing good count
         }
 
         // private methods  ####################################################

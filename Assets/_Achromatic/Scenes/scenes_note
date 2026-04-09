@@ -1,4 +1,20 @@
 
+Todo make note appears in all scenes
+Fixme extend barline to be longer
+
+Fixme Lv1 explore icons: all arrows on stick, wsad on keys
+Todo detect control scheme to inform tutorial display
+Todo add right-arrows at start
+Todo add right-arrows at preludes
+Todo add right-arrows at all ends of play
+Fixme Lv1 beatmap reduce difficulty on 2nd half
+
+
 Todo improve Lv2 beatmap
+Bug Lv2 not on correct beat count
+Fixme Lv2 background extend and make tileable
+Bug Lv2 background cleanup
+
 Todo improve Lv3 beatmap
+Todo Lv3 background parallax
 

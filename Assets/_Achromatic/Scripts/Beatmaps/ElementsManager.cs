@@ -3,6 +3,9 @@ using System.Linq;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
+
+// Bug mob is missing in some attack notes
+
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(Beatmap))]

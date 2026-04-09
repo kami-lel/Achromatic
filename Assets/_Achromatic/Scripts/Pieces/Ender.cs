@@ -15,7 +15,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerTransform;
 
         [SerializeField]
-        private float endX;  // bug use music to control
+        private float endX;  // Bug use music to control
 
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;

@@ -10,7 +10,8 @@ using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.UI;
 
 
-// todo improve looking of indicators
+// Todo improve looking of indicators
+// Bug running score indicator missing
 
 namespace Assets._Achromatic.Scripts.Scores {
 

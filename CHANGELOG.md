@@ -4,27 +4,23 @@
 
 [^format]
 
-<!-- fixme Lv2 background extend and make tileable -->
-<!-- Fixme extend barline to be longer -->
-
-<!-- Todo metrics save to file -->
-<!-- Fixme better total score windows -->
+<!-- Todo make web / mac build -->
+<!-- Todo particle efx: on monster killed,jumped,etc. -->
+<!-- Todo particle efx: running score -->
+<!-- Todo add schools logo -->
+<!-- Fixme squat obstacle (also for jump) confusing with background -->
 
 <!-- bug fix sprite -->
-<!-- Bug running score indicator missing -->
-
-<!-- fixme camera movement during title screen -->
 <!-- todo smashing inputs type -->
-<!-- todo local leaderboard -->
-<!-- todo more particles effects -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo show player character origin in world -->
 <!-- todo set up hooks utility -->
 <!-- todo Wwise Unity Integration -->
 <!-- todo add map dynamic response to player performance -->
+<!-- fixme Lv2 music need boost volume of drum track -->
 <!-- fixme visual feedback for holding left stick -->
-<!-- fixme squat obstacle confusing with background -->
 <!-- fixme title screen need better font -->
+<!-- fixme camera movement during title screen -->
 
 
 

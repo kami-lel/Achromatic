@@ -2,7 +2,8 @@ using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
-// bug player is jumped when start prelude
+// Bug player is jumped when start prelude
+// Fixme dont show miss type indicator during prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]

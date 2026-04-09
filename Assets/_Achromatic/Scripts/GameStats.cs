@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+// Todo metrics save to file
+// Todo local leaderboard
+
 public class GameStats: MonoBehaviour {
     public static GameStats Instance {
         get; private set;

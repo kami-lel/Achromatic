@@ -64,7 +64,7 @@ public class GCS: MonoBehaviour {
     }
 
     private void Update() {
-        return;  // Hack
+        return;  // Hack rm or fix GCS
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         fpsFrameCounter++;
