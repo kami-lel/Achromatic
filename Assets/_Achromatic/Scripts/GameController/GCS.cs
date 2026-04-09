@@ -43,7 +43,14 @@ public class GCS: MonoBehaviour {
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
+        // singleton logic  ----------------------------------------------------
+        if (I != null && I != this) {
+            Debug.LogWarning("duplicated SceneManager", this);
+            Destroy(this);
+        }
+
         I = this;
+        DontDestroyOnLoad(gameObject);
 
         // caching references to piece  ----------------------------------------
         sceneChanger = GetComponent<SceneChanger>();

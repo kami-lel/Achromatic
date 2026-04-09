@@ -15,7 +15,7 @@ public class GameController: MonoBehaviour {
         // singleton logic  ----------------------------------------------------
         if (I != null && I != this) {
             Debug.LogWarning("duplicated GameController", this);
-            Destroy(gameObject);
+            Destroy(this);
             return;
         }
 

@@ -33,12 +33,11 @@ public class SceneChanger: MonoBehaviour {
         // singleton logic  ----------------------------------------------------
         if (I != null && I != this) {
             Debug.LogWarning("duplicated SceneManager", this);
-            Destroy(gameObject);
-        } else {
-            I = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(this);
         }
 
+        I = this;
+        DontDestroyOnLoad(gameObject);
         // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
 

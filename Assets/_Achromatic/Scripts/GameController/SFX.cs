@@ -120,7 +120,7 @@ public class SFX: MonoBehaviour {
         // singleton logic  ----------------------------------------------------
         if (I != null && I != this) {
             Debug.LogWarning("duplicated SFX", this);
-            Destroy(gameObject);
+            Destroy(this);
             return;
         }
 
