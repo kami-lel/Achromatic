@@ -1,6 +1,4 @@
 
-// BUG keeps running
-
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Players {
@@ -29,11 +27,6 @@ namespace Assets._Achromatic.Scripts.Players {
             animator.SetTrigger(ATTACK_ANIM_ID);
         }
 
-        public void Idle() {
-            animator.SetBool(RUN_ANIM_ID, false);
-            animator.SetTrigger(IDLE_ANIM_ID);
-        }
-
         public void EnsureFacing(bool right = true) {
             if (right != isFacingRight) {
                 // flip
@@ -55,7 +48,6 @@ namespace Assets._Achromatic.Scripts.Players {
         private readonly int ATTACK_ANIM_ID = Animator.StringToHash("Attack");
         private readonly int SQUAT_ANIM_ID = Animator.StringToHash("Squat");
         private readonly int JUMP_ANIM_ID = Animator.StringToHash("Jump");
-        private readonly int IDLE_ANIM_ID = Animator.StringToHash("Idle");
 
         // private members  ####################################################
         // cached references

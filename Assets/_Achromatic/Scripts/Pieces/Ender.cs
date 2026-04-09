@@ -95,7 +95,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             finalPointWindow.SetActive(true);
             Debug.Log("End Piece");
             anim.StopRun();
-            anim.Idle();
             midWall.SetActive(true);
         }
     }
