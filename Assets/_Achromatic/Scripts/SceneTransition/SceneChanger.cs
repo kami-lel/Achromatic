@@ -16,14 +16,16 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
-        // Todo change game state
+        GCS.I.states = GameState.SCENE_TRANSITION;
 
         CinemachineVirtualCamera ending =
                 FindVirtualCameraByTag(END_CAMERA_TAG);
         ending.Priority = HIGH_CAMERA_PRIORITY;
 
         fadingBlockingPanel.FadeOut(
-                onComplete: () => StartCoroutine(LoadSceneCoroutine(sceneName))
+                onComplete: () => {
+                    StartCoroutine(LoadSceneCoroutine(sceneName));
+                }
         );
     }
 
