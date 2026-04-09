@@ -5,7 +5,6 @@
 [^format]
 
 
-<!-- BUG mob didn't get killed -->
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Todo metrics save to file -->
 <!-- Fixme better total score windows -->
@@ -57,6 +56,7 @@
 - Lv1 distant background image
 - basic particle effects during player running
 - scene transition logic with fade-in and fade-out
+- enemy prefab can be killed
 
 ### Changed
 
