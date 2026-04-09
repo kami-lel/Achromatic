@@ -5,7 +5,7 @@
 [^format]
 
 
-<!-- Todo graphical instruction on control scheme tutorial -->
+<!-- TODO graphical instruction on control scheme tutorial -->
 <!-- Todo metrics save to file -->
 <!-- Fixme better total score windows -->
 

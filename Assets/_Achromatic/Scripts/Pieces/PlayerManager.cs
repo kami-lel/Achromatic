@@ -163,7 +163,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
                 // main piece  -------------------------------------------------
 
-                // Fixme no use Spline path
+                // FIXME no use Spline path
 
                 // move player in world map
                 float x = beatmap.CalcCurrentXFromBeat();
