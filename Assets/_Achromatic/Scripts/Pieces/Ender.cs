@@ -9,6 +9,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
     public class Ender: MonoBehaviour {
 
+        // TODO place airwall
 
         // Inspector Fields  ###################################################
 
