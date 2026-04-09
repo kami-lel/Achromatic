@@ -54,12 +54,12 @@ namespace Assets._Achromatic.Scripts.Players {
         private void Awake() {
             anim = GetComponent<AnimationManager>();
             if (anim == null) {
-                Debug.LogError("Movement:\tfail to get: AnimationManager");
+                Debug.LogError("fail to get: AnimationManager", this);
             }
 
             rb = GetComponent<Rigidbody2D>();
             if (rb == null) {
-                Debug.LogError("Movement:\tfail to get: Rigidbody2D");
+                Debug.LogError("fail to get: Rigidbody2D", this);
             }
 
         }
@@ -99,8 +99,8 @@ namespace Assets._Achromatic.Scripts.Players {
 
         // constants  ##########################################################
         private static readonly float GRAVITY_SCALE = 1.0f;
-        private static readonly float JUMP_FORCE = 8.0f;
-        private static readonly float MAX_WALKING_SPEED = 10.0f;
+        private static readonly float JUMP_FORCE = 5.5f;
+        private static readonly float MAX_WALKING_SPEED = 8.0f;
 
         // private members  ####################################################
         private int moveDir = 0;

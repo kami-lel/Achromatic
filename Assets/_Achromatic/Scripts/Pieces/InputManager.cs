@@ -21,19 +21,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // caching references to piece  ------------------------------------
             score = GetComponent<Score>();
             if (score == null) {
-                Debug.LogError("fail to get: Score");
+                Debug.LogError("fail to get: Score", this);
             }
             criteria = GetComponent<Criteria>();
             if (score == null) {
-                Debug.LogError("fail to get: Criteria");
+                Debug.LogError("fail to get: Criteria", this);
             }
             playerManager = GetComponent<PlayerManager>();
             if (playerManager == null) {
-                Debug.LogError("fail to get: Player Manager");
+                Debug.LogError("fail to get: Player Manager", this);
             }
             elementsManager = GetComponent<ElementsManager>();
             if (elementsManager == null) {
-                Debug.LogError("fail to get: Elements Manager");
+                Debug.LogError("fail to get: Elements Manager", this);
             }
 
             // caching references to player  -----------------------------------
@@ -41,7 +41,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pi = go.GetComponent<PlayerInput>();
 
             if (pi == null) {
-                Debug.LogError("fail to find: Player Input");
+                Debug.LogError("fail to find: Player Input", this);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (pi != null) {
                 pi.onActionTriggered += OnActionTriggered;
             } else {
-                Debug.LogError("fail to subscribe");
+                Debug.LogError("fail to subscribe", this);
             }
         }
 
@@ -117,7 +117,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             (Hit hit, int noteIdx) = criteria.Judge(pressed);
             score.Record(hit);
             SFX.I.OnHit(pressed, hit);
-            elementsManager.PerishActionHint(noteIdx, hit);
+            elementsManager.PerishNoteRelatedPrefab(noteIdx, hit);
 
             if ((pressed & Actions.JUMP) != 0) {
                 playerManager.Jump();

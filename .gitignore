@@ -98,4 +98,4 @@ InitTestScene*.unity*
 
 *.slnx
 
-g
+/[Aa]ssets/_Recovery/**

@@ -37,6 +37,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Public Methods  #####################################################
+
         public void Jump() {
             anim.Jump();
             currentAction = Actions.JUMP;
@@ -73,15 +74,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // caching reference of piece  -------------------------------------
             music = GetComponent<MusicManager>();
             if (music == null) {
-                Debug.LogError("fail to get: MusicManager");
+                Debug.LogError("fail to get: MusicManager", this);
             }
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
             piece = GetComponent<Piece>();
             if (piece == null) {
-                Debug.LogError("fail to get: Piece");
+                Debug.LogError("fail to get: Piece", this);
             }
 
             // caching references of player  -----------------------------------
@@ -89,17 +90,17 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             rb = playerGO.GetComponent<Rigidbody2D>();
             if (rb == null) {
-                Debug.LogError("fail to find: Rigidbody2D");
+                Debug.LogError("fail to find: Rigidbody2D", this);
             }
 
             anim = playerGO.GetComponent<AnimationManager>();
             if (anim == null) {
-                Debug.LogError("fail to get: AnimationManager");
+                Debug.LogError("fail to get: AnimationManager", this);
             }
 
             pim = playerGO.GetComponent<Players.InputManager>();
             if (pim == null) {
-                Debug.LogError("fail to get: Player InputManager");
+                Debug.LogError("fail to get: Player InputManager", this);
             }
 
             // find player sprite  ---------------------------------------------
@@ -108,27 +109,28 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 playerSprite = spriteGO.GetComponent<Transform>();
             }
             if (playerSprite == null) {
-                Debug.LogError("fail to find: Player Sprite by Tag");
+                Debug.LogError("fail to find: Player Sprite by Tag", this);
             }
 
             // test inspector fields  ------------------------------------------
             if (playerSprite == null) {
-                Debug.LogError("must assign: Player Sprite");
+                Debug.LogError("must assign: Player Sprite", this);
             }
             if (jumpHeightVsTime == null) {
-                Debug.LogError("must assign: Jump Height Vs Time");
+                Debug.LogError("must assign: Jump Height Vs Time", this);
             }
             if (attackOffsetVsTime == null) {
-                Debug.LogError("must assign: Attack Offset Vs Time");
+                Debug.LogError("must assign: Attack Offset Vs Time", this);
             }
             if (squatOffsetVsTime == null) {
-                Debug.LogError("must assign: Squat Offset Vs Time");
+                Debug.LogError("must assign: Squat Offset Vs Time", this);
             }
 
             // calc movement during prelude  -----------------------------------
             float t = beatmap.meta.preludeSeconds;
             if (t <= 0f) {
-                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0");  // prevent div by zero
+                // prevent div by zero
+                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0", this);
                 t = Mathf.Epsilon;
             }
 
@@ -138,20 +140,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // calc init velocity
             preludeStartVelocityX = 2f * s / t - v;
             if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed");
+                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed", this);
                 preludeStartVelocityX = 0f;
             }
 
             // calc acceleration — use v - u over t to be explicit
             preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
 
-            Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
+            // Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         private void FixedUpdate() {
             if (GCS.I.states == GameState.PRELUDE) {
                 // prelude  ----------------------------------------------------
-                // fixme using music to control triggering
+                // Fixme using music to control triggering
                 if (music.Time >= beatmap.meta.preludeSeconds) {
                     StartMainPiece();
                     GCS.I.states = GameState.MAIN_PIECE;
@@ -161,8 +163,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
             } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
                 // main piece  -------------------------------------------------
-
-                // todo use Spline path
 
                 // move player in world map
                 float x = beatmap.CalcCurrentXFromBeat();

@@ -25,24 +25,24 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (vampDistantVsVolume == null) {
-                Debug.LogError("must assign: Vamp Distance Vs Volume");
+                Debug.LogError("must assign: Vamp Distance Vs Volume", this);
             }
             if (virtualCamera == null) {
-                Debug.LogError("must assign: Virtual Camera");
+                Debug.LogError("must assign: Virtual Camera", this);
             }
 
             // caching reference of piece  -------------------------------------
             piece = GetComponent<Piece>();
             if (piece == null) {
-                Debug.LogError("fail to get: Piece");
+                Debug.LogError("fail to get: Piece", this);
             }
             music = GetComponent<MusicManager>();
             if (music == null) {
-                Debug.LogError("fail to get: MusicManager");
+                Debug.LogError("fail to get: MusicManager", this);
             }
             playerManager = GetComponent<PlayerManager>();
             if (playerManager == null) {
-                Debug.LogError("fail to get: Player Manager");
+                Debug.LogError("fail to get: Player Manager", this);
             }
 
             // caching references of player  -----------------------------------
@@ -51,12 +51,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerGO.GetComponent<Player>();
             playerTransform = playerGO.GetComponent<Transform>();
             if (playerTransform == null) {
-                Debug.LogError("fail to get: playerTransform");
+                Debug.LogError("fail to get: playerTransform", this);
             }
 
 
             if (debugMusicStartingBar != 0) {
-                Debug.LogWarning("Debug Music Starting Bar is non-zero");
+                Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 player.OnTriggerEnter += HandleOnTriggerEnter;
                 player.OnTriggerExit += HandleOnTriggerExit;
             } else {
-                Debug.LogError("fail to subscribe");
+                Debug.LogError("fail to subscribe", this);
             }
         }
 

@@ -67,22 +67,22 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Awake() {
             // test inspector fields  ------------------------------------------
             if (bgm == null) {
-                Debug.LogError("must assign: BGM");
+                Debug.LogError("must assign: BGM", this);
                 return;
             }
             if (vamp == null) {
-                Debug.LogError("must assign: Vamp");
+                Debug.LogError("must assign: Vamp", this);
                 return;
             }
             if (preludeAndMain == null) {
-                Debug.LogError("must assign: Prelude And Main");
+                Debug.LogError("must assign: Prelude And Main", this);
                 return;
             }
 
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
         }
 

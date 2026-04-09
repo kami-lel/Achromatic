@@ -4,20 +4,27 @@
 
 [^format]
 
-<!-- todo metrics save to file -->
-<!-- todo new tilemap -->
-<!-- todo camera fine tunning: smooth follow during main piece -->
-<!-- todo pause screen, allow restart/resume -->
-<!-- todo barline & beat line as environmental element -->
-<!-- todo show player character origin in world -->
-<!-- todo add obstacles & enemy to kills -->
+<!-- fixme Lv2 background extend and make tileable -->
+<!-- Fixme extend barline to be longer -->
+
+<!-- Todo metrics save to file -->
+<!-- Fixme better total score windows -->
+
+<!-- bug fix sprite -->
+<!-- Bug running score indicator missing -->
+
+<!-- fixme camera movement during title screen -->
+<!-- todo smashing inputs type -->
 <!-- todo local leaderboard -->
+<!-- todo more particles effects -->
+<!-- todo pause screen, allow restart/resume -->
+<!-- todo show player character origin in world -->
 <!-- todo set up hooks utility -->
-<!-- todo allows & give feedback for smashing input during: empty or climax -->
-<!-- todo particles efx -->
-<!-- todo full UX: start, reset, etc. -->
 <!-- todo Wwise Unity Integration -->
-<!-- fixme perfect+action sfx must be satisfying -->
+<!-- todo add map dynamic response to player performance -->
+<!-- fixme visual feedback for holding left stick -->
+<!-- fixme squat obstacle confusing with background -->
+<!-- fixme title screen need better font -->
 
 
 
@@ -43,6 +50,58 @@
 ## 1.0.0 Release
 
 ## 1.0.0-beta Beta Milestone
+
+### Added
+
+- obstacles & enemy (mob) during music play
+- functional parallax background
+- Lv1 distant background image
+- basic particle effects during player running
+- scene transition logic with fade-in and fade-out
+- enemy prefab can be killed
+
+### Changed
+
+- using a new tile sets
+- re-create the entire Lv1 map
+- floating objects in the background using particle system
+
+### Fixed
+
+- Camera Jittering, by fine tunning virtual camera parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## [1.0.0-alpha] Alpha Milestone - 2026-03-26
 

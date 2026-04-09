@@ -10,8 +10,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // Public Methods  #####################################################
 
-        public void PerishActionHint(int noteIdx, Hit hit) {
-            GameObject SearchActiveQInPool(PrefabPool<int> prefabPool) {
+        public void PerishNoteRelatedPrefab(int noteIdx, Hit hit) {
+            GameObject SearchActiveQInPool(
+                    PrefabPool<int> prefabPool) {
                 var enumerator = prefabPool.activeQ.GetEnumerator();
                 while (enumerator.MoveNext()) {
                     (int i, GameObject go) = enumerator.Current;
@@ -22,29 +23,45 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return null;
             }
 
-            // routine  ********************************************************
+            void PerishHint(GameObject go) {  // perish hint go
+                if (go == null)
+                    return;
+                if (go.TryGetComponent(out ActionHint hint)) {
+                    hint.Perish(hit);
+                } else {
+                    Debug.LogWarning(
+                        "fail to find: ActionHint on prefab w/ index of: "
+                        + noteIdx, this);
+                }
+            }
 
+            // routine  ********************************************************
             if (noteIdx == -1) {
                 return;
             }
 
-            GameObject go = SearchActiveQInPool(actionHintJumpPool) ??
-                    SearchActiveQInPool(actionHintAttackPool) ??
-                    SearchActiveQInPool(actionHintSquatPool);
+            // resolve hint pool  ----------------------------------------------
+            GameObject hintGo =
+                SearchActiveQInPool(actionHintJumpPool) ??
+                SearchActiveQInPool(actionHintAttackPool) ??
+                SearchActiveQInPool(actionHintSquatPool);
 
-            if (go == null) {
-                Debug.LogWarning("fail to find: Action Hint Prefab w/ index of: " + noteIdx);
+            if (hintGo == null) {
+                Debug.LogWarning(
+                    "fail to find: Action Hint Prefab w/ index of: "
+                    + noteIdx, this);
                 return;
             }
 
-            if (go.TryGetComponent(out ActionHint hint)) {
-                hint.Perish(hit);
-            } else {
-                Debug.LogWarning("fail to find: ActionHint attach to prefab w/ index of" + noteIdx);
-                return;
+            PerishHint(hintGo);
+
+            // perish paired mob if present (attack notes only)  ---------------
+            GameObject mobGo = SearchActiveQInPool(mobPool);
+            if (mobGo != null &&
+                    mobGo.TryGetComponent(out Enemy mobHint)) {
+                mobHint.Perish(hit);
             }
         }
-
         // Inspector Fields  ###################################################
 
         [SerializeField]
@@ -58,21 +75,21 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private void Awake() {
             // check inspect fields  -------------------------------------------
             if (prefabs == null) {
-                Debug.LogError("must assign: Prefabs");
+                Debug.LogError("must assign: Prefabs", this);
                 return;
             }
 
             // caching reference of piece  -------------------------------------
             beatmap = GetComponent<Beatmap>();
             if (beatmap == null) {
-                Debug.LogError("fail to get: Beatmap");
+                Debug.LogError("fail to get: Beatmap", this);
             }
 
             // calc vars  ------------------------------------------------------
             lastBeatLineOnBeat = -1;
-            barlineBeatlineY = beatmap.origin.y + BARLINE_BEATLINE_OFFSET_Y;
-            actionHintY = beatmap.origin.y + ACTION_HINT_OFFSET_Y;
-            blockadeY = beatmap.origin.y + BLOCKADE_OFFSET_Y;
+            beatmapOriginY = beatmap.origin.y;
+            barlineBeatlineY = beatmapOriginY + BARLINE_BEATLINE_OFFSET_Y;
+            actionHintY = beatmapOriginY + ACTION_HINT_OFFSET_Y;
 
             // local copy queue  -----------------------------------------------
             renderBeatNotesQ = new Queue<(int, float, Note)>();
@@ -84,7 +101,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 noteIdx++;
             }
             if (renderBeatNotesQ.Count() == 0) {
-                Debug.LogError("empty notesQ");
+                Debug.LogError("empty notesQ", this);
             }
 
             // create per-type pools  ------------------------------------------
@@ -97,6 +114,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
 
             blockadePool = new(8, PREFAB_FOLDER + "blockade", prefabs);
+            obstaclePool = new(8, PREFAB_FOLDER + "obstacle", prefabs);
+            mobPool = new(8, PREFAB_FOLDER + "Enemy", prefabs);
         }
 
         private void Update() {
@@ -130,11 +149,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     float x = beatmap.CalcXFromBeat(onBeat);
                     if (note.type == "jump") {
                         actionHintJumpPool.Spawn(x, actionHintY, noteIdx);
-                        blockadePool.Spawn(x + BLOCKADE_OFFSET_X, blockadeY, -1);
+                        blockadePool.Spawn(x, beatmapOriginY, -1);
                     } else if (note.type == "squat") {
                         actionHintSquatPool.Spawn(x, actionHintY, noteIdx);
+                        obstaclePool.Spawn(x, beatmapOriginY, -1);
                     } else {
+                        // attack
                         actionHintAttackPool.Spawn(x, actionHintY, noteIdx);
+                        mobPool.Spawn(x, beatmapOriginY, noteIdx);
                     }
 
                     renderBeatNotesQ.Dequeue();
@@ -153,10 +175,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         // constants  ##########################################################
         private const string PREFAB_FOLDER = "Prefabs/BeatmapElements/";
-        private const float BARLINE_BEATLINE_OFFSET_Y = 3.0f;
-        private const float ACTION_HINT_OFFSET_Y = 6.0f;
-        private const float BLOCKADE_OFFSET_Y = 1.0f;
-        private const float BLOCKADE_OFFSET_X = 1.0f;
+        private const float BARLINE_BEATLINE_OFFSET_Y = 5.5f;
+        private const float ACTION_HINT_OFFSET_Y = 5.5f;
 
         // private members  ####################################################
         // note beat, note object
@@ -164,7 +184,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private int lastBeatLineOnBeat;
         private float barlineBeatlineY;
         private float actionHintY;
-        private float blockadeY;
+        private float beatmapOriginY;
 
         // per-element pools
         private PrefabPool<int> actionHintJumpPool;
@@ -173,8 +193,11 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private PrefabPool<int> beatLinePool;
         private PrefabPool<int> barlinePool;
         private PrefabPool<int> blockadePool;
+        private PrefabPool<int> obstaclePool;
+        private PrefabPool<int> mobPool;
 
         // Cached Reference
         private Beatmap beatmap;
     }
 }
+

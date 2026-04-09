@@ -13,6 +13,9 @@ TagManager:
   - ScoreAdditionIndicator
   - PlayerSprite
   - LoadNextSceneTrigger
+  - startingCamera
+  - endingCamera
+  - fadingBlockingPanel
   layers:
   - Default
   - TransparentFX
@@ -61,9 +64,6 @@ TagManager:
     locked: 0
   - name: actionHints
     uniqueID: 2589415419
-    locked: 0
-  - name: HitTypeIndicator
-    uniqueID: 3339278749
     locked: 0
   - name: Player
     uniqueID: 513730351

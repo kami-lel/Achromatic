@@ -51,35 +51,43 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         public BeatmapMeta meta;
 
+        [SerializeField]
+        private Transform originReferences;
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
             // test inspector fields  ------------------------------------------
+            if (originReferences == null) {
+                Debug.LogError("must assign: Origin References", this);
+            }
             if (meta == null) {
-                Debug.LogError("must assign: Beatmap Meta");
+                Debug.LogError("must assign: Beatmap Meta", this);
                 return;
             }
             if (meta.file == null) {
-                Debug.LogError("must assign Beatmap File in Beatmap Meta");
+                Debug.LogError("must assign Beatmap File in Beatmap Meta", this);
                 return;
             }
 
             // caching reference of piece  -------------------------------------
             piece = GetComponent<Piece>();
             if (piece == null) {
-                Debug.LogError("fail to get: Piece");
+                Debug.LogError("fail to get: Piece", this);
             }
 
             music = GetComponent<MusicManager>();
             if (music == null) {
-                Debug.LogError("fail to get: MusicManager");
+                Debug.LogError("fail to get: MusicManager", this);
             }
 
             // load data  ------------------------------------------------------
             data = JsonUtility.FromJson<BeatmapData>(meta.file.text);
             if (data.notes.Length == 0) {
-                Debug.LogError("Beatmap:\tbeatmap file contains no notes: "
-                        + meta.file.name);
+                Debug.LogError(
+                        "Beatmap:\tbeatmap file contains no notes: "
+                        + meta.file.name,
+                        this);
             }
 
             // init vars  ------------------------------------------------------
@@ -87,9 +95,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             secondsPerBeat = 60.0f / meta.tempo;
             preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
+            origin = new Vector2(
+                    originReferences.position.x, originReferences.position.y);
 
-            var pos3 = piece.mainPath.EvaluatePosition(0, 0f);
-            origin = new Vector2(pos3.x, pos3.y);
             Debug.Log("beatmap origin: " + origin);
 
             // todo use speed mux
