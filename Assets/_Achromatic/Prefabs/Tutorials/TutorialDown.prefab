@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 4379397201101505498}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.46, y: -0.5, z: 0}
+  m_LocalPosition: {x: -1.44, y: -0.5, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -263,7 +263,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7852748577579673936, guid: 8d1d39e624e114d41ae7942a4fe79df9, type: 3}
+  m_Sprite: {fileID: -6157015308907440503, guid: 91d27e3fae8e0ff4eb1c6c305a9f9760, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396388275478284684}
   m_Layer: 0
-  m_Name: TutorialRight
+  m_Name: TutorialDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8387302115945079765, guid: 6912aec3016b73a42bf291055e9b0321, type: 3}
+  m_Sprite: {fileID: -3937758826142331281, guid: b32124b6d46903d4d970fdbbd3f668a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
