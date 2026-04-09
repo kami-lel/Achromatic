@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Lv2BeatmapMeta
   m_EditorClassIdentifier: Assembly-CSharp::BeatmapMeta
   file: {fileID: 4900000, guid: e5133cb5dc84dca4d87e6c66a52058ed, type: 3}
-  tempo: 120
+  tempo: 119.1
   beatPerBar: 4
   subdivisionPerBeat: 4
-  preludeSeconds: 8
+  preludeSeconds: 16.5
   elementsSpeedMultiplier: 0
   horizontalUnitsPerBeat: 5
   barlineRenderDistance: 10
