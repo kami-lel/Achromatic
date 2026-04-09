@@ -8,7 +8,7 @@
 <!-- Todo metrics save to file -->
 <!-- Fixme better total score windows -->
 
-<!-- Bug fix sprite -->
+<!-- bug fix sprite -->
 
 <!-- fixme camera movement during title screen -->
 <!-- todo smashing inputs type -->
