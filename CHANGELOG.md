@@ -8,10 +8,10 @@
 <!-- Todo graphical instruction on control scheme tutorial -->
 <!-- Todo metrics save to file -->
 <!-- Fixme better total score windows -->
-<!-- Fixme camera movement during title screen -->
 
 <!-- Bug fix sprite -->
 
+<!-- fixme camera movement during title screen -->
 <!-- todo smashing inputs type -->
 <!-- todo local leaderboard -->
 <!-- todo more particles effects -->
