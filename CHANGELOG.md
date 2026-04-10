@@ -51,6 +51,43 @@
 
 - splash screen with logos of USC and Berklee
 
+### Changed
+
+- set up canvas for scaling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## [1.0.0-beta] Beta Milestone
 
 ### Added
