@@ -7,7 +7,6 @@
 <!-- Todo make web / mac build -->
 <!-- Todo particle efx: on monster killed,jumped,etc. -->
 <!-- Todo particle efx: running score -->
-<!-- Todo add schools logo -->
 <!-- Fixme squat obstacle (also for jump) confusing with background -->
 <!-- Todo write dev log -->
 
