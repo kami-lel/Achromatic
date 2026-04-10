@@ -48,6 +48,10 @@
 
 ## 1.0.0-beta.2 Beta2 Milestone
 
+### Added
+
+- splash screen with logos of USC and Berklee
+
 ## [1.0.0-beta] Beta Milestone
 
 ### Added
