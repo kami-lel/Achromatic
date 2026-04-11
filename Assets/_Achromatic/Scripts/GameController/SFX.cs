@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
@@ -32,19 +33,19 @@ public class SFX: MonoBehaviour {
             }
 
         } else if ((hit & Hit.GREAT) != 0) {
-            PlaySFX(greatSFX);
+            PlayOneShotSFX(greatSFX);
             PlayRumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
-            PlaySFX(goodSFX);
+            PlayOneShotSFX(goodSFX);
             PlayRumble("Good");
 
         } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
-            PlaySFX(missSFX1);
+            PlayOneShotSFX(missSFX1);
             PlayRumble("Miss");
 
         } else {
-            PlaySFX(missSFX2);
+            PlayOneShotSFX(missSFX2);
             PlayRumble("Miss");
 
         }
@@ -53,17 +54,7 @@ public class SFX: MonoBehaviour {
     // directly play action-audio  =============================================
 
     public void Jump() {
-        switch (UnityEngine.Random.Range(0, 3)) {
-        case 0:
-            PlaySFX(jumpSFX1);
-            break;
-        case 1:
-            PlaySFX(jumpSFX2);
-            break;
-        case 2:
-            PlaySFX(jumpSFX3);
-            break;
-        }
+        PlayOneOfRandomSFX(jumpSFXs);
 
         PlayRumble("Jump");
     }
@@ -71,13 +62,13 @@ public class SFX: MonoBehaviour {
     public void Land() {
         switch (UnityEngine.Random.Range(0, 3)) {
         case 0:
-            PlaySFX(landSFX1);
+            PlayOneShotSFX(landSFX1);
             break;
         case 1:
-            PlaySFX(landSFX2);
+            PlayOneShotSFX(landSFX2);
             break;
         case 2:
-            PlaySFX(landSFX3);
+            PlayOneShotSFX(landSFX3);
             break;
         }
 
@@ -86,7 +77,7 @@ public class SFX: MonoBehaviour {
     }
 
     public void Squat() {
-        PlaySFX(dashSFX1);
+        PlayOneShotSFX(dashSFX1);
         PlayRumble("Squat");
     }
 
@@ -94,9 +85,7 @@ public class SFX: MonoBehaviour {
 
     [Header("Action SFX")]
 
-    [SerializeField] private AudioSource jumpSFX1;
-    [SerializeField] private AudioSource jumpSFX2;
-    [SerializeField] private AudioSource jumpSFX3;
+    [SerializeField] private AudioSource[] jumpSFXs;
 
     [SerializeField] private AudioSource dashSFX1;
     [SerializeField] private AudioSource dashSFX2;
@@ -134,13 +123,26 @@ public class SFX: MonoBehaviour {
 
     // private methods  ########################################################
 
-    private void PlaySFX(AudioSource src) {
+    private void PlayOneOfRandomSFX(AudioSource[] audioSources) {
+        if (audioSources == null || audioSources.Length == 0) {
+            Debug.LogWarning("audioSources null or empty");
+            return;
+        }
+
+        int i = UnityEngine.Random.Range(0, audioSources.Length);
+        audioSources[i].PlayOneShot(audioSources[i].clip);
+    }
+
+    // HACK rm, use PlayOneShot
+    private void PlayOneShotSFX(AudioSource src) {
         src.Play();
         src.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
     }
 
+
+
     private void Attack(Hit hit = Hit.NONE) {
-        PlaySFX(attackSFX1);
+        PlayOneShotSFX(attackSFX1);
         PlayRumble("Attack");
     }
 
@@ -203,4 +205,7 @@ public class SFX: MonoBehaviour {
 
         pad?.SetMotorSpeeds(0f, 0f);   // stop motors
     }
+
+
+
 }

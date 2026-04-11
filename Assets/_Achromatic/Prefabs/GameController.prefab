@@ -1032,9 +1032,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50377489af405494a8254f051dda1357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFX
-  jumpSFX1: {fileID: 6109405075885997384}
-  jumpSFX2: {fileID: 3614567563470517849}
-  jumpSFX3: {fileID: 2949267375934998790}
+  jumpSFXs:
+  - {fileID: 6109405075885997384}
+  - {fileID: 3614567563470517849}
+  - {fileID: 2949267375934998790}
   dashSFX1: {fileID: 8501312313588356354}
   dashSFX2: {fileID: 9152335095376418128}
   dashSFX3: {fileID: 3890718216615094679}
