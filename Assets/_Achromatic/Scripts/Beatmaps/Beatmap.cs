@@ -1,16 +1,14 @@
-using UnityEngine;
-
-using System.Collections.Generic;
-using Assets._Achromatic.Scripts.Pieces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Assets._Achromatic.Scripts.Pieces;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(-100)]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(Piece))]
     public class Beatmap: MonoBehaviour {
-
         // Public Members ######################################################
 
         [NonSerialized]
@@ -45,8 +43,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
         public float CalcNoteBeat(Note note) {
             return (note.bar - 1) * meta.beatPerBar
-                    + (note.beat - 1)
-                    + (note.subbeat - 1) * beatsPerDivision;
+                + (note.beat - 1)
+                + (note.subbeat - 1) * beatsPerDivision;
         }
 
         // Inspector Fields  ###################################################
@@ -68,7 +66,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return;
             }
             if (meta.file == null) {
-                Debug.LogError("must assign Beatmap File in Beatmap Meta", this);
+                Debug.LogError(
+                    "must assign Beatmap File in Beatmap Meta",
+                    this
+                );
                 return;
             }
 
@@ -87,9 +88,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             data = JsonUtility.FromJson<BeatmapData>(meta.file.text);
             if (data.notes.Length == 0) {
                 Debug.LogError(
-                        "Beatmap:\tbeatmap file contains no notes: "
+                    "Beatmap:\tbeatmap file contains no notes: "
                         + meta.file.name,
-                        this);
+                    this
+                );
             }
 
             // init vars  ------------------------------------------------------
@@ -98,13 +100,14 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             preludeOffsetAsBeat = meta.preludeSeconds * beatsPerSecond;
             beatsPerDivision = 1 / meta.subdivisionPerBeat;
             origin = new Vector2(
-                    originReferences.position.x, originReferences.position.y);
+                originReferences.position.x,
+                originReferences.position.y
+            );
 
             Debug.Log("beatmap origin: " + origin);
 
             // todo use speed mux
-            speedXInMainPiece =
-                    meta.horizontalUnitsPerBeat * beatsPerSecond;
+            speedXInMainPiece = meta.horizontalUnitsPerBeat * beatsPerSecond;
 
             // fill notesQ  ----------------------------------------------------
             notesQ = new();
@@ -118,7 +121,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             currentBeat = music.Time * beatsPerSecond - preludeOffsetAsBeat;
         }
 
-
         // private members  ####################################################
         private BeatmapData data;
 
@@ -130,4 +132,3 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private Piece piece;
     }
 }
-

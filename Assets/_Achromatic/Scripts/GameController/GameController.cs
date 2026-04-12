@@ -1,7 +1,6 @@
 using UnityEngine;
 
 public class GameController: MonoBehaviour {
-
     // Public Members  #########################################################
 
     // singleton
@@ -13,12 +12,13 @@ public class GameController: MonoBehaviour {
         GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
 
         if (playerObject == null) {
-            Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
+            Debug.LogError(
+                $"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}"
+            );
         }
 
         return playerObject;
     }
-
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -36,5 +36,4 @@ public class GameController: MonoBehaviour {
 
     // constants  ##############################################################
     private const string PLAYER_TAG = "Player";
-
 }

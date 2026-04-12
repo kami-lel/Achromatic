@@ -1,21 +1,19 @@
+using Assets._Achromatic.Scripts.Players;
+using Assets._Achromatic.Scripts.UI;
+using Cinemachine;
 using UnityEngine;
 
-using Assets._Achromatic.Scripts.Players;
-using Cinemachine;
-using Assets._Achromatic.Scripts.UI;
-
-
-namespace Assets._Achromatic.Scripts.Pieces {
-
-    public class Ender: MonoBehaviour {
-
+namespace Assets._Achromatic.Scripts.Pieces
+{
+    public class Ender : MonoBehaviour
+    {
         // Inspector Fields  ###################################################
 
         [SerializeField]
         private Transform playerTransform;
 
         [SerializeField]
-        private float endX;  // BUG use music to control
+        private float endX; // BUG use music to control
 
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
@@ -28,17 +26,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // MonoBehavior Lifecycle  #############################################
 
-        private void Awake() {
-
+        private void Awake()
+        {
             // test inspector fields  ------------------------------------------
-            if (virtualCamera == null) {
+            if (virtualCamera == null)
+            {
                 Debug.LogError("must assign: Virtual Camera", this);
             }
-            if (finalPointWindow == null) {
+            if (finalPointWindow == null)
+            {
                 Debug.LogError("must assign: Final Point Window", this);
             }
 
-            if (midWall == null) {
+            if (midWall == null)
+            {
                 Debug.LogError("must assign: Mid Wall", this);
             }
             midWall.SetActive(false);
@@ -49,34 +50,37 @@ namespace Assets._Achromatic.Scripts.Pieces {
             player = playerGO.GetComponent<Player>();
 
             pim = playerGO.GetComponent<Players.InputManager>();
-            if (pim == null) {
+            if (pim == null)
+            {
                 Debug.LogError("fail to get: Player InputManager", this);
             }
 
             rb = playerGO.GetComponent<Rigidbody2D>();
-            if (rb == null) {
+            if (rb == null)
+            {
                 Debug.LogError("fail to find: Rigidbody2D", this);
             }
 
             anim = playerGO.GetComponent<AnimationManager>();
-            if (anim == null) {
+            if (anim == null)
+            {
                 Debug.LogError("fail to get: AnimationManager", this);
             }
-
         }
 
-
-        private void Update() {
-            if ((GCS.I.states & GameState.MAIN_PIECE) != 0 &&
-                        playerTransform.position.x > endX) {
+        private void Update()
+        {
+            if (
+                (GCS.I.states & GameState.MAIN_PIECE) != 0
+                && playerTransform.position.x > endX
+            )
+            {
                 // FIXME better logic to trigger ending
-
 
                 GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
                 EndPiece();
             }
         }
-
 
         // private members  ####################################################
         // Cached References
@@ -87,7 +91,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private methods  ####################################################
 
-        private void EndPiece() {
+        private void EndPiece()
+        {
             pim.SetInputForExplorePlay();
             rb.bodyType = RigidbodyType2D.Dynamic;
             GCS.I.states = GameState.EXPLORE_CONTROL;
@@ -98,5 +103,4 @@ namespace Assets._Achromatic.Scripts.Pieces {
             midWall.SetActive(true);
         }
     }
-
 }
