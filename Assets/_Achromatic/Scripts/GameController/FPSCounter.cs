@@ -11,8 +11,6 @@ public class FPSCounter: MonoBehaviour {
         get; private set;
     }
 
-    public event Action<int> OnFPSUpdate;
-
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
@@ -41,7 +39,7 @@ public class FPSCounter: MonoBehaviour {
 
         if (fpsCounterAccumulateTime > 1.0f) {
             fpsCounterTextField.text = frameCounter + " fps";
-            OnFPSUpdate.Invoke(frameCounter);
+            Metrics.I.LogFPS(frameCounter);
 
             frameCounter = 0;
             fpsCounterAccumulateTime = 0.0f;
