@@ -50,6 +50,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             currentLevelMetric.totalScore = score.runningScore;
             currentLevelMetric.maxCombo = score.maxCombo;
 
+            // TODO save all hits
             // TODO metrics: deltas
             // TODO metrics: hit / miss ratio per part
         }
