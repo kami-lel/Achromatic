@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -22,7 +23,10 @@ public class Metrics: MonoBehaviour {
     // Public Members  #########################################################
 
     public void LogFPS(int fps) {
+        // TODO
+    }
 
+    private void LogSequenceKeyPoint(String keyPoint) {
         // TODO
     }
 
