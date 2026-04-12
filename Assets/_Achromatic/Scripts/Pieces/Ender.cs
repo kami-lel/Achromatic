@@ -72,7 +72,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 // FIXME better logic to trigger ending
 
 
-                GCS.I.states = GameState.PIECE_FINISHED;
+                GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
                 EndPiece();
             }
         }
