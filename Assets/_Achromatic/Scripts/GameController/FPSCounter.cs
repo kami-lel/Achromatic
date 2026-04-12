@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine;
 
+using Assets._Achromatic.Scripts.Metrics
+
 public class FPSCounter: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     // Public Members  #########################################################

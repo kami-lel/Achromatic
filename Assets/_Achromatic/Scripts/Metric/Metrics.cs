@@ -8,8 +8,10 @@ using UnityEngine;
 
 // TODO metrics save to file
 
-namespace Metrics {
-    public class Metrics: MonoBehaviour {
+namespace Metric
+{
+    public class Metrics : MonoBehaviour
+    {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
         // Public Members  #####################################################
