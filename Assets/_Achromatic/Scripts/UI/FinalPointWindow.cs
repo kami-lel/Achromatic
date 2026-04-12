@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 
 
-// FIXME better total score windows
+// FIXME FIXME better total score windows
 // fixme use icons w/o arrows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
@@ -47,7 +47,7 @@ namespace Assets._Achromatic.Scripts.UI {
             int goodCnt =
                 score.hitCnt[Hit.EARLY_GOOD] + score.hitCnt[Hit.LATE_GOOD];
             good.text = $"{goodCnt}";
-            // TODO missing good count
+            // TODO TODO missing good count
         }
     }
 }
