@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Assets._Achromatic.Scripts.Metric;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -70,6 +71,10 @@ public class SceneChanger: MonoBehaviour {
 
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogSequenceKeyPoint(SequenceKeyPoint.LEVEL_START);
+#endif
 
         FindFadingBlockingPanel();
 
