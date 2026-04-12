@@ -19,6 +19,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
+            rb.bodyType = RigidbodyType2D.Kinematic;
             SetupPlayerForPiece();
         }
 

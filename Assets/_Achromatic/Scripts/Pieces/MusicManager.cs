@@ -38,6 +38,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
+            // BUG debug start music logic wrong
             bgm.Stop();
             vamp.Stop();
 
@@ -49,8 +50,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
 
             // start the music
-            preludeAndMain.Play();
             preludeAndMain.time = startTime;
+            preludeAndMain.Play();
         }
 
         // Inspector Fields  ###################################################
