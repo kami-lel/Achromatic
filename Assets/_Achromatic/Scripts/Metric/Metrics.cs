@@ -27,8 +27,6 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
-            float timing = Time.time;
-            float interval = timing - lastTiming;
 
             // FIXME correct per step
             // TODO metrics: total time
@@ -44,6 +42,11 @@ namespace Assets._Achromatic.Scripts.Metric {
             default:
                 break;
             }
+
+
+            float timing = Time.time;
+            float interval = timing - lastTiming;
+
         }
 
         public void LogMusicPlay(Score score) {

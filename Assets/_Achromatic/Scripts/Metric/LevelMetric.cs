@@ -19,6 +19,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         public float totalScore = -1f;
         public int maxCombo = -1;
 
+
         // Public Methods  #####################################################
 
         public void FinishSession() {
