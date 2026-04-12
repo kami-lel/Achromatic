@@ -23,6 +23,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         public void FinishMain() {
             rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.linearVelocity = Vector2.zero;
 
             pim.SetInputForExplorePlay();
             anim.StopRun();
