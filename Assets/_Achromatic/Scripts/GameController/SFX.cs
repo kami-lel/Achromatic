@@ -24,6 +24,7 @@ public class SFX: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void OnHit(Actions pressed, Hit hit) {
+        // FIXME using the new actions
         if ((hit & Hit.PERFECT) != 0) {
             // perfect, use action sound
             if ((pressed & Actions.JUMP) != 0) {
@@ -70,7 +71,8 @@ public class SFX: MonoBehaviour {
     }
 
     public void Squat() {
-        dashSFX1.Play();
+        // HACK
+        // dashSFX1.Play();
 
         Rumbler.I.Rumble("Squat");
     }
@@ -102,11 +104,7 @@ public class SFX: MonoBehaviour {
 
     [SerializeField] private AudioSource[] runSFXs;
 
-    [SerializeField] private AudioSource dashSFX1;
-    [SerializeField] private AudioSource dashSFX2;
-    [SerializeField] private AudioSource dashSFX3;
-
-    [SerializeField] private AudioSource attackSFX1;
+    [SerializeField] private AudioSource[] squatSFXs;
 
     [Header("Hit SFX")]
     [SerializeField] private AudioSource greatSFX;
@@ -142,7 +140,8 @@ public class SFX: MonoBehaviour {
     }
 
     private void Attack(Hit hit = Hit.NONE) {
-        attackSFX1.Play();
+        // HACK
+        // attackSFX1.Play();
         Rumbler.I.Rumble("Attack");
     }
 
