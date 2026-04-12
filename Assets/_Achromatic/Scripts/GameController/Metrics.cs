@@ -1,10 +1,10 @@
 using UnityEngine;
 
 // TODO metrics: fps
-// total time
-// portion of time
-// deltas
-// hit / miss ratio per part
+// TODO metrics: total time
+// TODO metrics: portion of time
+// TODO metrics: deltas
+// TODO metrics: hit / miss ratio per part
 
 // TODO metrics save to file
 // TODO TODO local leaderboard
