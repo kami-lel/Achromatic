@@ -1,6 +1,8 @@
 using UnityEngine;
 
 // TODO metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
+// TODO metrics save to file
+// TODO local leaderboard
 
 public class Metrics: MonoBehaviour {
 
