@@ -8,8 +8,8 @@ using UnityEngine.Profiling;
 using Unity.VectorGraphics;
 
 
-// Todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
-// Fixme merge game stat
+// TODO metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
+// FIXME merge game stat
 
 [RequireComponent(typeof(SceneChanger))]
 [RequireComponent(typeof(GameController))]
@@ -43,7 +43,7 @@ public class GCS: MonoBehaviour {
     }
 
     private void Update() {
-        return;  // Hack rm or fix GCS for FPS counter etc.
+        return;  // HACK rm or fix GCS for FPS counter etc.
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         fpsFrameCounter++;
