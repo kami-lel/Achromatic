@@ -20,6 +20,10 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Members  #####################################################
 
         public void LogFPS(int fps) {
+            if (fps == 1) {
+                return;
+            }
+
             currentLevelMetric.fps.Add(fps);
         }
 
@@ -57,11 +61,11 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         private void OnDisable() {
-            SaveSession();
+            FinishSession();
         }
 
         private void OnApplicationQuit() {
-            SaveSession();
+            FinishSession();
         }
 
         // private members  ####################################################
@@ -72,7 +76,13 @@ namespace Assets._Achromatic.Scripts.Metric {
         private LevelMetric currentLevelMetric;
 
         // private methods  ####################################################
-        private void SaveSession() {
+        private void FinishSession() {
+            foreach (LevelMetric level in session.levels) {
+                level.FinishSession();
+
+            }
+
+            // save metric  ****************************************************
             string json = JsonUtility.ToJson(session, prettyPrint: true);
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HHmmss");
             string filename = $"Achromatic.Metric.{timestamp}.json";

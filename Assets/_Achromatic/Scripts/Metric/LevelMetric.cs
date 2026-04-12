@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets._Achromatic.Scripts.Metric {
 
@@ -12,7 +13,26 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Members  #####################################################
         public List<int> fps;
 
-        // TODO
+        public int fpsMax = -1;
+        public int fpsMin = -1;
+        public float fpsMean = -1f;
+
+        // Public Methods  #####################################################
+
+        public void FinishSession() {
+            if (fps.Count <= 0) {
+                return;
+            }
+
+            fpsMin = fps.Min();
+            fpsMax = fps.Max();
+
+            float total = 0f;
+            for (int i = 0; i < fps.Count; i++) {
+                total += fps[i];
+            }
+            fpsMean = (float)total / fps.Count;
+        }
 
         // Constructor  ########################################################
         public LevelMetric() {
