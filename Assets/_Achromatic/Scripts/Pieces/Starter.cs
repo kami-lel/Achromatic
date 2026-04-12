@@ -160,21 +160,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (debugMusicStartingBar == 0) {
                 StartPrelude();
             } else {
-                // start music mid point for debug purpose
-                music.DebugStartMusic(debugMusicStartingBar);
-                playerManager.StartMainPiece(debugMusicStartingBar);
-                GCS.I.states = GameState.MAIN_PIECE;
+                StartMusicDebug();
             }
 
             virtualCamera.Priority = 20;
+            SFX.I.StopRun();
         }
 
         private void StartPrelude() {
             Debug.Log("Start Prelude", this);
 
             GCS.I.states = GameState.PRELUDE;
-            SFX.I.StopRun();
             playerManager.StartPrelude();
+
             music.StartPreludeThenMainPiece();
 
             // set up prelude movement  ----------------------------------------
@@ -193,6 +191,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.MAIN_PIECE;
             playerManager.StartMainPiece();
+        }
+
+        private void StartMusicDebug() {
+            Debug.Log("Start Music Debug", this);
+
+            GCS.I.states = GameState.MAIN_PIECE;
+
+            music.DebugStartMusic(debugMusicStartingBar);  // BUG BUG fix
+            playerManager.StartMainPiece(debugMusicStartingBar); // BUG BUG fix
         }
     }
 }
