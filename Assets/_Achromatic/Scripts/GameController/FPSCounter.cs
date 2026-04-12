@@ -40,6 +40,7 @@ public class FPSCounter: MonoBehaviour {
 
         if (fpsCounterAccumulateTime > 1.0f) {
             fpsCounterTextField.text = frameCounter + " fps";
+
             Metrics.I.LogFPS(frameCounter);
 
             frameCounter = 0;

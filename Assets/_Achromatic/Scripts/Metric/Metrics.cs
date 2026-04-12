@@ -6,6 +6,7 @@ using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Metric {
+
     [DefaultExecutionOrder(-99)]
     public class Metrics: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -33,11 +34,13 @@ namespace Assets._Achromatic.Scripts.Metric {
             switch (keyPoint) {
             case SequenceKeyPoint.LEVEL_START:
                 level += 1;
+                session.levels.TryGetValue(level, out currentLevelMetric);
                 break;
 
             default:
                 break;
             }
+
         }
 
         public void LogMusicPlay(Score score) {
