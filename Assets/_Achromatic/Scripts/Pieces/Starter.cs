@@ -146,5 +146,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             virtualCamera.Priority = 20;
         }
+
+        private void StartPrelude1() {
+            // TODO
+        }
+
+        private void StartPrelude2() {
+            // TODO
+        }
+
     }
 }
