@@ -71,8 +71,7 @@ public class SFX: MonoBehaviour {
     }
 
     public void Squat() {
-        // HACK
-        // dashSFX1.Play();
+        PlayOneOfRandomSFX(squatSFXs);
 
         Rumbler.I.Rumble("Squat");
     }
