@@ -88,7 +88,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (GCS.I.states == GameState.PRELUDE) {
                 float t = music.Time;
 
-                if (t > 0) {
+                if (t >= beatmap.PreludeSeconds) {
                     StartMain();
                 } else {
                     float nextX =
@@ -170,6 +170,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void StartPrelude() {
+            Debug.Log("Start Prelude", this);
+
             GCS.I.states = GameState.PRELUDE;
             SFX.I.StopRun();
             playerManager.StartPrelude();
@@ -187,6 +189,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void StartMain() {
+            Debug.Log("Start Main Piece", this);
+
             GCS.I.states = GameState.MAIN_PIECE;
             playerManager.StartMainPiece();
         }

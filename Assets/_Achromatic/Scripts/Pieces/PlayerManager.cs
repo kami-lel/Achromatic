@@ -15,12 +15,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Public API  #########################################################
 
         public void StartPrelude() {
-            rb.linearVelocityX = preludeStartVelocityX;
+            rb.bodyType = RigidbodyType2D.Kinematic;
             SetupPlayerForPiece();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            rb.bodyType = RigidbodyType2D.Kinematic;
             SetupPlayerForPiece();
         }
 
@@ -146,7 +145,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void FixedUpdate() {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+            if ((GCS.I.states & GameState.MAIN_PIECE) != 0) {
                 // main piece  -------------------------------------------------
 
                 // move player in world map
