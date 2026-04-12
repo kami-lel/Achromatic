@@ -52,6 +52,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // private members  ####################################################
         private int level = 0;
         private float lastTiming;
+        private MetricsData data;
 
 #endif
     }
