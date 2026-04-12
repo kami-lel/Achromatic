@@ -18,7 +18,8 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Members  #####################################################
 
         public void LogFPS(int fps) {
-            session.fps.Add(fps);
+            // TODO
+            // session.fps.Add(fps);
         }
 
         public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
@@ -63,7 +64,9 @@ namespace Assets._Achromatic.Scripts.Metric {
         // private members  ####################################################
         private int level = 0;
         private float lastTiming;
+
         private MetricSession session;
+        private LevelMetric currentLevelMetric;
 
         // private methods  ####################################################
         private void SaveSession() {
