@@ -137,6 +137,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else {
                 // start music mid point for debug purpose
                 music.DebugStartMusic(debugMusicStartingBar);
+                // BUG starting bar not working
                 playerManager.StartMainPiece(debugMusicStartingBar);
                 GCS.I.states = GameState.MAIN_PIECE;
             }
