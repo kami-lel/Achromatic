@@ -1,6 +1,9 @@
-using Assets._Achromatic.Scripts.Players;
+using System;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(PlayerManager))]
@@ -15,8 +18,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
             playerManager.FinishMain();
 
             virtualCamera.Priority = 0;
-            finalPointWindow.SetActive(true);
             midWall.SetActive(true);
+
+            // re final point window  ------------------------------------------
+            finalPointWindow.SetActive(true);
+
+            // close after certain time
+            StartCoroutine(DeactivateAfterDelay());
+
+            // close on any key press
+            InputSystem.onAnyButtonPress.CallOnce<InputControl>(
+                OnAnyButtonPress
+            );
         }
 
         // Inspector Fields  ###################################################
@@ -32,6 +45,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         [SerializeField]
         private GameObject midWall;
+
+        [SerializeField]
+        private float finalPointWindowAutoCloseSecond = 15f;
 
         // MonoBehavior Lifecycle  #############################################
 
@@ -59,5 +75,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // private members  ####################################################
         // Cached References
         private PlayerManager playerManager;
+
+        // private methods  ####################################################
+
+        private IEnumerator DeactivateAfterDelay() {
+            yield return new WaitForSeconds(finalPointWindowAutoCloseSecond);
+            CloseFinalPointWindow();
+        }
+
+        private void OnAnyButtonPress(InputControl control) {
+            CloseFinalPointWindow();
+        }
+
+
+        private void CloseFinalPointWindow() {
+            GCS.I.states = GameState.EXPLORE;
+            // TODO player set up?
+            finalPointWindow.SetActive(false);
+        }
     }
 }
