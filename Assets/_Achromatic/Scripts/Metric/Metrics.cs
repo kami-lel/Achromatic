@@ -1,15 +1,18 @@
 // TODO metrics save to file
 
-namespace Metric
-{
-    public class Metrics : MonoBehaviour
-    {
+using UnityEngine;
+using Assets._Achromatic.Scripts.Scores;
+
+namespace Assets._Achromatic.Scripts.Metric {
+    public class Metrics: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
         // Public Members  #####################################################
 
         // singleton
-        public static Metrics I { get; private set; }
+        public static Metrics I {
+            get; private set;
+        }
 
         // Public Members  #####################################################
 
@@ -24,27 +27,24 @@ namespace Metric
             // TODO metrics: total time
             // TODO portion of game play
 
-            switch (keyPoint)
-            {
-                case SequenceKeyPoint.LEVEL_START:
-                    level += 1;
-                    break;
+            switch (keyPoint) {
+            case SequenceKeyPoint.LEVEL_START:
+                level += 1;
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
         }
 
-        public void LogMusicPlay(Score score)
-        {
+        public void LogMusicPlay(Score score) {
             // TODO metrics: deltas
             // TODO metrics: hit / miss ratio per part
         }
 
         // MonoBehavior Lifecycle  #############################################
 
-        private void Awake()
-        {
+        private void Awake() {
             // singleton logic  ------------------------------------------------
             I = this;
         }

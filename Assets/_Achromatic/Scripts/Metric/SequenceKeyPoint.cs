@@ -1,7 +1,7 @@
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
-namespace Metric {
+namespace Assets._Achromatic.Scripts.Metric {
     public enum SequenceKeyPoint {
         LEVEL_START = 1,
         MAIN_START,
