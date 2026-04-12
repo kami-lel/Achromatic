@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(PlayerManager))]
@@ -26,7 +24,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // close after certain time
             StartCoroutine(DeactivateAfterDelay());
 
-            // close on any key press
+            // block input for first few seconds, then allow close on any key
+            isInputBlocked = true;
+            StartCoroutine(UnblockInputAfterDelay());
             pi.onActionTriggered += OnPressAnyKey;
         }
 
@@ -45,25 +45,27 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private GameObject midWall;
 
         [SerializeField]
+        private float finalPointWindowMinTime = 1f;
+
+        [SerializeField]
         private float finalPointWindowAutoCloseSecond = 15f;
 
-        // MonoBehavior Lifecycle  #############################################
+        // MonoBehaviour Lifecycle  ############################################
 
         private void Awake() {
-            // test inspector fields  ------------------------------------------
+            // Inspector Assignment Guard  -------------------------------------
             if (virtualCamera == null) {
                 Debug.LogError("must assign: Virtual Camera", this);
             }
             if (finalPointWindow == null) {
                 Debug.LogError("must assign: Final Point Window", this);
             }
-
             if (midWall == null) {
                 Debug.LogError("must assign: Mid Wall", this);
             }
             midWall.SetActive(false);
 
-            // caching references of player  -----------------------------------
+            // cache player refs  ----------------------------------------------
             playerManager = GetComponent<PlayerManager>();
             if (playerManager == null) {
                 Debug.LogError("fail to get: Player Manager", this);
@@ -71,7 +73,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GameObject go = GameController.I.FindMainPlayer();
             pi = go.GetComponent<PlayerInput>();
-
             if (pi == null) {
                 Debug.LogError("fail to find: Player Input", this);
             }
@@ -81,19 +82,35 @@ namespace Assets._Achromatic.Scripts.Pieces {
             pi.onActionTriggered -= OnPressAnyKey;
         }
 
-        // private members  ####################################################
-        // Cached References
+        // Private Members  ####################################################
+
+        // Cached References  --------------------------------------------------
         private PlayerManager playerManager;
         private PlayerInput pi;
 
-        // private methods  ####################################################
+        private bool isInputBlocked;
+
+        // Private Methods  ####################################################
 
         private IEnumerator DeactivateAfterDelay() {
-            yield return new WaitForSeconds(finalPointWindowAutoCloseSecond);
+            yield return new WaitForSeconds(
+                finalPointWindowAutoCloseSecond
+            );
             CloseFinalPointWindow();
         }
 
+        /// <summary>
+        /// unblock input after <see cref="finalPointWindowMinTime"/> seconds
+        /// </summary>
+        private IEnumerator UnblockInputAfterDelay() {
+            yield return new WaitForSeconds(finalPointWindowMinTime);
+            isInputBlocked = false;
+        }
+
         private void OnPressAnyKey(InputAction.CallbackContext ctxt) {
+            if (isInputBlocked)
+                return;  // block during min-time window
+
             CloseFinalPointWindow();
             pi.onActionTriggered -= OnPressAnyKey;
         }
