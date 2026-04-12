@@ -1,11 +1,3 @@
-using System;
-using UnityEngine;
-
-
-// TODO metrics: total time
-// TODO metrics: deltas
-// TODO metrics: hit / miss ratio per part
-
 // TODO metrics save to file
 
 namespace Metric
@@ -17,9 +9,7 @@ namespace Metric
         // Public Members  #####################################################
 
         // singleton
-        public static Metrics I {
-            get; private set;
-        }
+        public static Metrics I { get; private set; }
 
         // Public Members  #####################################################
 
@@ -27,31 +17,37 @@ namespace Metric
             // TODO
         }
 
-        private void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
+        public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
             float timing = Time.time;
             float interval = timing - lastTiming;
 
-            // TODO
+            // TODO metrics: total time
+            // TODO portion of game play
 
-            switch (keyPoint) {
-            case SequenceKeyPoint.LEVEL_START:
-                level += 1;
-                break;
+            switch (keyPoint)
+            {
+                case SequenceKeyPoint.LEVEL_START:
+                    level += 1;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
+        }
 
+        public void LogMusicPlay(Score score)
+        {
+            // TODO metrics: deltas
+            // TODO metrics: hit / miss ratio per part
         }
 
         // MonoBehavior Lifecycle  #############################################
 
-        private void Awake() {
+        private void Awake()
+        {
             // singleton logic  ------------------------------------------------
             I = this;
-
         }
-
 
         // private members  ####################################################
         private int level = 0;
@@ -60,6 +56,3 @@ namespace Metric
 #endif
     }
 }
-
-
-
