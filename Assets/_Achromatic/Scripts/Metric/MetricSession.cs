@@ -16,6 +16,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         public MetricSession(string version) {
             gameVersion = version;
 
+            levels = new LevelMetric[LEVEL_COUNT];
             for (int i = 0; i < LEVEL_COUNT; i++) {
                 levels[i] = new LevelMetric();
             }
