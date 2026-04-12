@@ -15,20 +15,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Public API  #########################################################
 
         public void StartPrelude() {
-            // HACK rm this fx
-            Debug.Log("PlayerManager:\tStartPrelude");
-
             rb.linearVelocityX = preludeStartVelocityX;
-
             SetupPlayerForPiece();
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
-            // HACK rm this fx
-            Debug.Log("PlayerManager:\tStartMainPiece");
-
             rb.bodyType = RigidbodyType2D.Kinematic;
-
             SetupPlayerForPiece();
         }
 
@@ -154,17 +146,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void FixedUpdate() {
-            if (GCS.I.states == GameState.PRELUDE) {
-                // prelude  ----------------------------------------------------
-                // FIXME using music to control triggering
-                if (music.Time >= beatmap.meta.preludeSeconds) {
-                    StartMainPiece();
-                    GCS.I.states = GameState.MAIN_PIECE;
-                    return;
-                }
-
-                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
-            } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+            if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
                 // main piece  -------------------------------------------------
 
                 // move player in world map

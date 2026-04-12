@@ -61,7 +61,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (debugMusicStartingBar != 0) {
                 Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
             }
-
         }
 
         private void Start() {
@@ -87,18 +86,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void FixedUpdate() {
             if (GCS.I.states == GameState.PRELUDE) {
-                float time = music.Time;
+                float t = music.Time;
 
-                if (time > 0) {
-                    // TODO switch to main
-
+                if (t > 0) {
+                    StartMain();
                 } else {
+                    float nextX =
+                        preludeCurveA * t * t
+                        + preludeCurveB * t
+                        + preludeCurveC;
 
-
-                    float nextX = CalcPreludeX(time);
-                    player.rb.MovePosition(new Vector2(nextX, beatmap.origin.y));
+                    player.rb.MovePosition(
+                        new Vector2(nextX, beatmap.origin.y)
+                    );
                 }
-
             }
         }
 
@@ -179,14 +180,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             float endX = beatmap.origin.x;
             float finalV = beatmap.speedXInMainPiece;
 
-            float tf = beatmap.PreludeSeconds;  // total time
+            float tf = beatmap.PreludeSeconds; // total time
             preludeCurveA = (finalV * tf - (endX - startX)) / (tf * tf);
             preludeCurveB = finalV - 2 * preludeCurveA * tf;
             preludeCurveC = startX;
         }
 
-        private float CalcPreludeX(float t) {
-            return preludeCurveA * t * t + preludeCurveB * t + preludeCurveC;
+        private void StartMain() {
+            GCS.I.states = GameState.MAIN_PIECE;
+            playerManager.StartMainPiece();
         }
     }
 }
