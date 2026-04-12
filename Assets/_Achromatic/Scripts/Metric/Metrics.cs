@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using Assets._Achromatic.Scripts.Scores;
+using System.IO;
 
 namespace Assets._Achromatic.Scripts.Metric {
     public class Metrics: MonoBehaviour {
@@ -51,10 +52,30 @@ namespace Assets._Achromatic.Scripts.Metric {
             session = new MetricSession();
         }
 
+        private void OnDisable() {
+            SaveSession();
+        }
+
+        private void OnApplicationQuit() {
+            SaveSession();
+        }
+
         // private members  ####################################################
         private int level = 0;
         private float lastTiming;
         private MetricSession session;
+
+        // private methods  ####################################################
+        private void SaveSession() {
+            string json = JsonUtility.ToJson(session, prettyPrint: true);
+            string path = Path.Combine(
+                Application.persistentDataPath,
+                "metric_session.json"
+            );
+            // TODO add name
+
+            File.WriteAllText(path, json);
+        }
 
 #endif
     }
