@@ -2,7 +2,6 @@ using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
 
-// BUG PLAYER is jumped when start prelude
 // FIXME dont show miss type indicator during prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {
@@ -103,7 +102,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             } else if (GCS.I.states == GameState.VAMP &&
                     triggerTag == PRELUDE_TRIGGER_TAG) {
 
-                StartPreludeThenMainPiece();
+                StartMusicPlay();
             }
         }
 
@@ -131,16 +130,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // private methods  ####################################################
 
-        private void StartPreludeThenMainPiece() {
+        private void StartMusicPlay() {
             if (debugMusicStartingBar == 0) {
                 music.StartPreludeThenMainPiece();
                 playerManager.StartPrelude();
                 GCS.I.states = GameState.PRELUDE;
+                // BUG PLAYER is jumped when start prelude
 
             } else {
                 // start music mid point for debug purpose
                 music.DebugStartMusic(debugMusicStartingBar);
-                // BUG starting bar not working
                 playerManager.StartMainPiece(debugMusicStartingBar);
                 GCS.I.states = GameState.MAIN_PIECE;
             }

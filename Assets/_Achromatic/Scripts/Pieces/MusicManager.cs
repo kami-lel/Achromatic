@@ -41,6 +41,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
+            bgm.Stop();
+            vamp.Stop();
             float startTime = (debugMusicStaringBar - 1.0f) *
                     beatmap.meta.beatPerBar *
                     (60.0f / beatmap.meta.tempo) +
