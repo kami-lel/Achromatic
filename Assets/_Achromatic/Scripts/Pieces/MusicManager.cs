@@ -102,8 +102,16 @@ namespace Assets._Achromatic.Scripts.Pieces {
             preludeAndMain.time = startSeconds;
             preludeAndMain.Play();
 
+            float playTime =
+                preludeAndMain.clip.length - startSeconds;
+
+            if (playTime <= 0) {
+                Debug.LogWarning("Debug Music Starting Bar too large");
+                playTime = preludeAndMain.clip.length;
+            }
+
             yield return new WaitForSeconds(
-                preludeAndMain.clip.length - startSeconds
+                    playTime
             );
             ender.FinishMain();
         }
