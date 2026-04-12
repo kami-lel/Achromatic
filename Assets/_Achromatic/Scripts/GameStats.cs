@@ -3,6 +3,7 @@ using UnityEngine;
 
 // TODO metrics save to file
 // TODO local leaderboard
+// FIXME improve game stat
 
 public class GameStats: MonoBehaviour {
     public static GameStats Instance {

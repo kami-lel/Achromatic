@@ -76108,6 +76108,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2396388275478284684, guid: 7c0cc3c76bb5bc04eb96be56f32fe86f, type: 3}
   m_PrefabInstance: {fileID: 731406558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &748596394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4854841207321159400, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
+  m_PrefabInstance: {fileID: 1315812061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &748596402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748596394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81939b71ec537624d82747df8503a92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &792094742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141746,7 +141763,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4854841207321159400, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 748596402}
   m_SourcePrefab: {fileID: 100100000, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
 --- !u!1001 &1324416043
 PrefabInstance:
@@ -178389,6 +178409,10 @@ PrefabInstance:
     - target: {fileID: 2357546368614168459, guid: 33e930b2effdbd44091164dea255896d, type: 3}
       propertyPath: m_Name
       value: FPS Counter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357546368614168459, guid: 33e930b2effdbd44091164dea255896d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3998436889960283227, guid: 33e930b2effdbd44091164dea255896d, type: 3}
       propertyPath: m_Pivot.x

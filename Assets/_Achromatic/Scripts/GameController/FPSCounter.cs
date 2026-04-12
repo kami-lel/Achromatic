@@ -20,12 +20,6 @@ public class FPSCounter: MonoBehaviour {
         }
     }
 
-    private void Start() {
-        if (fpsCounterTextField != null) {
-            fpsCounterTextField.gameObject.SetActive(true);
-        }
-    }
-
     private void Update() {
         if (fpsCounterTextField == null) {
             return;
