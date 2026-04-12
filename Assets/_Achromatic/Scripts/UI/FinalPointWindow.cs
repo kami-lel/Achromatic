@@ -10,7 +10,7 @@ namespace Assets._Achromatic.Scripts.UI {
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        private Score score;  // FIXME use get component?
+        private Score score;
 
         [SerializeField]
         private TextMeshProUGUI combo;
@@ -31,6 +31,13 @@ namespace Assets._Achromatic.Scripts.UI {
         private TextMeshProUGUI miss;
 
         // MonoBehavior Lifecycle  #############################################
+
+        private void Awake() {
+            if (score == null) {
+                Debug.LogWarning("must assign: score", this);
+            }
+        }
+
 
         private void OnEnable() {
             // closing conditions  ---------------------------------------------
