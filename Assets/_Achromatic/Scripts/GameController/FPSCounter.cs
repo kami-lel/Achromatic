@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class FPSCounter: MonoBehaviour {
         get; private set;
     }
 
-    public int lastFPS;
+    public event Action<int> OnFPSLog;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -37,9 +38,11 @@ public class FPSCounter: MonoBehaviour {
 
         frameCounter++;
         fpsCounterAccumulateTime += Time.unscaledDeltaTime;
+
         if (fpsCounterAccumulateTime > 1.0f) {
             fpsCounterTextField.text = frameCounter + " fps";
-            lastFPS = frameCounter;
+            OnFPSLog.Invoke(frameCounter);
+
             frameCounter = 0;
             fpsCounterAccumulateTime = 0.0f;
         }
@@ -51,8 +54,10 @@ public class FPSCounter: MonoBehaviour {
     // private members  ########################################################
 
     private TextMeshProUGUI fpsCounterTextField;
+
     private int frameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
+    private float loggingAccumulateTime = 0.0f;
 
 #endif
 }
