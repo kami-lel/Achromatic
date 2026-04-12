@@ -2,16 +2,20 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Metric {
 
     [Serializable]
     public class MetricSession {
 
-        // TODO
-
         public Dictionary<int, LevelMetric> levels;
 
+        public string gameVersion;
+
+        public MetricSession() {
+            gameVersion = Application.version;
+        }
     }
 }
 
