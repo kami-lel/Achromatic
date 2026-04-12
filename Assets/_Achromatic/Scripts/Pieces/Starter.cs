@@ -4,6 +4,7 @@ using Cinemachine;
 using UnityEngine;
 
 // FIXME dont show miss type indicator during prelude
+// BUG still jumped a little bit
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
@@ -15,9 +16,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         [SerializeField]
         private int debugMusicStartingBar = 0;
-
-        [SerializeField]
-        private float preludeTransitionSecond = 0.0f;
 
         [SerializeField]
         private AnimationCurve vampDistantVsVolume;
@@ -65,15 +63,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
             }
 
-            // setting check  --------------------------------------------------
-            if (preludeTransitionSecond <= 0.0f
-                    || preludeTransitionSecond >= beatmap.PreludeSeconds) {
-
-                Debug.LogWarning(
-                    "invalid preludeTransitionSecond value:"
-                        + preludeTransitionSecond, this
-                );
-            }
         }
 
         private void Start() {
@@ -176,16 +165,22 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void StartPrelude() {
             GCS.I.states = GameState.PRELUDE;
             playerManager.StartPrelude();
+            music.StartPreludeThenMainPiece();
 
             // set up prelude movement  ----------------------------------------
             preludeElapsedTime = 0.0f;
 
-            // calc movement
+            float startX = player.rb.position.x;
+            float endX = beatmap.origin.x;
+            float finalV = beatmap.speedXInMainPiece;
 
+            float tf = beatmap.PreludeSeconds;  // total time
+            preludeCurveA = (finalV * tf - (endX - startX)) / (tf * tf);
+            preludeCurveB = finalV - 2 * preludeCurveA * tf;
+            preludeCurveC = startX;
         }
 
         private float CalcPreludeX(float t) {
-            return 0.0f; // HACK
             return preludeCurveA * t * t + preludeCurveB * t + preludeCurveC;
         }
     }

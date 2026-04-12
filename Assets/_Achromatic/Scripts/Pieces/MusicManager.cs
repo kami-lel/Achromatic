@@ -14,11 +14,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
         }
 
-        public void Start() {
-            bgm.loop = true;
-            bgm.Play();
-        }
-
         public void StartVamp() {
             bgm.Stop();
             vamp.loop = true;
@@ -86,6 +81,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (beatmap == null) {
                 Debug.LogError("fail to get: Beatmap", this);
             }
+        }
+
+        private void Start() {
+            bgm.loop = true;
+            bgm.Play();
         }
 
         // private members  ####################################################
