@@ -171,7 +171,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Debug.Log("Start Prelude", this);
 
             GCS.I.states = GameState.PRELUDE;
-            playerManager.StartPrelude();
+            playerManager.SetupPlayerForPiece();
 
             music.StartPreludeThenMainPiece();
 
@@ -190,7 +190,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             Debug.Log("Start Main Piece", this);
 
             GCS.I.states = GameState.MAIN_PIECE;
-            playerManager.StartMainPiece();
         }
 
         private void StartMusicDebug() {
@@ -198,8 +197,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.MAIN_PIECE;
 
-            music.DebugStartMusic(debugMusicStartingBar);  // BUG BUG fix
-            playerManager.StartMainPiece(debugMusicStartingBar); // BUG BUG fix
+            music.StartMusicDebug(debugMusicStartingBar);  // BUG fix
+            playerManager.SetupPlayerForPiece();
         }
     }
 }

@@ -13,14 +13,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Public API  #########################################################
 
-        public void StartPrelude() {
+        public void SetupPlayerForPiece() {
             rb.bodyType = RigidbodyType2D.Kinematic;
-            SetupPlayerForPiece();
-        }
-
-        public void StartMainPiece(int debugMusicStaringBar = 0) {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            SetupPlayerForPiece();
+            pim.SetInputForMusicPlay();
+            anim.EnsureFacing(true);
+            anim.StartRun();
+            currentActionStartTime = Time.time;
         }
 
         public void FinishMain() {
@@ -171,15 +169,5 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerSprite;
         private Piece piece;
 
-
-
-        // private methods  ####################################################
-
-        private void SetupPlayerForPiece() {
-            pim.SetInputForMusicPlay();
-            anim.EnsureFacing(true);
-            anim.StartRun();
-            currentActionStartTime = Time.time;
-        }
     }
 }
