@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-// TODO metrics: fps
 // TODO metrics: total time
 // TODO metrics: portion of time
 // TODO metrics: deltas
