@@ -4,7 +4,6 @@ using Cinemachine;
 using UnityEngine;
 
 // FIXME dont show miss type indicator during prelude
-// BUG still jumped a little bit
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
@@ -88,10 +87,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void FixedUpdate() {
             if (GCS.I.states == GameState.PRELUDE) {
-                preludeElapsedTime += Time.fixedDeltaTime;
+                float time = music.Time;
 
-                float nextX = CalcPreludeX(preludeElapsedTime);
-                player.rb.MovePosition(new Vector2(nextX, beatmap.origin.y));
+                if (time > 0) {
+                    // TODO switch to main
+
+                } else {
+
+
+                    float nextX = CalcPreludeX(time);
+                    player.rb.MovePosition(new Vector2(nextX, beatmap.origin.y));
+                }
+
             }
         }
 
@@ -142,7 +149,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerTransform;
         private Beatmap beatmap;
 
-        private float preludeElapsedTime;
         private float preludeCurveA;
         private float preludeCurveB;
         private float preludeCurveC;
@@ -164,12 +170,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void StartPrelude() {
             GCS.I.states = GameState.PRELUDE;
+            SFX.I.StopRun();
             playerManager.StartPrelude();
             music.StartPreludeThenMainPiece();
 
             // set up prelude movement  ----------------------------------------
-            preludeElapsedTime = 0.0f;
-
             float startX = player.rb.position.x;
             float endX = beatmap.origin.x;
             float finalV = beatmap.speedXInMainPiece;
