@@ -1,11 +1,12 @@
 // TODO metrics save to file
 
-using UnityEngine;
-using Assets._Achromatic.Scripts.Scores;
-using System.IO;
 using System;
+using System.IO;
+using Assets._Achromatic.Scripts.Scores;
+using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Metric {
+    [DefaultExecutionOrder(-99)]
     public class Metrics: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
@@ -50,7 +51,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             // singleton logic  ------------------------------------------------
             I = this;
 
-            session = new MetricSession();
+            session = new MetricSession(Application.version);
         }
 
         private void OnDisable() {
@@ -72,7 +73,11 @@ namespace Assets._Achromatic.Scripts.Metric {
         private void SaveSession() {
             string json = JsonUtility.ToJson(session, prettyPrint: true);
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HHmmss");
-            string path = $"Achromatic.Metric.{timestamp}.json";
+            string filename = $"Achromatic.Metric.{timestamp}.json";
+            string path = Path.Combine(
+                Application.persistentDataPath,
+                filename
+            );
 
             File.WriteAllText(path, json);
         }

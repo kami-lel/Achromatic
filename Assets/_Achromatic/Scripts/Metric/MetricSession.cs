@@ -13,8 +13,8 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         public string gameVersion;
 
-        public MetricSession() {
-            gameVersion = Application.version;
+        public MetricSession(string version) {
+            gameVersion = version;
         }
     }
 }
