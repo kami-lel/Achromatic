@@ -9,7 +9,6 @@ using UnityEngine;
 // TODO metrics: hit / miss ratio per part
 
 // TODO metrics save to file
-// TODO TODO local leaderboard
 
 public class Metrics: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
