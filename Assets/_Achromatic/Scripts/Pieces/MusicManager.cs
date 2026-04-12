@@ -55,13 +55,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        public AudioSource bgm;
+        private AudioSource bgm;
 
         [SerializeField]
-        public AudioSource vamp;
+        private AudioSource vamp;
 
         [SerializeField]
-        public AudioSource preludeAndMain;
+        private AudioSource preludeAndMain;
 
         // Monobehavior Lifecycle  #############################################
         private void Awake() {

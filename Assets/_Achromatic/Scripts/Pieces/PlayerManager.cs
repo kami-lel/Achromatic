@@ -127,6 +127,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // calc movement during prelude  -----------------------------------
+            // HACK rm
             float t = beatmap.meta.preludeSeconds;
             if (t <= 0f) {
                 // prevent div by zero
