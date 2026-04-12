@@ -50,6 +50,7 @@
 ### Added
 
 - splash screen with logos of USC and Berklee
+- new set of SFXs
 
 ### Changed
 
