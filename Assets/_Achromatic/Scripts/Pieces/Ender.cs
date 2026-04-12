@@ -1,17 +1,27 @@
 using Assets._Achromatic.Scripts.Players;
-using Assets._Achromatic.Scripts.UI;
 using Cinemachine;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     public class Ender: MonoBehaviour {
+        // Public Methods  #####################################################
+
+        public void FinishMain() {
+            Debug.Log("Finish Main", this);
+
+            GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
+
+            playerManager.FinishMain();
+
+            virtualCamera.Priority = 0;
+            finalPointWindow.SetActive(true);
+            midWall.SetActive(true);
+        }
+
         // Inspector Fields  ###################################################
 
         [SerializeField]
         private Transform playerTransform;
-
-        [SerializeField]
-        private float endX; // BUG use music to control
 
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
@@ -41,54 +51,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
             // caching references of player  -----------------------------------
             GameObject playerGO = GameController.I.FindMainPlayer();
 
-            player = playerGO.GetComponent<Player>();
-
-            pim = playerGO.GetComponent<Players.InputManager>();
-            if (pim == null) {
-                Debug.LogError("fail to get: Player InputManager", this);
-            }
-
-            rb = playerGO.GetComponent<Rigidbody2D>();
-            if (rb == null) {
-                Debug.LogError("fail to find: Rigidbody2D", this);
-            }
-
-            anim = playerGO.GetComponent<AnimationManager>();
-            if (anim == null) {
-                Debug.LogError("fail to get: AnimationManager", this);
-            }
-        }
-
-        private void Update() {
-            if (
-                (GCS.I.states & GameState.MAIN_PIECE) != 0
-                && playerTransform.position.x > endX
-            ) {
-                // FIXME better logic to trigger ending
-
-                GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
-                EndPiece();
+            playerManager = playerGO.GetComponent<PlayerManager>();
+            if (playerManager == null) {
+                Debug.LogError("fail to get: Player Manager", this);
             }
         }
 
         // private members  ####################################################
         // Cached References
-        private Player player;
-        private AnimationManager anim;
-        private Rigidbody2D rb;
-        private Players.InputManager pim;
-
-        // private methods  ####################################################
-
-        private void EndPiece() {
-            pim.SetInputForExplorePlay();
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            GCS.I.states = GameState.EXPLORE_CONTROL;
-            virtualCamera.Priority = 0;
-            finalPointWindow.SetActive(true);
-            Debug.Log("End Piece");
-            anim.StopRun();
-            midWall.SetActive(true);
-        }
+        private PlayerManager playerManager;
     }
 }

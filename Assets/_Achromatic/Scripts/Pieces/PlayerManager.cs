@@ -1,5 +1,4 @@
 
-using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 using Assets._Achromatic.Scripts.Players;
@@ -23,10 +22,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
             SetupPlayerForPiece();
         }
 
-        public void FinishPiece() {
-            Debug.Log("PlayerManager:\tFinishPiece");
+        public void FinishMain() {
+            rb.bodyType = RigidbodyType2D.Dynamic;
 
-            GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
+            pim.SetInputForExplorePlay();
+            anim.StopRun();
         }
 
         // Public Methods  #####################################################
