@@ -4,13 +4,13 @@
 
 [^format]
 
-<!-- Todo make web / mac build -->
 <!-- Todo particle efx: on monster killed,jumped,etc. -->
 <!-- Todo particle efx: running score -->
 <!-- Fixme squat obstacle (also for jump) confusing with background -->
 <!-- Todo write dev log -->
 
 <!-- bug fix sprite -->
+<!-- todo make web / mac build -->
 <!-- todo smashing inputs type -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo show player character origin in world -->
