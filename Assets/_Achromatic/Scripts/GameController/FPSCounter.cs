@@ -1,8 +1,7 @@
-using System;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-using Assets._Achromatic.Scripts.Metrics
+using Assets._Achromatic.Scripts.Metric;
 
 public class FPSCounter: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -57,7 +56,6 @@ public class FPSCounter: MonoBehaviour {
 
     private int frameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
-    private float loggingAccumulateTime = 0.0f;
 
 #endif
 }

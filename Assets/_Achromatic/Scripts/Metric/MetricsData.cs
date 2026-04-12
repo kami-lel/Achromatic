@@ -1,10 +1,10 @@
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
-namespace Assets._Achromatic.Scripts.Metric
-{
+using System;
+
+namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
-    public class MetricsData
-    {
+    public class MetricsData {
 
 
         // TODO
