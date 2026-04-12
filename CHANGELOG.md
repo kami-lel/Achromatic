@@ -56,6 +56,11 @@
 ### Changed
 
 - set up canvas for scaling
+- final score window close when (a) time, (b) press any key
+
+### Fixed
+
+- player is jumped during prelude, now using constant acceleration
 
 
 
