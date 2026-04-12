@@ -4,6 +4,8 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[RequireComponent(typeof(GameController))]
 public class SceneChanger: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -33,13 +35,8 @@ public class SceneChanger: MonoBehaviour {
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
-        if (I != null && I != this) {
-            Debug.LogWarning("duplicated SceneManager", this);
-            Destroy(this);
-        }
-
         I = this;
-        DontDestroyOnLoad(gameObject);
+
         // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -80,11 +77,13 @@ public class SceneChanger: MonoBehaviour {
                 FindVirtualCameraByTag(START_CAMERA_TAG);
         startingCamera.Priority = HIGH_CAMERA_PRIORITY;
 
+        GCS.I.states = GameState.SCENE_TRANSITION;
+
         fadingBlockingPanel.FadeIn(onComplete: () => {
             startingCamera.Priority = LOW_CAMERA_PRIORITY;
+            GCS.I.states = GameState.EXPLORE;
         });
 
-        GCS.I.states = GameState.EXPLORE;
     }
 
 

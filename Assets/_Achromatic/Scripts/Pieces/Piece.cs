@@ -1,7 +1,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Splines;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     public class Piece: MonoBehaviour {

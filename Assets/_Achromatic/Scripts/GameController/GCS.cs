@@ -7,11 +7,12 @@ using TMPro;
 using UnityEngine.Profiling;
 using Unity.VectorGraphics;
 
-[RequireComponent(typeof(SceneChanger))]
 
 // Todo metrics: fps,total time &portion of time,deltas,hit / miss ratio per part
 // Fixme merge game stat
 
+[RequireComponent(typeof(SceneChanger))]
+[RequireComponent(typeof(GameController))]
 public class GCS: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -44,13 +45,7 @@ public class GCS: MonoBehaviour {
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
-        if (I != null && I != this) {
-            Debug.LogWarning("duplicated SceneManager", this);
-            Destroy(this);
-        }
-
         I = this;
-        DontDestroyOnLoad(gameObject);
 
         // caching references to piece  ----------------------------------------
         sceneChanger = GetComponent<SceneChanger>();
