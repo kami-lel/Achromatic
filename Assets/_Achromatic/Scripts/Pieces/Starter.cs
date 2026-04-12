@@ -17,6 +17,9 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private int debugMusicStartingBar = 0;
 
         [SerializeField]
+        private float preludeTransitionSection = 0.5f;
+
+        [SerializeField]
         private AnimationCurve vampDistantVsVolume;
 
         [SerializeField]
