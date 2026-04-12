@@ -31,6 +31,8 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         [NonSerialized]
         public float secondsPerBeat;
 
+        public float PreludeSeconds => meta.preludeSeconds;
+
         // Public Methods  #####################################################
 
         public float CalcXFromBeat(float beat) {

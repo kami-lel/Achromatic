@@ -15,6 +15,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Public API  #########################################################
 
         public void StartPrelude() {
+            // HACK rm this fx
             Debug.Log("PlayerManager:\tStartPrelude");
 
             rb.linearVelocityX = preludeStartVelocityX;
@@ -23,6 +24,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void StartMainPiece(int debugMusicStaringBar = 0) {
+            // HACK rm this fx
             Debug.Log("PlayerManager:\tStartMainPiece");
 
             rb.bodyType = RigidbodyType2D.Kinematic;

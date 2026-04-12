@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using Assets._Achromatic.Scripts.Players;
+using Assets._Achromatic.Scripts.Beatmaps;
 
 // FIXME dont show miss type indicator during prelude
 
@@ -16,7 +17,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private int debugMusicStartingBar = 0;
 
         [SerializeField]
-        private float preludeTransitionSection = 0.5f;
+        private float preludeTransitionSecond = 0.5f;
 
         [SerializeField]
         private AnimationCurve vampDistantVsVolume;
@@ -60,6 +61,12 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             if (debugMusicStartingBar != 0) {
                 Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
+            }
+
+
+            // setting check  --------------------------------------------------
+            if (preludeTransitionSecond < 0.0f || preludeTransitionSecond > beatmap.PreludeSeconds) {
+
             }
         }
 
@@ -127,15 +134,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private MusicManager music;
         private Piece piece;
         private Transform playerTransform;
+        private Beatmap beatmap;
 
         // private methods  ####################################################
 
         private void StartMusicPlay() {
             if (debugMusicStartingBar == 0) {
-                music.StartPreludeThenMainPiece();
-                playerManager.StartPrelude();
-                GCS.I.states = GameState.PRELUDE;
-                // BUG PLAYER is jumped when start prelude
+                StartPrelude1();
 
             } else {
                 // start music mid point for debug purpose
@@ -148,10 +153,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void StartPrelude1() {
+            GCS.I.states = GameState.PRELUDE1;
+            playerManager.StartPrelude();
+
+
+            // BUG PLAYER is jumped when start prelude
+
+
+
             // TODO
         }
 
         private void StartPrelude2() {
+            GCS.I.states = GameState.PRELUDE2;
+
             // TODO
         }
 
