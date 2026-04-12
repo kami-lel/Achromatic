@@ -122,7 +122,7 @@ public class SFX: MonoBehaviour {
     }
 
     // constants  ##############################################################
-    private const float RUN_SFX_INTERVAL = 1.0f;
+    private const float RUN_SFX_INTERVAL = 0.25f;
 
 
     // private members  ########################################################
