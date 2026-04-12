@@ -4,7 +4,7 @@ using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 
-// Bug mob is missing in some attack notes
+// BUG mob is missing in some attack notes
 
 namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]

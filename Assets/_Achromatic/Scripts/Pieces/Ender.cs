@@ -15,7 +15,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerTransform;
 
         [SerializeField]
-        private float endX;  // Bug use music to control
+        private float endX;  // BUG use music to control
 
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
@@ -69,7 +69,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void Update() {
             if ((GCS.I.states & GameState.MAIN_PIECE) != 0 &&
                         playerTransform.position.x > endX) {
-                // Fixme better logic to trigger ending
+                // FIXME better logic to trigger ending
 
 
                 GCS.I.states = GameState.PIECE_FINISHED;
