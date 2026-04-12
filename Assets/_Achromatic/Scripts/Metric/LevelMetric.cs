@@ -13,6 +13,9 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         // TODO
 
+        public LevelMetric() {
+            fps = new List<int>();
+        }
     }
 }
 
