@@ -32,8 +32,6 @@ namespace Assets._Achromatic.Scripts.Metric {
             string intervalKey = "";
 
             // FIXME correct per step
-            // TODO metrics: total time
-            // TODO portion of game play
 
             switch (keyPoint) {
             case SequenceKeyPoint.LEVEL_START:
@@ -118,7 +116,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // private methods  ####################################################
         private void FinishSession() {
             foreach (LevelMetric level in session.levels) {
-                level.FinishSession(timings, intervals);
+                level.FinishSession(timings);
             }
 
             // save metric  ****************************************************

@@ -20,8 +20,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Methods  #####################################################
 
         public void FinishSession(
-            Dictionary<string, float> timings,
-            Dictionary<string, float> intervals
+            Dictionary<string, float> timings
         ) {
             if (fps.Count > 0) {
                 fpsMin = fps.Min();
@@ -34,9 +33,11 @@ namespace Assets._Achromatic.Scripts.Metric {
                 fpsMean = (float)total / fps.Count;
             }
 
-            if (timings.Count > 0 && intervals.Count > 0) {
+            if (timings.Count > 0) {
                 // TODO
 
+                // TODO metrics: total time
+                // TODO portion of game play
             }
         }
 
