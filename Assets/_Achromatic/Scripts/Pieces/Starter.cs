@@ -65,9 +65,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
             }
 
-
-
-
             // setting check  --------------------------------------------------
             if (preludeTransitionSecond <= 0.0f
                     || preludeTransitionSecond >= beatmap.PreludeSeconds) {
@@ -97,6 +94,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
                 );
                 float volume = vampDistantVsVolume.Evaluate(distance);
                 music.UpdateVampVolume(volume);
+            }
+        }
+
+        private void FixedUpdate() {
+            if (GCS.I.states == GameState.PRELUDE) {
+                preludeElapsedTime += Time.fixedDeltaTime;
+
+                float nextX = preludeStartX;  // TODO
+                player.rb.MovePosition(new Vector2(nextX, beatmap.origin.y));
             }
         }
 
@@ -147,11 +153,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerTransform;
         private Beatmap beatmap;
 
+        private float preludeElapsedTime;
+        private float preludeStartX;
+
         // private methods  ####################################################
+
 
         private void StartMusicPlay() {
             if (debugMusicStartingBar == 0) {
-                StartPrelude1();
+                StartPrelude();
             } else {
                 // start music mid point for debug purpose
                 music.DebugStartMusic(debugMusicStartingBar);
@@ -162,19 +172,23 @@ namespace Assets._Achromatic.Scripts.Pieces {
             virtualCamera.Priority = 20;
         }
 
-        private void StartPrelude1() {
-            GCS.I.states = GameState.PRELUDE1;
+        private void StartPrelude() {
+            GCS.I.states = GameState.PRELUDE;
+
+
             playerManager.StartPrelude();
 
             // BUG PLAYER is jumped when start prelude
 
             // TODO
+            //
+            // set up prelude movement  ----------------------------------------
+            preludeElapsedTime = 0.0f;
+            preludeStartX = player.rb.position.x;
+
+            // calc movement
+
         }
 
-        private void StartPrelude2() {
-            GCS.I.states = GameState.PRELUDE2;
-
-            // TODO
-        }
     }
 }
