@@ -37,7 +37,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // caching references to player  -----------------------------------
-            GameObject go = GCS.FindPlayer();
+            GameObject go = GameController.I.FindMainPlayer();
             pi = go.GetComponent<PlayerInput>();
 
             if (pi == null) {

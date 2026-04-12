@@ -44,7 +44,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             midWall.SetActive(false);
 
             // caching references of player  -----------------------------------
-            GameObject playerGO = GCS.FindPlayer();
+            GameObject playerGO = GameController.I.FindMainPlayer();
 
             player = playerGO.GetComponent<Player>();
 

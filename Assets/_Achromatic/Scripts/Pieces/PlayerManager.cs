@@ -86,7 +86,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // caching references of player  -----------------------------------
-            GameObject playerGO = GCS.FindPlayer();
+            GameObject playerGO = GameController.I.FindMainPlayer();
 
             rb = playerGO.GetComponent<Rigidbody2D>();
             if (rb == null) {

@@ -9,6 +9,17 @@ public class GameController: MonoBehaviour {
         get; private set;
     }
 
+    public GameObject FindMainPlayer() {
+        GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
+
+        if (playerObject == null) {
+            Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
+        }
+
+        return playerObject;
+    }
+
+
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
@@ -22,5 +33,8 @@ public class GameController: MonoBehaviour {
         I = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    // constants  ##############################################################
+    private const string PLAYER_TAG = "Player";
 
 }

@@ -25,22 +25,6 @@ public class GCS: MonoBehaviour {
     [NonSerialized]
     public GameState states = GameState.NONE;
 
-    // Public Methods  #########################################################
-
-    public static GameObject FindPlayer() {
-        GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
-
-        if (playerObject == null) {
-            Debug.LogError($"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}");
-        }
-
-        return playerObject;
-    }
-
-    public void LoadNextScene(string sceneName) {
-        sceneChanger.LoadNextScene(sceneName);
-    }
-
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
@@ -59,7 +43,7 @@ public class GCS: MonoBehaviour {
     }
 
     private void Update() {
-        return;  // Hack rm or fix GCS
+        return;  // Hack rm or fix GCS for FPS counter etc.
         // FPS Counter  --------------------------------------------------------
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         fpsFrameCounter++;
@@ -75,9 +59,6 @@ public class GCS: MonoBehaviour {
         }
 #endif
     }
-
-    // constants  ##############################################################
-    private const string PLAYER_TAG = "Player";
 
     // private members  ########################################################
     // cached references
