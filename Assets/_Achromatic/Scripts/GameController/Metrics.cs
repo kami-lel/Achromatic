@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(FPSCounter))]
+
 // TODO metrics: fps
 // TODO metrics: total time
 // TODO metrics: portion of time
@@ -10,7 +12,6 @@ using UnityEngine;
 // TODO TODO local leaderboard
 
 public class Metrics: MonoBehaviour {
-
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 
     // Public Members  #########################################################
@@ -25,7 +26,26 @@ public class Metrics: MonoBehaviour {
     private void Awake() {
         // singleton logic  ----------------------------------------------------
         I = this;
+
+        FPSCounter fpsCounter = GetComponent<FPSCounter>();
+        if (fpsCounter == null) {
+            Debug.LogWarning("fail to find: FPSCounter");
+        } else {
+            fpsCounter.OnFPSUpdate += OnFPSUpdate;
+
+        }
+
     }
+
+
+
+    // Event Handler  ##########################################################
+
+    private void OnFPSUpdate(int fps) {
+        // TODO
+    }
+
+
 
 
 #endif
