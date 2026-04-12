@@ -148,6 +148,8 @@ public class SFX: MonoBehaviour {
 
     // ramble  =================================================================
 
+    // TODO make it another component
+
     private void PlayRumble(String rambleType) {
         var pad = Gamepad.current;
         if (pad == null) {
