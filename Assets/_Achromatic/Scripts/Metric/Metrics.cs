@@ -3,6 +3,7 @@
 using UnityEngine;
 using Assets._Achromatic.Scripts.Scores;
 using System.IO;
+using System;
 
 namespace Assets._Achromatic.Scripts.Metric {
     public class Metrics: MonoBehaviour {
@@ -70,11 +71,8 @@ namespace Assets._Achromatic.Scripts.Metric {
         // private methods  ####################################################
         private void SaveSession() {
             string json = JsonUtility.ToJson(session, prettyPrint: true);
-            string path = Path.Combine(
-                Application.persistentDataPath,
-                "metric_session.json"
-            );
-            // TODO add name
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HHmmss");
+            string path = $"Achromatic.Metric.{timestamp}.json";
 
             File.WriteAllText(path, json);
         }
