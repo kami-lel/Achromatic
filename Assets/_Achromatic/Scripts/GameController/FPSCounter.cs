@@ -3,10 +3,20 @@ using UnityEngine;
 
 public class FPSCounter: MonoBehaviour {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    // Public Members  #########################################################
+
+    // singleton
+    public static FPSCounter I {
+        get; private set;
+    }
+
+    public int lastFPS;
 
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
+        I = this;
+
         GameObject go = GameObject.FindWithTag(
             FPS_COUNTER_TAG
         );
@@ -25,11 +35,12 @@ public class FPSCounter: MonoBehaviour {
             return;
         }
 
-        fpsFrameCounter++;
+        frameCounter++;
         fpsCounterAccumulateTime += Time.unscaledDeltaTime;
         if (fpsCounterAccumulateTime > 1.0f) {
-            fpsCounterTextField.text = fpsFrameCounter + " fps";
-            fpsFrameCounter = 0;
+            fpsCounterTextField.text = frameCounter + " fps";
+            lastFPS = frameCounter;
+            frameCounter = 0;
             fpsCounterAccumulateTime = 0.0f;
         }
     }
@@ -40,7 +51,7 @@ public class FPSCounter: MonoBehaviour {
     // private members  ########################################################
 
     private TextMeshProUGUI fpsCounterTextField;
-    private int fpsFrameCounter = 0;
+    private int frameCounter = 0;
     private float fpsCounterAccumulateTime = 0.0f;
 
 #endif
