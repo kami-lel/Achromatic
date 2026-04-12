@@ -21,13 +21,13 @@ namespace Assets._Achromatic.Scripts.Players {
             }
         }
         private void Start() {
-            GCS.I.states = GameState.EXPLORE;
+            GameController.I.states = GameState.EXPLORE;
         }
 
         // event handlers  #####################################################
 
         private void OnTriggerEnter2D(Collider2D other) {
-            if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0 ||
+            if ((GameController.I.states & GameState.EXPLORE_CONTROL) == 0 ||
                     other == null || !other.isTrigger) {
                 return;
             }

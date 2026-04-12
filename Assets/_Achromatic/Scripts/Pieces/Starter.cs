@@ -73,7 +73,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Update() {
-            if (GCS.I.states == GameState.VAMP) {
+            if (GameController.I.states == GameState.VAMP) {
                 // update vamp volume
                 float distance = Vector2.Distance(
                     playerTransform.position,
@@ -85,7 +85,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void FixedUpdate() {
-            if (GCS.I.states == GameState.PRELUDE) {
+            if (GameController.I.states == GameState.PRELUDE) {
                 float t = music.Time;
 
                 if (t >= beatmap.PreludeSeconds) {
@@ -114,13 +114,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void HandleOnTriggerEnter(string triggerTag) {
             if (
-                (GCS.I.states & GameState.EXPLORE_CONTROL) != 0
+                (GameController.I.states & GameState.EXPLORE_CONTROL) != 0
                 && triggerTag == VAMP_TRIGGER_TAG
             ) {
-                GCS.I.states = GameState.VAMP;
+                GameController.I.states = GameState.VAMP;
                 music.StartVamp();
             } else if (
-                  GCS.I.states == GameState.VAMP
+                  GameController.I.states == GameState.VAMP
                   && triggerTag == PRELUDE_TRIGGER_TAG
               ) {
                 StartMusicPlay();
@@ -129,10 +129,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void HandleOnTriggerExit(string triggerTag) {
             if (
-                GCS.I.states == GameState.VAMP
+                GameController.I.states == GameState.VAMP
                 && triggerTag == VAMP_TRIGGER_TAG
             ) {
-                GCS.I.states = GameState.EXPLORE;
+                GameController.I.states = GameState.EXPLORE;
                 music.StopVamp();
             }
         }
@@ -170,7 +170,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void StartPrelude() {
             Debug.Log("Start Prelude", this);
 
-            GCS.I.states = GameState.PRELUDE;
+            GameController.I.states = GameState.PRELUDE;
             playerManager.SetupPlayerForPiece();
 
             music.StartMusic();
@@ -189,13 +189,13 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void StartMain() {
             Debug.Log("Start Main Piece", this);
 
-            GCS.I.states = GameState.MAIN_PIECE;
+            GameController.I.states = GameState.MAIN_PIECE;
         }
 
         private void StartMusicDebug() {
             Debug.Log("Start Music Debug", this);
 
-            GCS.I.states = GameState.MAIN_PIECE;
+            GameController.I.states = GameState.MAIN_PIECE;
 
             music.StartMusic(debugMusicStartingBar);
             playerManager.SetupPlayerForPiece();

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -9,6 +10,11 @@ public class GameController: MonoBehaviour {
     public static GameController I {
         get; private set;
     }
+
+    [NonSerialized]
+    public GameState states = GameState.NONE;
+
+    // Public Methods  #########################################################
 
     public GameObject FindMainPlayer() {
         GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);

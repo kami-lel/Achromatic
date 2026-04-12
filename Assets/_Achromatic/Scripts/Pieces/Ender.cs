@@ -11,7 +11,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         public void FinishMain() {
             Debug.Log("Finish Main", this);
 
-            GCS.I.states = GameState.TOTAL_SCORE_WINDOW;
+            GameController.I.states = GameState.TOTAL_SCORE_WINDOW;
 
             playerManager.FinishMain();
 
@@ -116,7 +116,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void CloseFinalPointWindow() {
-            GCS.I.states = GameState.EXPLORE;
+            GameController.I.states = GameState.EXPLORE;
             finalPointWindow.SetActive(false);
         }
     }

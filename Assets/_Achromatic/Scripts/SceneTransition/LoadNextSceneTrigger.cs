@@ -26,7 +26,7 @@ public class LoadNextSceneTrigger: MonoBehaviour {
 
     private void HandleOnTriggerEnter(string triggerTag) {
 
-        if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
+        if ((GameController.I.states & GameState.EXPLORE_CONTROL) != 0 &&
                 triggerTag == TRIGGER_TAG) {
 
             SceneChanger.I.LoadNextScene(nextSceneName);

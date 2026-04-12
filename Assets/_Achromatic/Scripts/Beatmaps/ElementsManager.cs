@@ -122,7 +122,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         }
 
         private void Update() {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
+            if ((GameController.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
 

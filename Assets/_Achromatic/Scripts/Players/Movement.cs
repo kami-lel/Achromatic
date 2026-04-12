@@ -74,7 +74,7 @@ namespace Assets._Achromatic.Scripts.Players {
             rb.linearDamping = 0.0f;
         }
         private void FixedUpdate() {
-            if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
+            if ((GameController.I.states & GameState.EXPLORE_CONTROL) == 0) {
                 return;
             }
 
