@@ -3,6 +3,7 @@ using Cinemachine;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
+    [RequireComponent(typeof(PlayerManager))]
     public class Ender: MonoBehaviour {
         // Public Methods  #####################################################
 
@@ -49,9 +50,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             midWall.SetActive(false);
 
             // caching references of player  -----------------------------------
-            GameObject playerGO = GameController.I.FindMainPlayer();
-
-            playerManager = playerGO.GetComponent<PlayerManager>();
+            playerManager = GetComponent<PlayerManager>();
             if (playerManager == null) {
                 Debug.LogError("fail to get: Player Manager", this);
             }
