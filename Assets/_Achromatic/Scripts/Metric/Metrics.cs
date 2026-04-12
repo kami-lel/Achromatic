@@ -1,4 +1,3 @@
-// TODO metrics save to file
 
 using System;
 using System.IO;
