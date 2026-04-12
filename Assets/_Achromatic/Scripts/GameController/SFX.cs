@@ -100,7 +100,6 @@ public class SFX: MonoBehaviour {
         I = this;
     }
 
-
     // constants  ##############################################################
     private const float SFX_LASTING_TIME = 1.0f;
 

@@ -177,7 +177,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SFX:Player
+  m_Name: SFX:Action
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: f11bb88813218274584743f509436399
   m_Children: []
