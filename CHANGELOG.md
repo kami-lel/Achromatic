@@ -61,6 +61,7 @@
 ### Fixed
 
 - player is jumped during prelude, now using constant acceleration
+- FPS counter
 
 
 
