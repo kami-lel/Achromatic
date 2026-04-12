@@ -17,6 +17,9 @@ namespace Assets._Achromatic.Scripts.Metric {
         public int fpsMin = -1;
         public float fpsMean = -1f;
 
+        public float totalScore = -1f;
+        public int maxCombo = -1;
+
         // Public Methods  #####################################################
 
         public void FinishSession() {

@@ -47,6 +47,9 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         public void LogMusicPlay(Score score) {
+            currentLevelMetric.totalScore = score.runningScore;
+            currentLevelMetric.maxCombo = score.maxCombo;
+
             // TODO metrics: deltas
             // TODO metrics: hit / miss ratio per part
         }
