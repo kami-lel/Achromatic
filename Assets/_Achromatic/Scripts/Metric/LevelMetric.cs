@@ -20,7 +20,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Methods  #####################################################
 
         public void FinishSession(
-            Dictionary<string, float> timings
+            Dictionary<SequenceKeyPoint, float> timings
         ) {
             if (fps.Count > 0) {
                 fpsMin = fps.Min();

@@ -28,52 +28,12 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
-            string timingKey = "";
-            string intervalKey = "";
-
-            // FIXME correct per step
-
-            switch (keyPoint) {
-            case SequenceKeyPoint.LEVEL_START:
+            if (keyPoint == SequenceKeyPoint.LEVEL_START) {
                 level += 1;
                 currentLevelMetric = session.levels[level];
-                timingKey = "LevelStart";
-                break;
-
-            case SequenceKeyPoint.MAIN_START:
-                timingKey = "MusicPlayStart";
-                intervalKey = "BeginningExplorePlay";
-                break;
-
-            case SequenceKeyPoint.MAIN_FINISHED:
-                timingKey = "MusicPlayFinished";
-                intervalKey = "MusicPlay";
-                break;
-
-            case SequenceKeyPoint.CLOSE_WINDOW:
-                timingKey = "CloseFinalScoreWindow";
-                intervalKey = "FinalScoreWindow";
-                break;
-
-            case SequenceKeyPoint.LEVEL_END:
-                timingKey = "FinishLevel";
-                intervalKey = "EndingExplorePlay";
-                break;
-
-            default:
-                break;
             }
 
-            float timing = Time.time;
-            float interval = timing - lastTiming;
-
-            if (timingKey != "") {
-                timings[timingKey] = timing;
-            }
-            if (intervalKey != "") {
-                intervals[intervalKey] = interval;
-            }
-
+            timings[keyPoint] = Time.time;
         }
 
         public void LogMusicPlay(Score score) {
@@ -92,8 +52,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             I = this;
 
             session = new MetricSession(Application.version);
-            timings = new Dictionary<string, float>();
-            intervals = new Dictionary<string, float>();
+            timings = new Dictionary<SequenceKeyPoint, float>();
         }
 
         private void OnDisable() {
@@ -110,8 +69,7 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         private MetricSession session;
         private LevelMetric currentLevelMetric;
-        private Dictionary<string, float> timings;
-        private Dictionary<string, float> intervals;
+        private Dictionary<SequenceKeyPoint, float> timings;
 
         // private methods  ####################################################
         private void FinishSession() {
