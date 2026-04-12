@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 // FIXME new action sfx
 
+[RequireComponent(typeof(GameController))]
 public class SFX: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -107,14 +108,7 @@ public class SFX: MonoBehaviour {
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
-        if (I != null && I != this) {
-            Debug.LogWarning("duplicated SFX", this);
-            Destroy(this);
-            return;
-        }
-
         I = this;
-        DontDestroyOnLoad(gameObject);
     }
 
 
