@@ -101,7 +101,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (GCS.I.states == GameState.PRELUDE) {
                 preludeElapsedTime += Time.fixedDeltaTime;
 
-                float nextX = preludeStartX;  // TODO
+                float nextX = CalcPreludeX(preludeElapsedTime);
                 player.rb.MovePosition(new Vector2(nextX, beatmap.origin.y));
             }
         }
@@ -154,10 +154,11 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Beatmap beatmap;
 
         private float preludeElapsedTime;
-        private float preludeStartX;
+        private float preludeCurveA;
+        private float preludeCurveB;
+        private float preludeCurveC;
 
         // private methods  ####################################################
-
 
         private void StartMusicPlay() {
             if (debugMusicStartingBar == 0) {
@@ -174,21 +175,18 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         private void StartPrelude() {
             GCS.I.states = GameState.PRELUDE;
-
-
             playerManager.StartPrelude();
 
-            // BUG PLAYER is jumped when start prelude
-
-            // TODO
-            //
             // set up prelude movement  ----------------------------------------
             preludeElapsedTime = 0.0f;
-            preludeStartX = player.rb.position.x;
 
             // calc movement
 
         }
 
+        private float CalcPreludeX(float t) {
+            return 0.0f; // HACK
+            return preludeCurveA * t * t + preludeCurveB * t + preludeCurveC;
+        }
     }
 }
