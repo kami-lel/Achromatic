@@ -34,19 +34,19 @@ public class SFX: MonoBehaviour {
             }
 
         } else if ((hit & Hit.GREAT) != 0) {
-            PlayOneShotSFX(greatSFX);
+            greatSFX.Play();
             Rumbler.I.Rumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
-            PlayOneShotSFX(goodSFX);
+            goodSFX.Play();
             Rumbler.I.Rumble("Good");
 
         } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
-            PlayOneShotSFX(missSFX1);
+            missSFX1.Play();
             Rumbler.I.Rumble("Miss");
 
         } else {
-            PlayOneShotSFX(missSFX2);
+            missSFX2.Play();
             Rumbler.I.Rumble("Miss");
 
         }
@@ -61,24 +61,15 @@ public class SFX: MonoBehaviour {
     }
 
     public void Land() {
-        switch (UnityEngine.Random.Range(0, 3)) {
-        case 0:
-            PlayOneShotSFX(landSFX1);
-            break;
-        case 1:
-            PlayOneShotSFX(landSFX2);
-            break;
-        case 2:
-            PlayOneShotSFX(landSFX3);
-            break;
-        }
+        PlayOneOfRandomSFX(landSFXs);
 
         Rumbler.I.Rumble("Land");
 
     }
 
     public void Squat() {
-        PlayOneShotSFX(dashSFX1);
+        dashSFX1.Play();
+
         Rumbler.I.Rumble("Squat");
     }
 
@@ -88,13 +79,11 @@ public class SFX: MonoBehaviour {
 
     [SerializeField] private AudioSource[] jumpSFXs;
 
+    [SerializeField] private AudioSource[] landSFXs;
+
     [SerializeField] private AudioSource dashSFX1;
     [SerializeField] private AudioSource dashSFX2;
     [SerializeField] private AudioSource dashSFX3;
-
-    [SerializeField] private AudioSource landSFX1;
-    [SerializeField] private AudioSource landSFX2;
-    [SerializeField] private AudioSource landSFX3;
 
     [SerializeField] private AudioSource attackSFX1;
 
@@ -127,17 +116,9 @@ public class SFX: MonoBehaviour {
         audioSources[i].PlayOneShot(audioSources[i].clip);
     }
 
-    // HACK rm, use PlayOneShot
-    private void PlayOneShotSFX(AudioSource src) {
-        src.Play();
-        src.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
-    }
-
-
     private void Attack(Hit hit = Hit.NONE) {
-        PlayOneShotSFX(attackSFX1);
+        attackSFX1.Play();
         Rumbler.I.Rumble("Attack");
     }
-
 
 }
