@@ -118,30 +118,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (squatOffsetVsTime == null) {
                 Debug.LogError("must assign: Squat Offset Vs Time", this);
             }
-
-            // calc movement during prelude  -----------------------------------
-            // HACK rm
-            float t = beatmap.meta.preludeSeconds;
-            if (t <= 0f) {
-                // prevent div by zero
-                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0", this);
-                t = Mathf.Epsilon;
-            }
-
-            float s = beatmap.origin.x - piece.preludeStartOrigin.x;
-            float v = beatmap.speedXInMainPiece;
-
-            // calc init velocity
-            preludeStartVelocityX = 2f * s / t - v;
-            if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed", this);
-                preludeStartVelocityX = 0f;
-            }
-
-            // calc acceleration — use v - u over t to be explicit
-            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
-
-            // Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         private void FixedUpdate() {
@@ -182,8 +158,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string PLAYER_SPRITE_TAG = "PlayerSprite";
 
         // private members  ####################################################
-        private float preludeStartVelocityX;
-        private float preludeAcceleration;
         private float currentActionStartTime;
         private Actions currentAction;
 
