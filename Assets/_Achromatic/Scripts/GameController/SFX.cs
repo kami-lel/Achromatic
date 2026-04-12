@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.LowLevel;
 
 
 // FIXME new action sfx
@@ -73,6 +75,23 @@ public class SFX: MonoBehaviour {
         Rumbler.I.Rumble("Squat");
     }
 
+    public void StartRun() {
+        if (isPlayingRun) {
+            return;
+        }
+        playCoroutine = StartCoroutine(PlayRunLoop());
+    }
+
+    public void StopRun() {
+        if (!isPlayingRun) {
+            return;
+        }
+
+        StopCoroutine(playCoroutine);
+        playCoroutine = null;
+        isPlayingRun = false;
+    }
+
     // Inspector Fields  #######################################################
 
     [Header("Action SFX")]
@@ -80,6 +99,8 @@ public class SFX: MonoBehaviour {
     [SerializeField] private AudioSource[] jumpSFXs;
 
     [SerializeField] private AudioSource[] landSFXs;
+
+    [SerializeField] private AudioSource[] runSFXs;
 
     [SerializeField] private AudioSource dashSFX1;
     [SerializeField] private AudioSource dashSFX2;
@@ -101,7 +122,12 @@ public class SFX: MonoBehaviour {
     }
 
     // constants  ##############################################################
-    private const float SFX_LASTING_TIME = 1.0f;
+    private const float RUN_SFX_INTERVAL = 1.0f;
+
+
+    // private members  ########################################################
+    private bool isPlayingRun = false;
+    private Coroutine playCoroutine;
 
     // private methods  ########################################################
 
@@ -120,4 +146,11 @@ public class SFX: MonoBehaviour {
         Rumbler.I.Rumble("Attack");
     }
 
+    private IEnumerator PlayRunLoop() {
+        isPlayingRun = true;
+        while (true) {
+            PlayOneOfRandomSFX(runSFXs);
+            yield return new WaitForSeconds(RUN_SFX_INTERVAL);
+        }
+    }
 }
