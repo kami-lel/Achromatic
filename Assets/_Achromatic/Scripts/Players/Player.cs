@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Players {
-
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Player: MonoBehaviour {
 
         // Public Members  #####################################################
@@ -14,6 +14,12 @@ namespace Assets._Achromatic.Scripts.Players {
 
         // MonoBehavior Lifecycle  #############################################
 
+        private void Awake() {
+            rb = GetComponent<Rigidbody2D>();
+            if (rb == null) {
+                Debug.LogError("fail to get: RigidBody2D");
+            }
+        }
         private void Start() {
             GCS.I.states = GameState.EXPLORE;
         }

@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e421482c4efc04fa93782591bdcedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  deactivateDelay: 6
+  deactivateDelay: 15
   score: {fileID: 0}
   combo: {fileID: 5649968791710621070}
   running: {fileID: 4046132836963345359}
