@@ -8,6 +8,7 @@
 <!-- Todo particle efx: running score -->
 <!-- Fixme squat obstacle (also for jump) confusing with background -->
 <!-- Todo write dev log -->
+<!-- Fixme SFXs normalization & remove lead in (instant play) -->
 
 <!-- bug fix sprite -->
 <!-- todo make web / mac build -->
