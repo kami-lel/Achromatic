@@ -10,7 +10,7 @@ namespace Assets._Achromatic.Scripts.UI {
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        private Score score;
+        private Score score;  // FIXME use get component?
 
         [SerializeField]
         private TextMeshProUGUI combo;

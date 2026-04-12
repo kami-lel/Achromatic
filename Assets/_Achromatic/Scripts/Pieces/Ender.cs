@@ -1,10 +1,13 @@
 using System.Collections;
+using Assets._Achromatic.Scripts.Metric;
+using Assets._Achromatic.Scripts.Scores;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(Score))]
     public class Ender: MonoBehaviour {
         // Public Methods  #####################################################
 
@@ -20,6 +23,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             // re final point window  ------------------------------------------
             finalPointWindow.SetActive(true);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogMusicPlay(score);
+#endif
 
             // close after certain time
             StartCoroutine(DeactivateAfterDelay());
@@ -76,6 +83,15 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (pi == null) {
                 Debug.LogError("fail to find: Player Input", this);
             }
+
+            // get component  --------------------------------------------------
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            score = GetComponent<Score>();
+            if (score == null) {
+                Debug.LogError("fail to find: score", this);
+            }
+#endif
+
         }
 
         private void OnDisable() {
@@ -83,12 +99,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         // Private Members  ####################################################
+        private bool isInputBlocked;
 
         // Cached References  --------------------------------------------------
         private PlayerManager playerManager;
         private PlayerInput pi;
-
-        private bool isInputBlocked;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private Score score;
+#endif
 
         // Private Methods  ####################################################
 
