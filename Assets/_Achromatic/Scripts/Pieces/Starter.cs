@@ -173,7 +173,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             GCS.I.states = GameState.PRELUDE;
             playerManager.SetupPlayerForPiece();
 
-            music.StartPreludeThenMainPiece();
+            music.StartMusic();
 
             // set up prelude movement  ----------------------------------------
             float startX = player.rb.position.x;
@@ -197,7 +197,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             GCS.I.states = GameState.MAIN_PIECE;
 
-            music.StartMusicDebug(debugMusicStartingBar);  // BUG fix
+            music.StartMusic(debugMusicStartingBar);
             playerManager.SetupPlayerForPiece();
         }
     }

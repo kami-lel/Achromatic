@@ -30,28 +30,22 @@ namespace Assets._Achromatic.Scripts.Pieces {
             vamp.volume = vol;
         }
 
-        public void StartPreludeThenMainPiece() {
-            bgm.Stop();
-            vamp.Stop();
-            preludeAndMain.Play();
-            StartCoroutine(MusicFinishingCoroutine());
-        }
-
-        public void StartMusicDebug(int debugMusicStaringBar) {
-            // BUG debug start music logic wrong
+        public void StartMusic(int debugMusicStaringBar = 0) {
             bgm.Stop();
             vamp.Stop();
 
-            float startTime =
-                (debugMusicStaringBar - 1.0f)
-                    * beatmap.meta.beatPerBar
-                    * (60.0f / beatmap.meta.tempo)
-                + beatmap.meta.preludeSeconds;
+            float startTime = 0f;
+            if (debugMusicStaringBar != 0) {
+                startTime =
+                    (debugMusicStaringBar - 1.0f)
+                        * beatmap.meta.beatPerBar
+                        * (60.0f / beatmap.meta.tempo)
+                    + beatmap.meta.preludeSeconds;
+            }
 
 
-            // start the music
-            preludeAndMain.time = startTime;
-            preludeAndMain.Play();
+            StartCoroutine(MusicFinishingCoroutine(startTime));
+
         }
 
         // Inspector Fields  ###################################################
@@ -103,10 +97,14 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Beatmap beatmap;
         private Ender ender;
 
-
         // private methods  ####################################################
-        private IEnumerator MusicFinishingCoroutine() {
-            yield return new WaitForSeconds(preludeAndMain.clip.length);
+        private IEnumerator MusicFinishingCoroutine(float startSeconds = 0f) {
+            preludeAndMain.time = startSeconds;
+            preludeAndMain.Play();
+
+            yield return new WaitForSeconds(
+                preludeAndMain.clip.length - startSeconds
+            );
             ender.FinishMain();
         }
     }
