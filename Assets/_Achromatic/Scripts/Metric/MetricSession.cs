@@ -7,20 +7,22 @@ using UnityEngine;
 namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
     public class MetricSession {
-        public Dictionary<int, LevelMetric> levels;
 
+        // Public Members  #####################################################
         public string gameVersion;
+        public LevelMetric[] levels;
 
+        // Constructor  ########################################################
         public MetricSession(string version) {
             gameVersion = version;
 
-            levels = new Dictionary<int, LevelMetric>
-            {
-                { 1, new LevelMetric() },
-                { 2, new LevelMetric() },
-                { 3, new LevelMetric() },
-            };
+            for (int i = 0; i < LEVEL_COUNT; i++) {
+                levels[i] = new LevelMetric();
+            }
         }
+
+        // constants  ##########################################################
+        public const int LEVEL_COUNT = 3;
     }
 }
 

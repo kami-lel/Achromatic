@@ -33,7 +33,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             switch (keyPoint) {
             case SequenceKeyPoint.LEVEL_START:
                 level += 1;
-                session.levels.TryGetValue(level, out currentLevelMetric);
+                currentLevelMetric = session.levels[level];
 
                 break;
 
@@ -65,7 +65,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         // private members  ####################################################
-        private int level = 0;
+        private int level = -1;
         private float lastTiming;
 
         private MetricSession session;
