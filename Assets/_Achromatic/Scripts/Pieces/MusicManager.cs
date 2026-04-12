@@ -38,7 +38,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void DebugStartMusic(int debugMusicStaringBar) {
-            // BUG debug start music logic wrong
+            // BUG BUG debug start music logic wrong
             bgm.Stop();
             vamp.Stop();
 
