@@ -1,14 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.LowLevel;
 
-
-// FIXME new action sfx
 
 [RequireComponent(typeof(GameController))]
 public class SFX: MonoBehaviour {
@@ -106,10 +100,18 @@ public class SFX: MonoBehaviour {
     [SerializeField] private AudioSource[] squatSFXs;
 
     [Header("Hit SFX")]
-    [SerializeField] private AudioSource greatSFX;
-    [SerializeField] private AudioSource goodSFX;
-    [SerializeField] private AudioSource missSFX1;
-    [SerializeField] private AudioSource missSFX2;
+    [SerializeField] private AudioSource[] greatSFXs;
+    [SerializeField] private AudioSource goodSFXs;
+    [SerializeField] private AudioSource missSFXs;
+
+    [Header("Hit SFX: Perfects")]
+
+    [SerializeField] private AudioSource[] perfectJump;
+
+    [SerializeField] private AudioSource[] perfectSquat;
+
+    [SerializeField] private AudioSource[] perfectAttack;
+
 
     // MonoBehavior Lifecycle  #################################################
 

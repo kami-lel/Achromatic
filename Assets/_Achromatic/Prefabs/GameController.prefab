@@ -774,6 +774,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &2411101058154734817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1842609114723267181}
+  m_Layer: 0
+  m_Name: HitSFXs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1842609114723267181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2411101058154734817}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 484340791855353179}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2411820445404009058
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +839,7 @@ Transform:
   - {fileID: 2017723881086593717}
   - {fileID: 4834842466081010996}
   - {fileID: 5419413879504936176}
+  - {fileID: 1842609114723267181}
   m_Father: {fileID: 7399498692419916722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2782587418899898966
@@ -1476,10 +1508,6 @@ MonoBehaviour:
   - {fileID: 7641116102642449399}
   squatSFXs:
   - {fileID: 3544674598193984325}
-  dashSFX1: {fileID: 0}
-  dashSFX2: {fileID: 0}
-  dashSFX3: {fileID: 0}
-  attackSFX1: {fileID: 0}
   greatSFX: {fileID: 5595083057803126599}
   goodSFX: {fileID: 3959193012694506841}
   missSFX1: {fileID: 7917124768916735748}
