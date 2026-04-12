@@ -41,10 +41,10 @@ AudioSource:
   m_GameObject: {fileID: 651687613360656102}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: ad3fc5615816f2147b518ba6baa76434, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -428,7 +428,7 @@ AudioSource:
   m_GameObject: {fileID: 1265233264698822838}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4823181552700999972, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 24b0d85c48e4e4444a26c085d44b9907, type: 3}
   m_PlayOnAwake: 0
@@ -815,10 +815,10 @@ AudioSource:
   m_GameObject: {fileID: 1813701825982014022}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3414cc2f8e64ba9469e4be867051fbfa, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1073,10 +1073,10 @@ AudioSource:
   m_GameObject: {fileID: 2369701946637724090}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: d2a61c03ba6762c43a5f0b729a1484f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1708,10 +1708,10 @@ AudioSource:
   m_GameObject: {fileID: 4378296146089757682}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 02ae17dbdbfbc744c80379cddfe877e6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2227,10 +2227,10 @@ AudioSource:
   m_GameObject: {fileID: 5549376822647200471}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: c58509fa65d61704c878d0bdce7516c3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2356,7 +2356,7 @@ AudioSource:
   m_GameObject: {fileID: 5826512498832257989}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4823181552700999972, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: df7ce583603b78f4c9a370912501cbb3, type: 3}
   m_PlayOnAwake: 0
@@ -2485,7 +2485,7 @@ AudioSource:
   m_GameObject: {fileID: 7055863681415401640}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4823181552700999972, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 242ecf2fff1e97a4e908b22376495137, type: 3}
   m_PlayOnAwake: 0
@@ -3259,7 +3259,7 @@ AudioSource:
   m_GameObject: {fileID: 9054256045955128904}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4823181552700999972, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
+  OutputAudioMixerGroup: {fileID: 5823630948907324196, guid: 092fe495c16dd2c41b8abb24e3f92976, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f9be1f6b9861a9c47a6d9d516b61d3b0, type: 3}
   m_PlayOnAwake: 0

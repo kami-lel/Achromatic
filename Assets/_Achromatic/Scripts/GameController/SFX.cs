@@ -18,35 +18,35 @@ public class SFX: MonoBehaviour {
     // Public Methods  #########################################################
 
     public void OnHit(Actions pressed, Hit hit) {
-        // FIXME using the new actions
-        // if ((hit & Hit.PERFECT) != 0) {
-        //     // perfect, use action sound
-        //     if ((pressed & Actions.JUMP) != 0) {
-        //         Jump();
-        //     } else if ((pressed & Actions.SQUAT) != 0) {
-        //         Squat();
+        if ((hit & Hit.PERFECT) != 0) {
+            // perfect, use action sound
+            if ((pressed & Actions.JUMP) != 0) {
+                PlayOneOfRandomSFX(perfectJump);
+            } else if ((pressed & Actions.SQUAT) != 0) {
+                PlayOneOfRandomSFX(perfectSquat);
 
-        //     } else if ((pressed & Actions.ATTACK) != 0) {
-        //         Attack();
-        //     }
+            } else if ((pressed & Actions.ATTACK) != 0) {
+                PlayOneOfRandomSFX(perfectAttack);
 
-        // } else if ((hit & Hit.GREAT) != 0) {
-        //     greatSFX.Play();
-        //     Rumbler.I.Rumble("Great");
+            }
 
-        // } else if ((hit & Hit.GOOD) != 0) {
-        //     goodSFX.Play();
-        //     Rumbler.I.Rumble("Good");
+        } else if ((hit & Hit.GREAT) != 0) {
+            PlayOneOfRandomSFX(greatSFXs);
+            Rumbler.I.Rumble("Great");
 
-        // } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
-        //     missSFX1.Play();
-        //     Rumbler.I.Rumble("Miss");
+        } else if ((hit & Hit.GOOD) != 0) {
+            PlayOneOfRandomSFX(goodSFXs);
+            Rumbler.I.Rumble("Good");
 
-        // } else {
-        //     missSFX2.Play();
-        //     Rumbler.I.Rumble("Miss");
+        } else if ((hit & Hit.WRONG_HIT) != 0) {
+            PlayOneOfRandomSFX(missSFXs);
+            Rumbler.I.Rumble("Miss");
 
-        // }
+        } else {  // i.e no hit
+            PlayOneOfRandomSFX(notHitSFXs);
+            Rumbler.I.Rumble("Miss");
+
+        }
     }
 
     // directly play action-audio  =============================================
@@ -138,14 +138,8 @@ public class SFX: MonoBehaviour {
             return;
         }
 
-        int i = UnityEngine.Random.Range(0, audioSources.Length);
+        int i = Random.Range(0, audioSources.Length);
         audioSources[i].PlayOneShot(audioSources[i].clip);
-    }
-
-    private void Attack(Hit hit = Hit.NONE) {
-        // HACK
-        // attackSFX1.Play();
-        Rumbler.I.Rumble("Attack");
     }
 
     private IEnumerator PlayRunLoop() {
