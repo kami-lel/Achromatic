@@ -47,12 +47,14 @@ namespace Assets._Achromatic.Scripts.Metric {
         private void Awake() {
             // singleton logic  ------------------------------------------------
             I = this;
+
+            session = new MetricSession();
         }
 
         // private members  ####################################################
         private int level = 0;
         private float lastTiming;
-        private MetricsData data;
+        private MetricSession session;
 
 #endif
     }

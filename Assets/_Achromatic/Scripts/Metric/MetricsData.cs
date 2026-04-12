@@ -4,8 +4,7 @@ using System;
 
 namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
-    public class MetricsData {
-
+    public class MetricSession {
 
         // TODO
 
