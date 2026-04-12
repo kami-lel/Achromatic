@@ -30,6 +30,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             float timing = Time.time;
             float interval = timing - lastTiming;
 
+            // FIXME correct per step
             // TODO metrics: total time
             // TODO portion of game play
 
