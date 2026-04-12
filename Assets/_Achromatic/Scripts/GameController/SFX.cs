@@ -35,19 +35,19 @@ public class SFX: MonoBehaviour {
 
         } else if ((hit & Hit.GREAT) != 0) {
             PlayOneShotSFX(greatSFX);
-            PlayRumble("Great");
+            Rumbler.I.Rumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
             PlayOneShotSFX(goodSFX);
-            PlayRumble("Good");
+            Rumbler.I.Rumble("Good");
 
         } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
             PlayOneShotSFX(missSFX1);
-            PlayRumble("Miss");
+            Rumbler.I.Rumble("Miss");
 
         } else {
             PlayOneShotSFX(missSFX2);
-            PlayRumble("Miss");
+            Rumbler.I.Rumble("Miss");
 
         }
     }
@@ -57,7 +57,7 @@ public class SFX: MonoBehaviour {
     public void Jump() {
         PlayOneOfRandomSFX(jumpSFXs);
 
-        PlayRumble("Jump");
+        Rumbler.I.Rumble("Jump");
     }
 
     public void Land() {
@@ -73,13 +73,13 @@ public class SFX: MonoBehaviour {
             break;
         }
 
-        PlayRumble("Land");
+        Rumbler.I.Rumble("Land");
 
     }
 
     public void Squat() {
         PlayOneShotSFX(dashSFX1);
-        PlayRumble("Squat");
+        Rumbler.I.Rumble("Squat");
     }
 
     // Inspector Fields  #######################################################
@@ -134,74 +134,10 @@ public class SFX: MonoBehaviour {
     }
 
 
-
     private void Attack(Hit hit = Hit.NONE) {
         PlayOneShotSFX(attackSFX1);
-        PlayRumble("Attack");
+        Rumbler.I.Rumble("Attack");
     }
-
-    // ramble  =================================================================
-
-    // TODO make it another component
-
-    private void PlayRumble(String rambleType) {
-        var pad = Gamepad.current;
-        if (pad == null) {
-            return;
-        }
-
-        float low, high, duration;
-
-        switch (rambleType) {
-        case "Jump":
-        default:
-            low = 0.35f;
-            high = 1.00f;
-            duration = 0.14f;
-            break;
-        case "Land":
-            low = 0.50f;
-            high = 0.60f;
-            duration = 0.10f;
-            break;
-        case "Attack":
-            low = 1.00f;
-            high = 0.80f;
-            duration = 0.16f;
-            break;
-        case "Squat":
-            low = 0.70f;
-            high = 0.30f;
-            duration = 0.15f;
-            break;
-        case "Great":
-            low = 0.55f;
-            high = 0.65f;
-            duration = 0.12f;
-            break;
-        case "Good":
-            low = 0.35f;
-            high = 0.40f;
-            duration = 0.10f;
-            break;
-        case "Miss":
-            low = 0.90f;
-            high = 0.20f;
-            duration = 0.20f;
-            break;
-        }
-
-        // perform rumble  -----------------------------------------------------
-        pad.SetMotorSpeeds(low, high);  // start motors
-        _ = StartCoroutine(StopRumbleAfter(pad, duration));
-    }
-
-    private System.Collections.IEnumerator StopRumbleAfter(Gamepad pad, float duration) {
-        yield return new WaitForSeconds(duration);
-
-        pad?.SetMotorSpeeds(0f, 0f);   // stop motors
-    }
-
 
 
 }

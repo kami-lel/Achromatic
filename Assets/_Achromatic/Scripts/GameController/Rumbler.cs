@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(GameController))]
@@ -11,15 +13,74 @@ public class Rumbler: MonoBehaviour {
         get; private set;
     }
 
-
     // Public Methods  #########################################################
 
+    public void Rumble(String rambleType) {
+        var pad = Gamepad.current;
+        if (pad == null) {
+            return;
+        }
+
+        float low, high, duration;
+
+        switch (rambleType) {
+        case "Jump":
+        default:
+            low = 0.35f;
+            high = 1.00f;
+            duration = 0.14f;
+            break;
+        case "Land":
+            low = 0.50f;
+            high = 0.60f;
+            duration = 0.10f;
+            break;
+        case "Attack":
+            low = 1.00f;
+            high = 0.80f;
+            duration = 0.16f;
+            break;
+        case "Squat":
+            low = 0.70f;
+            high = 0.30f;
+            duration = 0.15f;
+            break;
+        case "Great":
+            low = 0.55f;
+            high = 0.65f;
+            duration = 0.12f;
+            break;
+        case "Good":
+            low = 0.35f;
+            high = 0.40f;
+            duration = 0.10f;
+            break;
+        case "Miss":
+            low = 0.90f;
+            high = 0.20f;
+            duration = 0.20f;
+            break;
+        }
+
+        // perform rumble  -----------------------------------------------------
+        pad.SetMotorSpeeds(low, high);  // start motors
+        _ = StartCoroutine(StopRumbleAfter(pad, duration));
+    }
 
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
         I = this;
+    }
+
+
+    // private methods  ########################################################
+
+    private System.Collections.IEnumerator StopRumbleAfter(Gamepad pad, float duration) {
+        yield return new WaitForSeconds(duration);
+
+        pad?.SetMotorSpeeds(0f, 0f);   // stop motors
     }
 
 }
