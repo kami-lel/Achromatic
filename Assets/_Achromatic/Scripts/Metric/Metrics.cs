@@ -17,7 +17,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Members  #####################################################
 
         public void LogFPS(int fps) {
-            // TODO
+            session.fps.Add(fps);
         }
 
         public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
