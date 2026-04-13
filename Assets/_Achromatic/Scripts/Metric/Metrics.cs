@@ -27,15 +27,6 @@ namespace Assets._Achromatic.Scripts.Metric {
             currentLevelMetric.fps.Add(fps);
         }
 
-        public void LogSequenceKeyPoint(SequenceKeyPoint keyPoint) {
-            if (keyPoint == SequenceKeyPoint.LEVEL_START) {
-                level += 1;
-                currentLevelMetric = session.levels[level];
-            }
-
-            timings[keyPoint] = Time.time;
-        }
-
         public void LogMusicPlay(Score score) {
             currentLevelMetric.totalScore = score.runningScore;
             currentLevelMetric.maxCombo = score.maxCombo;
@@ -45,6 +36,32 @@ namespace Assets._Achromatic.Scripts.Metric {
             // TODO metrics: hit / miss ratio per part
         }
 
+        // log sequence key points  ============================================
+
+        public void LogLevelStart() {
+            level += 1;
+            currentLevelMetric = session.levels[level];
+
+            currentLevelMetric.timingLevelStart = Time.time;
+        }
+
+        public void LogMusicStart() {
+            currentLevelMetric.timingMusicStart = Time.time;
+        }
+
+        public void LogMusicEnd() {
+            currentLevelMetric.timingMusicEnd = Time.time;
+        }
+
+        public void LogWindowClose() {
+            currentLevelMetric.timingWindowClose = Time.time;
+        }
+
+        public void LogLevelEnd() {
+            currentLevelMetric.timingLevelEnd = Time.time;
+        }
+
+
         // MonoBehavior Lifecycle  #############################################
 
         private void Awake() {
@@ -52,7 +69,6 @@ namespace Assets._Achromatic.Scripts.Metric {
             I = this;
 
             session = new MetricSession(Application.version);
-            timings = new Dictionary<SequenceKeyPoint, float>();
         }
 
         private void OnDisable() {
@@ -69,12 +85,11 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         private MetricSession session;
         private LevelMetric currentLevelMetric;
-        private Dictionary<SequenceKeyPoint, float> timings;
 
         // private methods  ####################################################
         private void FinishSession() {
             foreach (LevelMetric level in session.levels) {
-                level.FinishSession(timings);
+                level.FinishSession();
             }
 
             // save metric  ****************************************************

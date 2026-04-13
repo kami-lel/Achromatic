@@ -17,11 +17,17 @@ namespace Assets._Achromatic.Scripts.Metric {
         public float totalScore = -1f;
         public int maxCombo = -1;
 
+        public float timingLevelStart = -1f;
+        public float timingMusicStart = -1f;
+        public float timingMusicEnd = -1f;
+        public float timingWindowClose = -1f;
+        public float timingLevelEnd = -1f;
+
+        public float intervalTotal = -1;
+
         // Public Methods  #####################################################
 
-        public void FinishSession(
-            Dictionary<SequenceKeyPoint, float> timings
-        ) {
+        public void FinishSession() {
             if (fps.Count > 0) {
                 fpsMin = fps.Min();
                 fpsMax = fps.Max();
@@ -33,12 +39,10 @@ namespace Assets._Achromatic.Scripts.Metric {
                 fpsMean = (float)total / fps.Count;
             }
 
-            if (timings.Count > 0) {
-                // TODO
+            // TODO
 
-                // TODO metrics: total time
-                // TODO portion of game play
-            }
+            // TODO metrics: total time
+            // TODO portion of game play
         }
 
         // Constructor  ########################################################
