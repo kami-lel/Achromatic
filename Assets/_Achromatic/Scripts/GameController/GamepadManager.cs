@@ -99,7 +99,7 @@ public class GamepadManager: MonoBehaviour {
 
         bool currentIsUsingGamepad = device is Gamepad;
 
-        if (currentIsUsingGamepad != isUsingGamepad) {
+        if (currentIsUsingGamepad != isUsingGamepad || !hasSentFirstMessage) {
             // HACK
             if (currentIsUsingGamepad) {
                 OnSwitchToGamepad?.Invoke();
@@ -108,10 +108,16 @@ public class GamepadManager: MonoBehaviour {
                 OnSwitchToKeyboard?.Invoke();
                 Debug.Log("Switch to: Keyboard", this);
             }
+
+            hasSentFirstMessage = true;
         }
 
         isUsingGamepad = currentIsUsingGamepad;
     }
+
+
+    // private members  ########################################################
+    private bool hasSentFirstMessage = false;
 
     // private methods  ########################################################
 
