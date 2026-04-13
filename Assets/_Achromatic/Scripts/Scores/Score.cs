@@ -11,7 +11,7 @@ using Assets._Achromatic.Scripts.UI;
 
 
 // todo improve looking of indicators
-// Bug running score indicator missing
+// BUG running score indicator missing
 
 namespace Assets._Achromatic.Scripts.Scores {
 
