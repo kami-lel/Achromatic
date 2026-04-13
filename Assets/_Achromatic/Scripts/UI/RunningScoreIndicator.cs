@@ -1,3 +1,4 @@
+using Assets._Achromatic.Scripts.Scores;
 using TMPro;
 using UnityEngine;
 
@@ -7,16 +8,10 @@ using UnityEngine;
 public class RunningScoreIndicator: MonoBehaviour {
 
 
-    // Public Methods  #########################################################
-
-    public void UpdateScore(int combo, int runningScore, int scoreAddition) {
-        // todo animation
-        comboIndicator.text = $"{combo}";
-        runningScoreIndicator.text = $"{runningScore}";
-        scoreAdditionIndicator.text = $"+{scoreAddition}";
-    }
-
     // Inspector Fields  #######################################################
+
+    [SerializeField]
+    private Score score;
 
     [SerializeField]
     private TextMeshProUGUI comboIndicator;
@@ -31,6 +26,9 @@ public class RunningScoreIndicator: MonoBehaviour {
 
     private void Awake() {
         // Inspector Assignment Guard ------------------------------------------
+        if (score == null) {
+            Debug.LogWarning("must assign: score", this);
+        }
         if (comboIndicator == null) {
             Debug.LogWarning("must assign: comboIndicator", this);
         }
@@ -41,5 +39,24 @@ public class RunningScoreIndicator: MonoBehaviour {
             Debug.LogWarning("must assign: scoreAdditionIndicator", this);
         }
     }
+
+    private void OnEnable() {
+        score.OnScoreChange += UpdateScore;
+    }
+
+    private void OnDisable() {
+        score.OnScoreChange -= UpdateScore;
+    }
+
+    // private methods  ########################################################
+
+    public void UpdateScore(int combo, int runningScore, int scoreAddition) {
+        // todo animation
+        comboIndicator.text = $"{combo}";
+        runningScoreIndicator.text = $"{runningScore}";
+        scoreAdditionIndicator.text = $"+{scoreAddition}";
+    }
+
 }
+
 
