@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477ff7373d6750348b2c775d71762f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  score: {fileID: 0}
   comboIndicator: {fileID: 706458078915045606}
   runningScoreIndicator: {fileID: 3423365567594626427}
   scoreAdditionIndicator: {fileID: 3842883088102603691}
@@ -379,7 +380,6 @@ GameObject:
   - component: {fileID: 3429611935433742447}
   - component: {fileID: 9199242025173465208}
   - component: {fileID: 3842883088102603691}
-  - component: {fileID: 5665228653893685794}
   m_Layer: 5
   m_Name: ScoreAdditionIndicator
   m_TagString: ScoreAdditionIndicator
@@ -506,15 +506,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5665228653893685794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8618775650797210061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 840f4a017c16bef4384cc8fac60195be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
