@@ -8,7 +8,7 @@
 <!-- todo particle efx: on monster killed,jumped,etc. -->
 <!-- todo particle efx: running score -->
 <!-- fixme squat obstacle (also for jump) confusing with background -->
-<!-- Fixme SFXs normalization & remove lead in (instant play) -->
+<!-- fixme SFXs normalization & remove lead in (instant play) -->
 
 <!-- bug fix sprite -->
 <!-- todo make web / mac build -->
