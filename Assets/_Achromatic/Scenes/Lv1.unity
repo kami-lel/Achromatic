@@ -97909,6 +97909,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 6109405075885997384, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109405075885997384, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7399498692419916722, guid: c3a77fa611ea49542a0cb402c4143827, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
