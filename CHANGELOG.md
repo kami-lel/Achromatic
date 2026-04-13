@@ -11,7 +11,6 @@
 <!-- Todo write dev log -->
 <!-- Fixme SFXs normalization & remove lead in (instant play) -->
 
-<!-- bug fix sprite -->
 <!-- todo make web / mac build -->
 <!-- todo smashing inputs type -->
 <!-- todo pause screen, allow restart/resume -->
@@ -120,6 +119,7 @@
 - splash screen with logos of USC and Berklee
 - new set of SFXs
 - implement various metrics & save to file
+- content & asset for Level 3
 
 ### Changed
 
@@ -130,6 +130,7 @@
 
 - player is jumped during prelude, now using constant acceleration
 - FPS counter
+- player sprite anchor issue
 
 
 
