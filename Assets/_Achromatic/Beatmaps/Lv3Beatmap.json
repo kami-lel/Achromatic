@@ -4,199 +4,199 @@
             "bar": 2,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 3,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 4,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 5,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 6,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 7,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 8,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 9,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 10,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 11,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 12,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 13,
             "beat": 2,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 13,
             "beat": 4,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 14,
             "beat": 2,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 14,
             "beat": 4,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 15,
             "beat": 2,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 15,
             "beat": 4,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 16,
             "beat": 2,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 17,
             "beat": 2,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 18,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 19,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 21,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 21,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 22,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 23,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 25,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 26,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 27,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 28,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 29,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 29,
             "beat": 4,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 31,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 32,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 32,
@@ -208,7 +208,7 @@
             "bar": 35,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 37,
@@ -220,7 +220,7 @@
             "bar": 39,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 41,
@@ -238,25 +238,25 @@
             "bar": 45,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 47,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 48,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 49,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 51,
@@ -268,7 +268,7 @@
             "bar": 53,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 55,
@@ -280,19 +280,19 @@
             "bar": 65,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 67,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 69,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 71,
@@ -304,43 +304,43 @@
             "bar": 72,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 73,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 74,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 75,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 76,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 77,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 78,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 78,
@@ -352,31 +352,31 @@
             "bar": 80,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 81,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 82,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 83,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 84,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 85,
@@ -406,7 +406,7 @@
             "bar": 89,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 90,
@@ -418,13 +418,13 @@
             "bar": 91,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 91,
             "beat": 4,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 93,
@@ -454,25 +454,25 @@
             "bar": 97,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
+            "type": "squat"
         },
         {
             "bar": 98,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 99,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 100,
             "beat": 1,
             "subbeat": 1,
-            "type": "squat"
+            "type": "attack"
         },
         {
             "bar": 101,
@@ -502,13 +502,7 @@
             "bar": 105,
             "beat": 1,
             "subbeat": 1,
-            "type": "attack"
-        },
-        {
-            "bar": 108,
-            "beat": 1,
-            "subbeat": 1,
-            "type": "jump"
+            "type": "squat"
         }
     ]
 }
