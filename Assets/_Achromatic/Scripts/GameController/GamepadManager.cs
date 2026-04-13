@@ -100,7 +100,6 @@ public class GamepadManager: MonoBehaviour {
         bool currentIsUsingGamepad = device is Gamepad;
 
         if (currentIsUsingGamepad != isUsingGamepad || !hasSentFirstMessage) {
-            // HACK
             if (currentIsUsingGamepad) {
                 OnSwitchToGamepad?.Invoke();
                 Debug.Log("Switch to: Gamepad", this);
