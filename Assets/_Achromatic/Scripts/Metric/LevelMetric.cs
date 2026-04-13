@@ -27,37 +27,46 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         [Serializable]
-        public class HitsCount {
-            public int hitPerfect = 0;
-            public int hitGreat = 0;
-            public int hitGood = 0;
-            public int hitMiss = 0;
-            public int hitIncorrect = 0;
+        public class HitsByType {
+            public int perfect = 0;
+            public int great = 0;
+            public int good = 0;
+            public int miss = 0;
+            public int incorrect = 0;
 
-            public int timeEarly = 0;
-            public int timeLate = 0;
-
-            public int totalHits = 0;
-
-            public HitsCount(Score score) {
+            public HitsByType(Score score) {
                 foreach (var entry in score.hitCnt) {
                     Hit hit = entry.Key;
                     int v = entry.Value;
 
-                    totalHits += v;
-
                     // hit type
                     if ((hit & Hit.PERFECT) != 0) {
-                        hitPerfect += v;
+                        perfect += v;
                     } else if ((hit & Hit.GREAT) != 0) {
-                        hitGreat += v;
+                        great += v;
                     } else if ((hit & Hit.GOOD) != 0) {
-                        hitGood += v;
+                        good += v;
                     } else if ((hit & Hit.MISS) != 0) {
-                        hitMiss += v;
+                        miss += v;
                     } else if ((hit & Hit.INCORRECT) != 0) {
-                        hitIncorrect += v;
+                        incorrect += v;
                     }
+                }
+
+            }
+        }
+
+        [Serializable]
+        public class HitsByTiming {
+
+            public int timeEarly = 0;
+            public int timeLate = 0;
+
+            public HitsByTiming(Score score) {
+
+                foreach (var entry in score.hitCnt) {
+                    Hit hit = entry.Key;
+                    int v = entry.Value;
 
                     // hit timing
                     if ((hit & Hit.EARLY) != 0) {
@@ -69,8 +78,72 @@ namespace Assets._Achromatic.Scripts.Metric {
             }
         }
 
-        public HitsCount hits;
+        [Serializable]
+        public class HitsCount {
 
+            public int noHit = 0;
+            public int earlyMiss = 0;
+            public int lateMiss = 0;
+            public int incorrect = 0;
+            public int earlyGreat = 0;
+            public int lateGreat = 0;
+            public int earlyGood = 0;
+            public int lateGood = 0;
+            public int earlyPerfect = 0;
+            public int latePerfect = 0;
+
+            public HitsCount(Score score) {
+                foreach (var entry in score.hitCnt) {
+                    Hit hit = entry.Key;
+                    int v = entry.Value;
+
+                    switch (hit) {
+                    case Hit.NO_HIT:
+                        noHit += v;
+                        break;
+
+                    case Hit.EARLY_MISS:
+                        earlyMiss += v;
+                        break;
+
+                    case Hit.LATE_MISS:
+                        lateMiss += v;
+                        break;
+
+                    case Hit.INCORRECT:
+                        incorrect += v;
+                        break;
+
+                    case Hit.EARLY_GOOD:
+                        earlyGood += v;
+                        break;
+
+                    case Hit.LATE_GOOD:
+                        lateGood += v;
+                        break;
+
+                    case Hit.EARLY_GREAT:
+                        earlyGreat += v;
+                        break;
+
+                    case Hit.LATE_GREAT:
+                        lateGreat += v;
+                        break;
+
+                    case Hit.EARLY_PERFECT:
+                        earlyPerfect += v;
+                        break;
+
+                    case Hit.LATE_PERFECT:
+                        latePerfect += v;
+                        break;
+
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
 
         // Public Members  #####################################################
 
@@ -85,6 +158,8 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         public Timing timings;
         public Interval intervals;
+        public HitsByType hitsByType;
+        public HitsByTiming hitsByTiming;
         public HitsCount hitsCount;
 
         // Public Methods  #####################################################
@@ -92,7 +167,10 @@ namespace Assets._Achromatic.Scripts.Metric {
         public void LogScore(Score score) {
             totalScore = score.runningScore;
             maxCombo = score.maxCombo;
-            hits = new HitsCount(score);
+
+            hitsByType = new HitsByType(score);
+            hitsByTiming = new HitsByTiming(score);
+            hitsCount = new HitsCount(score);
         }
 
         public void FinishLevel() {
@@ -138,6 +216,7 @@ namespace Assets._Achromatic.Scripts.Metric {
 
             timings = new Timing();
             intervals = new Interval();
+
         }
 
         // private methods  ####################################################
