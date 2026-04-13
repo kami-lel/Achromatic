@@ -120,11 +120,13 @@
 - splash screen with logos of USC and Berklee
 - new set of SFXs
 - implement various metrics & save to file
+- using Gamepad & Keyboard input to decide tutorial to show
 
 ### Changed
 
 - set up canvas for scaling
 - final score window close when (a) time, (b) press any key
+- turn off rumbling when using only keyboard
 
 ### Fixed
 

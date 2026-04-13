@@ -19,9 +19,9 @@ public class GamepadManager: MonoBehaviour {
 
     // Public Methods  #########################################################
 
-    public void Rumble(String rambleType) {
+    public void Rumble(string rambleType) {
         var pad = Gamepad.current;
-        if (pad == null) {
+        if (!isUsingGamepad || pad == null) {
             return;
         }
 
