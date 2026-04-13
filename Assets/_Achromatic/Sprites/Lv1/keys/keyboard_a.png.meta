@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: f2e2610eeeebfb842a467d4ed7ec6040
+guid: b2d4f990dab91494d8da4a03b75c89ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6086589589933283350
-    second: keyboard_arrows_0
-  - first:
-      213: 6376516481010435656
-    second: keyboard_arrows_1
-  - first:
-      213: -1781919361936384154
-    second: keyboard_arrows_2
-  - first:
-      213: -6755644459557101069
-    second: keyboard_arrows_3
+      213: 1145220741083561907
+    second: keyboard_a_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -122,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: keyboard_arrows_0
+      name: keyboard_a_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6185091ebf8e77450800000000000000
-      internalID: 6086589589933283350
+      spriteID: 3bff1b54234a4ef00800000000000000
+      internalID: 1145220741083561907
       vertices: []
       indices: 
       edges: []
@@ -147,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8a72ed217f55dde4c802688304472dbe
+    spriteID: 268f84d61143b1e4ea52e78aa2469275
     internalID: 0
     vertices: []
     indices: 
@@ -159,7 +150,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      keyboard_arrows_0: 6086589589933283350
+      keyboard_a_0: 1145220741083561907
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

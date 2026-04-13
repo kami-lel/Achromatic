@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7d9363208a8bf0a4aa2fdadd66ddaa6f
+guid: 828fa1b4d9ff1054697fcda04d653f5f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8016873682913189246
-    second: xbox_stick_l_0
+      213: 2729312809798106504
+    second: Achromatic-LS_all_directions_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: xbox_stick_l_0
+      name: Achromatic-LS_all_directions_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,15 +121,15 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28228c05cd75eb090800000000000000
-      internalID: -8016873682913189246
+      spriteID: 88d70fc3a8770e520800000000000000
+      internalID: 2729312809798106504
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0a7f4e55182e21640890c81362e805cb
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -146,11 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      xbox_stick_l_0: -8016873682913189246
+      Achromatic-LS_all_directions_0: 2729312809798106504
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

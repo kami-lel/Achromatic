@@ -5,11 +5,10 @@
 [^format]
 
 <!-- Todo local leaderboard -->
-<!-- Todo particle efx: on monster killed,jumped,etc. -->
-<!-- Todo particle efx: running score -->
-<!-- Fixme squat obstacle (also for jump) confusing with background -->
-<!-- Todo write dev log -->
-<!-- Fixme SFXs normalization & remove lead in (instant play) -->
+<!-- todo particle efx: on monster killed,jumped,etc. -->
+<!-- todo particle efx: running score -->
+<!-- fixme squat obstacle (also for jump) confusing with background -->
+<!-- fixme SFXs normalization & remove lead in (instant play) -->
 
 <!-- bug fix sprite -->
 <!-- todo make web / mac build -->
@@ -120,11 +119,14 @@
 - splash screen with logos of USC and Berklee
 - new set of SFXs
 - implement various metrics & save to file
+- using Gamepad & Keyboard input to decide tutorial to show
 
 ### Changed
 
 - set up canvas for scaling
 - final score window close when (a) time, (b) press any key
+- turn off rumbling when using only keyboard
+- Lv1 improve tutorial, adjust difficulty
 
 ### Fixed
 

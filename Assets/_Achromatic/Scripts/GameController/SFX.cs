@@ -32,19 +32,19 @@ public class SFX: MonoBehaviour {
 
         } else if ((hit & Hit.GREAT) != 0) {
             PlayOneOfRandomSFX(greatSFXs);
-            Rumbler.I.Rumble("Great");
+            GamepadManager.I.Rumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
             PlayOneOfRandomSFX(goodSFXs);
-            Rumbler.I.Rumble("Good");
+            GamepadManager.I.Rumble("Good");
 
         } else if ((hit & Hit.WRONG_HIT) != 0) {
             PlayOneOfRandomSFX(missSFXs);
-            Rumbler.I.Rumble("Miss");
+            GamepadManager.I.Rumble("Miss");
 
         } else {  // i.e no hit
             PlayOneOfRandomSFX(notHitSFXs);
-            Rumbler.I.Rumble("Miss");
+            GamepadManager.I.Rumble("Miss");
 
         }
     }
@@ -54,20 +54,20 @@ public class SFX: MonoBehaviour {
     public void Jump() {
         PlayOneOfRandomSFX(jumpSFXs);
 
-        Rumbler.I.Rumble("Jump");
+        GamepadManager.I.Rumble("Jump");
     }
 
     public void Land() {
         PlayOneOfRandomSFX(landSFXs);
 
-        Rumbler.I.Rumble("Land");
+        GamepadManager.I.Rumble("Land");
 
     }
 
     public void Squat() {
         PlayOneOfRandomSFX(squatSFXs);
 
-        Rumbler.I.Rumble("Squat");
+        GamepadManager.I.Rumble("Squat");
     }
 
     public void StartRun() {
