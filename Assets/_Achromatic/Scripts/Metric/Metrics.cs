@@ -27,15 +27,6 @@ namespace Assets._Achromatic.Scripts.Metric {
             currentLevelMetric.fps.Add(fps);
         }
 
-        public void LogScore(Score score) {
-            currentLevelMetric.totalScore = score.runningScore;
-            currentLevelMetric.maxCombo = score.maxCombo;
-
-            // TODO save all hits
-            // TODO metrics: deltas
-            // TODO metrics: hit / miss ratio per part
-        }
-
         // log sequence key points  ============================================
 
         public void LogLevelStart() {
@@ -49,8 +40,9 @@ namespace Assets._Achromatic.Scripts.Metric {
             currentLevelMetric.timings.musicStart = Time.time;
         }
 
-        public void LogMusicEnd() {
+        public void LogMusicEnd(Score score) {
             currentLevelMetric.timings.musicEnd = Time.time;
+            currentLevelMetric.LogScore(score);
         }
 
         public void LogWindowClose() {
@@ -59,6 +51,7 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         public void LogLevelEnd() {
             currentLevelMetric.timings.levelEnd = Time.time;
+            currentLevelMetric.FinishLevel();
         }
 
 
@@ -72,26 +65,21 @@ namespace Assets._Achromatic.Scripts.Metric {
         }
 
         private void OnDisable() {
-            FinishSession();
+            SaveMetrics();
         }
 
         private void OnApplicationQuit() {
-            FinishSession();
+            SaveMetrics();
         }
 
         // private members  ####################################################
         private int level = -1;
-        private float lastTiming = 0f;
 
         private MetricSession session;
         private LevelMetric currentLevelMetric;
 
         // private methods  ####################################################
-        private void FinishSession() {
-            foreach (LevelMetric level in session.levels) {
-                level.FinishSession();
-            }
-
+        private void SaveMetrics() {
             // save metric  ****************************************************
             string json = JsonUtility.ToJson(session, prettyPrint: true);
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd-HHmmss");

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets._Achromatic.Scripts.Scores;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.Universal;
 
@@ -53,7 +54,16 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         // Public Methods  #####################################################
 
-        public void FinishSession() {
+        public void LogScore(Score score) {
+            totalScore = score.runningScore;
+            maxCombo = score.maxCombo;
+
+            // TODO save all hits
+            // TODO metrics: deltas
+            // TODO metrics: hit / miss ratio per part
+        }
+
+        public void FinishLevel() {
             // FPS  ------------------------------------------------------------
             if (fps.Count > 0) {
                 fpsMin = fps.Min();

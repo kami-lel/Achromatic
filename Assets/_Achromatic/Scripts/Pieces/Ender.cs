@@ -25,8 +25,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             finalPointWindow.SetActive(true);
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            Metrics.I.LogMusicEnd();
-            Metrics.I.LogScore(score);
+            Metrics.I.LogMusicEnd(score);
 #endif
 
             // close after certain time
