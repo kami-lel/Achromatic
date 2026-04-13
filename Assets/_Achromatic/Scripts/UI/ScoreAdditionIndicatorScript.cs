@@ -6,6 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ScoreAdditionIndicatorScript: MonoBehaviour {
 
+
+    // HACK rm
+
     // public method  ==========================================================
 
 

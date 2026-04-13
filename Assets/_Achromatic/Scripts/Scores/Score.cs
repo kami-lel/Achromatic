@@ -11,7 +11,6 @@ using Assets._Achromatic.Scripts.UI;
 
 
 // todo improve looking of indicators
-// BUG running score indicator missing
 
 namespace Assets._Achromatic.Scripts.Scores {
 
@@ -76,6 +75,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                     + $"\tcombo: {combo}"
                     );
 
+            // HACK rm this method
             // update indicators  ----------------------------------------------
             // combo indicator
             if (comboIndicator != null) {
