@@ -30,6 +30,10 @@ public class SceneChanger: MonoBehaviour {
                     StartCoroutine(LoadSceneCoroutine(sceneName));
                 }
         );
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogLevelEnd();
+#endif
     }
 
     // MonoBehavior Lifecycle  #################################################

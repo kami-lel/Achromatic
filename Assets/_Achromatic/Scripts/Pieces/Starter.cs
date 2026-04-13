@@ -1,4 +1,5 @@
 using Assets._Achromatic.Scripts.Beatmaps;
+using Assets._Achromatic.Scripts.Metric;
 using Assets._Achromatic.Scripts.Players;
 using Cinemachine;
 using UnityEngine;
@@ -165,6 +166,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
             virtualCamera.Priority = 20;
             SFX.I.StopRun();
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogMusicStart();
+#endif
         }
 
         private void StartPrelude() {

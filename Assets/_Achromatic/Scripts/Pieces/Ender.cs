@@ -25,7 +25,8 @@ namespace Assets._Achromatic.Scripts.Pieces {
             finalPointWindow.SetActive(true);
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            Metrics.I.LogMusicPlay(score);
+            Metrics.I.LogMusicEnd();
+            Metrics.I.LogScore(score);
 #endif
 
             // close after certain time
@@ -104,6 +105,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // Cached References  --------------------------------------------------
         private PlayerManager playerManager;
         private PlayerInput pi;
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private Score score;
 #endif
@@ -136,6 +138,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private void CloseFinalPointWindow() {
             GameController.I.states = GameState.EXPLORE;
             finalPointWindow.SetActive(false);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogWindowClose();
+#endif
         }
     }
 }

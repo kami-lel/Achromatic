@@ -27,7 +27,7 @@ namespace Assets._Achromatic.Scripts.Metric {
             currentLevelMetric.fps.Add(fps);
         }
 
-        public void LogMusicPlay(Score score) {
+        public void LogScore(Score score) {
             currentLevelMetric.totalScore = score.runningScore;
             currentLevelMetric.maxCombo = score.maxCombo;
 
