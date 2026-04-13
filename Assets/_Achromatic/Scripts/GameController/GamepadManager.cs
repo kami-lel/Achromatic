@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
-
 [RequireComponent(typeof(GameController))]
 public class GamepadManager: MonoBehaviour {
     // Public Members  #########################################################
@@ -93,20 +92,21 @@ public class GamepadManager: MonoBehaviour {
         if (
             (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
             || device.CheckStateIsAtDefault()
-        )
+        ) {
             return;
+        }
 
         bool currentIsUsingGamepad = device is Gamepad;
 
         if (currentIsUsingGamepad != isUsingGamepad) {
-            if (isUsingGamepad) {
-                OnSwitchToGamepad.Invoke();
+            // HACK
+            if (currentIsUsingGamepad) {
+                OnSwitchToGamepad?.Invoke();
                 Debug.Log("Switch to: Gamepad", this);
             } else {
-                OnSwitchToKeyboard.Invoke();
+                OnSwitchToKeyboard?.Invoke();
                 Debug.Log("Switch to: Keyboard", this);
             }
-
         }
 
         isUsingGamepad = currentIsUsingGamepad;
