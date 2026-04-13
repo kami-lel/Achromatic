@@ -15429,7 +15429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3038987709633447513, guid: 74e529f26ba1b0f49b2c3c8da9847f78, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3038987709633447513, guid: 74e529f26ba1b0f49b2c3c8da9847f78, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -119580,7 +119580,7 @@ PrefabInstance:
       objectReference: {fileID: 1882001273}
     - target: {fileID: 1231703176888338262, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: debugMusicStartingBar
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
