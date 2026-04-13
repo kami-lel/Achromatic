@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 // FIXME better total score windows
-// FIXME use icons w/o arrows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
         // Inspector Fields  ###################################################
