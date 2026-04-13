@@ -4,10 +4,10 @@ public class TutorialSwitcher: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private GameObject[] gamepadIcons;
+    private Transform gamepadIcons;
 
     [SerializeField]
-    private GameObject[] keyboardIcons;
+    private Transform keyboardIcons;
 
     // MonoBehavior Lifecycle  #################################################
 
@@ -24,22 +24,24 @@ public class TutorialSwitcher: MonoBehaviour {
     // Event Handler  ##########################################################
 
     private void OnSwitchToGamepad() {
-        for (int i = 0; i < gamepadIcons.Length; i++) {
-            gamepadIcons[i].SetActive(true);
-        }
-
-        for (int j = 0; j < keyboardIcons.Length; j++) {
-            gamepadIcons[j].SetActive(false);
-        }
+        ChildrenSetActive(gamepadIcons, true);
+        ChildrenSetActive(keyboardIcons, false);
     }
 
     private void OnSwitchToKeyboard() {
-        for (int i = 0; i < gamepadIcons.Length; i++) {
-            gamepadIcons[i].SetActive(false);
+        ChildrenSetActive(gamepadIcons, false);
+        ChildrenSetActive(keyboardIcons, true);
+    }
+
+    // private methods  ########################################################
+
+    private void ChildrenSetActive(Transform transform, bool isActive) {
+        int count = transform.childCount;
+
+        for (int i = 0; i < count; i++) {
+            Transform child = transform.GetChild(i);
+            child.gameObject.SetActive(isActive);
         }
 
-        for (int j = 0; j < keyboardIcons.Length; j++) {
-            gamepadIcons[j].SetActive(true);
-        }
     }
 }

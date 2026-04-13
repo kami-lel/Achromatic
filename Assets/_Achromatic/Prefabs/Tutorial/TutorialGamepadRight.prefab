@@ -263,7 +263,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7877496642147825795, guid: 7496b6fc4dd8e0945bbd3a4ec2374809, type: 3}
+  m_Sprite: {fileID: -7852748577579673936, guid: 8d1d39e624e114d41ae7942a4fe79df9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396388275478284684}
   m_Layer: 0
-  m_Name: TutorialUp
+  m_Name: TutorialGamepadRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6539619573780045288, guid: 7e316f4cfc59c0845bd9005aac0878cb, type: 3}
+  m_Sprite: {fileID: -8387302115945079765, guid: 6912aec3016b73a42bf291055e9b0321, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
