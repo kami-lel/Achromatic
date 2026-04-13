@@ -127,6 +127,7 @@
 - final score window close when (a) time, (b) press any key
 - turn off rumbling when using only keyboard
 - Lv1 improve tutorial, adjust difficulty
+- make barline prefab larger
 
 ### Fixed
 
