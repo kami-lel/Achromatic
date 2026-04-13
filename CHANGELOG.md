@@ -135,6 +135,7 @@
 - FPS counter
 - player sprite anchor issue
 - mob missing due to prefabPool
+- normalize SFX volumes
 
 
 
