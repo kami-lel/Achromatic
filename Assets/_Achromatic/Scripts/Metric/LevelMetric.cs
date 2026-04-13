@@ -10,6 +10,7 @@ using UnityEngine.Rendering.Universal;
 namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
     public class LevelMetric {
+
         // Public Members  #####################################################
         public List<int> fps;
 
@@ -52,14 +53,28 @@ namespace Assets._Achromatic.Scripts.Metric {
 
         public Percentage percentages;
 
+
+        [Serializable]
+        public class HitsCount {
+            public int perfect;
+            public int great;
+            public int good;
+
+            public HitsCount(Score score) {
+
+                // TODO all hits & deltas
+            }
+
+        }
+
+        public HitsCount hitsCount;
+
         // Public Methods  #####################################################
 
         public void LogScore(Score score) {
             totalScore = score.runningScore;
             maxCombo = score.maxCombo;
 
-            // TODO save all hits
-            // TODO metrics: deltas
             // TODO metrics: hit / miss ratio per part
         }
 
