@@ -119,6 +119,7 @@
 
 - splash screen with logos of USC and Berklee
 - new set of SFXs
+- implement various metrics & save to file
 
 ### Changed
 
