@@ -10,7 +10,6 @@
 <!-- fixme squat obstacle (also for jump) confusing with background -->
 <!-- fixme SFXs normalization & remove lead in (instant play) -->
 
-<!-- bug fix sprite -->
 <!-- todo make web / mac build -->
 <!-- todo smashing inputs type -->
 <!-- todo pause screen, allow restart/resume -->
@@ -120,6 +119,7 @@
 - new set of SFXs
 - implement various metrics & save to file
 - using Gamepad & Keyboard input to decide tutorial to show
+- content & asset for Level 3
 
 ### Changed
 
@@ -133,6 +133,7 @@
 
 - player is jumped during prelude, now using constant acceleration
 - FPS counter
+- player sprite anchor issue
 
 
 
