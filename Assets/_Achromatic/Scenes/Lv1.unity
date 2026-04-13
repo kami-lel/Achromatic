@@ -45881,6 +45881,17 @@ Transform:
   - {fileID: 1562560695}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &501120087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8515482075639812258, guid: c6f02133992bcc949858c7867e7df140, type: 3}
+  m_PrefabInstance: {fileID: 1738055640979121357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7725608bf602e408707f70608a2bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Score
 --- !u!1001 &510945145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97767,7 +97778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346801824391600600, guid: a7656ab7a07466148aa8018a967e7aea, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -450.00006
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 7346801824391600600, guid: a7656ab7a07466148aa8018a967e7aea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -113880,41 +113891,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
---- !u!1 &1676517736
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1676517737}
-  m_Layer: 5
-  m_Name: LeftColumn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1676517737
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676517736}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 38652109}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1681497986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119928,7 +119904,7 @@ PrefabInstance:
       objectReference: {fileID: 1882001273}
     - target: {fileID: 1231703176888338262, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: debugMusicStartingBar
-      value: 0
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
@@ -120307,9 +120283,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalScoreWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 5337073413746396674, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
-      propertyPath: m_Color.a
-      value: 1
+    - target: {fileID: 3671283930753476158, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5532494311206298826, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
       propertyPath: m_Pivot.x
@@ -120391,17 +120367,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7499945912442647255, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 8991805410456367858, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 501120087}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7499945912442647255, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5532494311206298826, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1676517737}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9ace00cc5d1b8c468b3dcbec572c045, type: 3}
 --- !u!1001 &8173565104163635356
