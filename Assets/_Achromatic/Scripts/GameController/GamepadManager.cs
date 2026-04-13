@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
+[DefaultExecutionOrder(-98)]
 [RequireComponent(typeof(GameController))]
 public class GamepadManager: MonoBehaviour {
     // Public Members  #########################################################
