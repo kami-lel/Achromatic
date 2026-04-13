@@ -1940,6 +1940,7 @@ GameObject:
   - component: {fileID: 1069790944681492157}
   - component: {fileID: 8329595677918474582}
   - component: {fileID: 2627650691565947496}
+  - component: {fileID: 70317900645329900}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2046,6 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776f8de57e5c16f45a5e1bd2894d0c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  isUsingGamepad: 0
 --- !u!114 &8329595677918474582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2068,6 +2070,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81939b71ec537624d82747df8503a92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &70317900645329900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4854841207321159400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e655f0c28880149a86ab98e03f74ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
 --- !u!1 &5411470580727818767
