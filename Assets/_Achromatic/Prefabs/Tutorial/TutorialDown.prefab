@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2465645349535070798}
   - component: {fileID: 8790321622651588580}
   m_Layer: 0
-  m_Name: keyboard_d_0
+  m_Name: keyboard_hold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6539619573780045288, guid: 7e316f4cfc59c0845bd9005aac0878cb, type: 3}
+  m_Sprite: {fileID: -3937758826142331281, guid: b32124b6d46903d4d970fdbbd3f668a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 696295043573561617}
   - component: {fileID: 2462017816666648484}
   m_Layer: 0
-  m_Name: xbox_stick_l_right_0
+  m_Name: xbox_hold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7877496642147825795, guid: 7496b6fc4dd8e0945bbd3a4ec2374809, type: 3}
+  m_Sprite: {fileID: -6157015308907440503, guid: 91d27e3fae8e0ff4eb1c6c305a9f9760, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2396388275478284684}
   m_Layer: 0
-  m_Name: TutorialUp
+  m_Name: TutorialDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
