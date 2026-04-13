@@ -126,6 +126,7 @@
 - set up canvas for scaling
 - final score window close when (a) time, (b) press any key
 - turn off rumbling when using only keyboard
+- Lv1 improve tutorial
 
 ### Fixed
 
