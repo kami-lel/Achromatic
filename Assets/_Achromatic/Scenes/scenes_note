@@ -2,15 +2,15 @@
 Todo make note appears in all scenes
 Fixme extend barline to be longer
 
-Fixme Lv1 explore icons: all arrows on stick, wsad on keys
-Todo Lv1 explore icons: switch size b/t rumbler usage
-Todo Lv1 beatmap provide tutorial for hold & trigger
-Todo detect control scheme to inform tutorial display
-Todo Lv1 tutorial: use more clear space bar
-Todo add right-arrows at start
-Todo add right-arrows at preludes
-Todo add right-arrows at all ends of play
-Fixme Lv1 beatmap reduce difficulty on 2nd half
+FIXME Lv1 explore icons: all arrows on stick, wsad on keys
+TODO Lv1 explore icons: switch size b/t rumbler usage
+TODO Lv1 beatmap provide tutorial for hold & trigger
+TODO detect control scheme to inform tutorial display
+TODO Lv1 tutorial: use more clear space bar
+TODO add right-arrows at start
+TODO add right-arrows at preludes
+TODO add right-arrows at all ends of play
+FIXME Lv1 beatmap reduce difficulty on 2nd half
 
 
 Todo improve Lv2 beatmap

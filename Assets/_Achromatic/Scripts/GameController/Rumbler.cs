@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Todo detect if gamepad is used
+// TODO detect if gamepad is used
 
 [RequireComponent(typeof(GameController))]
 public class Rumbler: MonoBehaviour {
