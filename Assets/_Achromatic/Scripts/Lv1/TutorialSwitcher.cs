@@ -4,10 +4,7 @@ public class TutorialSwitcher: MonoBehaviour {
     // Inspector Fields  #######################################################
 
     [SerializeField]
-    private Transform gamepadIcons;
-
-    [SerializeField]
-    private Transform keyboardIcons;
+    private Transform icons;
 
     // MonoBehavior Lifecycle  #################################################
 

@@ -16,6 +16,7 @@ TagManager:
   - startingCamera
   - endingCamera
   - fadingBlockingPanel
+  - TutorialGamepad
   layers:
   - Default
   - TransparentFX
