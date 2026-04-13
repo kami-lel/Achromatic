@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine;
 
 
-// HACK rm tags
-
 public class RunningScoreIndicator: MonoBehaviour {
 
 

@@ -140,10 +140,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         private float goodScore;
 
         // cached references
-        private TextMeshProUGUI comboIndicator;
-        private TextMeshProUGUI runningScoreIndicator;
         private HitTypeIndicatorScript hitTypeIndicator;
-        private ScoreAdditionIndicatorScript scoreAdditionIndicator;
         private Beatmap beatmap;
     }
 }
