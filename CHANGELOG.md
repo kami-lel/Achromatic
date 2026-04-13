@@ -110,7 +110,7 @@
 
 
 
-## 1.0.0-beta.2 Beta2 Milestone
+## [1.0.0-beta.2] Beta2 Milestone
 
 ### Added
 
@@ -421,7 +421,8 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta...dev
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta.2...dev
+[1.0.0-beta.2]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta...v1.0.0-beta.2
 [1.0.0-beta]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...v1.0.0-beta
 [1.0.0-alpha]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
 [0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
