@@ -5,8 +5,8 @@
 [^format]
 
 <!-- Todo local leaderboard -->
-<!-- Todo particle efx: on monster killed,jumped,etc. -->
-<!-- Todo particle efx: running score -->
+<!-- todo particle efx: on monster killed,jumped,etc. -->
+<!-- todo particle efx: running score -->
 <!-- fixme squat obstacle (also for jump) confusing with background -->
 <!-- Fixme SFXs normalization & remove lead in (instant play) -->
 
