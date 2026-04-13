@@ -9,6 +9,10 @@ namespace Assets._Achromatic.Scripts.UI {
         // Public Methods  #####################################################
 
         public void Show(Hit hit) {
+            if (GameController.I.states != GameState.MAIN_PIECE) {
+                return;
+            }
+
             // set which symbol is active
             miss.SetActive((hit & Hit.NO_SCORE) != 0);
             earlyGood.SetActive(hit == Hit.EARLY_GOOD);
