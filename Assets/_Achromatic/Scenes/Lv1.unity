@@ -119312,7 +119312,7 @@ PrefabInstance:
       objectReference: {fileID: 1882001273}
     - target: {fileID: 1231703176888338262, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: debugMusicStartingBar
-      value: 21
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2687839753507349163, guid: c6f02133992bcc949858c7867e7df140, type: 3}
       propertyPath: m_LocalPosition.x
@@ -119794,7 +119794,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1698698790147320002, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1730
+      value: 1735
       objectReference: {fileID: 0}
     - target: {fileID: 1698698790147320002, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
       propertyPath: m_LocalPosition.y
@@ -119836,13 +119836,17 @@ PrefabInstance:
       propertyPath: nextSceneName
       value: Lv2
       objectReference: {fileID: 0}
+    - target: {fileID: 4973324562265602559, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973324562265602559, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5351787529015014971, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
       propertyPath: m_Name
       value: LoadNextSceneTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 5351787529015014971, guid: 929b1f203f06e3c41b09aa96a3b6e454, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
