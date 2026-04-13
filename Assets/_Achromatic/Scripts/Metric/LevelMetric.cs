@@ -27,7 +27,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         public float intervalMusicPlay = -1f;
         public float intervalFinalPointWindow = -1f;
         public float intervalEndExplore = -1f;
-        public float intervalTotal = -1;
+        public float intervalTotal = -1f;
 
         public float percentageStartExplore = -1f;
         public float percentageMusicPlay = -1f;
@@ -81,6 +81,10 @@ namespace Assets._Achromatic.Scripts.Metric {
         // private methods  ####################################################
 
         private static float CalcInterval(float from, float to) {
+            if (from == -1f || to == -1f) {
+                return -1f;
+            }
+
             float value = to - from;
             return value < 0 ? -1f : value;
         }
