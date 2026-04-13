@@ -4,23 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets._Achromatic.Scripts.Scores;
-using Unity.VisualScripting;
-using UnityEngine.Rendering.Universal;
 
 namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
     public class LevelMetric {
-
-        // Public Members  #####################################################
-        public List<int> fps;
-
-        public int fpsMax = -1;
-        public int fpsMin = -1;
-        public float fpsMean = -1f;
-
-        public float totalScore = -1f;
-        public int maxCombo = -1;
-
         [Serializable]
         public class Timing {
             public float levelStart = -1f;
@@ -29,8 +16,6 @@ namespace Assets._Achromatic.Scripts.Metric {
             public float windowClose = -1f;
             public float levelEnd = -1f;
         }
-
-        public Timing timings;
 
         [Serializable]
         public class Interval {
@@ -41,32 +26,65 @@ namespace Assets._Achromatic.Scripts.Metric {
             public float total = -1f;
         }
 
-        public Interval intervals;
-
-        [Serializable]
-        public class Percentage {
-            public float startExplore = -1f;
-            public float musicPlay = -1f;
-            public float finalPointWindow = -1f;
-            public float endExplore = -1f;
-        }
-
-        public Percentage percentages;
-
-
         [Serializable]
         public class HitsCount {
-            public int perfect;
-            public int great;
-            public int good;
+            public int hitPerfect = 0;
+            public int hitGreat = 0;
+            public int hitGood = 0;
+            public int hitMiss = 0;
+            public int hitIncorrect = 0;
+
+            public int timeEarly = 0;
+            public int timeLate = 0;
+
+            public int totalHits = 0;
 
             public HitsCount(Score score) {
+                foreach (var entry in score.hitCnt) {
+                    Hit hit = entry.Key;
+                    int v = entry.Value;
 
-                // TODO all hits & deltas
+                    totalHits += v;
+
+                    // hit type
+                    if ((hit & Hit.PERFECT) != 0) {
+                        hitPerfect += v;
+                    } else if ((hit & Hit.GREAT) != 0) {
+                        hitGreat += v;
+                    } else if ((hit & Hit.GOOD) != 0) {
+                        hitGood += v;
+                    } else if ((hit & Hit.MISS) != 0) {
+                        hitMiss += v;
+                    } else if ((hit & Hit.INCORRECT) != 0) {
+                        hitIncorrect += v;
+                    }
+
+                    // hit timing
+                    if ((hit & Hit.EARLY) != 0) {
+                        timeEarly += v;
+                    } else if ((hit & Hit.LATE) != 0) {
+                        timeLate += v;
+                    }
+                }
             }
-
         }
 
+        public HitsCount hits;
+
+
+        // Public Members  #####################################################
+
+        public List<int> fps;
+
+        public int fpsMax = -1;
+        public int fpsMin = -1;
+        public float fpsMean = -1f;
+
+        public float totalScore = -1f;
+        public int maxCombo = -1;
+
+        public Timing timings;
+        public Interval intervals;
         public HitsCount hitsCount;
 
         // Public Methods  #####################################################
@@ -74,8 +92,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         public void LogScore(Score score) {
             totalScore = score.runningScore;
             maxCombo = score.maxCombo;
-
-            // TODO metrics: hit / miss ratio per part
+            hits = new HitsCount(score);
         }
 
         public void FinishLevel() {
@@ -113,14 +130,6 @@ namespace Assets._Achromatic.Scripts.Metric {
                 timings.levelStart,
                 timings.levelEnd
             );
-
-            // percentage
-            percentages.startExplore = CalcPercentage(intervals.startExplore);
-            percentages.musicPlay = CalcPercentage(intervals.musicPlay);
-            percentages.finalPointWindow = CalcPercentage(
-                intervals.finalPointWindow
-            );
-            percentages.endExplore = CalcPercentage(intervals.endExplore);
         }
 
         // Constructor  ########################################################
@@ -129,7 +138,6 @@ namespace Assets._Achromatic.Scripts.Metric {
 
             timings = new Timing();
             intervals = new Interval();
-            percentages = new Percentage();
         }
 
         // private methods  ####################################################
@@ -141,14 +149,6 @@ namespace Assets._Achromatic.Scripts.Metric {
 
             float value = to - from;
             return value < 0 ? -1f : value;
-        }
-
-        private float CalcPercentage(float intervalValue) {
-            if (intervals.total == -1f || intervalValue == -1f) {
-                return -1f;
-            }
-
-            return intervalValue / intervals.total;
         }
     }
 }
