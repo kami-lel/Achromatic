@@ -42,23 +42,23 @@ namespace Assets._Achromatic.Scripts.Metric {
             level += 1;
             currentLevelMetric = session.levels[level];
 
-            currentLevelMetric.timingLevelStart = Time.time;
+            currentLevelMetric.timings.levelStart = Time.time;
         }
 
         public void LogMusicStart() {
-            currentLevelMetric.timingMusicStart = Time.time;
+            currentLevelMetric.timings.musicStart = Time.time;
         }
 
         public void LogMusicEnd() {
-            currentLevelMetric.timingMusicEnd = Time.time;
+            currentLevelMetric.timings.musicEnd = Time.time;
         }
 
         public void LogWindowClose() {
-            currentLevelMetric.timingWindowClose = Time.time;
+            currentLevelMetric.timings.windowClose = Time.time;
         }
 
         public void LogLevelEnd() {
-            currentLevelMetric.timingLevelEnd = Time.time;
+            currentLevelMetric.timings.levelEnd = Time.time;
         }
 
 

@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets._Achromatic.Scripts.Metric {
     [Serializable]
@@ -17,22 +19,37 @@ namespace Assets._Achromatic.Scripts.Metric {
         public float totalScore = -1f;
         public int maxCombo = -1;
 
-        public float timingLevelStart = -1f;
-        public float timingMusicStart = -1f;
-        public float timingMusicEnd = -1f;
-        public float timingWindowClose = -1f;
-        public float timingLevelEnd = -1f;
+        [Serializable]
+        public class Timing {
+            public float levelStart = -1f;
+            public float musicStart = -1f;
+            public float musicEnd = -1f;
+            public float windowClose = -1f;
+            public float levelEnd = -1f;
+        }
 
-        public float intervalStartExplore = -1f;
-        public float intervalMusicPlay = -1f;
-        public float intervalFinalPointWindow = -1f;
-        public float intervalEndExplore = -1f;
-        public float intervalTotal = -1f;
+        public Timing timings;
 
-        public float percentageStartExplore = -1f;
-        public float percentageMusicPlay = -1f;
-        public float percentageFinalPointWindow = -1f;
-        public float percentageEndExplore = -1f;
+        [Serializable]
+        public class Interval {
+            public float startExplore = -1f;
+            public float musicPlay = -1f;
+            public float finalPointWindow = -1f;
+            public float endExplore = -1f;
+            public float total = -1f;
+        }
+
+        public Interval intervals;
+
+        [Serializable]
+        public class Percentage {
+            public float startExplore = -1f;
+            public float musicPlay = -1f;
+            public float finalPointWindow = -1f;
+            public float endExplore = -1f;
+        }
+
+        public Percentage percentages;
 
         // Public Methods  #####################################################
 
@@ -51,31 +68,43 @@ namespace Assets._Achromatic.Scripts.Metric {
 
             // timing & interval  ----------------------------------------------
             // interval
-            intervalStartExplore = CalcInterval(
-                timingLevelStart,
-                timingMusicStart
+            intervals.startExplore = CalcInterval(
+                timings.levelStart,
+                timings.musicStart
             );
-            intervalMusicPlay = CalcInterval(timingMusicStart, timingMusicEnd);
-            intervalFinalPointWindow = CalcInterval(
-                timingMusicEnd,
-                timingWindowClose
+            intervals.musicPlay = CalcInterval(
+                timings.musicStart,
+                timings.musicEnd
             );
-            intervalEndExplore = CalcInterval(
-                timingWindowClose,
-                timingLevelEnd
+            intervals.finalPointWindow = CalcInterval(
+                timings.musicEnd,
+                timings.windowClose
             );
-            intervalTotal = CalcInterval(timingLevelStart, timingLevelEnd);
+            intervals.endExplore = CalcInterval(
+                timings.windowClose,
+                timings.levelEnd
+            );
+            intervals.total = CalcInterval(
+                timings.levelStart,
+                timings.levelEnd
+            );
 
             // percentage
-            percentageStartExplore = CalcPercentage(intervalStartExplore);
-            percentageMusicPlay = CalcPercentage(intervalMusicPlay);
-            percentageFinalPointWindow = CalcPercentage(intervalFinalPointWindow);
-            percentageEndExplore = CalcPercentage(intervalEndExplore);
+            percentages.startExplore = CalcPercentage(intervals.startExplore);
+            percentages.musicPlay = CalcPercentage(intervals.musicPlay);
+            percentages.finalPointWindow = CalcPercentage(
+                intervals.finalPointWindow
+            );
+            percentages.endExplore = CalcPercentage(intervals.endExplore);
         }
 
         // Constructor  ########################################################
         public LevelMetric() {
             fps = new List<int>();
+
+            timings = new Timing();
+            intervals = new Interval();
+            percentages = new Percentage();
         }
 
         // private methods  ####################################################
@@ -89,12 +118,12 @@ namespace Assets._Achromatic.Scripts.Metric {
             return value < 0 ? -1f : value;
         }
 
-        private float CalcPercentage(float interval) {
-            if (intervalTotal == -1f || interval == -1f) {
+        private float CalcPercentage(float intervalValue) {
+            if (intervals.total == -1f || intervalValue == -1f) {
                 return -1f;
             }
 
-            return interval / intervalTotal;
+            return intervalValue / intervals.total;
         }
     }
 }
