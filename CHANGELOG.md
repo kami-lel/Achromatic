@@ -134,6 +134,7 @@
 - player is jumped during prelude, now using constant acceleration
 - FPS counter
 - player sprite anchor issue
+- mob missing due to prefabPool
 
 
 
