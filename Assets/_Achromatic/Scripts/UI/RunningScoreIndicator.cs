@@ -13,6 +13,8 @@ public class RunningScoreIndicator: MonoBehaviour {
     [SerializeField]
     private Score score;
 
+    [Header("Internals")]
+
     [SerializeField]
     private TextMeshProUGUI comboIndicator;
 
