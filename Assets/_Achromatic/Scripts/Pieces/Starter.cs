@@ -4,7 +4,7 @@ using Assets._Achromatic.Scripts.Players;
 using Cinemachine;
 using UnityEngine;
 
-// Fixme dont show miss type indicator during prelude
+// FIXME dont show miss type indicator during prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
