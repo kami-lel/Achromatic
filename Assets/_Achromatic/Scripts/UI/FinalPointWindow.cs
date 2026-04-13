@@ -2,9 +2,7 @@ using Assets._Achromatic.Scripts.Scores;
 using TMPro;
 using UnityEngine;
 
-
 // Fixme better total score windows
-// fixme use icons w/o arrows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
         // Inspector Fields  ###################################################
@@ -27,20 +25,13 @@ namespace Assets._Achromatic.Scripts.UI {
         [SerializeField]
         private TextMeshProUGUI good;
 
-        [SerializeField]
-        private TextMeshProUGUI miss;
-
         // MonoBehavior Lifecycle  #############################################
 
-        private void Awake() {
-            if (score == null) {
-                Debug.LogWarning("must assign: score", this);
-            }
-        }
-
-
         private void OnEnable() {
-            // closing conditions  ---------------------------------------------
+            if (score == null) {
+                Debug.LogError("must assign: score", this);
+                return;
+            }
 
             running.text = $"Point: {score.runningScore}";
             combo.text = $"Combo: {score.maxCombo}";
@@ -54,7 +45,6 @@ namespace Assets._Achromatic.Scripts.UI {
             int goodCnt =
                 score.hitCnt[Hit.EARLY_GOOD] + score.hitCnt[Hit.LATE_GOOD];
             good.text = $"{goodCnt}";
-            // Todo missing good count
         }
     }
 }
