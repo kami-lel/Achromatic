@@ -121,7 +121,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         private void FixedUpdate() {
-            if ((GCS.I.states & GameState.MAIN_PIECE) != 0) {
+            if ((GameController.I.states & GameState.MAIN_PIECE) != 0) {
                 // main piece  -------------------------------------------------
 
                 // move player in world map

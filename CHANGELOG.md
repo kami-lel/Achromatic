@@ -4,6 +4,7 @@
 
 [^format]
 
+<!-- Todo local leaderboard -->
 <!-- Todo particle efx: on monster killed,jumped,etc. -->
 <!-- Todo particle efx: running score -->
 <!-- Fixme squat obstacle (also for jump) confusing with background -->
@@ -44,7 +45,73 @@
 ### Removed
 ### Fixed
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 1.0.0 Release
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 1.0.0-beta.2 Beta2 Milestone
 
@@ -61,6 +128,7 @@
 ### Fixed
 
 - player is jumped during prelude, now using constant acceleration
+- FPS counter
 
 
 

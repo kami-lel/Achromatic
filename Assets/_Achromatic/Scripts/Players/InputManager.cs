@@ -56,7 +56,7 @@ namespace Assets._Achromatic.Scripts.Players {
 
         // event handler  ######################################################
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-            if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
+            if ((GameController.I.states & GameState.EXPLORE_CONTROL) == 0) {
                 return;
             }
 

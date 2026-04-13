@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // Fixme better total score windows
-// Fixme use icons w/o arrows
+// fixme use icons w/o arrows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
         // Inspector Fields  ###################################################
@@ -31,6 +31,13 @@ namespace Assets._Achromatic.Scripts.UI {
         private TextMeshProUGUI miss;
 
         // MonoBehavior Lifecycle  #############################################
+
+        private void Awake() {
+            if (score == null) {
+                Debug.LogWarning("must assign: score", this);
+            }
+        }
+
 
         private void OnEnable() {
             // closing conditions  ---------------------------------------------

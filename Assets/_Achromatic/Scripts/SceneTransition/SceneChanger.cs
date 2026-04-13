@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Assets._Achromatic.Scripts.Metric;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +19,7 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
-        GCS.I.states = GameState.SCENE_TRANSITION;
+        GameController.I.states = GameState.SCENE_TRANSITION;
 
         CinemachineVirtualCamera ending =
                 FindVirtualCameraByTag(END_CAMERA_TAG);
@@ -29,6 +30,10 @@ public class SceneChanger: MonoBehaviour {
                     StartCoroutine(LoadSceneCoroutine(sceneName));
                 }
         );
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogLevelEnd();
+#endif
     }
 
     // MonoBehavior Lifecycle  #################################################
@@ -71,17 +76,21 @@ public class SceneChanger: MonoBehaviour {
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogLevelStart();
+#endif
+
         FindFadingBlockingPanel();
 
         CinemachineVirtualCamera startingCamera =
                 FindVirtualCameraByTag(START_CAMERA_TAG);
         startingCamera.Priority = HIGH_CAMERA_PRIORITY;
 
-        GCS.I.states = GameState.SCENE_TRANSITION;
+        GameController.I.states = GameState.SCENE_TRANSITION;
 
         fadingBlockingPanel.FadeIn(onComplete: () => {
             startingCamera.Priority = LOW_CAMERA_PRIORITY;
-            GCS.I.states = GameState.EXPLORE;
+            GameController.I.states = GameState.EXPLORE;
         });
 
     }

@@ -104,8 +104,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 originReferences.position.y
             );
 
-            Debug.Log("beatmap origin: " + origin);
-
             // todo use speed mux
             speedXInMainPiece = meta.horizontalUnitsPerBeat * beatsPerSecond;
 

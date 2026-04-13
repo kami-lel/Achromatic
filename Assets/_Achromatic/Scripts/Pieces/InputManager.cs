@@ -61,7 +61,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // event handlers  #####################################################
         private void OnActionTriggered(InputAction.CallbackContext ctxt) {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
+            if ((GameController.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
 
