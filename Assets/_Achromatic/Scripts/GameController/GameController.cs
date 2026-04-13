@@ -1,12 +1,31 @@
+using System;
 using UnityEngine;
 
-public class GameController: MonoBehaviour {
 
+[DefaultExecutionOrder(-100)]
+public class GameController: MonoBehaviour {
     // Public Members  #########################################################
 
     // singleton
     public static GameController I {
         get; private set;
+    }
+
+    [NonSerialized]
+    public GameState states = GameState.NONE;
+
+    // Public Methods  #########################################################
+
+    public GameObject FindMainPlayer() {
+        GameObject playerObject = GameObject.FindWithTag(PLAYER_TAG);
+
+        if (playerObject == null) {
+            Debug.LogError(
+                $"GCS:\tfail to find GameObject with tag: {PLAYER_TAG}"
+            );
+        }
+
+        return playerObject;
     }
 
     // MonoBehavior Lifecycle  #################################################
@@ -23,4 +42,6 @@ public class GameController: MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    // constants  ##############################################################
+    private const string PLAYER_TAG = "Player";
 }

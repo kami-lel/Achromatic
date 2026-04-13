@@ -1,15 +1,16 @@
-using UnityEngine;
-using Cinemachine;
+using Assets._Achromatic.Scripts.Beatmaps;
+using Assets._Achromatic.Scripts.Metric;
 using Assets._Achromatic.Scripts.Players;
+using Cinemachine;
+using UnityEngine;
 
-// bug player is jumped when start prelude
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(PlayerManager))]
     [RequireComponent(typeof(Piece))]
+    [RequireComponent(typeof(Beatmap))]
     public class Starter: MonoBehaviour {
-
         // Inspector Fields  ###################################################
 
         [SerializeField]
@@ -22,8 +23,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private CinemachineVirtualCamera virtualCamera;
 
         // MonoBehavior Lifecycle  #############################################
-        private void Awake() {
-            // test inspector fields  ------------------------------------------
+        private void Awake() { // test inspector fields  -----------------------
             if (vampDistantVsVolume == null) {
                 Debug.LogError("must assign: Vamp Distance Vs Volume", this);
             }
@@ -44,16 +44,19 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (playerManager == null) {
                 Debug.LogError("fail to get: Player Manager", this);
             }
+            beatmap = GetComponent<Beatmap>();
+            if (beatmap == null) {
+                Debug.LogError("fail to get: beatmap", this);
+            }
 
             // caching references of player  -----------------------------------
-            GameObject playerGO = GCS.FindPlayer();
+            GameObject playerGO = GameController.I.FindMainPlayer();
 
             player = playerGO.GetComponent<Player>();
             playerTransform = playerGO.GetComponent<Transform>();
             if (playerTransform == null) {
                 Debug.LogError("fail to get: playerTransform", this);
             }
-
 
             if (debugMusicStartingBar != 0) {
                 Debug.LogWarning("Debug Music Starting Bar is non-zero", this);
@@ -70,13 +73,33 @@ namespace Assets._Achromatic.Scripts.Pieces {
         }
 
         public void Update() {
-            if (GCS.I.states == GameState.VAMP) {
+            if (GameController.I.states == GameState.VAMP) {
                 // update vamp volume
                 float distance = Vector2.Distance(
-                        playerTransform.position,
-                        piece.preludeStartOrigin);
+                    playerTransform.position,
+                    piece.preludeStartOrigin
+                );
                 float volume = vampDistantVsVolume.Evaluate(distance);
                 music.UpdateVampVolume(volume);
+            }
+        }
+
+        private void FixedUpdate() {
+            if (GameController.I.states == GameState.PRELUDE) {
+                float t = music.Time;
+
+                if (t >= beatmap.PreludeSeconds) {
+                    StartMain();
+                } else {
+                    float nextX =
+                        preludeCurveA * t * t
+                        + preludeCurveB * t
+                        + preludeCurveC;
+
+                    player.rb.MovePosition(
+                        new Vector2(nextX, beatmap.origin.y)
+                    );
+                }
             }
         }
 
@@ -90,24 +113,26 @@ namespace Assets._Achromatic.Scripts.Pieces {
         // event handler  ######################################################
 
         private void HandleOnTriggerEnter(string triggerTag) {
-            if ((GCS.I.states & GameState.EXPLORE_CONTROL) != 0 &&
-                    triggerTag == VAMP_TRIGGER_TAG) {
-
-                GCS.I.states = GameState.VAMP;
+            if (
+                (GameController.I.states & GameState.EXPLORE_CONTROL) != 0
+                && triggerTag == VAMP_TRIGGER_TAG
+            ) {
+                GameController.I.states = GameState.VAMP;
                 music.StartVamp();
-
-            } else if (GCS.I.states == GameState.VAMP &&
-                    triggerTag == PRELUDE_TRIGGER_TAG) {
-
-                StartPreludeThenMainPiece();
+            } else if (
+                  GameController.I.states == GameState.VAMP
+                  && triggerTag == PRELUDE_TRIGGER_TAG
+              ) {
+                StartMusicPlay();
             }
         }
 
         private void HandleOnTriggerExit(string triggerTag) {
-            if (GCS.I.states == GameState.VAMP &&
-                    triggerTag == VAMP_TRIGGER_TAG) {
-
-                GCS.I.states = GameState.EXPLORE;
+            if (
+                GameController.I.states == GameState.VAMP
+                && triggerTag == VAMP_TRIGGER_TAG
+            ) {
+                GameController.I.states = GameState.EXPLORE;
                 music.StopVamp();
             }
         }
@@ -116,7 +141,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string VAMP_TRIGGER_TAG = "StartVampTrigger";
         private const string PRELUDE_TRIGGER_TAG = "StartPreludeTrigger";
 
-
         // private members  ####################################################
         // Cached References
         private Player player;
@@ -124,23 +148,61 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private MusicManager music;
         private Piece piece;
         private Transform playerTransform;
+        private Beatmap beatmap;
+
+        private float preludeCurveA;
+        private float preludeCurveB;
+        private float preludeCurveC;
 
         // private methods  ####################################################
 
-        private void StartPreludeThenMainPiece() {
+        private void StartMusicPlay() {
             if (debugMusicStartingBar == 0) {
-                music.StartPreludeThenMainPiece();
-                playerManager.StartPrelude();
-                GCS.I.states = GameState.PRELUDE;
-
+                StartPrelude();
             } else {
-                // start music mid point for debug purpose
-                music.DebugStartMusic(debugMusicStartingBar);
-                playerManager.StartMainPiece(debugMusicStartingBar);
-                GCS.I.states = GameState.MAIN_PIECE;
+                StartMusicDebug();
             }
 
             virtualCamera.Priority = 20;
+            SFX.I.StopRun();
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogMusicStart();
+#endif
+        }
+
+        private void StartPrelude() {
+            Debug.Log("Start Prelude", this);
+
+            GameController.I.states = GameState.PRELUDE;
+            playerManager.SetupPlayerForPiece();
+
+            music.StartMusic();
+
+            // set up prelude movement  ----------------------------------------
+            float startX = player.rb.position.x;
+            float endX = beatmap.origin.x;
+            float finalV = beatmap.speedXInMainPiece;
+
+            float tf = beatmap.PreludeSeconds; // total time
+            preludeCurveA = (finalV * tf - (endX - startX)) / (tf * tf);
+            preludeCurveB = finalV - 2 * preludeCurveA * tf;
+            preludeCurveC = startX;
+        }
+
+        private void StartMain() {
+            Debug.Log("Start Main Piece", this);
+
+            GameController.I.states = GameState.MAIN_PIECE;
+        }
+
+        private void StartMusicDebug() {
+            Debug.Log("Start Music Debug", this);
+
+            GameController.I.states = GameState.MAIN_PIECE;
+
+            music.StartMusic(debugMusicStartingBar);
+            playerManager.SetupPlayerForPiece();
         }
     }
 }

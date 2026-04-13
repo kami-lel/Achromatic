@@ -9,7 +9,7 @@ public enum GameState {
     VAMP = 1 << 1,
     PRELUDE = 1 << 2,
     MAIN_PIECE = 1 << 3,
-    PIECE_FINISHED = 1 << 4,
+    TOTAL_SCORE_WINDOW = 1 << 4,
     SCENE_TRANSITION = 1 << 5,
 
     EXPLORE_CONTROL = EXPLORE | VAMP,

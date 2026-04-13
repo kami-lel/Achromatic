@@ -1,21 +1,46 @@
-using UnityEngine;
-
-using Assets._Achromatic.Scripts.Players;
+using System.Collections;
+using Assets._Achromatic.Scripts.Metric;
+using Assets._Achromatic.Scripts.Scores;
 using Cinemachine;
-using Assets._Achromatic.Scripts.UI;
-
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets._Achromatic.Scripts.Pieces {
-
+    [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(Score))]
     public class Ender: MonoBehaviour {
+        // Public Methods  #####################################################
+
+        public void FinishMain() {
+            Debug.Log("Finish Main", this);
+
+            GameController.I.states = GameState.TOTAL_SCORE_WINDOW;
+
+            playerManager.FinishMain();
+
+            virtualCamera.Priority = 0;
+            midWall.SetActive(true);
+
+            // re final point window  ------------------------------------------
+            finalPointWindow.SetActive(true);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogMusicEnd(score);
+#endif
+
+            // close after certain time
+            StartCoroutine(DeactivateAfterDelay());
+
+            // block input for first few seconds, then allow close on any key
+            isInputBlocked = true;
+            StartCoroutine(UnblockInputAfterDelay());
+            pi.onActionTriggered += OnPressAnyKey;
+        }
 
         // Inspector Fields  ###################################################
 
         [SerializeField]
         private Transform playerTransform;
-
-        [SerializeField]
-        private float endX;  // bug use music to control
 
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
@@ -26,77 +51,96 @@ namespace Assets._Achromatic.Scripts.Pieces {
         [SerializeField]
         private GameObject midWall;
 
-        // MonoBehavior Lifecycle  #############################################
+        [SerializeField]
+        private float finalPointWindowMinTime = 1f;
+
+        [SerializeField]
+        private float finalPointWindowAutoCloseSecond = 15f;
+
+        // MonoBehaviour Lifecycle  ############################################
 
         private void Awake() {
-
-            // test inspector fields  ------------------------------------------
+            // Inspector Assignment Guard  -------------------------------------
             if (virtualCamera == null) {
                 Debug.LogError("must assign: Virtual Camera", this);
             }
             if (finalPointWindow == null) {
                 Debug.LogError("must assign: Final Point Window", this);
             }
-
             if (midWall == null) {
                 Debug.LogError("must assign: Mid Wall", this);
             }
             midWall.SetActive(false);
 
-            // caching references of player  -----------------------------------
-            GameObject playerGO = GCS.FindPlayer();
-
-            player = playerGO.GetComponent<Player>();
-
-            pim = playerGO.GetComponent<Players.InputManager>();
-            if (pim == null) {
-                Debug.LogError("fail to get: Player InputManager", this);
+            // cache player refs  ----------------------------------------------
+            playerManager = GetComponent<PlayerManager>();
+            if (playerManager == null) {
+                Debug.LogError("fail to get: Player Manager", this);
             }
 
-            rb = playerGO.GetComponent<Rigidbody2D>();
-            if (rb == null) {
-                Debug.LogError("fail to find: Rigidbody2D", this);
+            GameObject go = GameController.I.FindMainPlayer();
+            pi = go.GetComponent<PlayerInput>();
+            if (pi == null) {
+                Debug.LogError("fail to find: Player Input", this);
             }
 
-            anim = playerGO.GetComponent<AnimationManager>();
-            if (anim == null) {
-                Debug.LogError("fail to get: AnimationManager", this);
+            // get component  --------------------------------------------------
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            score = GetComponent<Score>();
+            if (score == null) {
+                Debug.LogError("fail to find: score", this);
             }
+#endif
 
         }
 
-
-        private void Update() {
-            if ((GCS.I.states & GameState.MAIN_PIECE) != 0 &&
-                        playerTransform.position.x > endX) {
-                // Fixme better logic to trigger ending
-
-
-                GCS.I.states = GameState.PIECE_FINISHED;
-                EndPiece();
-            }
+        private void OnDisable() {
+            pi.onActionTriggered -= OnPressAnyKey;
         }
 
+        // Private Members  ####################################################
+        private bool isInputBlocked;
 
-        // private members  ####################################################
-        // Cached References
-        private Player player;
-        private AnimationManager anim;
-        private Rigidbody2D rb;
-        private Players.InputManager pim;
+        // Cached References  --------------------------------------------------
+        private PlayerManager playerManager;
+        private PlayerInput pi;
 
-        // private methods  ####################################################
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private Score score;
+#endif
 
-        private void EndPiece() {
-            pim.SetInputForExplorePlay();
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            GCS.I.states = GameState.EXPLORE_CONTROL;
-            virtualCamera.Priority = 0;
-            finalPointWindow.SetActive(true);
-            Debug.Log("End Piece");
-            anim.StopRun();
-            midWall.SetActive(true);
+        // Private Methods  ####################################################
+
+        private IEnumerator DeactivateAfterDelay() {
+            yield return new WaitForSeconds(
+                finalPointWindowAutoCloseSecond
+            );
+            CloseFinalPointWindow();
+        }
+
+        /// <summary>
+        /// unblock input after <see cref="finalPointWindowMinTime"/> seconds
+        /// </summary>
+        private IEnumerator UnblockInputAfterDelay() {
+            yield return new WaitForSeconds(finalPointWindowMinTime);
+            isInputBlocked = false;
+        }
+
+        private void OnPressAnyKey(InputAction.CallbackContext ctxt) {
+            if (isInputBlocked)
+                return;  // block during min-time window
+
+            CloseFinalPointWindow();
+            pi.onActionTriggered -= OnPressAnyKey;
+        }
+
+        private void CloseFinalPointWindow() {
+            GameController.I.states = GameState.EXPLORE;
+            finalPointWindow.SetActive(false);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Metrics.I.LogWindowClose();
+#endif
         }
     }
-
 }

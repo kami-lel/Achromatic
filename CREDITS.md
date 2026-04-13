@@ -8,4 +8,6 @@
 
 [Input Prompts](https://kenney.nl/assets/input-prompts)
 
-(Helton Yan's Old-School Shonen SFX)[https://heltonyan.itch.io/retroanimesfx]
+[Yellow Paint Pack](https://kenney.nl/assets/yellow-paint-pack)
+
+[Fantasy Wooden GUI : Free](https://assetstore.unity.com/packages/2d/gui/fantasy-wooden-gui-free-103811)

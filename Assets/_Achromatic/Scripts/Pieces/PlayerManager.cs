@@ -1,5 +1,4 @@
 
-using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
 
 using Assets._Achromatic.Scripts.Players;
@@ -14,26 +13,20 @@ namespace Assets._Achromatic.Scripts.Pieces {
 
         // Public API  #########################################################
 
-        public void StartPrelude() {
-            Debug.Log("PlayerManager:\tStartPrelude");
-
-            rb.linearVelocityX = preludeStartVelocityX;
-
-            SetupPlayerForPiece();
-        }
-
-        public void StartMainPiece(int debugMusicStaringBar = 0) {
-            Debug.Log("PlayerManager:\tStartMainPiece");
-
+        public void SetupPlayerForPiece() {
             rb.bodyType = RigidbodyType2D.Kinematic;
-
-            SetupPlayerForPiece();
+            pim.SetInputForMusicPlay();
+            anim.EnsureFacing(true);
+            anim.StartRun();
+            currentActionStartTime = Time.time;
         }
 
-        public void FinishPiece() {
-            Debug.Log("PlayerManager:\tFinishPiece");
+        public void FinishMain() {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.linearVelocity = Vector2.zero;
 
-            GCS.I.states = GameState.PIECE_FINISHED;
+            pim.SetInputForExplorePlay();
+            anim.StopRun();
         }
 
         // Public Methods  #####################################################
@@ -86,7 +79,7 @@ namespace Assets._Achromatic.Scripts.Pieces {
             }
 
             // caching references of player  -----------------------------------
-            GameObject playerGO = GCS.FindPlayer();
+            GameObject playerGO = GameController.I.FindMainPlayer();
 
             rb = playerGO.GetComponent<Rigidbody2D>();
             if (rb == null) {
@@ -125,43 +118,10 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (squatOffsetVsTime == null) {
                 Debug.LogError("must assign: Squat Offset Vs Time", this);
             }
-
-            // calc movement during prelude  -----------------------------------
-            float t = beatmap.meta.preludeSeconds;
-            if (t <= 0f) {
-                // prevent div by zero
-                Debug.LogError("PlayerManager:\tpreludeSeconds must be > 0", this);
-                t = Mathf.Epsilon;
-            }
-
-            float s = beatmap.origin.x - piece.preludeStartOrigin.x;
-            float v = beatmap.speedXInMainPiece;
-
-            // calc init velocity
-            preludeStartVelocityX = 2f * s / t - v;
-            if (preludeStartVelocityX < 0f) {
-                Debug.LogWarning("PlayerManager:\tfor prelude: must be larger distance or lower final speed", this);
-                preludeStartVelocityX = 0f;
-            }
-
-            // calc acceleration — use v - u over t to be explicit
-            preludeAcceleration = (v - preludeStartVelocityX) / t - 0.1f;
-
-            // Debug.Log($"PlayerManager:\tprelude start speed={preludeStartVelocityX}\tacceleration={preludeAcceleration}");
         }
 
         private void FixedUpdate() {
-            if (GCS.I.states == GameState.PRELUDE) {
-                // prelude  ----------------------------------------------------
-                // Fixme using music to control triggering
-                if (music.Time >= beatmap.meta.preludeSeconds) {
-                    StartMainPiece();
-                    GCS.I.states = GameState.MAIN_PIECE;
-                    return;
-                }
-
-                rb.linearVelocityX += preludeAcceleration * Time.fixedDeltaTime;
-            } else if ((GCS.I.states & GameState.PIECE_CONTROl) != 0) {
+            if ((GameController.I.states & GameState.MAIN_PIECE) != 0) {
                 // main piece  -------------------------------------------------
 
                 // move player in world map
@@ -198,8 +158,6 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private const string PLAYER_SPRITE_TAG = "PlayerSprite";
 
         // private members  ####################################################
-        private float preludeStartVelocityX;
-        private float preludeAcceleration;
         private float currentActionStartTime;
         private Actions currentAction;
 
@@ -212,15 +170,5 @@ namespace Assets._Achromatic.Scripts.Pieces {
         private Transform playerSprite;
         private Piece piece;
 
-
-
-        // private methods  ####################################################
-
-        private void SetupPlayerForPiece() {
-            pim.SetInputForMusicPlay();
-            anim.EnsureFacing(true);
-            anim.StartRun();
-            currentActionStartTime = Time.time;
-        }
     }
 }

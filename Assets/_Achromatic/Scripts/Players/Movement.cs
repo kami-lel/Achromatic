@@ -13,17 +13,20 @@ namespace Assets._Achromatic.Scripts.Players {
             moveDir = -1;
             anim.EnsureFacing(false);
             anim.StartRun();
+            SFX.I.StartRun();
         }
 
         public void TurnRight() {
             moveDir = 1;
             anim.EnsureFacing(true);
             anim.StartRun();
+            SFX.I.StartRun();
         }
 
         public void Stop() {
             moveDir = 0;
             anim.StopRun();
+            SFX.I.StopRun();
         }
 
         public void Jump() {
@@ -71,7 +74,7 @@ namespace Assets._Achromatic.Scripts.Players {
             rb.linearDamping = 0.0f;
         }
         private void FixedUpdate() {
-            if ((GCS.I.states & GameState.EXPLORE_CONTROL) == 0) {
+            if ((GameController.I.states & GameState.EXPLORE_CONTROL) == 0) {
                 return;
             }
 

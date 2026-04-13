@@ -1,12 +1,10 @@
-using System;
+using System.Collections;
 using Assets._Achromatic.Scripts.Players;
 using Assets._Achromatic.Scripts.Scores;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
-// Fixme new action sfx
-
+[RequireComponent(typeof(GameController))]
 public class SFX: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -23,29 +21,30 @@ public class SFX: MonoBehaviour {
         if ((hit & Hit.PERFECT) != 0) {
             // perfect, use action sound
             if ((pressed & Actions.JUMP) != 0) {
-                Jump();
+                PlayOneOfRandomSFX(perfectJump);
             } else if ((pressed & Actions.SQUAT) != 0) {
-                Squat();
+                PlayOneOfRandomSFX(perfectSquat);
 
             } else if ((pressed & Actions.ATTACK) != 0) {
-                Attack();
+                PlayOneOfRandomSFX(perfectAttack);
+
             }
 
         } else if ((hit & Hit.GREAT) != 0) {
-            PlaySFX(greatSFX);
-            PlayRumble("Great");
+            PlayOneOfRandomSFX(greatSFXs);
+            GamepadManager.I.Rumble("Great");
 
         } else if ((hit & Hit.GOOD) != 0) {
-            PlaySFX(goodSFX);
-            PlayRumble("Good");
+            PlayOneOfRandomSFX(goodSFXs);
+            GamepadManager.I.Rumble("Good");
 
-        } else if ((hit & (Hit.MISS | Hit.INCORRECT)) != 0) {
-            PlaySFX(missSFX1);
-            PlayRumble("Miss");
+        } else if ((hit & Hit.WRONG_HIT) != 0) {
+            PlayOneOfRandomSFX(missSFXs);
+            GamepadManager.I.Rumble("Miss");
 
-        } else {
-            PlaySFX(missSFX2);
-            PlayRumble("Miss");
+        } else {  // i.e no hit
+            PlayOneOfRandomSFX(notHitSFXs);
+            GamepadManager.I.Rumble("Miss");
 
         }
     }
@@ -53,154 +52,104 @@ public class SFX: MonoBehaviour {
     // directly play action-audio  =============================================
 
     public void Jump() {
-        switch (UnityEngine.Random.Range(0, 3)) {
-        case 0:
-            PlaySFX(jumpSFX1);
-            break;
-        case 1:
-            PlaySFX(jumpSFX2);
-            break;
-        case 2:
-            PlaySFX(jumpSFX3);
-            break;
-        }
+        PlayOneOfRandomSFX(jumpSFXs);
+        StopRun();
 
-        PlayRumble("Jump");
+        GamepadManager.I.Rumble("Jump");
     }
 
     public void Land() {
-        switch (UnityEngine.Random.Range(0, 3)) {
-        case 0:
-            PlaySFX(landSFX1);
-            break;
-        case 1:
-            PlaySFX(landSFX2);
-            break;
-        case 2:
-            PlaySFX(landSFX3);
-            break;
-        }
+        PlayOneOfRandomSFX(landSFXs);
+        StopRun();
 
-        PlayRumble("Land");
+        GamepadManager.I.Rumble("Land");
 
     }
 
     public void Squat() {
-        PlaySFX(dashSFX1);
-        PlayRumble("Squat");
+        PlayOneOfRandomSFX(squatSFXs);
+        StopRun();
+
+        GamepadManager.I.Rumble("Squat");
+    }
+
+    public void StartRun() {
+        if (isPlayingRun) {
+            return;
+        }
+        playCoroutine = StartCoroutine(PlayRunLoop());
+    }
+
+    public void StopRun() {
+        if (!isPlayingRun) {
+            return;
+        }
+
+        StopCoroutine(playCoroutine);
+        playCoroutine = null;
+        isPlayingRun = false;
     }
 
     // Inspector Fields  #######################################################
 
     [Header("Action SFX")]
 
-    [SerializeField] private AudioSource jumpSFX1;
-    [SerializeField] private AudioSource jumpSFX2;
-    [SerializeField] private AudioSource jumpSFX3;
+    [SerializeField] private AudioSource[] jumpSFXs;
 
-    [SerializeField] private AudioSource dashSFX1;
-    [SerializeField] private AudioSource dashSFX2;
-    [SerializeField] private AudioSource dashSFX3;
+    [SerializeField] private AudioSource[] landSFXs;
 
-    [SerializeField] private AudioSource landSFX1;
-    [SerializeField] private AudioSource landSFX2;
-    [SerializeField] private AudioSource landSFX3;
+    [SerializeField] private AudioSource[] runSFXs;
 
-    [SerializeField] private AudioSource attackSFX1;
+    [SerializeField] private AudioSource[] squatSFXs;
 
     [Header("Hit SFX")]
-    [SerializeField] private AudioSource greatSFX;
-    [SerializeField] private AudioSource goodSFX;
-    [SerializeField] private AudioSource missSFX1;
-    [SerializeField] private AudioSource missSFX2;
+    [SerializeField] private AudioSource[] greatSFXs;
+    [SerializeField] private AudioSource[] goodSFXs;
+    [SerializeField] private AudioSource[] missSFXs;
+
+    [SerializeField] private AudioSource[] notHitSFXs;
+
+    [Header("Hit SFX: Perfects")]
+
+    [SerializeField] private AudioSource[] perfectJump;
+
+    [SerializeField] private AudioSource[] perfectSquat;
+
+    [SerializeField] private AudioSource[] perfectAttack;
+
 
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
-        if (I != null && I != this) {
-            Debug.LogWarning("duplicated SFX", this);
-            Destroy(this);
-            return;
-        }
-
         I = this;
-        DontDestroyOnLoad(gameObject);
     }
 
-
     // constants  ##############################################################
-    private const float SFX_LASTING_TIME = 1.0f;
+    private const float RUN_SFX_INTERVAL = 0.25f;
+
+
+    // private members  ########################################################
+    private bool isPlayingRun = false;
+    private Coroutine playCoroutine;
 
     // private methods  ########################################################
 
-    private void PlaySFX(AudioSource src) {
-        src.Play();
-        src.SetScheduledEndTime(AudioSettings.dspTime + SFX_LASTING_TIME);
-    }
-
-    private void Attack(Hit hit = Hit.NONE) {
-        PlaySFX(attackSFX1);
-        PlayRumble("Attack");
-    }
-
-    // ramble  =================================================================
-
-    private void PlayRumble(String rambleType) {
-        var pad = Gamepad.current;
-        if (pad == null) {
+    private void PlayOneOfRandomSFX(AudioSource[] audioSources) {
+        if (audioSources == null || audioSources.Length == 0) {
+            Debug.LogWarning("audioSources null or empty");
             return;
         }
 
-        float low, high, duration;
-
-        switch (rambleType) {
-        case "Jump":
-        default:
-            low = 0.35f;
-            high = 1.00f;
-            duration = 0.14f;
-            break;
-        case "Land":
-            low = 0.50f;
-            high = 0.60f;
-            duration = 0.10f;
-            break;
-        case "Attack":
-            low = 1.00f;
-            high = 0.80f;
-            duration = 0.16f;
-            break;
-        case "Squat":
-            low = 0.70f;
-            high = 0.30f;
-            duration = 0.15f;
-            break;
-        case "Great":
-            low = 0.55f;
-            high = 0.65f;
-            duration = 0.12f;
-            break;
-        case "Good":
-            low = 0.35f;
-            high = 0.40f;
-            duration = 0.10f;
-            break;
-        case "Miss":
-            low = 0.90f;
-            high = 0.20f;
-            duration = 0.20f;
-            break;
-        }
-
-        // perform rumble  -----------------------------------------------------
-        pad.SetMotorSpeeds(low, high);  // start motors
-        _ = StartCoroutine(StopRumbleAfter(pad, duration));
+        int i = Random.Range(0, audioSources.Length);
+        audioSources[i].PlayOneShot(audioSources[i].clip);
     }
 
-    private System.Collections.IEnumerator StopRumbleAfter(Gamepad pad, float duration) {
-        yield return new WaitForSeconds(duration);
-
-        pad?.SetMotorSpeeds(0f, 0f);   // stop motors
+    private IEnumerator PlayRunLoop() {
+        isPlayingRun = true;
+        while (true) {
+            PlayOneOfRandomSFX(runSFXs);
+            yield return new WaitForSeconds(RUN_SFX_INTERVAL);
+        }
     }
 }

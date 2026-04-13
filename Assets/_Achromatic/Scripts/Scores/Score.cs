@@ -1,22 +1,16 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
-
+using System.Linq;
 using Assets._Achromatic.Scripts.Beatmaps;
 using Assets._Achromatic.Scripts.UI;
-
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // todo improve looking of indicators
 
 namespace Assets._Achromatic.Scripts.Scores {
-
     [RequireComponent(typeof(Beatmap))]
     public class Score: MonoBehaviour {
-
         // Public Members  #####################################################
 
         /// <summary>
@@ -42,6 +36,8 @@ namespace Assets._Achromatic.Scripts.Scores {
         /// </summary>
         public Dictionary<Hit, int> hitCnt;
 
+        public event Action<int, int, int> OnScoreChange;
+
         // Public Methods  #####################################################
 
         public void Record(Hit hit) {
@@ -61,7 +57,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             // record combo
             if ((hit & Hit.NO_SCORE) != 0) {
-                combo = 0;  // miss, reset combo
+                combo = 0; // miss, reset combo
             } else {
                 combo += 1;
                 if (combo > maxCombo) {
@@ -69,29 +65,20 @@ namespace Assets._Achromatic.Scripts.Scores {
                 }
             }
 
-            Debug.Log("Score.Record:"
+            Debug.Log(
+                "Score.Record:"
                     + $"\tjudge: {hit}"
                     + $"\tscore: {runningScore}"
                     + $"\tcombo: {combo}"
-                    );
+            );
 
             // update indicators  ----------------------------------------------
-            // combo indicator
-            if (comboIndicator != null) {
-                comboIndicator.text = $"{combo}";
-            }
-            // running score
-            if (runningScoreIndicator != null) {
-                runningScoreIndicator.text = $"{(int)runningScore}";
-            }
             // hit type indicator
             if (hitTypeIndicator != null) {
                 hitTypeIndicator.Show(hit);
             }
-            // score addition indicator
-            if (scoreAdditionIndicator != null) {
-                scoreAdditionIndicator.Show((int)scoreAddition);
-            }
+
+            OnScoreChange?.Invoke(combo, (int)runningScore, (int)scoreAddition);
         }
 
         // MonoBehavior Lifecycle  #############################################
@@ -105,9 +92,8 @@ namespace Assets._Achromatic.Scripts.Scores {
 
             // init resultCnt  -------------------------------------------------
             hitCnt = new Dictionary<Hit, int>();
-            foreach (Hit result
-                    in Enum.GetValues(typeof(Hit))) {
-                hitCnt[result] = 0;  // filled w/ 0
+            foreach (Hit result in Enum.GetValues(typeof(Hit))) {
+                hitCnt[result] = 0; // filled w/ 0
             }
 
             // init combo  -----------------------------------------------------
@@ -128,41 +114,15 @@ namespace Assets._Achromatic.Scripts.Scores {
         // event handlers  #####################################################
 
         private void HandleInitIndicators(Scene scene, LoadSceneMode mode) {
-            // combo indicator
-            GameObject comboGO = GameObject.FindWithTag("ComboIndicator");
-            if (comboGO != null) {
-                comboIndicator = comboGO.GetComponent<TextMeshProUGUI>();
-            }
-
-            // running score indicator
-            GameObject runningGO = GameObject.FindWithTag("RunningScoreIndicator");
-            if (comboGO != null) {
-                runningScoreIndicator = runningGO.GetComponent<TextMeshProUGUI>();
-            }
-
+            // todo using OnScoreChange instead
             // hit type indicator
             GameObject hitTypeGO = GameObject.FindWithTag("HitIndicator");
             if (hitTypeGO != null) {
-                hitTypeIndicator = hitTypeGO.GetComponent<HitTypeIndicatorScript>();
-            }
-            // score addition indicator
-            GameObject scoreAddGO = GameObject.FindWithTag("ScoreAdditionIndicator");
-            if (scoreAddGO != null) {
-                scoreAdditionIndicator = scoreAddGO.GetComponent<ScoreAdditionIndicatorScript>();
-            }
-
-            // print error if fail to find by tags
-            if (comboIndicator == null) {
-                Debug.LogError("Score: fail to find Combo Indicator", this);
-            }
-            if (runningScoreIndicator == null) {
-                Debug.LogError("Score: fail to find Running Score Indicator", this);
+                hitTypeIndicator =
+                    hitTypeGO.GetComponent<HitTypeIndicatorScript>();
             }
             if (hitTypeIndicator == null) {
                 Debug.LogError("Score: fail to find Hit Type Indicator", this);
-            }
-            if (scoreAdditionIndicator == null) {
-                Debug.LogError("Score: fail to find Score Addition Indicator", this);
             }
         }
 
@@ -179,11 +139,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         private float goodScore;
 
         // cached references
-        private TextMeshProUGUI comboIndicator;
-        private TextMeshProUGUI runningScoreIndicator;
         private HitTypeIndicatorScript hitTypeIndicator;
-        private ScoreAdditionIndicatorScript scoreAdditionIndicator;
         private Beatmap beatmap;
     }
-
 }

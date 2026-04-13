@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
+using Assets._Achromatic.Scripts.Metric;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[RequireComponent(typeof(GameController))]
 public class SceneChanger: MonoBehaviour {
 
     // Public Members  #########################################################
@@ -16,7 +19,7 @@ public class SceneChanger: MonoBehaviour {
     public void LoadNextScene(string sceneName) {
         Debug.Log("LoadNextScene", this);
 
-        GCS.I.states = GameState.SCENE_TRANSITION;
+        GameController.I.states = GameState.SCENE_TRANSITION;
 
         CinemachineVirtualCamera ending =
                 FindVirtualCameraByTag(END_CAMERA_TAG);
@@ -27,19 +30,18 @@ public class SceneChanger: MonoBehaviour {
                     StartCoroutine(LoadSceneCoroutine(sceneName));
                 }
         );
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogLevelEnd();
+#endif
     }
 
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
         // singleton logic  ----------------------------------------------------
-        if (I != null && I != this) {
-            Debug.LogWarning("duplicated SceneManager", this);
-            Destroy(this);
-        }
-
         I = this;
-        DontDestroyOnLoad(gameObject);
+
         // event manager  ------------------------------------------------------
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -74,17 +76,23 @@ public class SceneChanger: MonoBehaviour {
     private void EnterNewScene() {
         Debug.Log("EnterNewScene", this);
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Metrics.I.LogLevelStart();
+#endif
+
         FindFadingBlockingPanel();
 
         CinemachineVirtualCamera startingCamera =
                 FindVirtualCameraByTag(START_CAMERA_TAG);
         startingCamera.Priority = HIGH_CAMERA_PRIORITY;
 
+        GameController.I.states = GameState.SCENE_TRANSITION;
+
         fadingBlockingPanel.FadeIn(onComplete: () => {
             startingCamera.Priority = LOW_CAMERA_PRIORITY;
+            GameController.I.states = GameState.EXPLORE;
         });
 
-        GCS.I.states = GameState.EXPLORE;
     }
 
 
@@ -138,8 +146,6 @@ public class SceneChanger: MonoBehaviour {
         fadingBlockingPanel = go.GetComponent<FadingBlockingPanel>();
         if (fadingBlockingPanel == null) {
             Debug.LogError("fail to find Fading Blocking Panel");
-        } else {
-            Debug.Log("register: fadingBlockingPanel");
         }
     }
 }

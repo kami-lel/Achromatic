@@ -21,6 +21,7 @@ namespace Assets._Achromatic.Scripts.Scores {
 
         // groups  -------------------------------------------------------------
         NO_SCORE = NO_HIT | MISS | INCORRECT,
+        WRONG_HIT = MISS | INCORRECT,
         EARLY = EARLY_MISS | EARLY_GOOD | EARLY_GREAT | EARLY_PERFECT,
         LATE = LATE_MISS | LATE_GOOD | LATE_GREAT | LATE_PERFECT,
 

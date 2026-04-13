@@ -62,7 +62,7 @@ namespace Assets._Achromatic.Scripts.Scores {
         }
 
         public void Update() {
-            if (GCS.I.states != GameState.MAIN_PIECE || timings.Count == 0)
+            if (GameController.I.states != GameState.MAIN_PIECE || timings.Count == 0)
                 return;
 
             CheckMissedByPassing();

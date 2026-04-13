@@ -7,12 +7,10 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
     [DefaultExecutionOrder(0)]
     [RequireComponent(typeof(Beatmap))]
     public class ElementsManager: MonoBehaviour {
-
         // Public Methods  #####################################################
 
         public void PerishNoteRelatedPrefab(int noteIdx, Hit hit) {
-            GameObject SearchActiveQInPool(
-                    PrefabPool<int> prefabPool) {
+            GameObject SearchActiveQInPool(PrefabPool<int> prefabPool) {
                 var enumerator = prefabPool.activeQ.GetEnumerator();
                 while (enumerator.MoveNext()) {
                     (int i, GameObject go) = enumerator.Current;
@@ -23,7 +21,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 return null;
             }
 
-            void PerishHint(GameObject go) {  // perish hint go
+            void PerishHint(GameObject go) { // perish hint go
                 if (go == null)
                     return;
                 if (go.TryGetComponent(out ActionHint hint)) {
@@ -31,7 +29,9 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                 } else {
                     Debug.LogWarning(
                         "fail to find: ActionHint on prefab w/ index of: "
-                        + noteIdx, this);
+                            + noteIdx,
+                        this
+                    );
                 }
             }
 
@@ -42,14 +42,15 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // resolve hint pool  ----------------------------------------------
             GameObject hintGo =
-                SearchActiveQInPool(actionHintJumpPool) ??
-                SearchActiveQInPool(actionHintAttackPool) ??
-                SearchActiveQInPool(actionHintSquatPool);
+                SearchActiveQInPool(actionHintJumpPool)
+                ?? SearchActiveQInPool(actionHintAttackPool)
+                ?? SearchActiveQInPool(actionHintSquatPool);
 
             if (hintGo == null) {
                 Debug.LogWarning(
-                    "fail to find: Action Hint Prefab w/ index of: "
-                    + noteIdx, this);
+                    "fail to find: Action Hint Prefab w/ index of: " + noteIdx,
+                    this
+                );
                 return;
             }
 
@@ -57,11 +58,11 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // perish paired mob if present (attack notes only)  ---------------
             GameObject mobGo = SearchActiveQInPool(mobPool);
-            if (mobGo != null &&
-                    mobGo.TryGetComponent(out Enemy mobHint)) {
+            if (mobGo != null && mobGo.TryGetComponent(out Enemy mobHint)) {
                 mobHint.Perish(hit);
             }
         }
+
         // Inspector Fields  ###################################################
 
         [SerializeField]
@@ -106,9 +107,21 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
 
             // create per-type pools  ------------------------------------------
             // action hints
-            actionHintJumpPool = new(8, PREFAB_FOLDER + "ActionHintJump", prefabs);
-            actionHintAttackPool = new(8, PREFAB_FOLDER + "ActionHintAttack", prefabs);
-            actionHintSquatPool = new(8, PREFAB_FOLDER + "ActionHintSquat", prefabs);
+            actionHintJumpPool = new(
+                8,
+                PREFAB_FOLDER + "ActionHintJump",
+                prefabs
+            );
+            actionHintAttackPool = new(
+                8,
+                PREFAB_FOLDER + "ActionHintAttack",
+                prefabs
+            );
+            actionHintSquatPool = new(
+                8,
+                PREFAB_FOLDER + "ActionHintSquat",
+                prefabs
+            );
 
             beatLinePool = new(16, PREFAB_FOLDER + "BeatLine", prefabs);
             barlinePool = new(4, PREFAB_FOLDER + "Barline", prefabs);
@@ -119,7 +132,7 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         }
 
         private void Update() {
-            if ((GCS.I.states & GameState.PIECE_CONTROl) == 0) {
+            if ((GameController.I.states & GameState.PIECE_CONTROl) == 0) {
                 return;
             }
 
@@ -160,7 +173,6 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
                     }
 
                     renderBeatNotesQ.Dequeue();
-
                 } else {
                     break;
                 }
@@ -171,6 +183,11 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
             actionHintJumpPool.Dispose();
             actionHintAttackPool.Dispose();
             actionHintSquatPool.Dispose();
+            beatLinePool.Dispose();
+            barlinePool.Dispose();
+            blockadePool.Dispose();
+            obstaclePool.Dispose();
+            mobPool.Dispose();
         }
 
         // constants  ##########################################################
@@ -200,4 +217,3 @@ namespace Assets._Achromatic.Scripts.Beatmaps {
         private Beatmap beatmap;
     }
 }
-

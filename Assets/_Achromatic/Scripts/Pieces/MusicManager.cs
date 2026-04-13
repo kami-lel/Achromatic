@@ -1,22 +1,18 @@
-
+using System;
+using System.Collections;
 using Assets._Achromatic.Scripts.Beatmaps;
 using UnityEngine;
 
 namespace Assets._Achromatic.Scripts.Pieces {
     [RequireComponent(typeof(Beatmap))]
+    [RequireComponent(typeof(Ender))]
     public class MusicManager: MonoBehaviour {
-
         // Public API  #########################################################
 
         public float Time {
             get {
                 return preludeAndMain.time;
             }
-        }
-
-        public void Start() {
-            bgm.loop = true;
-            bgm.Play();
         }
 
         public void StartVamp() {
@@ -34,34 +30,34 @@ namespace Assets._Achromatic.Scripts.Pieces {
             vamp.volume = vol;
         }
 
-        public void StartPreludeThenMainPiece() {
+        public void StartMusic(int debugMusicStaringBar = 0) {
             bgm.Stop();
             vamp.Stop();
-            preludeAndMain.Play();
-        }
 
-        public void DebugStartMusic(int debugMusicStaringBar) {
-            float startTime = (debugMusicStaringBar - 1.0f) *
-                    beatmap.meta.beatPerBar *
-                    (60.0f / beatmap.meta.tempo) +
-                    beatmap.meta.preludeSeconds;
+            float startTime = 0f;
+            if (debugMusicStaringBar != 0) {
+                startTime =
+                    (debugMusicStaringBar - 1.0f)
+                        * beatmap.meta.beatPerBar
+                        * (60.0f / beatmap.meta.tempo)
+                    + beatmap.meta.preludeSeconds;
+            }
 
-            preludeAndMain.time = startTime;
 
-            // start the music
-            preludeAndMain.Play();
+            StartCoroutine(MusicFinishingCoroutine(startTime));
+
         }
 
         // Inspector Fields  ###################################################
 
         [SerializeField]
-        public AudioSource bgm;
+        private AudioSource bgm;
 
         [SerializeField]
-        public AudioSource vamp;
+        private AudioSource vamp;
 
         [SerializeField]
-        public AudioSource preludeAndMain;
+        private AudioSource preludeAndMain;
 
         // Monobehavior Lifecycle  #############################################
         private void Awake() {
@@ -84,10 +80,40 @@ namespace Assets._Achromatic.Scripts.Pieces {
             if (beatmap == null) {
                 Debug.LogError("fail to get: Beatmap", this);
             }
+
+            ender = GetComponent<Ender>();
+            if (ender == null) {
+                Debug.LogError("fail to get: Ender", this);
+            }
+        }
+
+        private void Start() {
+            bgm.loop = true;
+            bgm.Play();
         }
 
         // private members  ####################################################
         // cached references
         private Beatmap beatmap;
+        private Ender ender;
+
+        // private methods  ####################################################
+        private IEnumerator MusicFinishingCoroutine(float startSeconds = 0f) {
+            preludeAndMain.time = startSeconds;
+            preludeAndMain.Play();
+
+            float playTime =
+                preludeAndMain.clip.length - startSeconds;
+
+            if (playTime <= 0) {
+                Debug.LogWarning("Debug Music Starting Bar too large");
+                playTime = preludeAndMain.clip.length;
+            }
+
+            yield return new WaitForSeconds(
+                    playTime
+            );
+            ender.FinishMain();
+        }
     }
 }

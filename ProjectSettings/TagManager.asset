@@ -8,14 +8,13 @@ TagManager:
   - StartPreludeTrigger
   - FPSCounter
   - HitIndicator
-  - ComboIndicator
-  - RunningScoreIndicator
-  - ScoreAdditionIndicator
   - PlayerSprite
   - LoadNextSceneTrigger
   - startingCamera
   - endingCamera
   - fadingBlockingPanel
+  - TutorialGamepad
+  - TutorialKeyboard
   layers:
   - Default
   - TransparentFX

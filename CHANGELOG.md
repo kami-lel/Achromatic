@@ -4,27 +4,22 @@
 
 [^format]
 
-<!-- fixme Lv2 background extend and make tileable -->
-<!-- Fixme extend barline to be longer -->
+<!-- todo particle efx: on monster killed,jumped,etc. -->
+<!-- todo particle efx: running score -->
+<!-- fixme squat obstacle (also for jump) confusing with background -->
+<!-- fixme SFXs normalization & remove lead in (instant play) -->
 
-<!-- Todo metrics save to file -->
-<!-- Fixme better total score windows -->
-
-<!-- bug fix sprite -->
-<!-- Bug running score indicator missing -->
-
-<!-- fixme camera movement during title screen -->
+<!-- todo make web / mac build -->
 <!-- todo smashing inputs type -->
-<!-- todo local leaderboard -->
-<!-- todo more particles effects -->
 <!-- todo pause screen, allow restart/resume -->
 <!-- todo show player character origin in world -->
 <!-- todo set up hooks utility -->
 <!-- todo Wwise Unity Integration -->
 <!-- todo add map dynamic response to player performance -->
+<!-- fixme Lv2 music need boost volume of drum track -->
 <!-- fixme visual feedback for holding left stick -->
-<!-- fixme squat obstacle confusing with background -->
 <!-- fixme title screen need better font -->
+<!-- fixme camera movement during title screen -->
 
 
 
@@ -47,9 +42,134 @@
 ### Removed
 ### Fixed
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 1.0.0 Release
 
-## 1.0.0-beta Beta Milestone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [1.0.0-beta.2] Beta2 Milestone
+
+### Added
+
+- splash screen with logos of USC and Berklee
+- new set of SFXs
+- implement various metrics & save to file
+- using Gamepad & Keyboard input to decide tutorial to show
+- content & asset for Level 3
+
+### Changed
+
+- set up canvas for scaling
+- final score window close when (a) time, (b) press any key
+- turn off rumbling when using only keyboard
+- Lv1 improve tutorial, adjust difficulty
+- make barline prefab larger
+
+### Fixed
+
+- player is jumped during prelude, now using constant acceleration
+- FPS counter
+- player sprite anchor issue
+- mob missing due to prefabPool
+- normalize SFX volumes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [1.0.0-beta] Beta Milestone
 
 ### Added
 
@@ -301,8 +421,10 @@ In this iteration of the game/toy, I am trying to explore the possibility of com
 
 
 
-[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...dev
-[0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
+[unreleased]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta.2...dev
+[1.0.0-beta.2]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-beta...v1.0.0-beta.2
+[1.0.0-beta]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v1.0.0-alpha...v1.0.0-beta
+[1.0.0-alpha]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.1+pre_alpha...v1.0.0-alpha
 [0.9.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.9.0+pre_alpha...v0.9.1+pre_alpha
 [0.9.0]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.1...v0.9.0+pre_alpha
 [0.5.1]: https://github.com/kami-lel/usc-ctin532-game-project/compare/v0.5.0+vertical_slice...v0.5.1
