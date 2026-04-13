@@ -79,7 +79,7 @@ namespace Assets._Achromatic.Scripts.Scores {
                 hitTypeIndicator.Show(hit);
             }
 
-            OnScoreChange.Invoke(combo, (int)runningScore, (int)scoreAddition);
+            OnScoreChange?.Invoke(combo, (int)runningScore, (int)scoreAddition);
         }
 
         // MonoBehavior Lifecycle  #############################################
