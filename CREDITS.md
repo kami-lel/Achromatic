@@ -8,4 +8,5 @@
 
 [Input Prompts](https://kenney.nl/assets/input-prompts)
 
-(Helton Yan's Old-School Shonen SFX)[https://heltonyan.itch.io/retroanimesfx]
+[Yellow Paint Pack](https://kenney.nl/assets/yellow-paint-pack)
+
