@@ -1,6 +1,54 @@
 {
     "notes": [
         {
+            "bar": 2,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "jump"
+        },
+        {
+            "bar": 3,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "jump"
+        },
+        {
+            "bar": 4,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "squat"
+        },
+        {
+            "bar": 5,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "squat"
+        },
+        {
+            "bar": 6,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "jump"
+        },
+        {
+            "bar": 7,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "jump"
+        },
+        {
+            "bar": 8,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "jump"
+        },
+        {
+            "bar": 9,
+            "beat": 1,
+            "subbeat": 1,
+            "type": "squat"
+        },
+        {
             "bar": 9,
             "beat": 3,
             "subbeat": 1,
