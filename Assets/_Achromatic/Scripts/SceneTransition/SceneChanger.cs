@@ -73,7 +73,7 @@ public class SceneChanger: MonoBehaviour {
         Debug.Log("EnterNewScene", this);
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Metrics.I.LogSequenceKeyPoint(SequenceKeyPoint.LEVEL_START);
+        Metrics.I.LogLevelStart();
 #endif
 
         FindFadingBlockingPanel();
