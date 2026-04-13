@@ -1,18 +1,22 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
-// TODO detect if gamepad is used
 
 [RequireComponent(typeof(GameController))]
-public class Rumbler: MonoBehaviour {
-
+public class GamepadManager: MonoBehaviour {
     // Public Members  #########################################################
 
     // singleton
-    public static Rumbler I {
+    public static GamepadManager I {
         get; private set;
     }
+
+    public bool isUsingGamepad = false;
+
+    public event Action OnSwitchToGamepad;
+    public event Action OnSwitchToKeyboard;
 
     // Public Methods  #########################################################
 
@@ -22,7 +26,9 @@ public class Rumbler: MonoBehaviour {
             return;
         }
 
-        float low, high, duration;
+        float low,
+            high,
+            duration;
 
         switch (rambleType) {
         case "Jump":
@@ -64,24 +70,56 @@ public class Rumbler: MonoBehaviour {
         }
 
         // perform rumble  -----------------------------------------------------
-        pad.SetMotorSpeeds(low, high);  // start motors
+        pad.SetMotorSpeeds(low, high); // start motors
         _ = StartCoroutine(StopRumbleAfter(pad, duration));
     }
 
     // MonoBehavior Lifecycle  #################################################
 
     private void Awake() {
-        // singleton logic  ----------------------------------------------------
         I = this;
     }
 
+    private void OnEnable() {
+        InputSystem.onEvent += HandleInputEvent;
+    }
+
+    private void OnDisable() {
+        InputSystem.onEvent -= HandleInputEvent;
+    }
+
+    // Event Handler  ##########################################################
+    private void HandleInputEvent(InputEventPtr eventPtr, InputDevice device) {
+        if (
+            (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
+            || device.CheckStateIsAtDefault()
+        )
+            return;
+
+        bool currentIsUsingGamepad = device is Gamepad;
+
+        if (currentIsUsingGamepad != isUsingGamepad) {
+            if (isUsingGamepad) {
+                OnSwitchToGamepad.Invoke();
+                Debug.Log("Switch to: Gamepad", this);
+            } else {
+                OnSwitchToKeyboard.Invoke();
+                Debug.Log("Switch to: Keyboard", this);
+            }
+
+        }
+
+        isUsingGamepad = currentIsUsingGamepad;
+    }
 
     // private methods  ########################################################
 
-    private System.Collections.IEnumerator StopRumbleAfter(Gamepad pad, float duration) {
+    private System.Collections.IEnumerator StopRumbleAfter(
+        Gamepad pad,
+        float duration
+    ) {
         yield return new WaitForSeconds(duration);
 
-        pad?.SetMotorSpeeds(0f, 0f);   // stop motors
+        pad?.SetMotorSpeeds(0f, 0f); // stop motors
     }
-
 }
