@@ -18,19 +18,29 @@ public class Enemy: MonoBehaviour {
     // Inspector Fields  ########################################################
 
     [Header("Death Timing")]
-    [SerializeField] private float punchDuration = 0.08f;
-    [SerializeField] private float spinDuration = 0.35f;
-    [SerializeField] private float fadeDuration = 0.25f;
+    [SerializeField]
+    private float punchDuration = 0.08f;
+
+    [SerializeField]
+    private float spinDuration = 0.35f;
+
+    [SerializeField]
+    private float fadeDuration = 0.25f;
 
     [Header("Death Scale")]
-    [SerializeField] private float punchScale = 1.55f;  // spike size
-    [SerializeField] private float spinShrinkScale = 0.0f;   // shrink target
+    [SerializeField]
+    private float punchScale = 1.55f; // spike size
+
+    [SerializeField]
+    private float spinShrinkScale = 0.0f; // shrink target
 
     [Header("Death Spin")]
-    [SerializeField] private float spinDegrees = 540f;  // total rotation
+    [SerializeField]
+    private float spinDegrees = 540f; // total rotation
 
     [Header("Hit Flash")]
-    [SerializeField] private Color flashColor = Color.white;
+    [SerializeField]
+    private Color flashColor = Color.white;
 
     // private members  #########################################################
 
@@ -45,6 +55,15 @@ public class Enemy: MonoBehaviour {
         renderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
+    private void OnEnable() {
+        // reset per-spawn state for pool reuse
+        is_dead = false;
+        transform.localScale = original_scale;
+        transform.eulerAngles = Vector3.zero;
+        SetAlpha(1f);
+        SetTint(Color.white);
+    }
+
     // Death Sequence  =========================================================
 
     private IEnumerator CoDeathAnimation() {
@@ -55,11 +74,11 @@ public class Enemy: MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    // punch  ------------------------------------------------------------------
+    // punch  ----------------------------------------------8------------------
 
     private IEnumerator CoPunch() {
         float t = 0f;
-        SetTint(flashColor);  // flash on hit
+        SetTint(flashColor); // flash on hit
 
         while (t < punchDuration) {
             t += Time.deltaTime;
@@ -71,7 +90,7 @@ public class Enemy: MonoBehaviour {
             yield return null;
         }
 
-        SetTint(Color.white);  // restore tint
+        SetTint(Color.white); // restore tint
     }
 
     // spin & shrink  ----------------------------------------------------------
@@ -86,11 +105,13 @@ public class Enemy: MonoBehaviour {
             float eased = Mathf.SmoothStep(0f, 1f, p);
 
             transform.eulerAngles = new Vector3(
-                0f, 0f, start_rot + Mathf.Lerp(0f, spinDegrees, eased)
+                0f,
+                0f,
+                start_rot + Mathf.Lerp(0f, spinDegrees, eased)
             );
 
-            transform.localScale = original_scale
-                                 * Mathf.Lerp(1f, spinShrinkScale, eased);
+            transform.localScale =
+                original_scale * Mathf.Lerp(1f, spinShrinkScale, eased);
 
             yield return null;
         }
@@ -109,7 +130,7 @@ public class Enemy: MonoBehaviour {
             yield return null;
         }
 
-        SetAlpha(0f);  // guarantee fully transparent
+        SetAlpha(0f); // guarantee fully transparent
     }
 
     // helpers  ================================================================
