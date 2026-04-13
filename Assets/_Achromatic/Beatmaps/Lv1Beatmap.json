@@ -280,7 +280,7 @@
       "bar": 43,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
       "bar": 43,
@@ -292,35 +292,17 @@
       "bar": 44,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 44,
-      "beat": 3,
-      "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 45,
-      "beat": 1,
-      "subbeat": 1,
-      "type": "jump"
-    },
-    {
-      "bar": 45,
-      "beat": 3,
-      "subbeat": 1,
-      "type": "jump"
-    },
-    {
-      "bar": 46,
       "beat": 1,
       "subbeat": 1,
       "type": "attack"
     },
     {
       "bar": 46,
-      "beat": 3,
+      "beat": 1,
       "subbeat": 1,
       "type": "attack"
     },
@@ -328,7 +310,7 @@
       "bar": 47,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
       "bar": 47,
@@ -346,7 +328,7 @@
       "bar": 49,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
       "bar": 49,
@@ -362,15 +344,9 @@
     },
     {
       "bar": 50,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 50,
       "beat": 3,
       "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 51,
@@ -392,27 +368,15 @@
     },
     {
       "bar": 52,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "jump"
-    },
-    {
-      "bar": 52,
       "beat": 3,
       "subbeat": 1,
-      "type": "jump"
+      "type": "attack"
     },
     {
       "bar": 53,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 53,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 53,
@@ -428,99 +392,69 @@
     },
     {
       "bar": 54,
-      "beat": 2,
+      "beat": 3,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
-      "bar": 54,
-      "beat": 3,
+      "bar": 55,
+      "beat": 1,
       "subbeat": 1,
       "type": "attack"
     },
     {
       "bar": 55,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "attack"
+    },
+    {
+      "bar": 56,
       "beat": 1,
       "subbeat": 1,
       "type": "squat"
     },
     {
-      "bar": 55,
+      "bar": 56,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "attack"
+    },
+    {
+      "bar": 57,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "jump"
+    },
+    {
+      "bar": 57,
+      "beat": 3,
+      "subbeat": 1,
+      "type": "attack"
+    },
+    {
+      "bar": 58,
+      "beat": 1,
+      "subbeat": 1,
+      "type": "attack"
+    },
+    {
+      "bar": 58,
       "beat": 2,
       "subbeat": 1,
       "type": "squat"
     },
     {
-      "bar": 55,
-      "beat": 3,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 56,
-      "beat": 1,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 56,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 56,
-      "beat": 3,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 57,
-      "beat": 1,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 57,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 57,
-      "beat": 4,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 58,
-      "beat": 1,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 58,
-      "beat": 2,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
       "bar": 58,
       "beat": 3,
-      "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 58,
-      "beat": 4,
       "subbeat": 1,
       "type": "attack"
     },
     {
       "bar": 59,
-      "beat": 2,
+      "beat": 1,
       "subbeat": 1,
-      "type": "jump"
+      "type": "attack"
     },
     {
       "bar": 59,
@@ -529,12 +463,6 @@
       "type": "jump"
     },
     {
-      "bar": 59,
-      "beat": 4,
-      "subbeat": 1,
-      "type": "jump"
-    },
-    {
       "bar": 60,
       "beat": 1,
       "subbeat": 1,
@@ -550,19 +478,13 @@
       "bar": 60,
       "beat": 3,
       "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 60,
-      "beat": 4,
-      "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 61,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
       "bar": 61,
@@ -578,21 +500,21 @@
     },
     {
       "bar": 62,
-      "beat": 2,
+      "beat": 1,
       "subbeat": 1,
       "type": "squat"
+    },
+    {
+      "bar": 62,
+      "beat": 2,
+      "subbeat": 1,
+      "type": "attack"
     },
     {
       "bar": 62,
       "beat": 3,
       "subbeat": 1,
-      "type": "squat"
-    },
-    {
-      "bar": 62,
-      "beat": 4,
-      "subbeat": 1,
-      "type": "squat"
+      "type": "jump"
     },
     {
       "bar": 63,
@@ -616,13 +538,13 @@
       "bar": 63,
       "beat": 4,
       "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 64,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
+      "type": "jump"
     },
     {
       "bar": 64,
@@ -632,9 +554,9 @@
     },
     {
       "bar": 64,
-      "beat": 4,
+      "beat": 3,
       "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 65,
@@ -652,19 +574,13 @@
       "bar": 67,
       "beat": 1,
       "subbeat": 1,
-      "type": "attack"
-    },
-    {
-      "bar": 67,
-      "beat": 3,
-      "subbeat": 1,
-      "type": "attack"
+      "type": "squat"
     },
     {
       "bar": 68,
       "beat": 1,
       "subbeat": 1,
-      "type": "squat"
+      "type": "attack"
     },
     {
       "bar": 69,
@@ -673,7 +589,7 @@
       "type": "attack"
     },
     {
-      "bar": 70,
+      "bar": 71,
       "beat": 1,
       "subbeat": 1,
       "type": "attack"
