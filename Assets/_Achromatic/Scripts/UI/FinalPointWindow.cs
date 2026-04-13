@@ -2,7 +2,7 @@ using Assets._Achromatic.Scripts.Scores;
 using TMPro;
 using UnityEngine;
 
-// Fixme better total score windows
+// FIXME better total score windows
 namespace Assets._Achromatic.Scripts.UI {
     public class FinalPointWindow: MonoBehaviour {
         // Inspector Fields  ###################################################
