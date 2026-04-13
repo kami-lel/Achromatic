@@ -53,12 +53,14 @@ public class SFX: MonoBehaviour {
 
     public void Jump() {
         PlayOneOfRandomSFX(jumpSFXs);
+        StopRun();
 
         GamepadManager.I.Rumble("Jump");
     }
 
     public void Land() {
         PlayOneOfRandomSFX(landSFXs);
+        StopRun();
 
         GamepadManager.I.Rumble("Land");
 
@@ -66,6 +68,7 @@ public class SFX: MonoBehaviour {
 
     public void Squat() {
         PlayOneOfRandomSFX(squatSFXs);
+        StopRun();
 
         GamepadManager.I.Rumble("Squat");
     }
