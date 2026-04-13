@@ -4,6 +4,7 @@
 
 [^format]
 
+<!-- FIXME volume for sfxs -->
 <!-- todo particle efx: on monster killed,jumped,etc. -->
 <!-- todo particle efx: running score -->
 <!-- fixme squat obstacle (also for jump) confusing with background -->
