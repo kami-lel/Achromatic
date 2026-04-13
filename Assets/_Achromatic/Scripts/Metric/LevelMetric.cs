@@ -23,11 +23,21 @@ namespace Assets._Achromatic.Scripts.Metric {
         public float timingWindowClose = -1f;
         public float timingLevelEnd = -1f;
 
+        public float intervalStartExplore = -1f;
+        public float intervalMusicPlay = -1f;
+        public float intervalFinalPointWindow = -1f;
+        public float intervalEndExplore = -1f;
         public float intervalTotal = -1;
+
+        public float percentageStartExplore = -1f;
+        public float percentageMusicPlay = -1f;
+        public float percentageFinalPointWindow = -1f;
+        public float percentageEndExplore = -1f;
 
         // Public Methods  #####################################################
 
         public void FinishSession() {
+            // FPS  ------------------------------------------------------------
             if (fps.Count > 0) {
                 fpsMin = fps.Min();
                 fpsMax = fps.Max();
@@ -39,15 +49,48 @@ namespace Assets._Achromatic.Scripts.Metric {
                 fpsMean = (float)total / fps.Count;
             }
 
-            // TODO
+            // timing & interval  ----------------------------------------------
+            // interval
+            intervalStartExplore = CalcInterval(
+                timingLevelStart,
+                timingMusicStart
+            );
+            intervalMusicPlay = CalcInterval(timingMusicStart, timingMusicEnd);
+            intervalFinalPointWindow = CalcInterval(
+                timingMusicEnd,
+                timingWindowClose
+            );
+            intervalEndExplore = CalcInterval(
+                timingWindowClose,
+                timingLevelEnd
+            );
+            intervalTotal = CalcInterval(timingLevelStart, timingLevelEnd);
 
-            // TODO metrics: total time
-            // TODO portion of game play
+            // percentage
+            percentageStartExplore = CalcPercentage(intervalStartExplore);
+            percentageMusicPlay = CalcPercentage(intervalMusicPlay);
+            percentageFinalPointWindow = CalcPercentage(intervalFinalPointWindow);
+            percentageEndExplore = CalcPercentage(intervalEndExplore);
         }
 
         // Constructor  ########################################################
         public LevelMetric() {
             fps = new List<int>();
+        }
+
+        // private methods  ####################################################
+
+        private static float CalcInterval(float from, float to) {
+            float value = to - from;
+            return value < 0 ? -1f : value;
+        }
+
+        private float CalcPercentage(float interval) {
+            if (intervalTotal == -1f || interval == -1f) {
+                return -1f;
+            }
+
+            return interval / intervalTotal;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Assets._Achromatic.Scripts.Metric {
         // Public Members  #####################################################
 
         public void LogFPS(int fps) {
-            if (fps == 1) {
+            if (fps < 10) {
                 return;
             }
 
