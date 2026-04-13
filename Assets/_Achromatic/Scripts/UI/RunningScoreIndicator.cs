@@ -40,6 +40,16 @@ public class RunningScoreIndicator: MonoBehaviour {
         }
     }
 
+    private void Update() {
+        if (GameController.I.states == GameState.TOTAL_SCORE_WINDOW) {
+            // hack better way to do this
+            comboIndicator.text = "";
+            runningScoreIndicator.text = "";
+            scoreAdditionIndicator.text = "";
+        }
+
+    }
+
     private void OnEnable() {
         score.OnScoreChange += UpdateScore;
     }
@@ -50,7 +60,7 @@ public class RunningScoreIndicator: MonoBehaviour {
 
     // private methods  ########################################################
 
-    public void UpdateScore(int combo, int runningScore, int scoreAddition) {
+    private void UpdateScore(int combo, int runningScore, int scoreAddition) {
         // todo animation
         comboIndicator.text = $"{combo}";
         runningScoreIndicator.text = $"{runningScore}";
