@@ -1,5 +1,53 @@
 # Achromatic DEVLOG
 
+## Wed 2026-02-05 - What remains prototype 3
+
+### Ying’s Prototype build notes
+
+Because this is the last prototype before we merge together, this time I make changes on beatmap notes for theme adaptations. So instead of a circle dot as a beatmap note, I’ve changed it to rotated stars this time. The long press note contains bugs when I implement the rotating components so only the long press note remains stationary. Rotating stars did improve the frame rate compared to circle dots, but some players feel eye strains and distractions when reading and processing the beatmap.
+Input remains the same as last version. Copyrights remains the same as well.
+
+![Image1](./DEVLOG.assets/DEVLOG.2026-02-05.image1.png)
+
+### Erik’s Prototype
+
+![Image2](./DEVLOG.assets/DEVLOG.2026-02-05.image2.png)
+
+![Image3](./DEVLOG.assets/DEVLOG.2026-02-05.image3.png)
+
+In this prototype, I have added enhanced visual and audio feedback to improve the user experience and to evaluate whether different cues affect players and playtesters. Various textual, audio, and visual signals were included to assess their overall impact and to determine which forms of representation are most effective (for example, the on-screen placement of the combo counter). I also implemented gamepad support with vibration feedback, which is arguably a more immersive experience than using a keyboard.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Wed 2026-01-28 – Cheap Version Prototype
 
