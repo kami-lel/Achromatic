@@ -3,7 +3,7 @@
 
 
 
-## Wed 2026-01-21 – First Prototypes
+## Wed 2026-01-21 - First Prototypes
 
 ### Erik’s Prototype
 
@@ -11,16 +11,26 @@ I have set up various systems, including the input and audio systems. I created 
 
 ### Erik’s build notes
 
-question: is there a way to combine a music game and a 2D platformer organically to bring satisfaction to the user
-hypothesis: the Music Component will provide short-term satisfaction through tight audio sync and clear, immediate feedback. The Platformer Part, augmented with story and progression, will provide longer-term engagement and satisfaction
-inputs: currently supports two controls — Space to jump and D to dash.
-third-party assets and licenses:
+- question: is there a way to combine a music game and a 2D platformer organically to bring satisfaction to the user
+- hypothesis: the Music Component will provide short-term satisfaction through tight audio sync and clear, immediate feedback. The Platformer Part, augmented with story and progression, will provide longer-term engagement and satisfaction
+- inputs: currently supports two controls — Space to jump and D to dash.
+- third-party assets and licenses:
 
-platform game assets — Bayat Games, Unity Asset Store; license: Standard Unity Asset Store EULA (Extension Asset); copyright held by Bayat Games
+  - platform game assets — Bayat Games, Unity Asset Store; license: Standard Unity Asset Store EULA (Extension Asset); copyright held by Bayat Games
 
-background music — "City Lights" by tubebackr & HiLau (distributed via Audio Library on YouTube); license: Creative Commons Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0); requires attribution, prohibits derivative works and removal/alteration of credits, and may require direct permission for uses outside YouTube
+  - background music — "City Lights" by tubebackr & HiLau (distributed via Audio Library on YouTube); license: Creative Commons Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0); requires attribution, prohibits derivative works and removal/alteration of credits, and may require direct permission for uses outside YouTube
 
 ### Ying’s Prototype
+
+![Image1](./DEVLOG.assets/DEVLOG.2026-01-21.image1.png)
+
+![Image2](./DEVLOG.assets/DEVLOG.2026-01-21.image2.jpg)
+
+The hypothesis that I’m investigating is letting the player gain satisfaction from a music rhythm-based game, but also cooperate with simple lines and shapes through my prototype.  And I use my prototype to answer the question of “Is there a new mechanic of music rhythm-based game that I haven’t tried out?”
+
+I use simple shapes, trails, and particle effects to make the music-based rhythm game with the main mechanic of the judgement line being stable, but since the player keeps “moving”, the player approaches the music notes that they have to hit. To operate the player object, the player simply needs to do up and down by using w and s from the keyboard and do hit by using the space key. Super basic visuals for now and it’s all about getting the ball physics and paddle control feeling smooth.
+
+I find an interesting point when I’m working on the ideation and this prototype, that most of the music games in the market, especially popular ones, tend to be simple in input and traditional in mechanics. To find a balance between new and traditional mechanics, this actually takes a longer time to brainstorm.
 
 The hypothesis that I’m investigating is letting the player gain satisfaction from a music rhythm-based game, but also cooperate with simple lines and shapes through my prototype.  And I use my prototype to answer the question of “Is there a new mechanic of music rhythm-based game that I haven’t tried out?”
 
