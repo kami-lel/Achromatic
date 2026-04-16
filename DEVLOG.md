@@ -42,7 +42,7 @@ I have also just started to think about the UI design of our games.
 
 
 
-## Wed 2026-03-19
+## Wed 2026-03-18
 
 ### Ying’s build notes
 
@@ -81,7 +81,52 @@ This week I’m working on background and notes assets.
 
 
 
-## Wed 2026-02-26
+## Wed 2026-03-04
+
+This week was all about getting the foundations solid enough that actual game-feel work can happen without the codebase fighting back. A lot of branches landed—prelude logic, game title, piece refactoring, background, and a big cleanup pass—and the throughline across all of them was the same: reduce friction between systems so future changes don't cascade into breakage.
+
+The biggest structural shift was centralizing game state. `GameControllerScript` got renamed to `GCS` (and its singleton from `Instance` to `I`), and piece-level boolean flags got replaced with a proper `GameState` enum with bitmask-style combined flags like `ExploreControl`. It's the kind of change that's boring to describe but immediately makes reading control-flow logic across `PlayerManager`, `InputManager`, and `PieceScript` much less painful. Along the same lines, `NotesManager` got folded into `Beatmap`, and `BeatmapMeta` became a Scriptable Object—so judge timing settings now live somewhere editable and explicit rather than scattered across constructors.
+
+On the feel side, two things stood out. The animated game title (`GameTitleScript`) now tracks player progress and moves upward as you move through the level—small thing, but it makes the space feel alive from the moment you load in. And Cinemachine got properly integrated with a priority-based virtual camera system on both the Player and Piece prefabs, which means camera transitions during piece entry are now handled by the engine rather than hacked through script.
+
+The prelude/vamp system also got a real implementation this week: force-based player acceleration, physics materials swapped by input mode (friction vs. zero-friction), vamp volume tied to player distance, and the whole thing extended to a proper 8-second prelude window. The audio side was reorganized too—Lv1 assets moved into their own folder, files renamed to match their actual role (`Lv1vamp`, `Lv1main`), and an audio mixer added for proper attenuation.
+
+The rest was cleanup: prefab pooling scaffolded to replace the deprecated `PrefabsPool`, trigger tags decoupled from individual pieces, comment markers standardized across the whole repo, and a chunk of dead files deleted. It was a heavy week in terms of files touched, but the goal was straightforward—make the project something the whole team can read and build on, not just something that runs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Wed 2026-02-25
 
 ### Ying’s build notes
 
@@ -128,7 +173,7 @@ The other big thread was scoring + maintainability: refactoring ScoreTracker to 
 
 
 
-## Wed 2026-02-19
+## Wed 2026-02-18
 
 ### Ying’s build notes
 
