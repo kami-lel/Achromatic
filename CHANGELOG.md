@@ -110,7 +110,7 @@
 
 
 
-## [1.0.0-beta.2] Beta2 Milestone
+## [1.0.0-beta.2] Beta2 Milestone - 2026-04-13
 
 ### Added
 
@@ -169,7 +169,7 @@
 
 
 
-## [1.0.0-beta] Beta Milestone
+## [1.0.0-beta] Beta Milestone - 2026-04-09
 
 ### Added
 
