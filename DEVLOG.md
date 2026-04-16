@@ -1,5 +1,50 @@
 # Achromatic DEVLOG
 
+## Wed 2026-02-12 - Combining both possible works
+
+### Ying’s build notes
+
+This week is actually the first week we start to work on the same project. I brought my character design and made it become a player's sprite into the prototype that Erik is working on. Making 2D sprites is actually harder than I expected. By having a character illustration as 1st frame, and getting more frames into a video/gif, then later do Keyframing of each poses for animations. The 2D spreadsheet takes the majority of my time when I’m working on this game.
+
+### Erik’s build notes
+
+This stretch was basically the moment the project stopped being “just systems” and started accommodating real content—especially the player asset pipeline. I spun up a dedicated tmpImplementPlayerAsset scene to isolate camera setup and animation hookup without Lv0/Lv2 clutter, then merged in Doris’ sprite/animation work (idle/run/jump) and reorganized the project structure to make it scale (new Animations/ + PlayerAnimation/ folders, sprites metadata, general resource management). The underlying intention was to create a safe sandbox where visual iteration can happen fast, then fold it back into the main game scenes once it’s stable—because rhythm gameplay is already fragile, and mixing it with early animation experimentation is a good way to misdiagnose timing/feel issues.
+Lv2 also went through a “bring the whole stage online” pass: adding the scene itself, wiring in audio clips (Lv2-0, Lv2-1 at the time), and populating it with grid/tilemap/pieces/player objects so it’s not just a blank testbed. During that, I temporarily merged SFX + rumble into GameControllerScript and redirected jump/dash sound calls from PieceScript/PlayerScript into the controller. The thought process was pretty pragmatic: when you’re trying to verify that an action feels synced, you want the fewest moving parts and the fewest missing references—so centralizing “feedback” into the controller reduced scene wiring errors while the new assets were landing. (It’s not the cleanest architecture long-term, but it made integration less brittle during the merge window.)
+Finally, there was a very “production reality” step: build settings and scene hygiene. I added Lv2 to build settings during integration, then later flipped things so Lv0 is enabled and Lv2 is disabled—basically admitting that Lv2 was still volatile while Lv0 is the safer baseline for a build. There were also small scene cleanups like deactivating a GameObject in Lv0.unity, plus changelog notes to keep future vertical slices in view (barlines/beat lines, slice planning). Overall, the goal here was to absorb a new art/animation pipeline, keep the project organized enough to grow, and avoid shipping builds that depend on whichever scene happens to be “least broken” that day.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-02-05 - What remains prototype 3
 
 ### Ying’s Prototype build notes
