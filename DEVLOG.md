@@ -1,5 +1,52 @@
 # Achromatic DEVLOG
 
+## Wed 2026-02-26
+
+### Ying’s build notes
+
+Worked on temporary background assets. Uses pure white and black to illustrate the theme of achromatic. Since we received the playtest notes that we could work more on the music sync with the map, we think about the blocks and obstacles in order to let the player know they need to jump. So I also work on this part of the art assets this week. This week the music note sprite is assets from online.
+
+### By Erik:
+
+This week ended up being less about “adding a new mechanic” and more about making the whole rhythm-platformer pipeline feel reliable—like something I can iterate on without fearing that one tiny timing change will break the song sync. A lot of the work was in restructuring: pulling a proper GameController out into a prefab, introducing a GameState enum with flags (explore / prelude / music_play), and steadily stripping away older “phase” and beatmap rendering scripts that were fighting the direction (Beatmap, BeatmapPrefabsPool, and the old Phase setup all got removed). The intention was pretty clear while doing it: I want the game to feel like an RPG-ish explore mode that cleanly “locks in” to a performance mode, and that requires state management that’s boring-but-solid rather than a tangle of per-script assumptions.
+
+On the audio/timing side, I leaned into a multi-source approach so the game can breathe before it demands precision. Music now supports separate audio sources for BGM, a prelude, and the main song—with explicit null checks, playOnAwake sanity, and BGM looping—then Level 2 got rebuilt around that structure (new Lv2prelude, new Lv2main, updated scene links). The key thought process here was: if the player’s first “rhythm moment” is also the moment Unity decides to hiccup, the whole concept collapses. So I added a silenceSecondBeforeMainSong setting into BeatmapSetting / Lv2BeatmapSetting to create a controlled buffer between “we entered the piece” and “judging starts,” and I tightened trigger/state bitmask logic in PieceScript/PlayerScript so the prelude start/end is deterministic. I also parked (commented out) some judge timing precalc in Criteria—not because it’s unimportant, but because I’d rather ship consistent behavior first, then optimize once the timing model stops changing every other day.
+
+The other big thread was scoring + maintainability: refactoring ScoreTracker to take a Notes object directly, reordering constructor params in Criteria to make dependencies obvious, and even doing an unapologetic “hack” to fix perfectScore to a constant just to remove a flaky division-based edge case while the rest of the system stabilizes. Alongside that, there’s been a quiet push to keep the codebase readable while it’s still in flux—normalizing TODO/FIXME/Todo markers, adding comments where the design is still undecided (like fixed triggering distance in PieceScript), and keeping documentation in step with the shifting structure. Overall, the intent this week was to turn the prototype from a cool idea that sometimes aligns with music into a framework where syncing, judging, and scene flow are predictable—so future builds can focus more on level feel, camera/obstacle presentation, and player feedback instead of fighting the plumbing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-02-19
 
 ### Ying’s build notes
