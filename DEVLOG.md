@@ -6,6 +6,12 @@
 
 This week is actually the first week we start to work on the same project. I brought my character design and made it become a player's sprite into the prototype that Erik is working on. Making 2D sprites is actually harder than I expected. By having a character illustration as 1st frame, and getting more frames into a video/gif, then later do Keyframing of each poses for animations. The 2D spreadsheet takes the majority of my time when I’m working on this game.
 
+![Image1](./DEVLOG.assets/DEVLOG.2026-02-12.image1.gif)
+
+![Image2](./DEVLOG.assets/DEVLOG.2026-02-12.image2.gif)
+
+![Image3](./DEVLOG.assets/DEVLOG.2026-02-12.image3.gif)
+
 ### Erik’s build notes
 
 This stretch was basically the moment the project stopped being “just systems” and started accommodating real content—especially the player asset pipeline. I spun up a dedicated tmpImplementPlayerAsset scene to isolate camera setup and animation hookup without Lv0/Lv2 clutter, then merged in Doris’ sprite/animation work (idle/run/jump) and reorganized the project structure to make it scale (new Animations/ + PlayerAnimation/ folders, sprites metadata, general resource management). The underlying intention was to create a safe sandbox where visual iteration can happen fast, then fold it back into the main game scenes once it’s stable—because rhythm gameplay is already fragile, and mixing it with early animation experimentation is a good way to misdiagnose timing/feel issues.
