@@ -2,87 +2,103 @@
 
 > USC CTIN-532 2026 Spring
 
+## Wed 2026-04-16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Wed 2026-04-09
+
+This is the release week—and it reads like one. The version moved from `1.0.0-alpha` to `1.0.0-beta`, and unlike a lot of version bumps, this one is backed by actual work.
+
+The headline additions were the pieces that made the game feel finished rather than functional. **Scene transitions** got a proper implementation: `FadingBlockingPanel` with SmoothStep fade in/out, tag-based camera discovery (`startingCamera`/`endingCamera`), and a `SceneChanger` singleton that persists across scenes via `DontDestroyOnLoad`. The full chain—Lv1 → Lv2 → Lv3 → Credits—is now wired and working. The **splash screen** (USC and Berklee logos, 2-second hold) means the game now opens like a game.
+
+On the content side, the **parallax background system** landed properly: lantern layers, a skybox, and a `ParallaxBackground.cs` with a 0.5f factor for natural depth. The tileset swapped from Spring to Desert. **Enemies** got a basic implementation—pooled via `ElementsManager`, with idle animation and fade-out on death. **Dust particles** were added to the player (209-frame sprite sheet, trailing emission). And the **tutorial prefabs**—right, up, down cues with keyboard and Xbox sprite assets—mean a new player has something to read before the first note hits.
+
+The systems work that happened quietly but matters: singleton destruction fixed to `Destroy(this)` instead of `Destroy(gameObject)` (an easy bug to miss that breaks persistence), `Debug.LogError(msg, this)` adopted across 40+ scripts so errors click through to the right component, and the idle animation loop bug that was causing redundant `Idle()` calls got properly cleaned up.
+
+Fourteen weeks, 600+ commits, three playable levels with escalating content, a complete UI feedback loop, and a codebase that's actually readable. The known issues left standing—`FloatsManager` disabled, Wwise not yet integrated, walking animation incomplete—are the honest leftovers of a real shipping decision: get the core in front of players now, expand later. That's the right call.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-04-02
+
+This week was about closing the loop—literally. The game now has a beginning, a middle, and an end that hands you back to a menu, and that's what `1.0.0-alpha` actually means here.
+
+The most significant addition was the **piece completion system**: `Ender.cs` detects the end of the level, triggers the `FinalScoreWindow` (with combo and hit-type breakdowns via `FinalPointWindow.cs`), and hands off to `SceneChanger.cs` which advances to the next scene. Alongside that, `EditorBuildSettings` now has all four scenes registered—Lv1, Lv2, Lv3, Credits—and Lv1 routes cleanly into Credits via a `LoadNextSceneTrigger` prefab. Lv2 and Lv3 are placeholders for now, but the pipeline exists.
+
+The **background system** got a proper redesign. The old static floating prefabs (1–5, plus float-note variants) were deleted and replaced with `FloatsManager.cs` driving pooled `FloatingObject` instances—rocks and notes—using Perlin noise for motion and smooth damp for positioning. It's a small thing visually but it makes the level feel less like a test scene.
+
+The **blockade prefab** also landed this week, giving `ElementsManager` a physical obstacle type to spawn from the beatmap alongside action hints. `Lv1Beatmap` got another pass—attack cues added, late jumps trimmed—so the level now has a more intentional difficulty shape rather than just "notes that exist."
+
+The rest was release hygiene: sorting layers organized (`_BeforeUI_`, `_UI_`), namespace wrapping applied to the remaining scripts that were missing it, the debug music start bar zeroed out with a warning for non-zero values, and a final sweep of annotation markers across 40+ files. The changelog got restructured around `v1.0.0` sections with proper removed/deprecated tracking.
+
+The honest state of things: the gameplay loop is complete and the architecture is clean. Lv2/Lv3 content, Wwise integration, walking animation, and a few flagged bugs (`ElementsManager Update` still commented out, `FloatsManager` note non-functional) are the real remaining work. But as an alpha that demonstrates the full loop and hands it to players for feedback—it's there.
 
 ### Ying’s build notes
 
 This week we are both working on the alpha braintrust presentation as well as feedback from playtesters we received in Alpha formal playtest. For the visual part, we are still lacking the background assets and theme coordination between background and characters which I need to continue to work on. Thus, the soundtracks we received from Berkelee are awesome and I’m designing these soundtrack corresponded background currently.
 I have also just started to think about the UI design of our games.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Wed 2026-03-18
-
-### Ying’s build notes
-
-This week I’m working on background and notes assets.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Wed 2026-04-16
-## Wed 2026-04-09
-## Wed 2026-04-02
 
 
 
