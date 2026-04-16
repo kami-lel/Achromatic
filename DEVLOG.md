@@ -80,6 +80,53 @@ This week I’m working on background and notes assets.
 
 
 
+## Wed 2026-04-16
+## Wed 2026-04-09
+## Wed 2026-04-02
+## Wed 2026-03-19
+
+## Wed 2026-03-12
+
+This week the project crossed a threshold—less "making things work" and more "making things work *as a game*." The big architectural push was decomposing the monolithic player and piece scripts into proper MonoBehaviour components: `Movement.cs` for physics, `AnimationManager.cs` for animator control, `InputManager.cs` for action handling, all wrapped by a thin `Player.cs`. Same story on the piece side, where `Piece.cs` and `Starter.cs` now own what used to be tangled across `PieceScript`. The old `PieceScript.cs` is gone, and so are the temp debug scripts that had been quietly accumulating. The folder structure caught up too—`Beatmap` → `Beatmaps`, a new `Players/` directory, namespaces updated throughout.
+
+The other major thread was filling in actual gameplay. The note type system now covers `SQUAT`, `ATTACK`, and `JUMP_ATTACK` alongside the existing jump/dash, the input bindings were renamed and extended to match, and `Lv1Beatmap.json` got significantly expanded with sequenced jumps, squats, and attacks. Animation clips were added or updated for all three actions, with proper state transitions in the animator controller. The timing system got looser judgment windows for Lv1 and a queue-based rewrite of `Criteria.cs` that should make hit detection more predictable as the beatmap grows.
+
+On the feedback side, the score system got a proper UI pass: `ScoreAdditionIndicatorScript` for floating score popups, `HitTypeIndicatorScript` for showing hit quality, a running score display, and a combo counter. `ScoreTracker` was renamed `Score` and moved to float-based tracking. There's also a dev-mode FPS counter prefab now, which will matter once the object pooling system (`ElementsManager` + `PrefabPool`) starts getting real exercise from the expanded beatmap.
+
+The version bump to `0.9.0+pre_alpha` feels about right. The plumbing is solid, the core action loop is playable, and the feedback layer is in place. What's left is mostly polish—walking animation, camera zoom, the dash bug, Wwise integration—rather than foundational questions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Wed 2026-03-04
 
