@@ -1,5 +1,50 @@
 # Achromatic DEVLOG
 
+## Wed 2026-02-19
+
+### Ying’s build notes
+
+Worked on sprites rerendering, background assets ideas to connect them with my current character designs.
+
+### By Erik:
+
+This chunk of work felt like pushing the prototype from “a playable loop” into “a short, finishable experience.” The big milestone was giving Lv2 an actual runway and an endpoint: I expanded the beatmap with new jump/dash patterns (bars 57–64, then 65–79) and then committed to the idea that a piece should end cleanly by adding an EndScene and triggering it when the music finishes. That decision also forced a bunch of smaller design calls—where to place the player start trigger, how the prelude phase should hand off into the main play phase, and what the level geometry needs to look like so the chart reads as intended rather than as a random obstacle course.
+Underneath, the dev process was very “refactor until it stops wobbling.” PieceScript got repeatedly reorganized to separate concerns (lifecycle, beatmap, input, player control), and I extracted beatmap logic into a dedicated Beatmap class so the rendering/data side isn’t glued to gameplay state anymore. At the same time, the level scene itself kept evolving: tilemap expansion, collider/composite collider adjustments, adding a Ground layer, and even tweaking project physics settings (substepping/contact threshold) to avoid those tiny platformer edge cases that become huge when you’re judging inputs to a beat. There were a couple blunt hacks along the way—like a temporary player Y-position fix—because sometimes you need one stabilizing patch to keep testing the rhythm layer while the platform layer catches up.
+The feel pass was equally important: I consolidated Level 2 audio into a single Lv2.mp3 track (simpler to reason about while iterating), added parallax background for readability/atmosphere, and did a round of animation cleanup by consolidating controllers and renaming/streamlining clips (walk → run, removing heavy curves). On the feedback side, I split SFX/rumble out into an SFXManager prefab so the scene isn’t littered with one-off audio objects, then layered in tiny “juice” touches like a squash effect on dash with timed scale restore. Overall intention-wise, this week was about tightening the loop: stronger chart content, clearer presentation, more dependable phase transitions, and enough polish that the player can hit a start trigger, ride the music, and land somewhere that feels like a conclusion instead of an abrupt stop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-02-12 - Combining both possible works
 
 ### Ying’s build notes
