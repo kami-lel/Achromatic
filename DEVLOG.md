@@ -83,7 +83,84 @@ This week I’m working on background and notes assets.
 ## Wed 2026-04-16
 ## Wed 2026-04-09
 ## Wed 2026-04-02
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-03-19
+
+This week was a consolidation pass—tightening up what was already there rather than adding net-new systems, with one notable exception.
+
+The standout addition is the **action hint system**: `ActionHint.cs` with dedicated prefabs for jump, squat, and attack, pooled through `ElementsManager`. It's the first piece of in-world feedback that tells the player what's coming, which makes the expanded `Lv1Beatmap` actually teachable rather than just a sequence of inputs to memorize. The old flat arrow icons got replaced with a proper `ActionHint.png` sprite sheet to match.
+
+The other meaningful change was **flattening the note type system**—swapping the `NoteType` enum for a plain string field on `Note`. It sounds like a step backward but it's actually more practical at this stage: adding `jump_or_attack` or any future hybrid type doesn't require touching an enum file, and the JSON stays readable. `ElementsManager` was updated to handle all current type strings accordingly.
+
+Beyond that, the week was largely about making the codebase trustworthy. `[DefaultExecutionOrder]` attributes on `Beatmap` and `Criteria` pin the initialization sequence so timing-dependent bugs don't sneak back in. `IDisposable` cleanup in `ElementsManager` closes the event subscription leak that had been sitting there. Variable renames like `beatPerSec` → `beatsPerSecond` and `IsPassByMiss` → `IsMissedByPassing` are small but they mean the next person reading the code doesn't have to guess. Debug logs got pruned from `InputManager` and `Starter` so the console output is actually useful again.
+
+A couple of known rough edges got properly documented rather than quietly left: the jaggy movement bug (suspected `FixedUpdate` timing), and the missing prelude control state in `InputManager` both have `BUG` annotations now. They're not fixed, but they're flagged honestly—which is the right call before handing this off or picking it back up after a break.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Wed 2026-03-12
 
