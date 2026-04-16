@@ -4,6 +4,18 @@
 
 ## Wed 2026-04-16
 
+The final stretch. `1.0.0-beta.2` ships with the things that make a game feel like a product rather than a project.
+
+The most substantial additions were in **audio and feel**. The SFX system went from placeholder to proper: dedicated `AudioSource` arrays for hit types, randomized selection across 8 run variations, perfect hit SFX with 3 jump variants plus a slide, and attack feedback—all routed through a restructured `MainAudioMixer` with BGM, SFX:Action, and SFX:UI groups. The Lv2 and Lv3 music tracks landed too, with ambient layers and a piano intro for Lv3. After weeks of the timing system being the focus, it finally has sounds worth syncing to.
+
+**Gamepad support** got a real implementation—`GamepadManager.cs` handles detection and mode switching, rumble is wired up, and the tutorial system was rebuilt around it. `TutorialSwitcher.cs` toggles between keyboard and gamepad icon sets based on input mode, with proper sprite assets for both (A/D/S/Space/W keys, analog stick visualization). That's a meaningful accessibility gap closed.
+
+The **game state machine** got its most complete pass yet: `PRELUDE` split into `PRELUDE1`/`PRELUDE2`, and the full sequence now runs `EXPLORE → PRELUDE1 → PRELUDE2 → MAIN_PIECE → PIECE_FINISHED → TOTAL_SCORE_WINDOW → SCENE_TRANSITION` deterministically. Alongside that, the **metrics system** (`Metrics.cs`, `MetricSession.cs`, `LevelMetric.cs`) collects timing, FPS stats, score, and combo per level and writes to `persistentDataPath` with timestamps—which means beta feedback will actually be legible rather than anecdotal.
+
+The **DEVLOG.md** wraps up the documentation picture that CHANGELOG and CREDITS started. With GIF and image assets attached to dated entries, it's a readable record of how the project evolved—useful for the team looking back, and honest about where the design shifted.
+
+Leaderboard infrastructure is stubbed and cloud integration is deferred—that's the right call. What shipped is solid: three levels, full audio, dual input, metrics, tutorials, and a state machine that doesn't fight itself. Sixteen weeks, 800+ commits, and something you can hand to a player with confidence.
+
 
 
 
