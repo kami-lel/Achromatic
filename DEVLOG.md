@@ -1,5 +1,86 @@
 # Achromatic DEVLOG
 
+> USC CTIN-532 2026 Spring
+
+## Wed 2026-04-02
+
+### Ying’s build notes
+
+This week we are both working on the alpha braintrust presentation as well as feedback from playtesters we received in Alpha formal playtest. For the visual part, we are still lacking the background assets and theme coordination between background and characters which I need to continue to work on. Thus, the soundtracks we received from Berkelee are awesome and I’m designing these soundtrack corresponded background currently.
+I have also just started to think about the UI design of our games.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Wed 2026-03-19
+
+### Ying’s build notes
+
+This week I’m working on background and notes assets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wed 2026-02-26
 
 ### Ying’s build notes
