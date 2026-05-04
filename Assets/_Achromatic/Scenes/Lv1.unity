@@ -45996,12 +45996,21 @@ TrailRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.9019608, g: 1, b: 1, a: 0.8117647}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -46108,7 +46117,7 @@ Transform:
   m_GameObject: {fileID: 498873344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.28, y: 0.88, z: 0}
+  m_LocalPosition: {x: -3.222, y: 0.925, z: 0}
   m_LocalScale: {x: 0.03156835, y: 0.03156835, z: 0.03156835}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46129,13 +46138,16 @@ MonoBehaviour:
   moveSpeed: 3
   floatSpeed: 3
   floatHeight: 0.5
-  flashSpeed: 6
+  flashSpeed: 5
   minScale: 0.08
   maxScale: 0.14
-  minAlpha: 0.21
+  minAlpha: 0.46
   maxAlpha: 0.95
   minTrailWidth: 0.21
   maxTrailWidth: 0.95
+  waveAmplitude: 0.25
+  waveFrequency: 12
+  wavyTrailWidth: 0.1
   lifeTime: 10
   fadeDuration: 1
 --- !u!114 &501120087 stripped
